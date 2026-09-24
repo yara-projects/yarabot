@@ -1,5 +1,6 @@
 
 import difflib
+import functools
 import re
 import threading
 import time
@@ -29,6 +30,9 @@ CONTRACTIONS = {
     "don't": "do not", "dont": "do not",
     "can't": "cannot", "cant": "cannot",
     "won't": "will not", "wont": "will not",
+    "who's": "who is", "whos": "who is",
+    "where's": "where is", "wheres": "where is",
+    "there's": "there is", "theres": "there is",
 }
 
 # ---- Each intent's keyword/phrase list. Bigger + more varied = smarter bot.
@@ -850,11 +854,23 @@ def clean_question(question):
     still fuzzy-matched "timetable" by luck, until a phrase needed an exact
     substring match instead.
     """
-    question = question.lower().strip()
+    question = question.lower().strip().replace("’", "'")
     for contraction, expanded in CONTRACTIONS.items():
         question = re.sub(r"\b" + re.escape(contraction) + r"\b", expanded, question)
     question = re.sub(r"[?!.,]", "", question)
-    return question
+    # Contractions have already been expanded, so remaining apostrophes are
+    # possessives. Treat "this week's" and "this weeks" alike, and collapse
+    # phone-typed repeated spaces. The exact same function is applied to
+    # stored phrases by _phrase_pattern(), preventing preprocessing drift.
+    question = question.replace("'", "")
+    return re.sub(r"\s+", " ", question).strip()
+
+
+@functools.lru_cache(maxsize=8192)
+def _phrase_pattern(phrase):
+    """Compile a production-normalized whole-phrase matcher once."""
+    normalized = clean_question(phrase)
+    return re.compile(r'(?<!\w)' + re.escape(normalized) + r'(?!\w)')
 
 
 def tokenize(question):
@@ -891,6 +907,12 @@ def score_intent(cleaned_question, words, intent_name, personal_signal, class_co
         return 0
     if intent_name == "teacher_identity" and re.search(r'\bdepartment\s+(?:head|lead|chair)\b', cleaned_question):
         return 0
+    if (intent_name == "teacher_identity" and re.search(r'\bdepartments?\b', cleaned_question)
+            and re.search(r'\b(schedule|plan|roster|free|available|gap|count|total|staff|team)\b', cleaned_question)):
+        return 0
+    if (intent_name == "total_students"
+            and re.search(r'\b(attendance|absent|fees?|payments?|dues?|owing|owe)\b', cleaned_question)):
+        return 0
     if intent_name == "my_class" and re.search(r'\b(?:head|teacher|in charge|responsible)\b.*\b(?:my\s+)?class\b|\bmy\s+class\b.*\b(?:head|teacher|in charge|responsible)\b', cleaned_question):
         return 0
 
@@ -901,7 +923,7 @@ def score_intent(cleaned_question, words, intent_name, personal_signal, class_co
     for phrase in phrases:
         # Explicit word lookarounds also work for punctuation-ending phrases
         # such as "attendance %", while excluding "next periodical".
-        if re.search(r'(?<!\w)' + re.escape(phrase) + r'(?!\w)', cleaned_question):
+        if _phrase_pattern(phrase).search(cleaned_question):
             score += 3
             phrase_matched = True
 
@@ -922,6 +944,9 @@ def score_intent(cleaned_question, words, intent_name, personal_signal, class_co
     if (intent_name == "classroom_occupant" and class_code_present
             and re.search(r'\bteachers?\b.*\bteaching\b.*\bnow\b', cleaned_question)):
         score += 4
+    if (intent_name == "class_timetable_lookup" and class_code_present
+            and re.search(r'\b(schedule|timetable|lessons?)\b', cleaned_question)):
+        score += 3
 
     return score
 
@@ -1230,7 +1255,7 @@ def check_phrase_safety(phrase, target_intent, same_role_intents=None, role_grou
     # check #3 - UNCHANGED, still a hard blocker (see docstring: different
     # risk category, not what the false-positive-rate finding was about).
     ambiguous_words = [w for w in words if w in AMBIGUOUS_KEYWORDS]
-    if ambiguous_words and not personal and len(words) < 3:
+    if ambiguous_words and not personal and not code_present and len(words) < 3:
         return "needs_review", (
             f"core word(s) {ambiguous_words} are in AMBIGUOUS_KEYWORDS and this phrase has no "
             "personal signal ('my'/'i'/'me') or distinctive 3+ word structure - could silently "
