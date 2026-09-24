@@ -1,0 +1,1742 @@
+[
+  {
+    "intent": "attendance",
+    "phrase": "absence count for me",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "attendance",
+    "phrase": "have i missed many days",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "attendance",
+    "phrase": "my attendance looking",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "attendance",
+    "phrase": "often have i been absent",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "class_teacher",
+    "phrase": "teacher responsible for 10a",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "class_teacher",
+    "phrase": "teacher in charge of our section",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "class_teacher",
+    "phrase": "form tutor",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "class_teacher_lookup",
+    "phrase": "subject teachers for 8c",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "class_teacher_lookup",
+    "phrase": "teaching staff for 7a",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "class_teacher_lookup",
+    "phrase": "faculty list for 6b",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "class_teacher_lookup",
+    "phrase": "every teacher assigned",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "class_teacher_lookup",
+    "phrase": "takes the subjects in grade",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "class_timetable_lookup",
+    "phrase": "10a timetable",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "class_timetable_lookup",
+    "phrase": "schedule for grade 9b",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "class_timetable_lookup",
+    "phrase": "class routine for 8c",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "class_timetable_lookup",
+    "phrase": "show 7a periods",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "class_timetable_lookup",
+    "phrase": "timetable of 6b",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "class_timetable_lookup",
+    "phrase": "schedule for 10b",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "class_wise_count",
+    "phrase": "enrollment by class",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "class_wise_count",
+    "phrase": "student numbers by section",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "class_wise_count",
+    "phrase": "class strength breakdown",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "class_wise_count",
+    "phrase": "section enrollment figures",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "class_wise_count",
+    "phrase": "headcount per grade",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "class_wise_count",
+    "phrase": "student count by class",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "class_wise_count",
+    "phrase": "enrollment for each section",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "classes_assigned",
+    "phrase": "which groups do i teach",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "classes_assigned",
+    "phrase": "sections allocated to me",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "classes_assigned",
+    "phrase": "grades on my roster",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "classes_assigned",
+    "phrase": "my assigned sections",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "classes_assigned",
+    "phrase": "groups have i been given",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "classes_assigned",
+    "phrase": "sections i am responsible for",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "classroom_occupant",
+    "phrase": "who is with 10a now",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "classroom_occupant",
+    "phrase": "teacher in 9b right now",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "classroom_occupant",
+    "phrase": "whats happening in 8c now",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "classroom_occupant",
+    "phrase": "who has class 7a",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "classroom_occupant",
+    "phrase": "current teacher for 6b",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "classroom_occupant",
+    "phrase": "teacher is inside 10b",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "classroom_occupant",
+    "phrase": "taking 9a this period",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "report a teacher privately",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "submit feedback about a teacher",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "i need to report staff conduct",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "raise a concern about my teacher",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "i need to tell the vp",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "i make a private teacher complaint",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "i want to complain",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "i have a problem with my teacher",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "i have a complaint about a teacher",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "i need to report something about my teacher",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "my teacher is being unfair",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "how do i complain",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "feedback about my teacher",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "issue with my sir",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "issue with my miss",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "issue with my ma'am",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "sir is not teaching properly",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "i want to report my teacher",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "i want to file a complaint",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "how do i report a teacher",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "i want to complain about a teacher",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "complaint against my teacher",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "file a teacher complaint",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "i have an issue with a teacher",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "my teacher is treating me unfairly",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "i want to tell someone about my teacher",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "report teacher behavior",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "teacher is rude to me",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "teacher is not fair to me",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "i want to complain about miss",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "i want to complain about sir",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "can i complain about a teacher",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "i need to complain about a teacher",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "how to file a complaint against a teacher",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "my teacher is misbehaving",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "teacher favoritism complaint",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "unfair marking by my teacher",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "unfair grading complaint",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "i got unfair marks",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "teacher shouting at students",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "i have a teacher problem",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "complain about miss",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "complain about sir",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "file a complaint about teacher",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "report a teacher issue",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "i wanna complain about a teacher",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "wanna report my teacher",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "somethings wrong with my teacher",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "somethin wrong with my teacher",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "mam is not teaching properly",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "maam is being unfair",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "i have a teecher complaint",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "i cmplain about teacher",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "i wana complain",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "need to raise an issue about a teacher",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "raise a complaint against my teacher",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "vp complaint about my teacher",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
+    "phrase": "tell vp about my teacher",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_summary",
+    "phrase": "show unresolved complaints",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_summary",
+    "phrase": "pending teacher complaints",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_summary",
+    "phrase": "complaint inbox",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_summary",
+    "phrase": "recent student concerns",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_summary",
+    "phrase": "complaint overview",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_summary",
+    "phrase": "student complaints waiting",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_summary",
+    "phrase": "latest private complaints",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_summary",
+    "phrase": "any new complaints",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_summary",
+    "phrase": "any new student complaints",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_summary",
+    "phrase": "check pending complaints",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_summary",
+    "phrase": "check any pending complaints",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_summary",
+    "phrase": "how many complaints",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_summary",
+    "phrase": "new complaints today",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_summary",
+    "phrase": "check student complaints",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_summary",
+    "phrase": "open the complaints dashboard",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_summary",
+    "phrase": "student feedback complaints",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_summary",
+    "phrase": "any unreviewed complaints",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "current_class",
+    "phrase": "where should i be teaching",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "current_class",
+    "phrase": "lesson im taking now",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "current_class",
+    "phrase": "current teaching assignment",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "current_class",
+    "phrase": "group should i have right now",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "current_class",
+    "phrase": "lesson am i meant to be in",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "department_free_teachers",
+    "phrase": "available staff in my department",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "department_free_teachers",
+    "phrase": "who in my team is free",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "department_free_teachers",
+    "phrase": "department teachers off this period",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "department_free_teachers",
+    "phrase": "which department staff can cover",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "department_free_teachers",
+    "phrase": "available teachers from my department",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "department_free_teachers",
+    "phrase": "department team has a gap",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "department_schedule_today",
+    "phrase": "teams teaching plan today",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "department_schedule_today",
+    "phrase": "schedule for my department",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "department_schedule_today",
+    "phrase": "today department roster",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "department_schedule_today",
+    "phrase": "todays plan for my department",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "department_schedule_today",
+    "phrase": "departments teaching schedule today",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "department_teacher_count",
+    "phrase": "size of my teaching team",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "department_teacher_count",
+    "phrase": "teachers in this department total",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "department_teacher_count",
+    "phrase": "large is the staff in my department",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "department_teacher_count",
+    "phrase": "departments teacher total",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "exam",
+    "phrase": "exams coming soon",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "exam",
+    "phrase": "assessment do i have next",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "exam",
+    "phrase": "my exams scheduled",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "fee",
+    "phrase": "payment balance for me",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "fee",
+    "phrase": "any school fees outstanding",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "fee",
+    "phrase": "have my dues been cleared",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "fee",
+    "phrase": "unpaid school fees",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "fee",
+    "phrase": "tuition balance",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "fee",
+    "phrase": "i still owe the school",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "fee",
+    "phrase": "payment pending on my account",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "free_periods",
+    "phrase": "when am i off today",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "free_periods",
+    "phrase": "non teaching periods",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "free_periods",
+    "phrase": "which periods are open",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "free_periods",
+    "phrase": "when dont i teach",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "free_periods",
+    "phrase": "gaps between my lessons",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "free_periods",
+    "phrase": "i have no class today",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "free_teachers",
+    "phrase": "available teaching staff",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "free_teachers",
+    "phrase": "who is not teaching now",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "free_teachers",
+    "phrase": "teachers without a class",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "free_teachers",
+    "phrase": "staff free this period",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "free_teachers",
+    "phrase": "who can cover now",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "free_teachers",
+    "phrase": "teacher has no lesson right now",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "free_teachers",
+    "phrase": "staff available for cover",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "greeting",
+    "phrase": "hiya",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "greeting",
+    "phrase": "hello nova",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "greeting",
+    "phrase": "salaam nova",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "greeting",
+    "phrase": "morning nova",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "greeting",
+    "phrase": "hey good afternoon",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "greeting",
+    "phrase": "evening nova",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "greeting",
+    "phrase": "hello there nova",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "help",
+    "phrase": "what questions can nova answer",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "help",
+    "phrase": "things i can ask",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "help",
+    "phrase": "nova commands",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "help",
+    "phrase": "help with school info",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "help",
+    "phrase": "school questions",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "help",
+    "phrase": "what nova knows",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "identity",
+    "phrase": "whats my registered name",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "identity",
+    "phrase": "show account profile",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "identity",
+    "phrase": "student profile info",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "identity",
+    "phrase": "details on my account",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "identity",
+    "phrase": "confirm who i am",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "identity",
+    "phrase": "information on my profile",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "identity",
+    "phrase": "details registered for me",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "low_attendance_count",
+    "phrase": "count students under attendance limit",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "low_attendance_count",
+    "phrase": "how many have low attendance",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "low_attendance_count",
+    "phrase": "attendance shortage count",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "low_attendance_count",
+    "phrase": "students below minimum attendance",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "low_attendance_count",
+    "phrase": "low attendance total",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "low_attendance_count",
+    "phrase": "students are short of attendance",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "low_attendance_count",
+    "phrase": "below the attendance cutoff",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "my_class",
+    "phrase": "whats my grade section",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "my_class",
+    "phrase": "tell me my section",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "my_class",
+    "phrase": "my homeroom",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "my_class",
+    "phrase": "class was i placed",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "my_class",
+    "phrase": "my grade and section",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "next_class",
+    "phrase": "where am i teaching next",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "next_class",
+    "phrase": "next lesson i have",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "next_class",
+    "phrase": "class after my current one",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "next_class",
+    "phrase": "upcoming teaching period",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "next_class",
+    "phrase": "group is next on my schedule",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "next_class",
+    "phrase": "my next lesson",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "next_period",
+    "phrase": "what lesson is after this",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "next_period",
+    "phrase": "class after this one",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "next_period",
+    "phrase": "whats after this period",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "next_period",
+    "phrase": "upcoming lesson",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "next_period",
+    "phrase": "lesson comes next for me",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "next_period",
+    "phrase": "i got after this class",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "notices",
+    "phrase": "latest school updates",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "notices",
+    "phrase": "whats been announced",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "notices",
+    "phrase": "recent circulars",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "notices",
+    "phrase": "school bulletin",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "notices",
+    "phrase": "posted anything new",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "notices",
+    "phrase": "newest circular",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "pending_fees_count",
+    "phrase": "count students with unpaid fees",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "pending_fees_count",
+    "phrase": "how many fee defaulters",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "pending_fees_count",
+    "phrase": "outstanding fees student count",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "pending_fees_count",
+    "phrase": "students owing fees total",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "pending_fees_count",
+    "phrase": "pending payment count",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "pending_fees_count",
+    "phrase": "students still owe fees",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "pending_fees_count",
+    "phrase": "accounts with school fees due",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "period_count",
+    "phrase": "number of lessons today",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "period_count",
+    "phrase": "whats my teaching load",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "period_count",
+    "phrase": "total lessons this week",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "period_count",
+    "phrase": "how many lessons",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "period_count",
+    "phrase": "count my teaching periods",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "periods_remaining",
+    "phrase": "teaching periods left",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "periods_remaining",
+    "phrase": "how many classes are left",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "periods_remaining",
+    "phrase": "teaching do i still have today",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "periods_remaining",
+    "phrase": "periods i have left",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "roll_number",
+    "phrase": "whats my admission number",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "roll_number",
+    "phrase": "registration number",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "roll_number",
+    "phrase": "school id number",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "roll_number",
+    "phrase": "enrollment id",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "roll_number",
+    "phrase": "admission number belongs",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "roll_number",
+    "phrase": "my student id",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "school_wide_subject_teacher",
+    "phrase": "math teaching staff",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "school_wide_subject_teacher",
+    "phrase": "list english teachers",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "school_wide_subject_teacher",
+    "phrase": "subject faculty list",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "school_wide_subject_teacher",
+    "phrase": "everyone who teaches",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "school_wide_subject_teacher",
+    "phrase": "staff members take",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "subject_teacher",
+    "phrase": "who takes math",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "subject_teacher",
+    "phrase": "whos teaching science",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "subject_teacher",
+    "phrase": "taking us for maths",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "subject_teacher",
+    "phrase": "teacher for biology subject",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "subjects_offered",
+    "phrase": "list school subjects",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "subjects_offered",
+    "phrase": "courses available at school",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "subjects_offered",
+    "phrase": "part of the curriculum",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "subjects_offered",
+    "phrase": "courses does yara offer",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "teacher_count_by_subject",
+    "phrase": "how many teach math",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "teacher_count_by_subject",
+    "phrase": "math teacher count",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "teacher_count_by_subject",
+    "phrase": "count english teachers",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "teacher_count_by_subject",
+    "phrase": "teaching staff count for physics",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "teacher_count_by_subject",
+    "phrase": "staff members teach",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "teacher_count_by_subject",
+    "phrase": "faculty count for",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "teacher_identity",
+    "phrase": "show my staff profile",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "teacher_identity",
+    "phrase": "staff id details",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "teacher_identity",
+    "phrase": "what is my employee number",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "teacher_identity",
+    "phrase": "my teacher account",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "teacher_identity",
+    "phrase": "details on my staff record",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "teacher_identity",
+    "phrase": "employee id is mine",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "teacher_location",
+    "phrase": "find mr khan",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "teacher_location",
+    "phrase": "where can i find ms ali",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "teacher_location",
+    "phrase": "which room is mr joseph in",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "teacher_location",
+    "phrase": "current room for ms sara",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "teacher_location",
+    "phrase": "look for mr",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "teacher_location",
+    "phrase": "where ms ali is now",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "teacher_schedule_lookup",
+    "phrase": "timetable for mr khan",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "teacher_schedule_lookup",
+    "phrase": "ms ali schedule",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "teacher_schedule_lookup",
+    "phrase": "when does mr joseph teach",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "teacher_schedule_lookup",
+    "phrase": "staff timetable lookup",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "teacher_schedule_lookup",
+    "phrase": "alis teaching schedule",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "teacher_schedule_lookup",
+    "phrase": "lessons does mr",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "thanks",
+    "phrase": "nice one thanks",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "thanks",
+    "phrase": "got it thank you",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "thanks",
+    "phrase": "that helps",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "thanks",
+    "phrase": "appreciated nova",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "thanks",
+    "phrase": "brilliant thanks",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "thanks",
+    "phrase": "cheers for",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "thanks",
+    "phrase": "useful thanks",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "timetable",
+    "phrase": "what lessons are on today",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "timetable",
+    "phrase": "lessons for tomorrow",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "timetable",
+    "phrase": "weekly class plan",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "timetable",
+    "phrase": "lessons have i got",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "timetable",
+    "phrase": "my schedule for this week",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "total_students",
+    "phrase": "school enrollment count",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "total_students",
+    "phrase": "pupil population",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "total_students",
+    "phrase": "enrollment total",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "total_students",
+    "phrase": "size of student body",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "total_students",
+    "phrase": "students currently enrolled",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "total_students",
+    "phrase": "schools current enrollment",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "total_students",
+    "phrase": "size of the student body",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "total_teachers",
+    "phrase": "size of teaching staff",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "total_teachers",
+    "phrase": "faculty headcount",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "total_teachers",
+    "phrase": "teaching staff total",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "total_teachers",
+    "phrase": "number of educators",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "total_teachers",
+    "phrase": "size of the teaching team",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "total_teachers",
+    "phrase": "current faculty total",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  }
+]

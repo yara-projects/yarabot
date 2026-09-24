@@ -1,0 +1,649 @@
+{
+  "snapshot": "nlp_quality\\intent_phrases_backup_20260925T005102.json",
+  "intent_count_in_db": 38,
+  "intent_count_in_code": 40,
+  "missing_db_intents": [
+    "complaint_feedback",
+    "complaint_summary"
+  ],
+  "total_phrases": 1283,
+  "phrases_per_intent": {
+    "attendance": 45,
+    "class_teacher": 52,
+    "class_teacher_lookup": 40,
+    "class_timetable_lookup": 32,
+    "class_wise_count": 35,
+    "classes_assigned": 42,
+    "classroom_occupant": 36,
+    "current_class": 17,
+    "department_free_teachers": 34,
+    "department_schedule_today": 23,
+    "department_teacher_count": 34,
+    "exam": 38,
+    "fee": 46,
+    "free_periods": 34,
+    "free_teachers": 34,
+    "greeting": 22,
+    "help": 23,
+    "identity": 35,
+    "low_attendance_count": 38,
+    "my_class": 38,
+    "next_class": 27,
+    "next_period": 15,
+    "notices": 48,
+    "pending_fees_count": 38,
+    "period_count": 34,
+    "periods_remaining": 27,
+    "roll_number": 32,
+    "school_wide_subject_teacher": 37,
+    "subject_teacher": 48,
+    "subjects_offered": 37,
+    "teacher_count_by_subject": 37,
+    "teacher_identity": 30,
+    "teacher_location": 28,
+    "teacher_schedule_lookup": 28,
+    "thanks": 22,
+    "timetable": 43,
+    "total_students": 27,
+    "total_teachers": 27
+  },
+  "normalized_duplicate_groups": {
+    "class schedule": 2,
+    "class routine": 2,
+    "what is my name": 2,
+    "who am i": 2,
+    "my details": 2,
+    "show my info": 2,
+    "show my profile": 2,
+    "my profile": 2,
+    "gimme my info": 2,
+    "my personal info": 2,
+    "my record": 2,
+    "show my record": 2,
+    "my basic info": 2,
+    "tell me my name": 2,
+    "give me my details": 2,
+    "quickly show my details": 2,
+    "just tell me my name": 2,
+    "confirm my details": 2,
+    "next period": 2,
+    "next class": 2,
+    "what is next": 2,
+    "what do i have next": 2
+  },
+  "self_route": {
+    "correct": 1259,
+    "near_tie": 52,
+    "wrong": 24,
+    "accuracy": 0.9812938425565082,
+    "tie_rate": 0.04053000779423227,
+    "no_match_rate": 0.0,
+    "wrong_rate": 0.018706157443491817
+  },
+  "most_frequent_competing_pairs": [
+    {
+      "intents": [
+        "department_teacher_count",
+        "teacher_identity"
+      ],
+      "count": 11
+    },
+    {
+      "intents": [
+        "free_periods",
+        "period_count"
+      ],
+      "count": 6
+    },
+    {
+      "intents": [
+        "department_free_teachers",
+        "teacher_identity"
+      ],
+      "count": 5
+    },
+    {
+      "intents": [
+        "class_timetable_lookup",
+        "teacher_schedule_lookup"
+      ],
+      "count": 4
+    },
+    {
+      "intents": [
+        "class_teacher_lookup",
+        "school_wide_subject_teacher"
+      ],
+      "count": 4
+    },
+    {
+      "intents": [
+        "class_teacher",
+        "my_class"
+      ],
+      "count": 3
+    },
+    {
+      "intents": [
+        "teacher_count_by_subject",
+        "total_teachers"
+      ],
+      "count": 3
+    },
+    {
+      "intents": [
+        "classes_assigned",
+        "teacher_identity"
+      ],
+      "count": 2
+    },
+    {
+      "intents": [
+        "class_wise_count",
+        "total_students"
+      ],
+      "count": 2
+    },
+    {
+      "intents": [
+        "class_teacher",
+        "subject_teacher"
+      ],
+      "count": 2
+    },
+    {
+      "intents": [
+        "department_schedule_today",
+        "period_count"
+      ],
+      "count": 2
+    },
+    {
+      "intents": [
+        "period_count",
+        "timetable"
+      ],
+      "count": 1
+    },
+    {
+      "intents": [
+        "current_class",
+        "next_class"
+      ],
+      "count": 1
+    },
+    {
+      "intents": [
+        "classes_assigned",
+        "next_class"
+      ],
+      "count": 1
+    },
+    {
+      "intents": [
+        "next_class",
+        "timetable"
+      ],
+      "count": 1
+    },
+    {
+      "intents": [
+        "current_class",
+        "free_periods"
+      ],
+      "count": 1
+    },
+    {
+      "intents": [
+        "free_periods",
+        "timetable"
+      ],
+      "count": 1
+    },
+    {
+      "intents": [
+        "department_schedule_today",
+        "timetable"
+      ],
+      "count": 1
+    },
+    {
+      "intents": [
+        "department_schedule_today",
+        "teacher_identity"
+      ],
+      "count": 1
+    }
+  ],
+  "routing_latency_ms": {
+    "average": 34.59638674990822,
+    "p95": 49.74480000237236,
+    "maximum": 67.77929999952903
+  },
+  "failures": [
+    {
+      "intent": "period_count",
+      "phrase": "how many classes do i have today",
+      "outcome": "wrong",
+      "ranked": [
+        [
+          "timetable",
+          4
+        ],
+        [
+          "period_count",
+          3
+        ],
+        [
+          "classes_assigned",
+          1
+        ]
+      ]
+    },
+    {
+      "intent": "class_wise_count",
+      "phrase": "how many students in each class",
+      "outcome": "wrong",
+      "ranked": [
+        [
+          "total_students",
+          4
+        ],
+        [
+          "class_wise_count",
+          3
+        ]
+      ]
+    },
+    {
+      "intent": "class_wise_count",
+      "phrase": "how many students per grade",
+      "outcome": "wrong",
+      "ranked": [
+        [
+          "total_students",
+          4
+        ],
+        [
+          "class_wise_count",
+          3
+        ]
+      ]
+    },
+    {
+      "intent": "next_class",
+      "phrase": "next on my schedule",
+      "outcome": "wrong",
+      "ranked": [
+        [
+          "timetable",
+          4
+        ],
+        [
+          "next_class",
+          4
+        ]
+      ]
+    },
+    {
+      "intent": "free_periods",
+      "phrase": "off periods today",
+      "outcome": "wrong",
+      "ranked": [
+        [
+          "period_count",
+          4
+        ],
+        [
+          "free_periods",
+          4
+        ],
+        [
+          "timetable",
+          1
+        ]
+      ]
+    },
+    {
+      "intent": "free_periods",
+      "phrase": "off periods this week",
+      "outcome": "wrong",
+      "ranked": [
+        [
+          "period_count",
+          4
+        ],
+        [
+          "free_periods",
+          4
+        ],
+        [
+          "timetable",
+          1
+        ]
+      ]
+    },
+    {
+      "intent": "free_periods",
+      "phrase": "break periods today",
+      "outcome": "wrong",
+      "ranked": [
+        [
+          "period_count",
+          4
+        ],
+        [
+          "free_periods",
+          4
+        ],
+        [
+          "timetable",
+          1
+        ]
+      ]
+    },
+    {
+      "intent": "free_periods",
+      "phrase": "empty periods today",
+      "outcome": "wrong",
+      "ranked": [
+        [
+          "period_count",
+          4
+        ],
+        [
+          "free_periods",
+          4
+        ],
+        [
+          "timetable",
+          1
+        ]
+      ]
+    },
+    {
+      "intent": "free_periods",
+      "phrase": "no class periods today",
+      "outcome": "wrong",
+      "ranked": [
+        [
+          "period_count",
+          4
+        ],
+        [
+          "free_periods",
+          4
+        ],
+        [
+          "timetable",
+          1
+        ]
+      ]
+    },
+    {
+      "intent": "free_periods",
+      "phrase": "off right now",
+      "outcome": "wrong",
+      "ranked": [
+        [
+          "current_class",
+          4
+        ],
+        [
+          "free_periods",
+          3
+        ]
+      ]
+    },
+    {
+      "intent": "free_periods",
+      "phrase": "spare periods today",
+      "outcome": "wrong",
+      "ranked": [
+        [
+          "period_count",
+          4
+        ],
+        [
+          "free_periods",
+          4
+        ],
+        [
+          "timetable",
+          1
+        ]
+      ]
+    },
+    {
+      "intent": "free_periods",
+      "phrase": "gaps in my schedule",
+      "outcome": "wrong",
+      "ranked": [
+        [
+          "timetable",
+          4
+        ],
+        [
+          "free_periods",
+          3
+        ]
+      ]
+    },
+    {
+      "intent": "teacher_schedule_lookup",
+      "phrase": "his class schedule",
+      "outcome": "wrong",
+      "ranked": [
+        [
+          "class_timetable_lookup",
+          5
+        ],
+        [
+          "teacher_schedule_lookup",
+          4
+        ],
+        [
+          "greeting",
+          1
+        ]
+      ]
+    },
+    {
+      "intent": "teacher_schedule_lookup",
+      "phrase": "her class schedule",
+      "outcome": "wrong",
+      "ranked": [
+        [
+          "class_timetable_lookup",
+          5
+        ],
+        [
+          "teacher_schedule_lookup",
+          4
+        ]
+      ]
+    },
+    {
+      "intent": "class_timetable_lookup",
+      "phrase": "gimme schedule for grade 8",
+      "outcome": "wrong",
+      "ranked": [
+        [
+          "teacher_schedule_lookup",
+          4
+        ],
+        [
+          "class_timetable_lookup",
+          4
+        ]
+      ]
+    },
+    {
+      "intent": "class_teacher_lookup",
+      "phrase": "quickly who teaches 10b",
+      "outcome": "wrong",
+      "ranked": [
+        [
+          "school_wide_subject_teacher",
+          4
+        ],
+        [
+          "class_teacher_lookup",
+          4
+        ],
+        [
+          "class_teacher",
+          1
+        ]
+      ]
+    },
+    {
+      "intent": "class_teacher_lookup",
+      "phrase": "who teaches 9b",
+      "outcome": "wrong",
+      "ranked": [
+        [
+          "school_wide_subject_teacher",
+          4
+        ],
+        [
+          "class_teacher_lookup",
+          4
+        ],
+        [
+          "class_teacher",
+          1
+        ]
+      ]
+    },
+    {
+      "intent": "class_teacher_lookup",
+      "phrase": "look up class teacher list",
+      "outcome": "wrong",
+      "ranked": [
+        [
+          "class_teacher",
+          8
+        ],
+        [
+          "class_teacher_lookup",
+          5
+        ]
+      ]
+    },
+    {
+      "intent": "class_teacher",
+      "phrase": "who oversees my class",
+      "outcome": "wrong",
+      "ranked": [
+        [
+          "my_class",
+          4
+        ],
+        [
+          "class_teacher",
+          4
+        ],
+        [
+          "timetable",
+          1
+        ]
+      ]
+    },
+    {
+      "intent": "department_free_teachers",
+      "phrase": "who's off in my department",
+      "outcome": "wrong",
+      "ranked": [
+        [
+          "teacher_identity",
+          4
+        ],
+        [
+          "department_free_teachers",
+          4
+        ],
+        [
+          "department_schedule_today",
+          1
+        ]
+      ]
+    },
+    {
+      "intent": "department_free_teachers",
+      "phrase": "who's available in my department",
+      "outcome": "wrong",
+      "ranked": [
+        [
+          "teacher_identity",
+          4
+        ],
+        [
+          "department_free_teachers",
+          4
+        ],
+        [
+          "department_schedule_today",
+          1
+        ]
+      ]
+    },
+    {
+      "intent": "department_free_teachers",
+      "phrase": "who in my department is idle",
+      "outcome": "wrong",
+      "ranked": [
+        [
+          "teacher_identity",
+          4
+        ],
+        [
+          "department_free_teachers",
+          4
+        ],
+        [
+          "department_schedule_today",
+          1
+        ]
+      ]
+    },
+    {
+      "intent": "department_schedule_today",
+      "phrase": "department periods today",
+      "outcome": "wrong",
+      "ranked": [
+        [
+          "period_count",
+          4
+        ],
+        [
+          "department_schedule_today",
+          4
+        ],
+        [
+          "timetable",
+          1
+        ]
+      ]
+    },
+    {
+      "intent": "department_schedule_today",
+      "phrase": "dept periods today",
+      "outcome": "wrong",
+      "ranked": [
+        [
+          "period_count",
+          4
+        ],
+        [
+          "department_schedule_today",
+          3
+        ],
+        [
+          "timetable",
+          1
+        ]
+      ]
+    }
+  ]
+}

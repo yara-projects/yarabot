@@ -1,0 +1,6002 @@
+[
+  {
+    "intent": "attendance",
+    "role": "student",
+    "text": "WHATS MY ATTENDANCE LOOKING LIKE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "attendance",
+    "role": "student",
+    "text": "HOW OFTEN HAVE I BEEN ABSENT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "exam",
+    "role": "student",
+    "text": "WHAT ASSESSMENT DO I HAVE NEXT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "exam",
+    "role": "student",
+    "text": "ARE ANY OF MY EXAMS SCHEDULED",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "timetable",
+    "role": "student",
+    "text": "WHAT LESSONS HAVE I GOT TODAY",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "timetable",
+    "role": "student",
+    "text": "SHOW MY SCHEDULE FOR THIS WEEK",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "fee",
+    "role": "student",
+    "text": "DO I STILL OWE THE SCHOOL",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "fee",
+    "role": "student",
+    "text": "IS THERE A PAYMENT PENDING ON MY ACCOUNT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "period_count",
+    "role": "teacher",
+    "text": "HOW MANY LESSONS AM I TAKING TODAY",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "period_count",
+    "role": "teacher",
+    "text": "COUNT MY TEACHING PERIODS THIS WEEK",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "classes_assigned",
+    "role": "teacher",
+    "text": "WHAT GROUPS HAVE I BEEN GIVEN",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "classes_assigned",
+    "role": "teacher",
+    "text": "SHOW THE SECTIONS I AM RESPONSIBLE FOR",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "total_students",
+    "role": "principal",
+    "text": "WHAT IS THE SCHOOLS CURRENT ENROLLMENT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "total_students",
+    "role": "principal",
+    "text": "GIVE ME THE SIZE OF THE STUDENT BODY",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "total_teachers",
+    "role": "principal",
+    "text": "GIVE ME THE SIZE OF THE TEACHING TEAM",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "total_teachers",
+    "role": "principal",
+    "text": "WHAT IS THE CURRENT FACULTY TOTAL",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "class_wise_count",
+    "role": "principal",
+    "text": "SPLIT THE STUDENT COUNT BY CLASS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "class_wise_count",
+    "role": "principal",
+    "text": "SHOW ENROLLMENT FOR EACH SECTION",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "greeting",
+    "role": "student",
+    "text": "EVENING NOVA",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "greeting",
+    "role": "student",
+    "text": "HELLO THERE NOVA",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "thanks",
+    "role": "student",
+    "text": "CHEERS FOR THE ANSWER",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "thanks",
+    "role": "student",
+    "text": "OKAY THAT WAS USEFUL THANKS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "help",
+    "role": "student",
+    "text": "WHAT SCHOOL QUESTIONS DO YOU UNDERSTAND",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "help",
+    "role": "student",
+    "text": "SHOW WHAT NOVA KNOWS ABOUT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "identity",
+    "role": "student",
+    "text": "WHAT INFORMATION IS ON MY PROFILE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "identity",
+    "role": "student",
+    "text": "SHOW THE DETAILS REGISTERED FOR ME",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "roll_number",
+    "role": "student",
+    "text": "WHICH ADMISSION NUMBER BELONGS TO ME",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "roll_number",
+    "role": "student",
+    "text": "TELL ME MY STUDENT ID",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "my_class",
+    "role": "student",
+    "text": "WHAT CLASS WAS I PLACED IN",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "my_class",
+    "role": "student",
+    "text": "WHICH GRADE AND SECTION IS MINE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "next_period",
+    "role": "student",
+    "text": "WHICH LESSON COMES NEXT FOR ME",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "next_period",
+    "role": "student",
+    "text": "WHAT HAVE I GOT AFTER THIS CLASS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "subject_teacher",
+    "role": "student",
+    "text": "WHO IS TAKING US FOR MATHS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "subject_teacher",
+    "role": "student",
+    "text": "TELL ME THE TEACHER FOR BIOLOGY",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "next_class",
+    "role": "teacher",
+    "text": "WHICH GROUP IS NEXT ON MY SCHEDULE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "next_class",
+    "role": "teacher",
+    "text": "WHERE SHOULD I GO FOR MY NEXT LESSON",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "current_class",
+    "role": "teacher",
+    "text": "WHICH GROUP SHOULD I HAVE RIGHT NOW",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "current_class",
+    "role": "teacher",
+    "text": "WHAT LESSON AM I MEANT TO BE IN",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "free_periods",
+    "role": "teacher",
+    "text": "SHOW THE GAPS BETWEEN MY LESSONS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "free_periods",
+    "role": "teacher",
+    "text": "WHEN DO I HAVE NO CLASS TODAY",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "periods_remaining",
+    "role": "teacher",
+    "text": "HOW MUCH TEACHING DO I STILL HAVE TODAY",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "periods_remaining",
+    "role": "teacher",
+    "text": "COUNT THE PERIODS I HAVE LEFT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "teacher_identity",
+    "role": "teacher",
+    "text": "SHOW THE DETAILS ON MY STAFF RECORD",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "teacher_identity",
+    "role": "teacher",
+    "text": "WHICH EMPLOYEE ID IS MINE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "teacher_location",
+    "role": "principal",
+    "text": "WHERE SHOULD I LOOK FOR MR KHAN",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "teacher_location",
+    "role": "principal",
+    "text": "TELL ME WHERE MS ALI IS NOW",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "classroom_occupant",
+    "role": "principal",
+    "text": "WHICH TEACHER IS INSIDE 10B NOW",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "classroom_occupant",
+    "role": "principal",
+    "text": "WHO IS TAKING 9A THIS PERIOD",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "free_teachers",
+    "role": "principal",
+    "text": "WHICH TEACHER HAS NO LESSON RIGHT NOW",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "free_teachers",
+    "role": "principal",
+    "text": "SHOW STAFF AVAILABLE FOR COVER",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "teacher_schedule_lookup",
+    "role": "principal",
+    "text": "PULL UP MS ALIS TEACHING SCHEDULE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "teacher_schedule_lookup",
+    "role": "principal",
+    "text": "WHAT LESSONS DOES MR KHAN HAVE TODAY",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "class_timetable_lookup",
+    "role": "principal",
+    "text": "WHAT IS ON THE SCHEDULE FOR 10B",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "class_timetable_lookup",
+    "role": "principal",
+    "text": "SHOW TODAYS LESSONS FOR GRADE 9A",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "school_wide_subject_teacher",
+    "role": "principal",
+    "text": "SHOW EVERYONE WHO TEACHES PHYSICS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "school_wide_subject_teacher",
+    "role": "principal",
+    "text": "WHICH STAFF MEMBERS TAKE BIOLOGY",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "class_teacher_lookup",
+    "role": "principal",
+    "text": "SHOW EVERY TEACHER ASSIGNED TO 10B",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "class_teacher_lookup",
+    "role": "principal",
+    "text": "WHO TAKES THE SUBJECTS IN GRADE 9A",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "class_teacher",
+    "role": "student",
+    "text": "WHO IS THE TEACHER IN CHARGE OF OUR SECTION",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "class_teacher",
+    "role": "student",
+    "text": "NAME MY FORM TUTOR",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "low_attendance_count",
+    "role": "principal",
+    "text": "HOW MANY STUDENTS ARE SHORT OF ATTENDANCE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "low_attendance_count",
+    "role": "principal",
+    "text": "COUNT EVERYONE BELOW THE ATTENDANCE CUTOFF",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "pending_fees_count",
+    "role": "principal",
+    "text": "HOW MANY STUDENTS STILL OWE FEES",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "pending_fees_count",
+    "role": "principal",
+    "text": "COUNT ACCOUNTS WITH SCHOOL FEES DUE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "teacher_count_by_subject",
+    "role": "principal",
+    "text": "HOW MANY STAFF MEMBERS TEACH BIOLOGY",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "teacher_count_by_subject",
+    "role": "principal",
+    "text": "GIVE ME THE FACULTY COUNT FOR CHEMISTRY",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "department_free_teachers",
+    "role": "hod",
+    "text": "SHOW AVAILABLE TEACHERS FROM MY DEPARTMENT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "department_free_teachers",
+    "role": "hod",
+    "text": "WHO ON MY DEPARTMENT TEAM HAS A GAP NOW",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "department_schedule_today",
+    "role": "hod",
+    "text": "SHOW TODAYS PLAN FOR MY DEPARTMENT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "department_schedule_today",
+    "role": "hod",
+    "text": "WHAT IS MY DEPARTMENTS TEACHING SCHEDULE TODAY",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "department_teacher_count",
+    "role": "hod",
+    "text": "HOW LARGE IS THE STAFF IN MY DEPARTMENT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "department_teacher_count",
+    "role": "hod",
+    "text": "GIVE ME MY DEPARTMENTS TEACHER TOTAL",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "notices",
+    "role": "student",
+    "text": "HAS THE SCHOOL POSTED ANYTHING NEW",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "notices",
+    "role": "student",
+    "text": "SHOW ME THE NEWEST CIRCULAR",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "subjects_offered",
+    "role": "student",
+    "text": "WHICH SUBJECTS ARE PART OF THE CURRICULUM",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "subjects_offered",
+    "role": "student",
+    "text": "WHAT COURSES DOES YARA OFFER",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "complaint_feedback",
+    "role": "student",
+    "text": "I NEED TO TELL THE VP ABOUT A TEACHER",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "complaint_feedback",
+    "role": "student",
+    "text": "HOW DO I MAKE A PRIVATE TEACHER COMPLAINT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "complaint_summary",
+    "role": "vice_principal",
+    "text": "ARE ANY STUDENT COMPLAINTS WAITING",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "complaint_summary",
+    "role": "vice_principal",
+    "text": "SHOW THE LATEST PRIVATE COMPLAINTS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "class_teacher",
+    "text": "WHO IS IN CHARGE OF MY CLASS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "subject_teacher",
+    "text": "WHO TEACHES ME MATHEMATICS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_count_by_subject",
+    "text": "HOW MANY MATHEMATICS TEACHERS ARE THERE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "school_wide_subject_teacher",
+    "text": "LIST EVERY MATHEMATICS TEACHER",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "total_teachers",
+    "text": "HOW MANY TEACHERS WORK AT THE SCHOOL",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "exam",
+    "text": "WHEN IS MY NEXT EXAMINATION",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "timetable",
+    "text": "WHAT LESSONS DO I HAVE THIS WEEK",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "fee",
+    "text": "IS MY FEE PAYMENT STILL DUE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "pending_fees_count",
+    "text": "HOW MANY STUDENTS HAVE FEES DUE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "next_class",
+    "text": "WHAT CLASS DO I TEACH NEXT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "current_class",
+    "text": "WHAT CLASS SHOULD I BE TEACHING NOW",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "period_count",
+    "text": "HOW MANY LESSONS DO I TEACH TODAY",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "periods_remaining",
+    "text": "HOW MANY LESSONS DO I HAVE LEFT TODAY",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "free_periods",
+    "text": "WHEN IS MY FREE LESSON TODAY",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_location",
+    "text": "WHERE IS MS ALI RIGHT NOW",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "classroom_occupant",
+    "text": "WHO IS TEACHING 10A RIGHT NOW",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_schedule_lookup",
+    "text": "SHOW MS ALIS TIMETABLE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_timetable_lookup",
+    "text": "SHOW THE TIMETABLE FOR 10A",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_teacher_lookup",
+    "text": "SHOW ALL TEACHERS FOR 10A",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_teacher",
+    "text": "WHO IS THE CLASS TEACHER FOR 10A",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_free_teachers",
+    "text": "WHO IN MY DEPARTMENT IS FREE NOW",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_schedule_today",
+    "text": "SHOW MY DEPARTMENTS SCHEDULE TODAY",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_teacher_count",
+    "text": "HOW MANY TEACHERS ARE IN MY DEPARTMENT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "complaint_feedback",
+    "text": "I WANT TO REPORT A TEACHER",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "vice_principal",
+    "intent": "complaint_summary",
+    "text": "SHOW PENDING STUDENT COMPLAINTS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "attendance",
+    "text": "HOW MANY DAYS PRESENT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "attendance",
+    "text": "HOW MANY DAYS ABSENT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "attendance",
+    "text": "ATTENDANCE PERCENTAGE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "attendance",
+    "text": "ATTENDANCE %",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "attendance",
+    "text": "MY ATTENDANCE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "attendance",
+    "text": "ATTENDANCE STATUS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "attendance",
+    "text": "ATTENDANCE RECORD",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "attendance",
+    "text": "CHECK ATTENDANCE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "attendance",
+    "text": "HOW IS MY ATTENDANCE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "attendance",
+    "text": "ATTENDENCE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "class_teacher",
+    "text": "CLASS TEACHER",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "class_teacher",
+    "text": "MY CLASS TEACHER",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "class_teacher",
+    "text": "WHO IS MY CLASS TEACHER",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "class_teacher",
+    "text": "CLASS TEACHER NAME",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "class_teacher",
+    "text": "CLASS TEACHER FOR",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "class_teacher",
+    "text": "WHO IS THE CLASS TEACHER",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "class_teacher",
+    "text": "CLASS TEACHER OF",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "class_teacher",
+    "text": "TELL ME MY CLASS TEACHER",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "class_teacher",
+    "text": "WHOS MY CLASS TEACHER",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "class_teacher",
+    "text": "MY CLASS TEACHER NAME PLS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_teacher_lookup",
+    "text": "TEACHER FOR CLASS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_teacher_lookup",
+    "text": "TEACHERS FOR CLASS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_teacher_lookup",
+    "text": "WHO IS THE TEACHER FOR CLASS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_teacher_lookup",
+    "text": "CLASS TEACHERS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_teacher_lookup",
+    "text": "TEACHERS ASSIGNED TO CLASS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_teacher_lookup",
+    "text": "WHO TEACHES CLASS 10A",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_teacher_lookup",
+    "text": "TEACHERS FOR CLASS 10A",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_teacher_lookup",
+    "text": "CLASS 10A TEACHER LIST",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_teacher_lookup",
+    "text": "ALL TEACHERS FOR 10A",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_teacher_lookup",
+    "text": "FULL TEACHER LIST FOR 10A",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_timetable_lookup",
+    "text": "TIMETABLE FOR CLASS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_timetable_lookup",
+    "text": "CLASS TIMETABLE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_timetable_lookup",
+    "text": "CLASS SCHEDULE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_timetable_lookup",
+    "text": "CLASS ROUTINE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_timetable_lookup",
+    "text": "GRADE 10 SECTION A TIMETABLE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_timetable_lookup",
+    "text": "CLASS 10A SCHEDULE PLS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_timetable_lookup",
+    "text": "GIMME TIMETABLE FOR 9B",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_timetable_lookup",
+    "text": "FULL TIMETABLE FOR 10A",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_timetable_lookup",
+    "text": "WEEKLY TIMETABLE FOR A CLASS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_timetable_lookup",
+    "text": "CLASS ROUTINE FOR 10A",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_wise_count",
+    "text": "STUDENTS PER CLASS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_wise_count",
+    "text": "CLASS WISE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_wise_count",
+    "text": "CLASS-WISE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_wise_count",
+    "text": "BREAKDOWN BY CLASS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_wise_count",
+    "text": "SECTION WISE COUNT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_wise_count",
+    "text": "BREAKDOWN BY SECTION",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_wise_count",
+    "text": "GIMME CLASSWISE BREAKDOWN",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_wise_count",
+    "text": "CLASS-WISE BREAKDOWN PLS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_wise_count",
+    "text": "HOW MANY PER SECTION",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_wise_count",
+    "text": "JUST GIVE ME THE BREAKDOWN",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "classes_assigned",
+    "text": "WHICH CLASSES",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "classes_assigned",
+    "text": "MY CLASSES",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "classes_assigned",
+    "text": "CLASSES ASSIGNED",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "classes_assigned",
+    "text": "CLASSES I TEACH",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "classes_assigned",
+    "text": "WHICH SECTIONS AM I ASSIGNED",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "classes_assigned",
+    "text": "SECTIONS I HANDLE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "classes_assigned",
+    "text": "GRADES ASSIGNED TO ME",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "classes_assigned",
+    "text": "SECTIONS COVERED BY ME",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "classes_assigned",
+    "text": "WHICH CLASSES DO I TEACH",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "classes_assigned",
+    "text": "WHAT CLASSES DO I TEACH",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "classroom_occupant",
+    "text": "WHO IS TEACHING CLASS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "classroom_occupant",
+    "text": "WHO IS IN CLASS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "classroom_occupant",
+    "text": "WHICH TEACHER IS IN",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "classroom_occupant",
+    "text": "WHOS TEACHING 10A",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "classroom_occupant",
+    "text": "WHO'S OCCUPYING THAT ROOM",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "classroom_occupant",
+    "text": "WHO'S IN ROOM 10A",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "classroom_occupant",
+    "text": "OCCUPANT CHECK",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "classroom_occupant",
+    "text": "WHOS IN 10A RIGHT NOW",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "classroom_occupant",
+    "text": "WHO IS IN THAT CLASS NOW",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "classroom_occupant",
+    "text": "WHICH TEACHER IS THERE NOW",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "current_class",
+    "text": "WHAT AM I TEACHING NOW",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "current_class",
+    "text": "CURRENT CLASS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "current_class",
+    "text": "RIGHT NOW",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "current_class",
+    "text": "WHAT AM I DOING RIGHT NOW",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "current_class",
+    "text": "WHAT AM I TEACHING",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "current_class",
+    "text": "WHICH CLASS AM I TEACHING NOW",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "current_class",
+    "text": "WHICH CLASS AM I IN RIGHT NOW",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "current_class",
+    "text": "CLASS RIGHT NOW",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "current_class",
+    "text": "GIMME MY CURRENT CLASS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "current_class",
+    "text": "JUST TELL ME CURRENT CLASS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_free_teachers",
+    "text": "TEACHERS IN MY DEPARTMENT ARE FREE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_free_teachers",
+    "text": "FREE TEACHERS IN MY DEPARTMENT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_free_teachers",
+    "text": "WHO IS FREE IN MY DEPARTMENT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_free_teachers",
+    "text": "WHICH TEACHERS IN MY DEPARTMENT ARE FREE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_free_teachers",
+    "text": "WHO'S NOT BUSY IN MY DEPT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_free_teachers",
+    "text": "WHO'S AROUND IN MY DEPT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_free_teachers",
+    "text": "ANY TEACHER FREE IN MY DEPARTMENT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_free_teachers",
+    "text": "WHO'S FREE IN SCIENCE DEPT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_free_teachers",
+    "text": "FREE STAFF IN MY DEPARTMENT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_free_teachers",
+    "text": "GIMME FREE TEACHERS IN MY DEPT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_schedule_today",
+    "text": "MY DEPARTMENT'S SCHEDULE TODAY",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_schedule_today",
+    "text": "DEPARTMENT SCHEDULE TODAY",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_schedule_today",
+    "text": "MY DEPARTMENT SCHEDULE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_schedule_today",
+    "text": "DEPARTMENT'S SCHEDULE TODAY",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_schedule_today",
+    "text": "GIMME DEPT SCHEDULE TODAY",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_schedule_today",
+    "text": "QUICKLY DEPARTMENT SCHEDULE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_schedule_today",
+    "text": "JUST TELL ME DEPT SCHEDULE TODAY",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_schedule_today",
+    "text": "SCIENCE DEPARTMENT TODAY",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_schedule_today",
+    "text": "MATH DEPARTMENT SCHEDULE TODAY",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_schedule_today",
+    "text": "TODAYS DEPARTMENT TIMETABLE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_teacher_count",
+    "text": "HOW MANY TEACHERS IN MY DEPARTMENT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_teacher_count",
+    "text": "DEPARTMENT TEACHER COUNT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_teacher_count",
+    "text": "TEACHER COUNT FOR MY DEPARTMENT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_teacher_count",
+    "text": "HOW MANY FACULTY IN MY DEPT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_teacher_count",
+    "text": "DEPT HEADCOUNT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_teacher_count",
+    "text": "TOTAL FACULTY IN MY DEPT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_teacher_count",
+    "text": "DEPT STRENGTH",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_teacher_count",
+    "text": "HOW MANY STAFF IN MY DEPARTMENT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_teacher_count",
+    "text": "DEPARTMENT STAFF COUNT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "exam",
+    "text": "EXAM DATE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "exam",
+    "text": "NEXT EXAM",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "exam",
+    "text": "WHEN IS MY EXAM",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "exam",
+    "text": "TEST DATE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "exam",
+    "text": "EXAM DATES",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "exam",
+    "text": "UPCOMING EXAM",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "exam",
+    "text": "UPCOMING EXAMS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "exam",
+    "text": "NEXT TEST",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "exam",
+    "text": "MY EXAM DATE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "exam",
+    "text": "CHECK EXAM DATE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "fee",
+    "text": "FEE STATUS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "fee",
+    "text": "FEES PAID",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "fee",
+    "text": "SCHOOL FEES",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "fee",
+    "text": "FEES STATUS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "fee",
+    "text": "FEE DUE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "fee",
+    "text": "FEES DUE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "fee",
+    "text": "IS MY FEE PAID",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "fee",
+    "text": "CHECK FEES",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "fee",
+    "text": "OUTSTANDING FEES",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "fee",
+    "text": "FEE BALANCE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "free_periods",
+    "text": "FREE PERIODS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "free_periods",
+    "text": "AM I FREE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "free_periods",
+    "text": "DO I HAVE A FREE PERIOD",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "free_periods",
+    "text": "ANY FREE TIME",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "free_periods",
+    "text": "ANY SPARE TIME TODAY",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "free_periods",
+    "text": "DO I HAVE A GAP TODAY",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "free_periods",
+    "text": "WHEN DO I GET A BREAK",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "free_periods",
+    "text": "ANY BREAKS TODAY",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "free_periods",
+    "text": "AM I FREE RIGHT NOW",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "free_periods",
+    "text": "DO I HAVE ANY FREE TIME",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "free_teachers",
+    "text": "WHICH TEACHERS ARE FREE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "free_teachers",
+    "text": "FREE TEACHERS RIGHT NOW",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "free_teachers",
+    "text": "WHO IS AVAILABLE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "free_teachers",
+    "text": "ANY TEACHER FREE RIGHT NOW",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "free_teachers",
+    "text": "WHO'S FREE AT THE MOMENT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "free_teachers",
+    "text": "WHICH STAFF IS FREE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "free_teachers",
+    "text": "GIMME LIST OF FREE TEACHERS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "free_teachers",
+    "text": "QUICKLY ANY FREE TEACHERS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "free_teachers",
+    "text": "JUST TELL ME WHO'S FREE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "free_teachers",
+    "text": "HEY ANY TEACHERS FREE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "greeting",
+    "text": "GOOD MORNING",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "greeting",
+    "text": "GOOD AFTERNOON",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "greeting",
+    "text": "GOOD EVENING",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "greeting",
+    "text": "HII",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "greeting",
+    "text": "HIII",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "greeting",
+    "text": "HEYY",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "greeting",
+    "text": "HEYA",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "greeting",
+    "text": "YO YO",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "greeting",
+    "text": "SUP",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "greeting",
+    "text": "WASSUP",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "help",
+    "text": "WHAT CAN YOU DO",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "help",
+    "text": "HELP ME",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "help",
+    "text": "WHAT DO YOU DO",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "help",
+    "text": "WHAT CAN U DO",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "help",
+    "text": "WHAT DO U DO",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "help",
+    "text": "HOW DO I USE THIS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "help",
+    "text": "HOW DOES THIS WORK",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "help",
+    "text": "WHAT CAN THIS BOT DO",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "help",
+    "text": "OPTIONS PLS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "help",
+    "text": "SHOW ME OPTIONS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "identity",
+    "text": "WHAT IS MY NAME",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "identity",
+    "text": "WHO AM I",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "identity",
+    "text": "MY DETAILS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "identity",
+    "text": "MY INFO",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "identity",
+    "text": "SHARE MY IDENTITY CARD INFO",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "identity",
+    "text": "SHOW MY INFO",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "identity",
+    "text": "SHOW MY PROFILE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "identity",
+    "text": "MY PROFILE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "identity",
+    "text": "MY ID CARD INFO",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "identity",
+    "text": "ID CARD DETAILS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "low_attendance_count",
+    "text": "LOW ATTENDANCE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "low_attendance_count",
+    "text": "BELOW 75",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "low_attendance_count",
+    "text": "ATTENDANCE RISK",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "low_attendance_count",
+    "text": "STUDENTS WITH POOR ATTENDANCE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "low_attendance_count",
+    "text": "STUDENTS BELOW 75 ATTENDANCE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "low_attendance_count",
+    "text": "WHO HAS LOW ATTENDANCE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "low_attendance_count",
+    "text": "LIST LOW ATTENDANCE STUDENTS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "low_attendance_count",
+    "text": "STUDENTS WITH BAD ATTENDANCE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "low_attendance_count",
+    "text": "WHICH STUDENTS HAVE POOR ATTENDANCE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "low_attendance_count",
+    "text": "ATTENDANCE RISK LIST",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "my_class",
+    "text": "WHAT CLASS AM I IN",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "my_class",
+    "text": "WHICH CLASS AM I",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "my_class",
+    "text": "MY CLASS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "my_class",
+    "text": "WHICH GRADE AM I IN",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "my_class",
+    "text": "WHAT GRADE AM I IN",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "my_class",
+    "text": "MY GRADE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "my_class",
+    "text": "MY SECTION",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "my_class",
+    "text": "WHICH SECTION AM I IN",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "my_class",
+    "text": "WHICH GRADE AND SECTION",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "my_class",
+    "text": "WHAT SECTION AM I",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "next_class",
+    "text": "NEXT CLASS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "next_class",
+    "text": "WHICH CLASS NEXT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "next_class",
+    "text": "NEXT PERIOD",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "next_class",
+    "text": "WHAT IS NEXT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "next_class",
+    "text": "WHAT DO I HAVE NEXT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "next_class",
+    "text": "WHICH CLASS DO I TEACH NEXT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "next_class",
+    "text": "NEXT PERIOD FOR ME",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "next_class",
+    "text": "WHAT AM I TEACHING NEXT PERIOD",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "next_class",
+    "text": "GIMME MY NEXT CLASS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "next_class",
+    "text": "JUST TELL ME NEXT CLASS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "next_period",
+    "text": "NEXT PERIOD",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "next_period",
+    "text": "NEXT CLASS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "next_period",
+    "text": "WHAT IS NEXT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "next_period",
+    "text": "AFTER THIS WHAT DO I HAVE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "next_period",
+    "text": "RIGHT AFTER THIS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "next_period",
+    "text": "WHAT DO I HAVE NEXT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "next_period",
+    "text": "NEXT PERIOD PLS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "next_period",
+    "text": "WHAT COMES AFTER THIS PERIOD",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "next_period",
+    "text": "GIMME NEXT PERIOD",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "next_period",
+    "text": "JUST TELL ME NEXT PERIOD",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "notices",
+    "text": "LATEST NOTICES",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "notices",
+    "text": "ANY ANNOUNCEMENTS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "notices",
+    "text": "SCHOOL NOTICES",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "notices",
+    "text": "ANY UPDATES",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "notices",
+    "text": "RECENT ANNOUNCEMENTS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "notices",
+    "text": "ANY NOTICES",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "notices",
+    "text": "ANY NOTICE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "notices",
+    "text": "NEW NOTICES",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "notices",
+    "text": "ANY NEW ANNOUNCEMENTS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "notices",
+    "text": "OLD ANNOUNCEMENTS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "pending_fees_count",
+    "text": "PENDING FEES",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "pending_fees_count",
+    "text": "UNPAID FEES",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "pending_fees_count",
+    "text": "FEE DEFAULTERS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "pending_fees_count",
+    "text": "WHO HAS PENDING FEES",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "pending_fees_count",
+    "text": "LIST STUDENTS WITH PENDING FEES",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "pending_fees_count",
+    "text": "FEE DEFAULTERS LIST",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "pending_fees_count",
+    "text": "STUDENTS WHO HAVENT PAID",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "pending_fees_count",
+    "text": "WHICH STUDENTS OWE FEES",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "pending_fees_count",
+    "text": "GIMME PENDING FEES LIST",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "pending_fees_count",
+    "text": "SHOW UNPAID FEES STUDENTS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "period_count",
+    "text": "HOW MANY PERIODS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "period_count",
+    "text": "NUMBER OF PERIODS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "period_count",
+    "text": "PERIODS TODAY",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "period_count",
+    "text": "PERIODS THIS WEEK",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "period_count",
+    "text": "PERIOD COUNT TODAY",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "period_count",
+    "text": "SHOW MY PERIOD COUNT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "period_count",
+    "text": "JUST TELL ME PERIOD COUNT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "period_count",
+    "text": "HOW MANY LECTURES TODAY",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "period_count",
+    "text": "HOW MANY LECTURES THIS WEEK",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "period_count",
+    "text": "WEEKLY PERIOD COUNT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "periods_remaining",
+    "text": "PERIODS LEFT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "periods_remaining",
+    "text": "HOW MANY PERIODS LEFT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "periods_remaining",
+    "text": "PERIODS REMAINING TODAY",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "periods_remaining",
+    "text": "HOW MANY PERIODS DO I HAVE LEFT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "periods_remaining",
+    "text": "HOW MANY PERIODS LEFT TODAY",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "periods_remaining",
+    "text": "HOW MANY MORE PERIODS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "periods_remaining",
+    "text": "AM I DONE FOR THE DAY",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "periods_remaining",
+    "text": "AM I ALMOST DONE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "periods_remaining",
+    "text": "QUICKLY HOW MANY LEFT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "periods_remaining",
+    "text": "HOW MUCH LONGER TODAY",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "roll_number",
+    "text": "MY ROLL NUMBER",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "roll_number",
+    "text": "WHAT IS MY ROLL",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "roll_number",
+    "text": "ROLL NO",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "roll_number",
+    "text": "ROLL NUMBER",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "roll_number",
+    "text": "MY ENROLLMENT NUMBER PLEASE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "roll_number",
+    "text": "TELL ME MY ROLL NO",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "roll_number",
+    "text": "ROLL NUMBER PLS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "roll_number",
+    "text": "MY ROLL NO PLS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "roll_number",
+    "text": "GIVE ME MY ROLL NUMBER",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "roll_number",
+    "text": "GIMME ROLL NO",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "school_wide_subject_teacher",
+    "text": "WHO TEACHES",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "school_wide_subject_teacher",
+    "text": "TEACHER FOR SUBJECT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "school_wide_subject_teacher",
+    "text": "WHO TEACHES PHYSICS TO GRADE 12",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "school_wide_subject_teacher",
+    "text": "WHO TEACHES MATH SCHOOL WIDE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "school_wide_subject_teacher",
+    "text": "WHO TEACHES CHEMISTRY",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "school_wide_subject_teacher",
+    "text": "WHO TEACHES BIOLOGY",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "school_wide_subject_teacher",
+    "text": "WHO TEACHES COMPUTER SCIENCE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "school_wide_subject_teacher",
+    "text": "WHO TEACHES ENGLISH",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "school_wide_subject_teacher",
+    "text": "WHO TEACHES HINDI",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "school_wide_subject_teacher",
+    "text": "WHO TEACHES SST",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "subject_teacher",
+    "text": "WHO TEACHES ME",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "subject_teacher",
+    "text": "WHO IS MY TEACHER FOR",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "subject_teacher",
+    "text": "TEACHER FOR",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "subject_teacher",
+    "text": "MY MATH SIR",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "subject_teacher",
+    "text": "MY SCIENCE MAAM",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "subject_teacher",
+    "text": "MY ENGLISH MAAM",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "subject_teacher",
+    "text": "WHO TEACHES ME MATH",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "subject_teacher",
+    "text": "WHO TEACHES ME MATHS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "subject_teacher",
+    "text": "WHO TEACHES ME SCIENCE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "subject_teacher",
+    "text": "WHO TEACHES ME ENGLISH",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "subjects_offered",
+    "text": "SUBJECTS DOES THE SCHOOL",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "subjects_offered",
+    "text": "SUBJECTS DOES YARA",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "subjects_offered",
+    "text": "SUBJECTS ARE OFFERED",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "subjects_offered",
+    "text": "SUBJECTS OFFERED",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "subjects_offered",
+    "text": "SCHOOL SUBJECTS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "subjects_offered",
+    "text": "LIST OF SUBJECTS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "subjects_offered",
+    "text": "SUBJECTS AVAILABLE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "subjects_offered",
+    "text": "SUBJECTS DOES THIS SCHOOL",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "subjects_offered",
+    "text": "WHAT SUBJECTS CAN I TAKE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "subjects_offered",
+    "text": "CURRICULUM LIST",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_count_by_subject",
+    "text": "TEACHERS FOR SUBJECT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_count_by_subject",
+    "text": "FACULTY COUNT FOR A SUBJECT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_count_by_subject",
+    "text": "HOW MANY TEACHERS TEACH PHYSICS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_count_by_subject",
+    "text": "HOW MANY TEACH CHEMISTRY",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_count_by_subject",
+    "text": "HOW MANY TEACH BIOLOGY",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_count_by_subject",
+    "text": "HOW MANY TEACH COMPUTER SCIENCE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_count_by_subject",
+    "text": "HOW MANY TEACH ENGLISH",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_count_by_subject",
+    "text": "HOW MANY TEACH HINDI",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_count_by_subject",
+    "text": "HOW MANY TEACH SST",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_count_by_subject",
+    "text": "TEACHER COUNT FOR MATH",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "teacher_identity",
+    "text": "WHAT IS MY NAME",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "teacher_identity",
+    "text": "WHO AM I",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "teacher_identity",
+    "text": "MY DETAILS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "teacher_identity",
+    "text": "MY SUBJECT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "teacher_identity",
+    "text": "SHOW MY PROFILE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "teacher_identity",
+    "text": "MY PROFILE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "teacher_identity",
+    "text": "MY EMPLOYEE DETAILS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "teacher_identity",
+    "text": "EMPLOYEE ID",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "teacher_identity",
+    "text": "MY CONTACT DETAILS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "teacher_identity",
+    "text": "MY REGISTERED CONTACT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_location",
+    "text": "WHERE IS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_location",
+    "text": "WHICH CLASS IS TEACHING",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_location",
+    "text": "WHAT IS TEACHING RIGHT NOW",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_location",
+    "text": "WHERES MR AHMED",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_location",
+    "text": "WHERES MS PRIYA",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_location",
+    "text": "WHICH ROOM IS HE IN",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_location",
+    "text": "WHICH ROOM IS SHE IN",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_location",
+    "text": "WHERE CAN I FIND",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_location",
+    "text": "GIMME LOCATION OF",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_location",
+    "text": "JUST TELL ME WHERE HE IS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_schedule_lookup",
+    "text": "SCHEDULE FOR",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_schedule_lookup",
+    "text": "TIMETABLE FOR TEACHER",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_schedule_lookup",
+    "text": "SHOW ME SCHEDULE FOR MR",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_schedule_lookup",
+    "text": "SHOW ME SCHEDULE FOR MS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_schedule_lookup",
+    "text": "GIMME HIS SCHEDULE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_schedule_lookup",
+    "text": "GIMME HER SCHEDULE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_schedule_lookup",
+    "text": "HIS TIMETABLE PLS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_schedule_lookup",
+    "text": "HER TIMETABLE PLS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_schedule_lookup",
+    "text": "QUICKLY SHOW HIS SCHEDULE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_schedule_lookup",
+    "text": "JUST TELL ME HER SCHEDULE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "thanks",
+    "text": "THANK YOU",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "thanks",
+    "text": "THANKS A LOT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "thanks",
+    "text": "THANKS BRO",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "thanks",
+    "text": "THANK U",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "thanks",
+    "text": "THNX",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "thanks",
+    "text": "TYSM",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "thanks",
+    "text": "MUCH APPRECIATED",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "thanks",
+    "text": "APPRECIATE IT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "thanks",
+    "text": "THANKS A TON",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "thanks",
+    "text": "CHEERS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "timetable",
+    "text": "MY TIMETABLE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "timetable",
+    "text": "MY SCHEDULE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "timetable",
+    "text": "CLASS SCHEDULE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "timetable",
+    "text": "TODAY'S CLASSES",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "timetable",
+    "text": "TODAYS CLASSES",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "timetable",
+    "text": "TIME TABLE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "timetable",
+    "text": "CLASS ROUTINE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "timetable",
+    "text": "TODAY'S SCHEDULE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "timetable",
+    "text": "TODAYS SCHEDULE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "timetable",
+    "text": "TODAY'S TIMETABLE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "total_students",
+    "text": "HOW MANY STUDENTS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "total_students",
+    "text": "TOTAL STUDENTS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "total_students",
+    "text": "NUMBER OF STUDENTS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "total_students",
+    "text": "TOTAL STUDENT COUNT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "total_students",
+    "text": "HOW MANY STUDENTS IN SCHOOL",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "total_students",
+    "text": "HOW MANY STUDENTS ENROLLED",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "total_students",
+    "text": "TOTAL STRENGTH",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "total_students",
+    "text": "SCHOOL STRENGTH",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "total_students",
+    "text": "OVERALL STUDENT COUNT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "total_students",
+    "text": "HOW MANY KIDS IN SCHOOL",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "total_teachers",
+    "text": "HOW MANY TEACHERS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "total_teachers",
+    "text": "TOTAL TEACHERS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "total_teachers",
+    "text": "NUMBER OF TEACHERS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "total_teachers",
+    "text": "TOTAL STAFF COUNT",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "total_teachers",
+    "text": "HOW MANY STAFF MEMBERS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "total_teachers",
+    "text": "HOW MANY FACULTY",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "total_teachers",
+    "text": "TOTAL FACULTY",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "total_teachers",
+    "text": "NUMBER OF FACULTY MEMBERS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "total_teachers",
+    "text": "FACULTY SIZE",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "total_teachers",
+    "text": "HOW MANY EDUCATORS",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "attendance",
+    "role": "student",
+    "text": "Whats my attendance looking like?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "attendance",
+    "role": "student",
+    "text": "How often have i been absent?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "exam",
+    "role": "student",
+    "text": "What assessment do i have next?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "exam",
+    "role": "student",
+    "text": "Are any of my exams scheduled?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "timetable",
+    "role": "student",
+    "text": "What lessons have i got today?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "timetable",
+    "role": "student",
+    "text": "Show my schedule for this week?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "fee",
+    "role": "student",
+    "text": "Do i still owe the school?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "fee",
+    "role": "student",
+    "text": "Is there a payment pending on my account?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "period_count",
+    "role": "teacher",
+    "text": "How many lessons am i taking today?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "period_count",
+    "role": "teacher",
+    "text": "Count my teaching periods this week?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "classes_assigned",
+    "role": "teacher",
+    "text": "What groups have i been given?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "classes_assigned",
+    "role": "teacher",
+    "text": "Show the sections i am responsible for?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "total_students",
+    "role": "principal",
+    "text": "What is the schools current enrollment?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "total_students",
+    "role": "principal",
+    "text": "Give me the size of the student body?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "total_teachers",
+    "role": "principal",
+    "text": "Give me the size of the teaching team?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "total_teachers",
+    "role": "principal",
+    "text": "What is the current faculty total?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "class_wise_count",
+    "role": "principal",
+    "text": "Split the student count by class?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "class_wise_count",
+    "role": "principal",
+    "text": "Show enrollment for each section?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "greeting",
+    "role": "student",
+    "text": "Evening nova?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "greeting",
+    "role": "student",
+    "text": "Hello there nova?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "thanks",
+    "role": "student",
+    "text": "Cheers for the answer?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "thanks",
+    "role": "student",
+    "text": "Okay that was useful thanks?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "help",
+    "role": "student",
+    "text": "What school questions do you understand?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "help",
+    "role": "student",
+    "text": "Show what nova knows about?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "identity",
+    "role": "student",
+    "text": "What information is on my profile?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "identity",
+    "role": "student",
+    "text": "Show the details registered for me?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "roll_number",
+    "role": "student",
+    "text": "Which admission number belongs to me?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "roll_number",
+    "role": "student",
+    "text": "Tell me my student id?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "my_class",
+    "role": "student",
+    "text": "What class was i placed in?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "my_class",
+    "role": "student",
+    "text": "Which grade and section is mine?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "next_period",
+    "role": "student",
+    "text": "Which lesson comes next for me?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "next_period",
+    "role": "student",
+    "text": "What have i got after this class?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "subject_teacher",
+    "role": "student",
+    "text": "Who is taking us for maths?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "subject_teacher",
+    "role": "student",
+    "text": "Tell me the teacher for biology?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "next_class",
+    "role": "teacher",
+    "text": "Which group is next on my schedule?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "next_class",
+    "role": "teacher",
+    "text": "Where should i go for my next lesson?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "current_class",
+    "role": "teacher",
+    "text": "Which group should i have right now?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "current_class",
+    "role": "teacher",
+    "text": "What lesson am i meant to be in?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "free_periods",
+    "role": "teacher",
+    "text": "Show the gaps between my lessons?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "free_periods",
+    "role": "teacher",
+    "text": "When do i have no class today?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "periods_remaining",
+    "role": "teacher",
+    "text": "How much teaching do i still have today?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "periods_remaining",
+    "role": "teacher",
+    "text": "Count the periods i have left?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "teacher_identity",
+    "role": "teacher",
+    "text": "Show the details on my staff record?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "teacher_identity",
+    "role": "teacher",
+    "text": "Which employee id is mine?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "teacher_location",
+    "role": "principal",
+    "text": "Where should i look for mr khan?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "teacher_location",
+    "role": "principal",
+    "text": "Tell me where ms ali is now?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "classroom_occupant",
+    "role": "principal",
+    "text": "Which teacher is inside 10b now?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "classroom_occupant",
+    "role": "principal",
+    "text": "Who is taking 9a this period?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "free_teachers",
+    "role": "principal",
+    "text": "Which teacher has no lesson right now?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "free_teachers",
+    "role": "principal",
+    "text": "Show staff available for cover?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "teacher_schedule_lookup",
+    "role": "principal",
+    "text": "Pull up ms alis teaching schedule?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "teacher_schedule_lookup",
+    "role": "principal",
+    "text": "What lessons does mr khan have today?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "class_timetable_lookup",
+    "role": "principal",
+    "text": "What is on the schedule for 10b?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "class_timetable_lookup",
+    "role": "principal",
+    "text": "Show todays lessons for grade 9a?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "school_wide_subject_teacher",
+    "role": "principal",
+    "text": "Show everyone who teaches physics?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "school_wide_subject_teacher",
+    "role": "principal",
+    "text": "Which staff members take biology?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "class_teacher_lookup",
+    "role": "principal",
+    "text": "Show every teacher assigned to 10b?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "class_teacher_lookup",
+    "role": "principal",
+    "text": "Who takes the subjects in grade 9a?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "class_teacher",
+    "role": "student",
+    "text": "Who is the teacher in charge of our section?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "class_teacher",
+    "role": "student",
+    "text": "Name my form tutor?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "low_attendance_count",
+    "role": "principal",
+    "text": "How many students are short of attendance?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "low_attendance_count",
+    "role": "principal",
+    "text": "Count everyone below the attendance cutoff?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "pending_fees_count",
+    "role": "principal",
+    "text": "How many students still owe fees?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "pending_fees_count",
+    "role": "principal",
+    "text": "Count accounts with school fees due?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "teacher_count_by_subject",
+    "role": "principal",
+    "text": "How many staff members teach biology?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "teacher_count_by_subject",
+    "role": "principal",
+    "text": "Give me the faculty count for chemistry?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "department_free_teachers",
+    "role": "hod",
+    "text": "Show available teachers from my department?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "department_free_teachers",
+    "role": "hod",
+    "text": "Who on my department team has a gap now?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "department_schedule_today",
+    "role": "hod",
+    "text": "Show todays plan for my department?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "department_schedule_today",
+    "role": "hod",
+    "text": "What is my departments teaching schedule today?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "department_teacher_count",
+    "role": "hod",
+    "text": "How large is the staff in my department?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "department_teacher_count",
+    "role": "hod",
+    "text": "Give me my departments teacher total?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "notices",
+    "role": "student",
+    "text": "Has the school posted anything new?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "notices",
+    "role": "student",
+    "text": "Show me the newest circular?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "subjects_offered",
+    "role": "student",
+    "text": "Which subjects are part of the curriculum?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "subjects_offered",
+    "role": "student",
+    "text": "What courses does yara offer?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "complaint_feedback",
+    "role": "student",
+    "text": "I need to tell the vp about a teacher?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "complaint_feedback",
+    "role": "student",
+    "text": "How do i make a private teacher complaint?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "complaint_summary",
+    "role": "vice_principal",
+    "text": "Are any student complaints waiting?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "complaint_summary",
+    "role": "vice_principal",
+    "text": "Show the latest private complaints?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "class_teacher",
+    "text": "Who is in charge of my class?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "subject_teacher",
+    "text": "Who teaches me mathematics?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_count_by_subject",
+    "text": "How many mathematics teachers are there?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "school_wide_subject_teacher",
+    "text": "List every mathematics teacher?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "total_teachers",
+    "text": "How many teachers work at the school?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "exam",
+    "text": "When is my next examination?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "timetable",
+    "text": "What lessons do i have this week?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "fee",
+    "text": "Is my fee payment still due?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "pending_fees_count",
+    "text": "How many students have fees due?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "next_class",
+    "text": "What class do i teach next?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "current_class",
+    "text": "What class should i be teaching now?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "period_count",
+    "text": "How many lessons do i teach today?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "periods_remaining",
+    "text": "How many lessons do i have left today?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "free_periods",
+    "text": "When is my free lesson today?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_location",
+    "text": "Where is ms ali right now?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "classroom_occupant",
+    "text": "Who is teaching 10a right now?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_schedule_lookup",
+    "text": "Show ms alis timetable?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_timetable_lookup",
+    "text": "Show the timetable for 10a?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_teacher_lookup",
+    "text": "Show all teachers for 10a?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_teacher",
+    "text": "Who is the class teacher for 10a?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_free_teachers",
+    "text": "Who in my department is free now?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_schedule_today",
+    "text": "Show my departments schedule today?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_teacher_count",
+    "text": "How many teachers are in my department?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "complaint_feedback",
+    "text": "I want to report a teacher?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "vice_principal",
+    "intent": "complaint_summary",
+    "text": "Show pending student complaints?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "attendance",
+    "text": "How many days present?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "attendance",
+    "text": "How many days absent?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "attendance",
+    "text": "Attendance percentage?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "attendance",
+    "text": "Attendance %?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "attendance",
+    "text": "My attendance?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "attendance",
+    "text": "Attendance status?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "attendance",
+    "text": "Attendance record?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "attendance",
+    "text": "Check attendance?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "attendance",
+    "text": "How is my attendance?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "attendance",
+    "text": "Attendence?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "class_teacher",
+    "text": "Class teacher?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "class_teacher",
+    "text": "My class teacher?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "class_teacher",
+    "text": "Who is my class teacher?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "class_teacher",
+    "text": "Class teacher name?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "class_teacher",
+    "text": "Class teacher for?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "class_teacher",
+    "text": "Who is the class teacher?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "class_teacher",
+    "text": "Class teacher of?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "class_teacher",
+    "text": "Tell me my class teacher?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "class_teacher",
+    "text": "Whos my class teacher?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "class_teacher",
+    "text": "My class teacher name pls?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_teacher_lookup",
+    "text": "Teacher for class?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_teacher_lookup",
+    "text": "Teachers for class?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_teacher_lookup",
+    "text": "Who is the teacher for class?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_teacher_lookup",
+    "text": "Class teachers?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_teacher_lookup",
+    "text": "Teachers assigned to class?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_teacher_lookup",
+    "text": "Who teaches class 10a?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_teacher_lookup",
+    "text": "Teachers for class 10a?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_teacher_lookup",
+    "text": "Class 10a teacher list?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_teacher_lookup",
+    "text": "All teachers for 10a?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_teacher_lookup",
+    "text": "Full teacher list for 10a?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_timetable_lookup",
+    "text": "Timetable for class?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_timetable_lookup",
+    "text": "Class timetable?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_timetable_lookup",
+    "text": "Class schedule?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_timetable_lookup",
+    "text": "Class routine?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_timetable_lookup",
+    "text": "Grade 10 section a timetable?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_timetable_lookup",
+    "text": "Class 10a schedule pls?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_timetable_lookup",
+    "text": "Gimme timetable for 9b?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_timetable_lookup",
+    "text": "Full timetable for 10a?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_timetable_lookup",
+    "text": "Weekly timetable for a class?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_timetable_lookup",
+    "text": "Class routine for 10a?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_wise_count",
+    "text": "Students per class?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_wise_count",
+    "text": "Class wise?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_wise_count",
+    "text": "Class-wise?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_wise_count",
+    "text": "Breakdown by class?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_wise_count",
+    "text": "Section wise count?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_wise_count",
+    "text": "Breakdown by section?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_wise_count",
+    "text": "Gimme classwise breakdown?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_wise_count",
+    "text": "Class-wise breakdown pls?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_wise_count",
+    "text": "How many per section?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "class_wise_count",
+    "text": "Just give me the breakdown?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "classes_assigned",
+    "text": "Which classes?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "classes_assigned",
+    "text": "My classes?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "classes_assigned",
+    "text": "Classes assigned?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "classes_assigned",
+    "text": "Classes i teach?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "classes_assigned",
+    "text": "Which sections am i assigned?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "classes_assigned",
+    "text": "Sections i handle?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "classes_assigned",
+    "text": "Grades assigned to me?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "classes_assigned",
+    "text": "Sections covered by me?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "classes_assigned",
+    "text": "Which classes do i teach?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "classes_assigned",
+    "text": "What classes do i teach?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "classroom_occupant",
+    "text": "Who is teaching class?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "classroom_occupant",
+    "text": "Who is in class?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "classroom_occupant",
+    "text": "Which teacher is in?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "classroom_occupant",
+    "text": "Whos teaching 10a?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "classroom_occupant",
+    "text": "Who's occupying that room?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "classroom_occupant",
+    "text": "Who's in room 10a?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "classroom_occupant",
+    "text": "Occupant check?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "classroom_occupant",
+    "text": "Whos in 10a right now?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "classroom_occupant",
+    "text": "Who is in that class now?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "classroom_occupant",
+    "text": "Which teacher is there now?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "current_class",
+    "text": "What am i teaching now?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "current_class",
+    "text": "Current class?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "current_class",
+    "text": "Right now?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "current_class",
+    "text": "What am i doing right now?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "current_class",
+    "text": "What am i teaching?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "current_class",
+    "text": "Which class am i teaching now?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "current_class",
+    "text": "Which class am i in right now?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "current_class",
+    "text": "Class right now?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "current_class",
+    "text": "Gimme my current class?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "current_class",
+    "text": "Just tell me current class?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_free_teachers",
+    "text": "Teachers in my department are free?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_free_teachers",
+    "text": "Free teachers in my department?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_free_teachers",
+    "text": "Who is free in my department?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_free_teachers",
+    "text": "Which teachers in my department are free?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_free_teachers",
+    "text": "Who's not busy in my dept?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_free_teachers",
+    "text": "Who's around in my dept?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_free_teachers",
+    "text": "Any teacher free in my department?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_free_teachers",
+    "text": "Who's free in science dept?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_free_teachers",
+    "text": "Free staff in my department?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_free_teachers",
+    "text": "Gimme free teachers in my dept?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_schedule_today",
+    "text": "My department's schedule today?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_schedule_today",
+    "text": "Department schedule today?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_schedule_today",
+    "text": "My department schedule?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_schedule_today",
+    "text": "Department's schedule today?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_schedule_today",
+    "text": "Gimme dept schedule today?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_schedule_today",
+    "text": "Quickly department schedule?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_schedule_today",
+    "text": "Just tell me dept schedule today?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_schedule_today",
+    "text": "Science department today?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_schedule_today",
+    "text": "Math department schedule today?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_schedule_today",
+    "text": "Todays department timetable?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_teacher_count",
+    "text": "How many teachers in my department?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_teacher_count",
+    "text": "Department teacher count?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_teacher_count",
+    "text": "Teacher count for my department?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_teacher_count",
+    "text": "How many faculty in my dept?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_teacher_count",
+    "text": "Dept headcount?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_teacher_count",
+    "text": "Total faculty in my dept?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_teacher_count",
+    "text": "Dept strength?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_teacher_count",
+    "text": "How many staff in my department?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "hod",
+    "intent": "department_teacher_count",
+    "text": "Department staff count?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "exam",
+    "text": "Exam date?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "exam",
+    "text": "Next exam?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "exam",
+    "text": "When is my exam?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "exam",
+    "text": "Test date?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "exam",
+    "text": "Exam dates?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "exam",
+    "text": "Upcoming exam?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "exam",
+    "text": "Upcoming exams?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "exam",
+    "text": "Next test?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "exam",
+    "text": "My exam date?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "exam",
+    "text": "Check exam date?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "fee",
+    "text": "Fee status?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "fee",
+    "text": "Fees paid?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "fee",
+    "text": "School fees?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "fee",
+    "text": "Fees status?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "fee",
+    "text": "Fee due?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "fee",
+    "text": "Fees due?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "fee",
+    "text": "Is my fee paid?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "fee",
+    "text": "Check fees?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "fee",
+    "text": "Outstanding fees?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "fee",
+    "text": "Fee balance?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "free_periods",
+    "text": "Free periods?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "free_periods",
+    "text": "Am i free?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "free_periods",
+    "text": "Do i have a free period?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "free_periods",
+    "text": "Any free time?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "free_periods",
+    "text": "Any spare time today?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "free_periods",
+    "text": "Do i have a gap today?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "free_periods",
+    "text": "When do i get a break?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "free_periods",
+    "text": "Any breaks today?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "free_periods",
+    "text": "Am i free right now?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "free_periods",
+    "text": "Do i have any free time?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "free_teachers",
+    "text": "Which teachers are free?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "free_teachers",
+    "text": "Free teachers right now?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "free_teachers",
+    "text": "Who is available?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "free_teachers",
+    "text": "Any teacher free right now?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "free_teachers",
+    "text": "Who's free at the moment?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "free_teachers",
+    "text": "Which staff is free?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "free_teachers",
+    "text": "Gimme list of free teachers?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "free_teachers",
+    "text": "Quickly any free teachers?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "free_teachers",
+    "text": "Just tell me who's free?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "free_teachers",
+    "text": "Hey any teachers free?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "greeting",
+    "text": "Good morning?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "greeting",
+    "text": "Good afternoon?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "greeting",
+    "text": "Good evening?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "greeting",
+    "text": "Hii?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "greeting",
+    "text": "Hiii?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "greeting",
+    "text": "Heyy?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "greeting",
+    "text": "Heya?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "greeting",
+    "text": "Yo yo?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "greeting",
+    "text": "Sup?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "greeting",
+    "text": "Wassup?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "help",
+    "text": "What can you do?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "help",
+    "text": "Help me?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "help",
+    "text": "What do you do?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "help",
+    "text": "What can u do?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "help",
+    "text": "What do u do?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "help",
+    "text": "How do i use this?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "help",
+    "text": "How does this work?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "help",
+    "text": "What can this bot do?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "help",
+    "text": "Options pls?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "help",
+    "text": "Show me options?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "identity",
+    "text": "What is my name?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "identity",
+    "text": "Who am i?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "identity",
+    "text": "My details?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "identity",
+    "text": "My info?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "identity",
+    "text": "Share my identity card info?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "identity",
+    "text": "Show my info?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "identity",
+    "text": "Show my profile?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "identity",
+    "text": "My profile?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "identity",
+    "text": "My id card info?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "identity",
+    "text": "Id card details?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "low_attendance_count",
+    "text": "Low attendance?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "low_attendance_count",
+    "text": "Below 75?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "low_attendance_count",
+    "text": "Attendance risk?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "low_attendance_count",
+    "text": "Students with poor attendance?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "low_attendance_count",
+    "text": "Students below 75 attendance?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "low_attendance_count",
+    "text": "Who has low attendance?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "low_attendance_count",
+    "text": "List low attendance students?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "low_attendance_count",
+    "text": "Students with bad attendance?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "low_attendance_count",
+    "text": "Which students have poor attendance?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "low_attendance_count",
+    "text": "Attendance risk list?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "my_class",
+    "text": "What class am i in?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "my_class",
+    "text": "Which class am i?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "my_class",
+    "text": "My class?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "my_class",
+    "text": "Which grade am i in?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "my_class",
+    "text": "What grade am i in?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "my_class",
+    "text": "My grade?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "my_class",
+    "text": "My section?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "my_class",
+    "text": "Which section am i in?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "my_class",
+    "text": "Which grade and section?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "my_class",
+    "text": "What section am i?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "next_class",
+    "text": "Next class?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "next_class",
+    "text": "Which class next?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "next_class",
+    "text": "Next period?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "next_class",
+    "text": "What is next?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "next_class",
+    "text": "What do i have next?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "next_class",
+    "text": "Which class do i teach next?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "next_class",
+    "text": "Next period for me?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "next_class",
+    "text": "What am i teaching next period?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "next_class",
+    "text": "Gimme my next class?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "next_class",
+    "text": "Just tell me next class?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "next_period",
+    "text": "Next period?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "next_period",
+    "text": "Next class?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "next_period",
+    "text": "What is next?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "next_period",
+    "text": "After this what do i have?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "next_period",
+    "text": "Right after this?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "next_period",
+    "text": "What do i have next?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "next_period",
+    "text": "Next period pls?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "next_period",
+    "text": "What comes after this period?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "next_period",
+    "text": "Gimme next period?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "next_period",
+    "text": "Just tell me next period?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "notices",
+    "text": "Latest notices?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "notices",
+    "text": "Any announcements?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "notices",
+    "text": "School notices?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "notices",
+    "text": "Any updates?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "notices",
+    "text": "Recent announcements?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "notices",
+    "text": "Any notices?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "notices",
+    "text": "Any notice?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "notices",
+    "text": "New notices?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "notices",
+    "text": "Any new announcements?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "notices",
+    "text": "Old announcements?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "pending_fees_count",
+    "text": "Pending fees?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "pending_fees_count",
+    "text": "Unpaid fees?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "pending_fees_count",
+    "text": "Fee defaulters?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "pending_fees_count",
+    "text": "Who has pending fees?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "pending_fees_count",
+    "text": "List students with pending fees?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "pending_fees_count",
+    "text": "Fee defaulters list?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "pending_fees_count",
+    "text": "Students who havent paid?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "pending_fees_count",
+    "text": "Which students owe fees?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "pending_fees_count",
+    "text": "Gimme pending fees list?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "pending_fees_count",
+    "text": "Show unpaid fees students?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "period_count",
+    "text": "How many periods?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "period_count",
+    "text": "Number of periods?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "period_count",
+    "text": "Periods today?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "period_count",
+    "text": "Periods this week?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "period_count",
+    "text": "Period count today?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "period_count",
+    "text": "Show my period count?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "period_count",
+    "text": "Just tell me period count?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "period_count",
+    "text": "How many lectures today?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "period_count",
+    "text": "How many lectures this week?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "period_count",
+    "text": "Weekly period count?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "periods_remaining",
+    "text": "Periods left?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "periods_remaining",
+    "text": "How many periods left?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "periods_remaining",
+    "text": "Periods remaining today?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "periods_remaining",
+    "text": "How many periods do i have left?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "periods_remaining",
+    "text": "How many periods left today?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "periods_remaining",
+    "text": "How many more periods?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "periods_remaining",
+    "text": "Am i done for the day?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "periods_remaining",
+    "text": "Am i almost done?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "periods_remaining",
+    "text": "Quickly how many left?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "periods_remaining",
+    "text": "How much longer today?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "roll_number",
+    "text": "My roll number?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "roll_number",
+    "text": "What is my roll?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "roll_number",
+    "text": "Roll no?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "roll_number",
+    "text": "Roll number?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "roll_number",
+    "text": "My enrollment number please?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "roll_number",
+    "text": "Tell me my roll no?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "roll_number",
+    "text": "Roll number pls?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "roll_number",
+    "text": "My roll no pls?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "roll_number",
+    "text": "Give me my roll number?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "roll_number",
+    "text": "Gimme roll no?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "school_wide_subject_teacher",
+    "text": "Who teaches?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "school_wide_subject_teacher",
+    "text": "Teacher for subject?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "school_wide_subject_teacher",
+    "text": "Who teaches physics to grade 12?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "school_wide_subject_teacher",
+    "text": "Who teaches math school wide?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "school_wide_subject_teacher",
+    "text": "Who teaches chemistry?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "school_wide_subject_teacher",
+    "text": "Who teaches biology?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "school_wide_subject_teacher",
+    "text": "Who teaches computer science?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "school_wide_subject_teacher",
+    "text": "Who teaches english?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "school_wide_subject_teacher",
+    "text": "Who teaches hindi?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "school_wide_subject_teacher",
+    "text": "Who teaches sst?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "subject_teacher",
+    "text": "Who teaches me?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "subject_teacher",
+    "text": "Who is my teacher for?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "subject_teacher",
+    "text": "Teacher for?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "subject_teacher",
+    "text": "My math sir?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "subject_teacher",
+    "text": "My science maam?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "subject_teacher",
+    "text": "My english maam?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "subject_teacher",
+    "text": "Who teaches me math?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "subject_teacher",
+    "text": "Who teaches me maths?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "subject_teacher",
+    "text": "Who teaches me science?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "subject_teacher",
+    "text": "Who teaches me english?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "subjects_offered",
+    "text": "Subjects does the school?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "subjects_offered",
+    "text": "Subjects does yara?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "subjects_offered",
+    "text": "Subjects are offered?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "subjects_offered",
+    "text": "Subjects offered?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "subjects_offered",
+    "text": "School subjects?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "subjects_offered",
+    "text": "List of subjects?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "subjects_offered",
+    "text": "Subjects available?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "subjects_offered",
+    "text": "Subjects does this school?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "subjects_offered",
+    "text": "What subjects can i take?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "subjects_offered",
+    "text": "Curriculum list?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_count_by_subject",
+    "text": "Teachers for subject?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_count_by_subject",
+    "text": "Faculty count for a subject?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_count_by_subject",
+    "text": "How many teachers teach physics?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_count_by_subject",
+    "text": "How many teach chemistry?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_count_by_subject",
+    "text": "How many teach biology?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_count_by_subject",
+    "text": "How many teach computer science?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_count_by_subject",
+    "text": "How many teach english?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_count_by_subject",
+    "text": "How many teach hindi?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_count_by_subject",
+    "text": "How many teach sst?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_count_by_subject",
+    "text": "Teacher count for math?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "teacher_identity",
+    "text": "What is my name?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "teacher_identity",
+    "text": "Who am i?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "teacher_identity",
+    "text": "My details?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "teacher_identity",
+    "text": "My subject?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "teacher_identity",
+    "text": "Show my profile?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "teacher_identity",
+    "text": "My profile?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "teacher_identity",
+    "text": "My employee details?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "teacher_identity",
+    "text": "Employee id?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "teacher_identity",
+    "text": "My contact details?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "teacher",
+    "intent": "teacher_identity",
+    "text": "My registered contact?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_location",
+    "text": "Where is?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_location",
+    "text": "Which class is teaching?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_location",
+    "text": "What is teaching right now?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_location",
+    "text": "Wheres mr ahmed?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_location",
+    "text": "Wheres ms priya?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_location",
+    "text": "Which room is he in?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_location",
+    "text": "Which room is she in?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_location",
+    "text": "Where can i find?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_location",
+    "text": "Gimme location of?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_location",
+    "text": "Just tell me where he is?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_schedule_lookup",
+    "text": "Schedule for?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_schedule_lookup",
+    "text": "Timetable for teacher?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_schedule_lookup",
+    "text": "Show me schedule for mr?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_schedule_lookup",
+    "text": "Show me schedule for ms?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_schedule_lookup",
+    "text": "Gimme his schedule?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_schedule_lookup",
+    "text": "Gimme her schedule?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_schedule_lookup",
+    "text": "His timetable pls?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_schedule_lookup",
+    "text": "Her timetable pls?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_schedule_lookup",
+    "text": "Quickly show his schedule?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_schedule_lookup",
+    "text": "Just tell me her schedule?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "thanks",
+    "text": "Thank you?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "thanks",
+    "text": "Thanks a lot?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "thanks",
+    "text": "Thanks bro?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "thanks",
+    "text": "Thank u?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "thanks",
+    "text": "Thnx?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "thanks",
+    "text": "Tysm?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "thanks",
+    "text": "Much appreciated?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "thanks",
+    "text": "Appreciate it?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "thanks",
+    "text": "Thanks a ton?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "thanks",
+    "text": "Cheers?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "timetable",
+    "text": "My timetable?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "timetable",
+    "text": "My schedule?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "timetable",
+    "text": "Class schedule?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "timetable",
+    "text": "Today's classes?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "timetable",
+    "text": "Todays classes?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "timetable",
+    "text": "Time table?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "timetable",
+    "text": "Class routine?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "timetable",
+    "text": "Today's schedule?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "timetable",
+    "text": "Todays schedule?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "student",
+    "intent": "timetable",
+    "text": "Today's timetable?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "total_students",
+    "text": "How many students?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "total_students",
+    "text": "Total students?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "total_students",
+    "text": "Number of students?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "total_students",
+    "text": "Total student count?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "total_students",
+    "text": "How many students in school?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "total_students",
+    "text": "How many students enrolled?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "total_students",
+    "text": "Total strength?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "total_students",
+    "text": "School strength?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "total_students",
+    "text": "Overall student count?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "total_students",
+    "text": "How many kids in school?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "total_teachers",
+    "text": "How many teachers?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "total_teachers",
+    "text": "Total teachers?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "total_teachers",
+    "text": "Number of teachers?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "total_teachers",
+    "text": "Total staff count?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "total_teachers",
+    "text": "How many staff members?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "total_teachers",
+    "text": "How many faculty?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "total_teachers",
+    "text": "Total faculty?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "total_teachers",
+    "text": "Number of faculty members?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "total_teachers",
+    "text": "Faculty size?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "role": "principal",
+    "intent": "total_teachers",
+    "text": "How many educators?",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "attendance",
+    "role": "student",
+    "text": "please whats my attendance looking like",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "attendance",
+    "role": "student",
+    "text": "please how often have i been absent",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "exam",
+    "role": "student",
+    "text": "please what assessment do i have next",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "exam",
+    "role": "student",
+    "text": "please are any of my exams scheduled",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "timetable",
+    "role": "student",
+    "text": "please what lessons have i got today",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "timetable",
+    "role": "student",
+    "text": "please show my schedule for this week",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "fee",
+    "role": "student",
+    "text": "please do i still owe the school",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "fee",
+    "role": "student",
+    "text": "please is there a payment pending on my account",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "period_count",
+    "role": "teacher",
+    "text": "please how many lessons am i taking today",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "period_count",
+    "role": "teacher",
+    "text": "please count my teaching periods this week",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "classes_assigned",
+    "role": "teacher",
+    "text": "please what groups have i been given",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "classes_assigned",
+    "role": "teacher",
+    "text": "please show the sections i am responsible for",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "total_students",
+    "role": "principal",
+    "text": "please what is the schools current enrollment",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "total_students",
+    "role": "principal",
+    "text": "please give me the size of the student body",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "total_teachers",
+    "role": "principal",
+    "text": "please give me the size of the teaching team",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "total_teachers",
+    "role": "principal",
+    "text": "please what is the current faculty total",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "class_wise_count",
+    "role": "principal",
+    "text": "please split the student count by class",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "class_wise_count",
+    "role": "principal",
+    "text": "please show enrollment for each section",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "greeting",
+    "role": "student",
+    "text": "please evening nova",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "greeting",
+    "role": "student",
+    "text": "please hello there nova",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "thanks",
+    "role": "student",
+    "text": "please cheers for the answer",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "thanks",
+    "role": "student",
+    "text": "please okay that was useful thanks",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "help",
+    "role": "student",
+    "text": "please what school questions do you understand",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "help",
+    "role": "student",
+    "text": "please show what nova knows about",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "identity",
+    "role": "student",
+    "text": "please what information is on my profile",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "identity",
+    "role": "student",
+    "text": "please show the details registered for me",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "roll_number",
+    "role": "student",
+    "text": "please which admission number belongs to me",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "roll_number",
+    "role": "student",
+    "text": "please tell me my student id",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "my_class",
+    "role": "student",
+    "text": "please what class was i placed in",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "my_class",
+    "role": "student",
+    "text": "please which grade and section is mine",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "next_period",
+    "role": "student",
+    "text": "please which lesson comes next for me",
+    "category": "synthetic_unseen"
+  },
+  {
+    "intent": "next_period",
+    "role": "student",
+    "text": "please what have i got after this class",
+    "category": "synthetic_unseen"
+  }
+]

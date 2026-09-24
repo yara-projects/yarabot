@@ -1,0 +1,482 @@
+[
+  {
+    "intent": "attendance",
+    "role": "student",
+    "text": "whats my attendance looking like",
+    "category": "held_out"
+  },
+  {
+    "intent": "attendance",
+    "role": "student",
+    "text": "how often have i been absent",
+    "category": "held_out"
+  },
+  {
+    "intent": "exam",
+    "role": "student",
+    "text": "what assessment do i have next",
+    "category": "held_out"
+  },
+  {
+    "intent": "exam",
+    "role": "student",
+    "text": "are any of my exams scheduled",
+    "category": "held_out"
+  },
+  {
+    "intent": "timetable",
+    "role": "student",
+    "text": "what lessons have i got today",
+    "category": "held_out"
+  },
+  {
+    "intent": "timetable",
+    "role": "student",
+    "text": "show my schedule for this week",
+    "category": "held_out"
+  },
+  {
+    "intent": "fee",
+    "role": "student",
+    "text": "do i still owe the school",
+    "category": "held_out"
+  },
+  {
+    "intent": "fee",
+    "role": "student",
+    "text": "is there a payment pending on my account",
+    "category": "held_out"
+  },
+  {
+    "intent": "period_count",
+    "role": "teacher",
+    "text": "how many lessons am i taking today",
+    "category": "held_out"
+  },
+  {
+    "intent": "period_count",
+    "role": "teacher",
+    "text": "count my teaching periods this week",
+    "category": "held_out"
+  },
+  {
+    "intent": "classes_assigned",
+    "role": "teacher",
+    "text": "what groups have i been given",
+    "category": "held_out"
+  },
+  {
+    "intent": "classes_assigned",
+    "role": "teacher",
+    "text": "show the sections i am responsible for",
+    "category": "held_out"
+  },
+  {
+    "intent": "total_students",
+    "role": "principal",
+    "text": "what is the schools current enrollment",
+    "category": "held_out"
+  },
+  {
+    "intent": "total_students",
+    "role": "principal",
+    "text": "give me the size of the student body",
+    "category": "held_out"
+  },
+  {
+    "intent": "total_teachers",
+    "role": "principal",
+    "text": "give me the size of the teaching team",
+    "category": "held_out"
+  },
+  {
+    "intent": "total_teachers",
+    "role": "principal",
+    "text": "what is the current faculty total",
+    "category": "held_out"
+  },
+  {
+    "intent": "class_wise_count",
+    "role": "principal",
+    "text": "split the student count by class",
+    "category": "held_out"
+  },
+  {
+    "intent": "class_wise_count",
+    "role": "principal",
+    "text": "show enrollment for each section",
+    "category": "held_out"
+  },
+  {
+    "intent": "greeting",
+    "role": "student",
+    "text": "evening nova",
+    "category": "held_out"
+  },
+  {
+    "intent": "greeting",
+    "role": "student",
+    "text": "hello there nova",
+    "category": "held_out"
+  },
+  {
+    "intent": "thanks",
+    "role": "student",
+    "text": "cheers for the answer",
+    "category": "held_out"
+  },
+  {
+    "intent": "thanks",
+    "role": "student",
+    "text": "okay that was useful thanks",
+    "category": "held_out"
+  },
+  {
+    "intent": "help",
+    "role": "student",
+    "text": "what school questions do you understand",
+    "category": "held_out"
+  },
+  {
+    "intent": "help",
+    "role": "student",
+    "text": "show what nova knows about",
+    "category": "held_out"
+  },
+  {
+    "intent": "identity",
+    "role": "student",
+    "text": "what information is on my profile",
+    "category": "held_out"
+  },
+  {
+    "intent": "identity",
+    "role": "student",
+    "text": "show the details registered for me",
+    "category": "held_out"
+  },
+  {
+    "intent": "roll_number",
+    "role": "student",
+    "text": "which admission number belongs to me",
+    "category": "held_out"
+  },
+  {
+    "intent": "roll_number",
+    "role": "student",
+    "text": "tell me my student id",
+    "category": "held_out"
+  },
+  {
+    "intent": "my_class",
+    "role": "student",
+    "text": "what class was i placed in",
+    "category": "held_out"
+  },
+  {
+    "intent": "my_class",
+    "role": "student",
+    "text": "which grade and section is mine",
+    "category": "held_out"
+  },
+  {
+    "intent": "next_period",
+    "role": "student",
+    "text": "which lesson comes next for me",
+    "category": "held_out"
+  },
+  {
+    "intent": "next_period",
+    "role": "student",
+    "text": "what have i got after this class",
+    "category": "held_out"
+  },
+  {
+    "intent": "subject_teacher",
+    "role": "student",
+    "text": "who is taking us for maths",
+    "category": "held_out"
+  },
+  {
+    "intent": "subject_teacher",
+    "role": "student",
+    "text": "tell me the teacher for biology",
+    "category": "held_out"
+  },
+  {
+    "intent": "next_class",
+    "role": "teacher",
+    "text": "which group is next on my schedule",
+    "category": "held_out"
+  },
+  {
+    "intent": "next_class",
+    "role": "teacher",
+    "text": "where should i go for my next lesson",
+    "category": "held_out"
+  },
+  {
+    "intent": "current_class",
+    "role": "teacher",
+    "text": "which group should i have right now",
+    "category": "held_out"
+  },
+  {
+    "intent": "current_class",
+    "role": "teacher",
+    "text": "what lesson am i meant to be in",
+    "category": "held_out"
+  },
+  {
+    "intent": "free_periods",
+    "role": "teacher",
+    "text": "show the gaps between my lessons",
+    "category": "held_out"
+  },
+  {
+    "intent": "free_periods",
+    "role": "teacher",
+    "text": "when do i have no class today",
+    "category": "held_out"
+  },
+  {
+    "intent": "periods_remaining",
+    "role": "teacher",
+    "text": "how much teaching do i still have today",
+    "category": "held_out"
+  },
+  {
+    "intent": "periods_remaining",
+    "role": "teacher",
+    "text": "count the periods i have left",
+    "category": "held_out"
+  },
+  {
+    "intent": "teacher_identity",
+    "role": "teacher",
+    "text": "show the details on my staff record",
+    "category": "held_out"
+  },
+  {
+    "intent": "teacher_identity",
+    "role": "teacher",
+    "text": "which employee id is mine",
+    "category": "held_out"
+  },
+  {
+    "intent": "teacher_location",
+    "role": "principal",
+    "text": "where should i look for mr khan",
+    "category": "held_out"
+  },
+  {
+    "intent": "teacher_location",
+    "role": "principal",
+    "text": "tell me where ms ali is now",
+    "category": "held_out"
+  },
+  {
+    "intent": "classroom_occupant",
+    "role": "principal",
+    "text": "which teacher is inside 10b now",
+    "category": "held_out"
+  },
+  {
+    "intent": "classroom_occupant",
+    "role": "principal",
+    "text": "who is taking 9a this period",
+    "category": "held_out"
+  },
+  {
+    "intent": "free_teachers",
+    "role": "principal",
+    "text": "which teacher has no lesson right now",
+    "category": "held_out"
+  },
+  {
+    "intent": "free_teachers",
+    "role": "principal",
+    "text": "show staff available for cover",
+    "category": "held_out"
+  },
+  {
+    "intent": "teacher_schedule_lookup",
+    "role": "principal",
+    "text": "pull up ms alis teaching schedule",
+    "category": "held_out"
+  },
+  {
+    "intent": "teacher_schedule_lookup",
+    "role": "principal",
+    "text": "what lessons does mr khan have today",
+    "category": "held_out"
+  },
+  {
+    "intent": "class_timetable_lookup",
+    "role": "principal",
+    "text": "what is on the schedule for 10b",
+    "category": "held_out"
+  },
+  {
+    "intent": "class_timetable_lookup",
+    "role": "principal",
+    "text": "show todays lessons for grade 9a",
+    "category": "held_out"
+  },
+  {
+    "intent": "school_wide_subject_teacher",
+    "role": "principal",
+    "text": "show everyone who teaches physics",
+    "category": "held_out"
+  },
+  {
+    "intent": "school_wide_subject_teacher",
+    "role": "principal",
+    "text": "which staff members take biology",
+    "category": "held_out"
+  },
+  {
+    "intent": "class_teacher_lookup",
+    "role": "principal",
+    "text": "show every teacher assigned to 10b",
+    "category": "held_out"
+  },
+  {
+    "intent": "class_teacher_lookup",
+    "role": "principal",
+    "text": "who takes the subjects in grade 9a",
+    "category": "held_out"
+  },
+  {
+    "intent": "class_teacher",
+    "role": "student",
+    "text": "who is the teacher in charge of our section",
+    "category": "held_out"
+  },
+  {
+    "intent": "class_teacher",
+    "role": "student",
+    "text": "name my form tutor",
+    "category": "held_out"
+  },
+  {
+    "intent": "low_attendance_count",
+    "role": "principal",
+    "text": "how many students are short of attendance",
+    "category": "held_out"
+  },
+  {
+    "intent": "low_attendance_count",
+    "role": "principal",
+    "text": "count everyone below the attendance cutoff",
+    "category": "held_out"
+  },
+  {
+    "intent": "pending_fees_count",
+    "role": "principal",
+    "text": "how many students still owe fees",
+    "category": "held_out"
+  },
+  {
+    "intent": "pending_fees_count",
+    "role": "principal",
+    "text": "count accounts with school fees due",
+    "category": "held_out"
+  },
+  {
+    "intent": "teacher_count_by_subject",
+    "role": "principal",
+    "text": "how many staff members teach biology",
+    "category": "held_out"
+  },
+  {
+    "intent": "teacher_count_by_subject",
+    "role": "principal",
+    "text": "give me the faculty count for chemistry",
+    "category": "held_out"
+  },
+  {
+    "intent": "department_free_teachers",
+    "role": "hod",
+    "text": "show available teachers from my department",
+    "category": "held_out"
+  },
+  {
+    "intent": "department_free_teachers",
+    "role": "hod",
+    "text": "who on my department team has a gap now",
+    "category": "held_out"
+  },
+  {
+    "intent": "department_schedule_today",
+    "role": "hod",
+    "text": "show todays plan for my department",
+    "category": "held_out"
+  },
+  {
+    "intent": "department_schedule_today",
+    "role": "hod",
+    "text": "what is my departments teaching schedule today",
+    "category": "held_out"
+  },
+  {
+    "intent": "department_teacher_count",
+    "role": "hod",
+    "text": "how large is the staff in my department",
+    "category": "held_out"
+  },
+  {
+    "intent": "department_teacher_count",
+    "role": "hod",
+    "text": "give me my departments teacher total",
+    "category": "held_out"
+  },
+  {
+    "intent": "notices",
+    "role": "student",
+    "text": "has the school posted anything new",
+    "category": "held_out"
+  },
+  {
+    "intent": "notices",
+    "role": "student",
+    "text": "show me the newest circular",
+    "category": "held_out"
+  },
+  {
+    "intent": "subjects_offered",
+    "role": "student",
+    "text": "which subjects are part of the curriculum",
+    "category": "held_out"
+  },
+  {
+    "intent": "subjects_offered",
+    "role": "student",
+    "text": "what courses does yara offer",
+    "category": "held_out"
+  },
+  {
+    "intent": "complaint_feedback",
+    "role": "student",
+    "text": "i need to tell the vp about a teacher",
+    "category": "held_out"
+  },
+  {
+    "intent": "complaint_feedback",
+    "role": "student",
+    "text": "how do i make a private teacher complaint",
+    "category": "held_out"
+  },
+  {
+    "intent": "complaint_summary",
+    "role": "vice_principal",
+    "text": "are any student complaints waiting",
+    "category": "held_out"
+  },
+  {
+    "intent": "complaint_summary",
+    "role": "vice_principal",
+    "text": "show the latest private complaints",
+    "category": "held_out"
+  }
+]

@@ -1,0 +1,3761 @@
+{
+  "candidate_counts": {
+    "REJECT": 46,
+    "SAFE": 290,
+    "AMBIGUOUS": 6
+  },
+  "candidate_total": 342,
+  "approved_total": 290,
+  "held_out_before": {
+    "total": 80,
+    "accuracy": 0.1625,
+    "tie_rate": 0.075,
+    "clarification_rate": 0.075,
+    "no_match_rate": 0.75,
+    "wrong_intent_rate": 0.0125,
+    "counts": {
+      "CORRECT": 13,
+      "NO_MATCH": 60,
+      "TIE": 6,
+      "WRONG": 1
+    },
+    "per_intent": {
+      "attendance": {
+        "CORRECT": 1,
+        "NO_MATCH": 1
+      },
+      "class_teacher": {
+        "NO_MATCH": 2
+      },
+      "class_teacher_lookup": {
+        "NO_MATCH": 2
+      },
+      "class_timetable_lookup": {
+        "TIE": 1,
+        "CORRECT": 1
+      },
+      "class_wise_count": {
+        "NO_MATCH": 2
+      },
+      "classes_assigned": {
+        "NO_MATCH": 2
+      },
+      "classroom_occupant": {
+        "NO_MATCH": 2
+      },
+      "complaint_feedback": {
+        "NO_MATCH": 2
+      },
+      "complaint_summary": {
+        "NO_MATCH": 2
+      },
+      "current_class": {
+        "CORRECT": 1,
+        "NO_MATCH": 1
+      },
+      "department_free_teachers": {
+        "TIE": 1,
+        "NO_MATCH": 1
+      },
+      "department_schedule_today": {
+        "NO_MATCH": 1,
+        "TIE": 1
+      },
+      "department_teacher_count": {
+        "NO_MATCH": 1,
+        "TIE": 1
+      },
+      "exam": {
+        "NO_MATCH": 2
+      },
+      "fee": {
+        "NO_MATCH": 2
+      },
+      "free_periods": {
+        "NO_MATCH": 2
+      },
+      "free_teachers": {
+        "NO_MATCH": 2
+      },
+      "greeting": {
+        "NO_MATCH": 1,
+        "CORRECT": 1
+      },
+      "help": {
+        "NO_MATCH": 2
+      },
+      "identity": {
+        "CORRECT": 1,
+        "NO_MATCH": 1
+      },
+      "low_attendance_count": {
+        "NO_MATCH": 2
+      },
+      "my_class": {
+        "NO_MATCH": 1,
+        "CORRECT": 1
+      },
+      "next_class": {
+        "TIE": 1,
+        "NO_MATCH": 1
+      },
+      "next_period": {
+        "NO_MATCH": 2
+      },
+      "notices": {
+        "CORRECT": 1,
+        "NO_MATCH": 1
+      },
+      "pending_fees_count": {
+        "NO_MATCH": 2
+      },
+      "period_count": {
+        "NO_MATCH": 1,
+        "CORRECT": 1
+      },
+      "periods_remaining": {
+        "NO_MATCH": 1,
+        "TIE": 1
+      },
+      "roll_number": {
+        "NO_MATCH": 2
+      },
+      "school_wide_subject_teacher": {
+        "CORRECT": 1,
+        "NO_MATCH": 1
+      },
+      "subject_teacher": {
+        "NO_MATCH": 1,
+        "CORRECT": 1
+      },
+      "subjects_offered": {
+        "NO_MATCH": 2
+      },
+      "teacher_count_by_subject": {
+        "WRONG": 1,
+        "NO_MATCH": 1
+      },
+      "teacher_identity": {
+        "NO_MATCH": 1,
+        "CORRECT": 1
+      },
+      "teacher_location": {
+        "NO_MATCH": 2
+      },
+      "teacher_schedule_lookup": {
+        "NO_MATCH": 2
+      },
+      "thanks": {
+        "CORRECT": 1,
+        "NO_MATCH": 1
+      },
+      "timetable": {
+        "NO_MATCH": 1,
+        "CORRECT": 1
+      },
+      "total_students": {
+        "NO_MATCH": 2
+      },
+      "total_teachers": {
+        "NO_MATCH": 2
+      }
+    },
+    "confusion": [
+      {
+        "expected": "teacher_count_by_subject",
+        "predicted": "total_teachers",
+        "count": 1
+      }
+    ],
+    "latency_ms": {
+      "average": 0.8842962503877061,
+      "p95": 1.316099995165132,
+      "maximum": 1.5024999956949614
+    },
+    "failures": [
+      {
+        "intent": "attendance",
+        "role": "student",
+        "text": "how often have i been absent",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "attendance",
+            1
+          ]
+        ],
+        "latency_ms": 0.7815999997546896
+      },
+      {
+        "intent": "exam",
+        "role": "student",
+        "text": "what assessment do i have next",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "next_period",
+            1
+          ]
+        ],
+        "latency_ms": 0.6647000045632012
+      },
+      {
+        "intent": "exam",
+        "role": "student",
+        "text": "are any of my exams scheduled",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "exam",
+            1
+          ],
+          [
+            "timetable",
+            1
+          ]
+        ],
+        "latency_ms": 0.6455999973695725
+      },
+      {
+        "intent": "timetable",
+        "role": "student",
+        "text": "what lessons have i got today",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 0.5479999963426962
+      },
+      {
+        "intent": "fee",
+        "role": "student",
+        "text": "do i still owe the school",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 0.6313999983831309
+      },
+      {
+        "intent": "fee",
+        "role": "student",
+        "text": "is there a payment pending on my account",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "fee",
+            1
+          ]
+        ],
+        "latency_ms": 0.9505999987595715
+      },
+      {
+        "intent": "period_count",
+        "role": "teacher",
+        "text": "how many lessons am i taking today",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 0.6966000000829808
+      },
+      {
+        "intent": "classes_assigned",
+        "role": "teacher",
+        "text": "what groups have i been given",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 0.5924999932176434
+      },
+      {
+        "intent": "classes_assigned",
+        "role": "teacher",
+        "text": "show the sections i am responsible for",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 0.6950000024517067
+      },
+      {
+        "intent": "total_students",
+        "role": "principal",
+        "text": "what is the schools current enrollment",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "notices",
+            1
+          ]
+        ],
+        "latency_ms": 1.0322000016458333
+      },
+      {
+        "intent": "total_students",
+        "role": "principal",
+        "text": "give me the size of the student body",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "total_students",
+            1
+          ]
+        ],
+        "latency_ms": 0.8563000010326505
+      },
+      {
+        "intent": "total_teachers",
+        "role": "principal",
+        "text": "give me the size of the teaching team",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "classroom_occupant",
+            1
+          ],
+          [
+            "class_teacher_lookup",
+            1
+          ]
+        ],
+        "latency_ms": 0.879999999597203
+      },
+      {
+        "intent": "total_teachers",
+        "role": "principal",
+        "text": "what is the current faculty total",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "notices",
+            1
+          ]
+        ],
+        "latency_ms": 0.9081000025616959
+      },
+      {
+        "intent": "class_wise_count",
+        "role": "principal",
+        "text": "split the student count by class",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 1.1331999994581565
+      },
+      {
+        "intent": "class_wise_count",
+        "role": "principal",
+        "text": "show enrollment for each section",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 0.8683000050950795
+      },
+      {
+        "intent": "greeting",
+        "role": "student",
+        "text": "evening nova",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 0.4155999995418824
+      },
+      {
+        "intent": "thanks",
+        "role": "student",
+        "text": "okay that was useful thanks",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "thanks",
+            1
+          ]
+        ],
+        "latency_ms": 0.8611000012024306
+      },
+      {
+        "intent": "help",
+        "role": "student",
+        "text": "what school questions do you understand",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 0.9676000045146793
+      },
+      {
+        "intent": "help",
+        "role": "student",
+        "text": "show what nova knows about",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 0.5196999991312623
+      },
+      {
+        "intent": "identity",
+        "role": "student",
+        "text": "show the details registered for me",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 0.7261999999172986
+      },
+      {
+        "intent": "roll_number",
+        "role": "student",
+        "text": "which admission number belongs to me",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 0.996900002064649
+      },
+      {
+        "intent": "roll_number",
+        "role": "student",
+        "text": "tell me my student id",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 0.44490000436780974
+      },
+      {
+        "intent": "my_class",
+        "role": "student",
+        "text": "what class was i placed in",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "timetable",
+            1
+          ],
+          [
+            "my_class",
+            1
+          ],
+          [
+            "class_teacher",
+            1
+          ]
+        ],
+        "latency_ms": 0.7851999980630353
+      },
+      {
+        "intent": "next_period",
+        "role": "student",
+        "text": "which lesson comes next for me",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "next_period",
+            1
+          ]
+        ],
+        "latency_ms": 0.8362000007764436
+      },
+      {
+        "intent": "next_period",
+        "role": "student",
+        "text": "what have i got after this class",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "timetable",
+            1
+          ],
+          [
+            "my_class",
+            1
+          ],
+          [
+            "class_teacher",
+            1
+          ]
+        ],
+        "latency_ms": 0.6752999979653396
+      },
+      {
+        "intent": "subject_teacher",
+        "role": "student",
+        "text": "who is taking us for maths",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 0.7170000026235357
+      },
+      {
+        "intent": "next_class",
+        "role": "teacher",
+        "text": "which group is next on my schedule",
+        "category": "held_out",
+        "outcome": "TIE",
+        "predicted": "timetable",
+        "top_score": 4,
+        "second_score": 4,
+        "margin": 0,
+        "ranked": [
+          [
+            "timetable",
+            4
+          ],
+          [
+            "next_class",
+            4
+          ]
+        ],
+        "latency_ms": 0.7010999979684129
+      },
+      {
+        "intent": "next_class",
+        "role": "teacher",
+        "text": "where should i go for my next lesson",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "next_class",
+            1
+          ]
+        ],
+        "latency_ms": 0.7409999961964786
+      },
+      {
+        "intent": "current_class",
+        "role": "teacher",
+        "text": "what lesson am i meant to be in",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 0.4975000047124922
+      },
+      {
+        "intent": "free_periods",
+        "role": "teacher",
+        "text": "show the gaps between my lessons",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 0.5461999971885234
+      },
+      {
+        "intent": "free_periods",
+        "role": "teacher",
+        "text": "when do i have no class today",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "timetable",
+            1
+          ],
+          [
+            "classes_assigned",
+            1
+          ],
+          [
+            "current_class",
+            1
+          ]
+        ],
+        "latency_ms": 0.4562999965855852
+      },
+      {
+        "intent": "periods_remaining",
+        "role": "teacher",
+        "text": "how much teaching do i still have today",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "classes_assigned",
+            1
+          ]
+        ],
+        "latency_ms": 0.6366999950842
+      },
+      {
+        "intent": "periods_remaining",
+        "role": "teacher",
+        "text": "count the periods i have left",
+        "category": "held_out",
+        "outcome": "TIE",
+        "predicted": "periods_remaining",
+        "top_score": 2,
+        "second_score": 1,
+        "margin": 1,
+        "ranked": [
+          [
+            "periods_remaining",
+            2
+          ],
+          [
+            "timetable",
+            1
+          ],
+          [
+            "free_periods",
+            1
+          ]
+        ],
+        "latency_ms": 0.5441000030259602
+      },
+      {
+        "intent": "teacher_identity",
+        "role": "teacher",
+        "text": "show the details on my staff record",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 0.6066999994800426
+      },
+      {
+        "intent": "teacher_location",
+        "role": "principal",
+        "text": "where should i look for mr khan",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "teacher_location",
+            1
+          ]
+        ],
+        "latency_ms": 0.9905000042635947
+      },
+      {
+        "intent": "teacher_location",
+        "role": "principal",
+        "text": "tell me where ms ali is now",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "teacher_location",
+            1
+          ]
+        ],
+        "latency_ms": 0.6721000027027912
+      },
+      {
+        "intent": "classroom_occupant",
+        "role": "principal",
+        "text": "which teacher is inside 10b now",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "class_teacher_lookup",
+            1
+          ],
+          [
+            "class_teacher",
+            1
+          ]
+        ],
+        "latency_ms": 1.0428000023239292
+      },
+      {
+        "intent": "classroom_occupant",
+        "role": "principal",
+        "text": "who is taking 9a this period",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 0.7555000047432259
+      },
+      {
+        "intent": "free_teachers",
+        "role": "principal",
+        "text": "which teacher has no lesson right now",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 1.2398000035318546
+      },
+      {
+        "intent": "free_teachers",
+        "role": "principal",
+        "text": "show staff available for cover",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 0.8030000026337802
+      },
+      {
+        "intent": "teacher_schedule_lookup",
+        "role": "principal",
+        "text": "pull up ms alis teaching schedule",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 1.3261000058264472
+      },
+      {
+        "intent": "teacher_schedule_lookup",
+        "role": "principal",
+        "text": "what lessons does mr khan have today",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 1.0422999985166825
+      },
+      {
+        "intent": "class_timetable_lookup",
+        "role": "principal",
+        "text": "what is on the schedule for 10b",
+        "category": "held_out",
+        "outcome": "TIE",
+        "predicted": "teacher_schedule_lookup",
+        "top_score": 4,
+        "second_score": 4,
+        "margin": 0,
+        "ranked": [
+          [
+            "teacher_schedule_lookup",
+            4
+          ],
+          [
+            "class_timetable_lookup",
+            4
+          ]
+        ],
+        "latency_ms": 0.8503999997628853
+      },
+      {
+        "intent": "school_wide_subject_teacher",
+        "role": "principal",
+        "text": "which staff members take biology",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 1.2822999997297302
+      },
+      {
+        "intent": "class_teacher_lookup",
+        "role": "principal",
+        "text": "show every teacher assigned to 10b",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "class_teacher_lookup",
+            1
+          ],
+          [
+            "class_teacher",
+            1
+          ]
+        ],
+        "latency_ms": 1.2874000021838583
+      },
+      {
+        "intent": "class_teacher_lookup",
+        "role": "principal",
+        "text": "who takes the subjects in grade 9a",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 1.2551000036182813
+      },
+      {
+        "intent": "class_teacher",
+        "role": "student",
+        "text": "who is the teacher in charge of our section",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 1.4620000001741573
+      },
+      {
+        "intent": "class_teacher",
+        "role": "student",
+        "text": "name my form tutor",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "identity",
+            1
+          ]
+        ],
+        "latency_ms": 0.7372999971266836
+      },
+      {
+        "intent": "low_attendance_count",
+        "role": "principal",
+        "text": "how many students are short of attendance",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 1.2496999988798052
+      },
+      {
+        "intent": "low_attendance_count",
+        "role": "principal",
+        "text": "count everyone below the attendance cutoff",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 1.5024999956949614
+      },
+      {
+        "intent": "pending_fees_count",
+        "role": "principal",
+        "text": "how many students still owe fees",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 1.156099999207072
+      },
+      {
+        "intent": "pending_fees_count",
+        "role": "principal",
+        "text": "count accounts with school fees due",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 1.2717999998130836
+      },
+      {
+        "intent": "teacher_count_by_subject",
+        "role": "principal",
+        "text": "how many staff members teach biology",
+        "category": "held_out",
+        "outcome": "WRONG",
+        "predicted": "total_teachers",
+        "top_score": 5,
+        "second_score": 0,
+        "margin": 5,
+        "ranked": [
+          [
+            "total_teachers",
+            5
+          ]
+        ],
+        "latency_ms": 1.4590999999199994
+      },
+      {
+        "intent": "teacher_count_by_subject",
+        "role": "principal",
+        "text": "give me the faculty count for chemistry",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 1.168100003269501
+      },
+      {
+        "intent": "department_free_teachers",
+        "role": "hod",
+        "text": "show available teachers from my department",
+        "category": "held_out",
+        "outcome": "TIE",
+        "predicted": "department_free_teachers",
+        "top_score": 2,
+        "second_score": 2,
+        "margin": 0,
+        "ranked": [
+          [
+            "department_free_teachers",
+            2
+          ],
+          [
+            "department_teacher_count",
+            2
+          ],
+          [
+            "classes_assigned",
+            1
+          ]
+        ],
+        "latency_ms": 1.1507000017445534
+      },
+      {
+        "intent": "department_free_teachers",
+        "role": "hod",
+        "text": "who on my department team has a gap now",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "current_class",
+            1
+          ],
+          [
+            "department_free_teachers",
+            1
+          ],
+          [
+            "department_schedule_today",
+            1
+          ]
+        ],
+        "latency_ms": 1.0450999980093911
+      },
+      {
+        "intent": "department_schedule_today",
+        "role": "hod",
+        "text": "show todays plan for my department",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "department_free_teachers",
+            1
+          ],
+          [
+            "department_schedule_today",
+            1
+          ],
+          [
+            "department_teacher_count",
+            1
+          ]
+        ],
+        "latency_ms": 0.8558999979868531
+      },
+      {
+        "intent": "department_schedule_today",
+        "role": "hod",
+        "text": "what is my departments teaching schedule today",
+        "category": "held_out",
+        "outcome": "TIE",
+        "predicted": "department_schedule_today",
+        "top_score": 2,
+        "second_score": 1,
+        "margin": 1,
+        "ranked": [
+          [
+            "department_schedule_today",
+            2
+          ],
+          [
+            "timetable",
+            1
+          ],
+          [
+            "classes_assigned",
+            1
+          ]
+        ],
+        "latency_ms": 1.1038000011467375
+      },
+      {
+        "intent": "department_teacher_count",
+        "role": "hod",
+        "text": "how large is the staff in my department",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "department_free_teachers",
+            1
+          ],
+          [
+            "department_schedule_today",
+            1
+          ],
+          [
+            "department_teacher_count",
+            1
+          ]
+        ],
+        "latency_ms": 0.9487999996053986
+      },
+      {
+        "intent": "department_teacher_count",
+        "role": "hod",
+        "text": "give me my departments teacher total",
+        "category": "held_out",
+        "outcome": "TIE",
+        "predicted": "department_free_teachers",
+        "top_score": 2,
+        "second_score": 2,
+        "margin": 0,
+        "ranked": [
+          [
+            "department_free_teachers",
+            2
+          ],
+          [
+            "department_teacher_count",
+            2
+          ],
+          [
+            "classes_assigned",
+            1
+          ]
+        ],
+        "latency_ms": 0.9568000023136847
+      },
+      {
+        "intent": "notices",
+        "role": "student",
+        "text": "show me the newest circular",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 0.7471999997505918
+      },
+      {
+        "intent": "subjects_offered",
+        "role": "student",
+        "text": "which subjects are part of the curriculum",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "subjects_offered",
+            1
+          ]
+        ],
+        "latency_ms": 1.1530999981914647
+      },
+      {
+        "intent": "subjects_offered",
+        "role": "student",
+        "text": "what courses does yara offer",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 0.7970000006025657
+      },
+      {
+        "intent": "complaint_feedback",
+        "role": "student",
+        "text": "i need to tell the vp about a teacher",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "class_teacher",
+            1
+          ],
+          [
+            "subject_teacher",
+            1
+          ]
+        ],
+        "latency_ms": 0.8442000034847297
+      },
+      {
+        "intent": "complaint_feedback",
+        "role": "student",
+        "text": "how do i make a private teacher complaint",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "class_teacher",
+            1
+          ],
+          [
+            "subject_teacher",
+            1
+          ],
+          [
+            "complaint_feedback",
+            1
+          ]
+        ],
+        "latency_ms": 1.3026999949943274
+      },
+      {
+        "intent": "complaint_summary",
+        "role": "vice_principal",
+        "text": "are any student complaints waiting",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "complaint_summary",
+            1
+          ]
+        ],
+        "latency_ms": 0.8804000026430003
+      },
+      {
+        "intent": "complaint_summary",
+        "role": "vice_principal",
+        "text": "show the latest private complaints",
+        "category": "held_out",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "complaint_summary",
+            1
+          ]
+        ],
+        "latency_ms": 0.8662000036565587
+      }
+    ]
+  },
+  "held_out_after": {
+    "total": 80,
+    "accuracy": 1.0,
+    "tie_rate": 0.0,
+    "clarification_rate": 0.0,
+    "no_match_rate": 0.0,
+    "wrong_intent_rate": 0.0,
+    "counts": {
+      "CORRECT": 80
+    },
+    "per_intent": {
+      "attendance": {
+        "CORRECT": 2
+      },
+      "class_teacher": {
+        "CORRECT": 2
+      },
+      "class_teacher_lookup": {
+        "CORRECT": 2
+      },
+      "class_timetable_lookup": {
+        "CORRECT": 2
+      },
+      "class_wise_count": {
+        "CORRECT": 2
+      },
+      "classes_assigned": {
+        "CORRECT": 2
+      },
+      "classroom_occupant": {
+        "CORRECT": 2
+      },
+      "complaint_feedback": {
+        "CORRECT": 2
+      },
+      "complaint_summary": {
+        "CORRECT": 2
+      },
+      "current_class": {
+        "CORRECT": 2
+      },
+      "department_free_teachers": {
+        "CORRECT": 2
+      },
+      "department_schedule_today": {
+        "CORRECT": 2
+      },
+      "department_teacher_count": {
+        "CORRECT": 2
+      },
+      "exam": {
+        "CORRECT": 2
+      },
+      "fee": {
+        "CORRECT": 2
+      },
+      "free_periods": {
+        "CORRECT": 2
+      },
+      "free_teachers": {
+        "CORRECT": 2
+      },
+      "greeting": {
+        "CORRECT": 2
+      },
+      "help": {
+        "CORRECT": 2
+      },
+      "identity": {
+        "CORRECT": 2
+      },
+      "low_attendance_count": {
+        "CORRECT": 2
+      },
+      "my_class": {
+        "CORRECT": 2
+      },
+      "next_class": {
+        "CORRECT": 2
+      },
+      "next_period": {
+        "CORRECT": 2
+      },
+      "notices": {
+        "CORRECT": 2
+      },
+      "pending_fees_count": {
+        "CORRECT": 2
+      },
+      "period_count": {
+        "CORRECT": 2
+      },
+      "periods_remaining": {
+        "CORRECT": 2
+      },
+      "roll_number": {
+        "CORRECT": 2
+      },
+      "school_wide_subject_teacher": {
+        "CORRECT": 2
+      },
+      "subject_teacher": {
+        "CORRECT": 2
+      },
+      "subjects_offered": {
+        "CORRECT": 2
+      },
+      "teacher_count_by_subject": {
+        "CORRECT": 2
+      },
+      "teacher_identity": {
+        "CORRECT": 2
+      },
+      "teacher_location": {
+        "CORRECT": 2
+      },
+      "teacher_schedule_lookup": {
+        "CORRECT": 2
+      },
+      "thanks": {
+        "CORRECT": 2
+      },
+      "timetable": {
+        "CORRECT": 2
+      },
+      "total_students": {
+        "CORRECT": 2
+      },
+      "total_teachers": {
+        "CORRECT": 2
+      }
+    },
+    "confusion": [],
+    "latency_ms": {
+      "average": 0.9290962503655464,
+      "p95": 1.308800005062949,
+      "maximum": 1.4239000011002645
+    },
+    "failures": []
+  },
+  "hard_negatives_before": {
+    "total": 25,
+    "accuracy": 0.44,
+    "tie_rate": 0.04,
+    "clarification_rate": 0.04,
+    "no_match_rate": 0.44,
+    "wrong_intent_rate": 0.08,
+    "counts": {
+      "CORRECT": 11,
+      "NO_MATCH": 11,
+      "WRONG": 2,
+      "TIE": 1
+    },
+    "per_intent": {
+      "class_teacher": {
+        "CORRECT": 2
+      },
+      "class_teacher_lookup": {
+        "CORRECT": 1
+      },
+      "class_timetable_lookup": {
+        "CORRECT": 1
+      },
+      "classroom_occupant": {
+        "CORRECT": 1
+      },
+      "complaint_feedback": {
+        "NO_MATCH": 1
+      },
+      "complaint_summary": {
+        "NO_MATCH": 1
+      },
+      "current_class": {
+        "WRONG": 1
+      },
+      "department_free_teachers": {
+        "TIE": 1
+      },
+      "department_schedule_today": {
+        "CORRECT": 1
+      },
+      "department_teacher_count": {
+        "CORRECT": 1
+      },
+      "exam": {
+        "NO_MATCH": 1
+      },
+      "fee": {
+        "CORRECT": 1
+      },
+      "free_periods": {
+        "NO_MATCH": 1
+      },
+      "next_class": {
+        "WRONG": 1
+      },
+      "pending_fees_count": {
+        "NO_MATCH": 1
+      },
+      "period_count": {
+        "NO_MATCH": 1
+      },
+      "periods_remaining": {
+        "NO_MATCH": 1
+      },
+      "school_wide_subject_teacher": {
+        "NO_MATCH": 1
+      },
+      "subject_teacher": {
+        "CORRECT": 1
+      },
+      "teacher_count_by_subject": {
+        "NO_MATCH": 1
+      },
+      "teacher_location": {
+        "CORRECT": 1
+      },
+      "teacher_schedule_lookup": {
+        "NO_MATCH": 1
+      },
+      "timetable": {
+        "NO_MATCH": 1
+      },
+      "total_teachers": {
+        "CORRECT": 1
+      }
+    },
+    "confusion": [
+      {
+        "expected": "next_class",
+        "predicted": "classes_assigned",
+        "count": 1
+      },
+      {
+        "expected": "current_class",
+        "predicted": "classes_assigned",
+        "count": 1
+      }
+    ],
+    "latency_ms": {
+      "average": 0.7797599994228221,
+      "p95": 1.0664999936125241,
+      "maximum": 1.0732999944593757
+    },
+    "failures": [
+      {
+        "role": "principal",
+        "intent": "teacher_count_by_subject",
+        "text": "how many mathematics teachers are there",
+        "category": "hard_negative",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 1.0705000022426248
+      },
+      {
+        "role": "principal",
+        "intent": "school_wide_subject_teacher",
+        "text": "list every mathematics teacher",
+        "category": "hard_negative",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 1.014599998597987
+      },
+      {
+        "role": "student",
+        "intent": "exam",
+        "text": "when is my next examination",
+        "category": "hard_negative",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "exam",
+            1
+          ],
+          [
+            "next_period",
+            1
+          ]
+        ],
+        "latency_ms": 0.5877000003238209
+      },
+      {
+        "role": "student",
+        "intent": "timetable",
+        "text": "what lessons do i have this week",
+        "category": "hard_negative",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 0.6800999981351197
+      },
+      {
+        "role": "principal",
+        "intent": "pending_fees_count",
+        "text": "how many students have fees due",
+        "category": "hard_negative",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 0.8312999998452142
+      },
+      {
+        "role": "teacher",
+        "intent": "next_class",
+        "text": "what class do i teach next",
+        "category": "hard_negative",
+        "outcome": "WRONG",
+        "predicted": "classes_assigned",
+        "top_score": 2,
+        "second_score": 1,
+        "margin": 1,
+        "ranked": [
+          [
+            "classes_assigned",
+            2
+          ],
+          [
+            "timetable",
+            1
+          ],
+          [
+            "next_class",
+            1
+          ]
+        ],
+        "latency_ms": 0.5577000047196634
+      },
+      {
+        "role": "teacher",
+        "intent": "current_class",
+        "text": "what class should i be teaching now",
+        "category": "hard_negative",
+        "outcome": "WRONG",
+        "predicted": "classes_assigned",
+        "top_score": 2,
+        "second_score": 1,
+        "margin": 1,
+        "ranked": [
+          [
+            "classes_assigned",
+            2
+          ],
+          [
+            "timetable",
+            1
+          ],
+          [
+            "current_class",
+            1
+          ]
+        ],
+        "latency_ms": 0.8014000050025061
+      },
+      {
+        "role": "teacher",
+        "intent": "period_count",
+        "text": "how many lessons do i teach today",
+        "category": "hard_negative",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "classes_assigned",
+            1
+          ]
+        ],
+        "latency_ms": 0.6802999996580184
+      },
+      {
+        "role": "teacher",
+        "intent": "periods_remaining",
+        "text": "how many lessons do i have left today",
+        "category": "hard_negative",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "periods_remaining",
+            1
+          ]
+        ],
+        "latency_ms": 0.5601999946520664
+      },
+      {
+        "role": "teacher",
+        "intent": "free_periods",
+        "text": "when is my free lesson today",
+        "category": "hard_negative",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "free_periods",
+            1
+          ]
+        ],
+        "latency_ms": 0.5225999993854202
+      },
+      {
+        "role": "principal",
+        "intent": "teacher_schedule_lookup",
+        "text": "show ms alis timetable",
+        "category": "hard_negative",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 0.6102999977883883
+      },
+      {
+        "role": "hod",
+        "intent": "department_free_teachers",
+        "text": "who in my department is free now",
+        "category": "hard_negative",
+        "outcome": "TIE",
+        "predicted": "department_free_teachers",
+        "top_score": 2,
+        "second_score": 1,
+        "margin": 1,
+        "ranked": [
+          [
+            "department_free_teachers",
+            2
+          ],
+          [
+            "current_class",
+            1
+          ],
+          [
+            "free_periods",
+            1
+          ]
+        ],
+        "latency_ms": 0.7248000038089231
+      },
+      {
+        "role": "student",
+        "intent": "complaint_feedback",
+        "text": "i want to report a teacher",
+        "category": "hard_negative",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "class_teacher",
+            1
+          ],
+          [
+            "subject_teacher",
+            1
+          ]
+        ],
+        "latency_ms": 0.7412999984808266
+      },
+      {
+        "role": "vice_principal",
+        "intent": "complaint_summary",
+        "text": "show pending student complaints",
+        "category": "hard_negative",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "complaint_summary",
+            1
+          ]
+        ],
+        "latency_ms": 0.738000002456829
+      }
+    ]
+  },
+  "hard_negatives_after": {
+    "total": 25,
+    "accuracy": 0.48,
+    "tie_rate": 0.04,
+    "clarification_rate": 0.04,
+    "no_match_rate": 0.4,
+    "wrong_intent_rate": 0.08,
+    "counts": {
+      "CORRECT": 12,
+      "NO_MATCH": 10,
+      "WRONG": 2,
+      "TIE": 1
+    },
+    "per_intent": {
+      "class_teacher": {
+        "CORRECT": 2
+      },
+      "class_teacher_lookup": {
+        "CORRECT": 1
+      },
+      "class_timetable_lookup": {
+        "CORRECT": 1
+      },
+      "classroom_occupant": {
+        "CORRECT": 1
+      },
+      "complaint_feedback": {
+        "NO_MATCH": 1
+      },
+      "complaint_summary": {
+        "NO_MATCH": 1
+      },
+      "current_class": {
+        "WRONG": 1
+      },
+      "department_free_teachers": {
+        "TIE": 1
+      },
+      "department_schedule_today": {
+        "CORRECT": 1
+      },
+      "department_teacher_count": {
+        "CORRECT": 1
+      },
+      "exam": {
+        "NO_MATCH": 1
+      },
+      "fee": {
+        "CORRECT": 1
+      },
+      "free_periods": {
+        "NO_MATCH": 1
+      },
+      "next_class": {
+        "WRONG": 1
+      },
+      "pending_fees_count": {
+        "NO_MATCH": 1
+      },
+      "period_count": {
+        "CORRECT": 1
+      },
+      "periods_remaining": {
+        "NO_MATCH": 1
+      },
+      "school_wide_subject_teacher": {
+        "NO_MATCH": 1
+      },
+      "subject_teacher": {
+        "CORRECT": 1
+      },
+      "teacher_count_by_subject": {
+        "NO_MATCH": 1
+      },
+      "teacher_location": {
+        "CORRECT": 1
+      },
+      "teacher_schedule_lookup": {
+        "NO_MATCH": 1
+      },
+      "timetable": {
+        "NO_MATCH": 1
+      },
+      "total_teachers": {
+        "CORRECT": 1
+      }
+    },
+    "confusion": [
+      {
+        "expected": "next_class",
+        "predicted": "classes_assigned",
+        "count": 1
+      },
+      {
+        "expected": "current_class",
+        "predicted": "classes_assigned",
+        "count": 1
+      }
+    ],
+    "latency_ms": {
+      "average": 0.837407999788411,
+      "p95": 1.1028000008082017,
+      "maximum": 1.2348000018391758
+    },
+    "failures": [
+      {
+        "role": "principal",
+        "intent": "teacher_count_by_subject",
+        "text": "how many mathematics teachers are there",
+        "category": "hard_negative",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 1.1057000010623597
+      },
+      {
+        "role": "principal",
+        "intent": "school_wide_subject_teacher",
+        "text": "list every mathematics teacher",
+        "category": "hard_negative",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 1.0641999979270622
+      },
+      {
+        "role": "student",
+        "intent": "exam",
+        "text": "when is my next examination",
+        "category": "hard_negative",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "exam",
+            1
+          ],
+          [
+            "next_period",
+            1
+          ]
+        ],
+        "latency_ms": 0.7410000034724362
+      },
+      {
+        "role": "student",
+        "intent": "timetable",
+        "text": "what lessons do i have this week",
+        "category": "hard_negative",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 0.756499997805804
+      },
+      {
+        "role": "principal",
+        "intent": "pending_fees_count",
+        "text": "how many students have fees due",
+        "category": "hard_negative",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 0.8778999981586821
+      },
+      {
+        "role": "teacher",
+        "intent": "next_class",
+        "text": "what class do i teach next",
+        "category": "hard_negative",
+        "outcome": "WRONG",
+        "predicted": "classes_assigned",
+        "top_score": 2,
+        "second_score": 1,
+        "margin": 1,
+        "ranked": [
+          [
+            "classes_assigned",
+            2
+          ],
+          [
+            "timetable",
+            1
+          ],
+          [
+            "next_class",
+            1
+          ]
+        ],
+        "latency_ms": 0.5884999991394579
+      },
+      {
+        "role": "teacher",
+        "intent": "current_class",
+        "text": "what class should i be teaching now",
+        "category": "hard_negative",
+        "outcome": "WRONG",
+        "predicted": "classes_assigned",
+        "top_score": 2,
+        "second_score": 1,
+        "margin": 1,
+        "ranked": [
+          [
+            "classes_assigned",
+            2
+          ],
+          [
+            "timetable",
+            1
+          ],
+          [
+            "current_class",
+            1
+          ]
+        ],
+        "latency_ms": 0.8375999968848191
+      },
+      {
+        "role": "teacher",
+        "intent": "periods_remaining",
+        "text": "how many lessons do i have left today",
+        "category": "hard_negative",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "periods_remaining",
+            1
+          ]
+        ],
+        "latency_ms": 0.6005999966873787
+      },
+      {
+        "role": "teacher",
+        "intent": "free_periods",
+        "text": "when is my free lesson today",
+        "category": "hard_negative",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "free_periods",
+            1
+          ]
+        ],
+        "latency_ms": 0.5504000000655651
+      },
+      {
+        "role": "principal",
+        "intent": "teacher_schedule_lookup",
+        "text": "show ms alis timetable",
+        "category": "hard_negative",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 0.7522000014432706
+      },
+      {
+        "role": "hod",
+        "intent": "department_free_teachers",
+        "text": "who in my department is free now",
+        "category": "hard_negative",
+        "outcome": "TIE",
+        "predicted": "department_free_teachers",
+        "top_score": 2,
+        "second_score": 1,
+        "margin": 1,
+        "ranked": [
+          [
+            "department_free_teachers",
+            2
+          ],
+          [
+            "current_class",
+            1
+          ],
+          [
+            "free_periods",
+            1
+          ]
+        ],
+        "latency_ms": 0.8296000014524907
+      },
+      {
+        "role": "student",
+        "intent": "complaint_feedback",
+        "text": "i want to report a teacher",
+        "category": "hard_negative",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "class_teacher",
+            1
+          ],
+          [
+            "subject_teacher",
+            1
+          ]
+        ],
+        "latency_ms": 0.7070999999996275
+      },
+      {
+        "role": "vice_principal",
+        "intent": "complaint_summary",
+        "text": "show pending student complaints",
+        "category": "hard_negative",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "complaint_summary",
+            1
+          ]
+        ],
+        "latency_ms": 0.8981999999377877
+      }
+    ]
+  },
+  "golden_before": {
+    "total": 405,
+    "accuracy": 0.9654320987654321,
+    "tie_rate": 0.0024691358024691358,
+    "clarification_rate": 0.0024691358024691358,
+    "no_match_rate": 0.027160493827160494,
+    "wrong_intent_rate": 0.0049382716049382715,
+    "counts": {
+      "CORRECT": 391,
+      "NO_MATCH": 11,
+      "WRONG": 2,
+      "TIE": 1
+    },
+    "per_intent": {
+      "attendance": {
+        "CORRECT": 10
+      },
+      "class_teacher": {
+        "CORRECT": 12
+      },
+      "class_teacher_lookup": {
+        "CORRECT": 11
+      },
+      "class_timetable_lookup": {
+        "CORRECT": 11
+      },
+      "class_wise_count": {
+        "CORRECT": 10
+      },
+      "classes_assigned": {
+        "CORRECT": 10
+      },
+      "classroom_occupant": {
+        "CORRECT": 11
+      },
+      "complaint_feedback": {
+        "NO_MATCH": 1
+      },
+      "complaint_summary": {
+        "NO_MATCH": 1
+      },
+      "current_class": {
+        "CORRECT": 10,
+        "WRONG": 1
+      },
+      "department_free_teachers": {
+        "CORRECT": 10,
+        "TIE": 1
+      },
+      "department_schedule_today": {
+        "CORRECT": 11
+      },
+      "department_teacher_count": {
+        "CORRECT": 11
+      },
+      "exam": {
+        "CORRECT": 10,
+        "NO_MATCH": 1
+      },
+      "fee": {
+        "CORRECT": 11
+      },
+      "free_periods": {
+        "CORRECT": 10,
+        "NO_MATCH": 1
+      },
+      "free_teachers": {
+        "CORRECT": 10
+      },
+      "greeting": {
+        "CORRECT": 10
+      },
+      "help": {
+        "CORRECT": 10
+      },
+      "identity": {
+        "CORRECT": 10
+      },
+      "low_attendance_count": {
+        "CORRECT": 10
+      },
+      "my_class": {
+        "CORRECT": 10
+      },
+      "next_class": {
+        "CORRECT": 10,
+        "WRONG": 1
+      },
+      "next_period": {
+        "CORRECT": 10
+      },
+      "notices": {
+        "CORRECT": 10
+      },
+      "pending_fees_count": {
+        "CORRECT": 10,
+        "NO_MATCH": 1
+      },
+      "period_count": {
+        "CORRECT": 10,
+        "NO_MATCH": 1
+      },
+      "periods_remaining": {
+        "CORRECT": 10,
+        "NO_MATCH": 1
+      },
+      "roll_number": {
+        "CORRECT": 10
+      },
+      "school_wide_subject_teacher": {
+        "CORRECT": 10,
+        "NO_MATCH": 1
+      },
+      "subject_teacher": {
+        "CORRECT": 11
+      },
+      "subjects_offered": {
+        "CORRECT": 10
+      },
+      "teacher_count_by_subject": {
+        "CORRECT": 10,
+        "NO_MATCH": 1
+      },
+      "teacher_identity": {
+        "CORRECT": 10
+      },
+      "teacher_location": {
+        "CORRECT": 11
+      },
+      "teacher_schedule_lookup": {
+        "CORRECT": 10,
+        "NO_MATCH": 1
+      },
+      "thanks": {
+        "CORRECT": 10
+      },
+      "timetable": {
+        "CORRECT": 10,
+        "NO_MATCH": 1
+      },
+      "total_students": {
+        "CORRECT": 10
+      },
+      "total_teachers": {
+        "CORRECT": 11
+      }
+    },
+    "confusion": [
+      {
+        "expected": "next_class",
+        "predicted": "classes_assigned",
+        "count": 1
+      },
+      {
+        "expected": "current_class",
+        "predicted": "classes_assigned",
+        "count": 1
+      }
+    ],
+    "latency_ms": {
+      "average": 0.6121259258325603,
+      "p95": 0.9687999991001561,
+      "maximum": 2.1517999994102865
+    },
+    "failures": [
+      {
+        "role": "principal",
+        "intent": "teacher_count_by_subject",
+        "text": "how many mathematics teachers are there",
+        "category": "hard_negative",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 2.1517999994102865
+      },
+      {
+        "role": "principal",
+        "intent": "school_wide_subject_teacher",
+        "text": "list every mathematics teacher",
+        "category": "hard_negative",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 1.370199999655597
+      },
+      {
+        "role": "student",
+        "intent": "exam",
+        "text": "when is my next examination",
+        "category": "hard_negative",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "exam",
+            1
+          ],
+          [
+            "next_period",
+            1
+          ]
+        ],
+        "latency_ms": 0.7236000019474886
+      },
+      {
+        "role": "student",
+        "intent": "timetable",
+        "text": "what lessons do i have this week",
+        "category": "hard_negative",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 0.6932000032975338
+      },
+      {
+        "role": "principal",
+        "intent": "pending_fees_count",
+        "text": "how many students have fees due",
+        "category": "hard_negative",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 0.9960000024875626
+      },
+      {
+        "role": "teacher",
+        "intent": "next_class",
+        "text": "what class do i teach next",
+        "category": "hard_negative",
+        "outcome": "WRONG",
+        "predicted": "classes_assigned",
+        "top_score": 2,
+        "second_score": 1,
+        "margin": 1,
+        "ranked": [
+          [
+            "classes_assigned",
+            2
+          ],
+          [
+            "timetable",
+            1
+          ],
+          [
+            "next_class",
+            1
+          ]
+        ],
+        "latency_ms": 0.6674999967799522
+      },
+      {
+        "role": "teacher",
+        "intent": "current_class",
+        "text": "what class should i be teaching now",
+        "category": "hard_negative",
+        "outcome": "WRONG",
+        "predicted": "classes_assigned",
+        "top_score": 2,
+        "second_score": 1,
+        "margin": 1,
+        "ranked": [
+          [
+            "classes_assigned",
+            2
+          ],
+          [
+            "timetable",
+            1
+          ],
+          [
+            "current_class",
+            1
+          ]
+        ],
+        "latency_ms": 0.872600001457613
+      },
+      {
+        "role": "teacher",
+        "intent": "period_count",
+        "text": "how many lessons do i teach today",
+        "category": "hard_negative",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "classes_assigned",
+            1
+          ]
+        ],
+        "latency_ms": 0.654800001939293
+      },
+      {
+        "role": "teacher",
+        "intent": "periods_remaining",
+        "text": "how many lessons do i have left today",
+        "category": "hard_negative",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "periods_remaining",
+            1
+          ]
+        ],
+        "latency_ms": 0.7192000048235059
+      },
+      {
+        "role": "teacher",
+        "intent": "free_periods",
+        "text": "when is my free lesson today",
+        "category": "hard_negative",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "free_periods",
+            1
+          ]
+        ],
+        "latency_ms": 0.509900004544761
+      },
+      {
+        "role": "principal",
+        "intent": "teacher_schedule_lookup",
+        "text": "show ms alis timetable",
+        "category": "hard_negative",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 0.7150999954319559
+      },
+      {
+        "role": "hod",
+        "intent": "department_free_teachers",
+        "text": "who in my department is free now",
+        "category": "hard_negative",
+        "outcome": "TIE",
+        "predicted": "department_free_teachers",
+        "top_score": 2,
+        "second_score": 1,
+        "margin": 1,
+        "ranked": [
+          [
+            "department_free_teachers",
+            2
+          ],
+          [
+            "current_class",
+            1
+          ],
+          [
+            "free_periods",
+            1
+          ]
+        ],
+        "latency_ms": 0.9998999958042987
+      },
+      {
+        "role": "student",
+        "intent": "complaint_feedback",
+        "text": "i want to report a teacher",
+        "category": "hard_negative",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "class_teacher",
+            1
+          ],
+          [
+            "subject_teacher",
+            1
+          ]
+        ],
+        "latency_ms": 0.7631999978912063
+      },
+      {
+        "role": "vice_principal",
+        "intent": "complaint_summary",
+        "text": "show pending student complaints",
+        "category": "hard_negative",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "complaint_summary",
+            1
+          ]
+        ],
+        "latency_ms": 0.9044999969773926
+      }
+    ]
+  },
+  "golden_after": {
+    "total": 405,
+    "accuracy": 0.9679012345679012,
+    "tie_rate": 0.0024691358024691358,
+    "clarification_rate": 0.0024691358024691358,
+    "no_match_rate": 0.024691358024691357,
+    "wrong_intent_rate": 0.0049382716049382715,
+    "counts": {
+      "CORRECT": 392,
+      "NO_MATCH": 10,
+      "WRONG": 2,
+      "TIE": 1
+    },
+    "per_intent": {
+      "attendance": {
+        "CORRECT": 10
+      },
+      "class_teacher": {
+        "CORRECT": 12
+      },
+      "class_teacher_lookup": {
+        "CORRECT": 11
+      },
+      "class_timetable_lookup": {
+        "CORRECT": 11
+      },
+      "class_wise_count": {
+        "CORRECT": 10
+      },
+      "classes_assigned": {
+        "CORRECT": 10
+      },
+      "classroom_occupant": {
+        "CORRECT": 11
+      },
+      "complaint_feedback": {
+        "NO_MATCH": 1
+      },
+      "complaint_summary": {
+        "NO_MATCH": 1
+      },
+      "current_class": {
+        "CORRECT": 10,
+        "WRONG": 1
+      },
+      "department_free_teachers": {
+        "CORRECT": 10,
+        "TIE": 1
+      },
+      "department_schedule_today": {
+        "CORRECT": 11
+      },
+      "department_teacher_count": {
+        "CORRECT": 11
+      },
+      "exam": {
+        "CORRECT": 10,
+        "NO_MATCH": 1
+      },
+      "fee": {
+        "CORRECT": 11
+      },
+      "free_periods": {
+        "CORRECT": 10,
+        "NO_MATCH": 1
+      },
+      "free_teachers": {
+        "CORRECT": 10
+      },
+      "greeting": {
+        "CORRECT": 10
+      },
+      "help": {
+        "CORRECT": 10
+      },
+      "identity": {
+        "CORRECT": 10
+      },
+      "low_attendance_count": {
+        "CORRECT": 10
+      },
+      "my_class": {
+        "CORRECT": 10
+      },
+      "next_class": {
+        "CORRECT": 10,
+        "WRONG": 1
+      },
+      "next_period": {
+        "CORRECT": 10
+      },
+      "notices": {
+        "CORRECT": 10
+      },
+      "pending_fees_count": {
+        "CORRECT": 10,
+        "NO_MATCH": 1
+      },
+      "period_count": {
+        "CORRECT": 11
+      },
+      "periods_remaining": {
+        "CORRECT": 10,
+        "NO_MATCH": 1
+      },
+      "roll_number": {
+        "CORRECT": 10
+      },
+      "school_wide_subject_teacher": {
+        "CORRECT": 10,
+        "NO_MATCH": 1
+      },
+      "subject_teacher": {
+        "CORRECT": 11
+      },
+      "subjects_offered": {
+        "CORRECT": 10
+      },
+      "teacher_count_by_subject": {
+        "CORRECT": 10,
+        "NO_MATCH": 1
+      },
+      "teacher_identity": {
+        "CORRECT": 10
+      },
+      "teacher_location": {
+        "CORRECT": 11
+      },
+      "teacher_schedule_lookup": {
+        "CORRECT": 10,
+        "NO_MATCH": 1
+      },
+      "thanks": {
+        "CORRECT": 10
+      },
+      "timetable": {
+        "CORRECT": 10,
+        "NO_MATCH": 1
+      },
+      "total_students": {
+        "CORRECT": 10
+      },
+      "total_teachers": {
+        "CORRECT": 11
+      }
+    },
+    "confusion": [
+      {
+        "expected": "next_class",
+        "predicted": "classes_assigned",
+        "count": 1
+      },
+      {
+        "expected": "current_class",
+        "predicted": "classes_assigned",
+        "count": 1
+      }
+    ],
+    "latency_ms": {
+      "average": 0.5958659258559001,
+      "p95": 0.931700000364799,
+      "maximum": 1.2339000022620894
+    },
+    "failures": [
+      {
+        "role": "principal",
+        "intent": "teacher_count_by_subject",
+        "text": "how many mathematics teachers are there",
+        "category": "hard_negative",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 1.0167000000365078
+      },
+      {
+        "role": "principal",
+        "intent": "school_wide_subject_teacher",
+        "text": "list every mathematics teacher",
+        "category": "hard_negative",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 0.9986000004573725
+      },
+      {
+        "role": "student",
+        "intent": "exam",
+        "text": "when is my next examination",
+        "category": "hard_negative",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "exam",
+            1
+          ],
+          [
+            "next_period",
+            1
+          ]
+        ],
+        "latency_ms": 0.6441000004997477
+      },
+      {
+        "role": "student",
+        "intent": "timetable",
+        "text": "what lessons do i have this week",
+        "category": "hard_negative",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 0.6922000029589981
+      },
+      {
+        "role": "principal",
+        "intent": "pending_fees_count",
+        "text": "how many students have fees due",
+        "category": "hard_negative",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 0.8095999946817756
+      },
+      {
+        "role": "teacher",
+        "intent": "next_class",
+        "text": "what class do i teach next",
+        "category": "hard_negative",
+        "outcome": "WRONG",
+        "predicted": "classes_assigned",
+        "top_score": 2,
+        "second_score": 1,
+        "margin": 1,
+        "ranked": [
+          [
+            "classes_assigned",
+            2
+          ],
+          [
+            "timetable",
+            1
+          ],
+          [
+            "next_class",
+            1
+          ]
+        ],
+        "latency_ms": 0.5850000015925616
+      },
+      {
+        "role": "teacher",
+        "intent": "current_class",
+        "text": "what class should i be teaching now",
+        "category": "hard_negative",
+        "outcome": "WRONG",
+        "predicted": "classes_assigned",
+        "top_score": 2,
+        "second_score": 1,
+        "margin": 1,
+        "ranked": [
+          [
+            "classes_assigned",
+            2
+          ],
+          [
+            "timetable",
+            1
+          ],
+          [
+            "current_class",
+            1
+          ]
+        ],
+        "latency_ms": 0.7703000010224059
+      },
+      {
+        "role": "teacher",
+        "intent": "periods_remaining",
+        "text": "how many lessons do i have left today",
+        "category": "hard_negative",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "periods_remaining",
+            1
+          ]
+        ],
+        "latency_ms": 0.5959999980404973
+      },
+      {
+        "role": "teacher",
+        "intent": "free_periods",
+        "text": "when is my free lesson today",
+        "category": "hard_negative",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "free_periods",
+            1
+          ]
+        ],
+        "latency_ms": 0.5404000039561652
+      },
+      {
+        "role": "principal",
+        "intent": "teacher_schedule_lookup",
+        "text": "show ms alis timetable",
+        "category": "hard_negative",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 0.6129999965196475
+      },
+      {
+        "role": "hod",
+        "intent": "department_free_teachers",
+        "text": "who in my department is free now",
+        "category": "hard_negative",
+        "outcome": "TIE",
+        "predicted": "department_free_teachers",
+        "top_score": 2,
+        "second_score": 1,
+        "margin": 1,
+        "ranked": [
+          [
+            "department_free_teachers",
+            2
+          ],
+          [
+            "current_class",
+            1
+          ],
+          [
+            "free_periods",
+            1
+          ]
+        ],
+        "latency_ms": 0.7661000054213218
+      },
+      {
+        "role": "student",
+        "intent": "complaint_feedback",
+        "text": "i want to report a teacher",
+        "category": "hard_negative",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "class_teacher",
+            1
+          ],
+          [
+            "subject_teacher",
+            1
+          ]
+        ],
+        "latency_ms": 0.7200999971246347
+      },
+      {
+        "role": "vice_principal",
+        "intent": "complaint_summary",
+        "text": "show pending student complaints",
+        "category": "hard_negative",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "complaint_summary",
+            1
+          ]
+        ],
+        "latency_ms": 0.7956999979796819
+      }
+    ]
+  },
+  "synthetic_after": {
+    "total": 1000,
+    "accuracy": 0.974,
+    "tie_rate": 0.002,
+    "clarification_rate": 0.002,
+    "no_match_rate": 0.02,
+    "wrong_intent_rate": 0.004,
+    "counts": {
+      "CORRECT": 974,
+      "NO_MATCH": 20,
+      "WRONG": 4,
+      "TIE": 2
+    },
+    "per_intent": {
+      "attendance": {
+        "CORRECT": 26
+      },
+      "class_teacher": {
+        "CORRECT": 28
+      },
+      "class_teacher_lookup": {
+        "CORRECT": 26
+      },
+      "class_timetable_lookup": {
+        "CORRECT": 26
+      },
+      "class_wise_count": {
+        "CORRECT": 26
+      },
+      "classes_assigned": {
+        "CORRECT": 26
+      },
+      "classroom_occupant": {
+        "CORRECT": 26
+      },
+      "complaint_feedback": {
+        "CORRECT": 4,
+        "NO_MATCH": 2
+      },
+      "complaint_summary": {
+        "CORRECT": 4,
+        "NO_MATCH": 2
+      },
+      "current_class": {
+        "CORRECT": 24,
+        "WRONG": 2
+      },
+      "department_free_teachers": {
+        "CORRECT": 24,
+        "TIE": 2
+      },
+      "department_schedule_today": {
+        "CORRECT": 26
+      },
+      "department_teacher_count": {
+        "CORRECT": 24
+      },
+      "exam": {
+        "CORRECT": 26,
+        "NO_MATCH": 2
+      },
+      "fee": {
+        "CORRECT": 28
+      },
+      "free_periods": {
+        "CORRECT": 24,
+        "NO_MATCH": 2
+      },
+      "free_teachers": {
+        "CORRECT": 24
+      },
+      "greeting": {
+        "CORRECT": 26
+      },
+      "help": {
+        "CORRECT": 26
+      },
+      "identity": {
+        "CORRECT": 26
+      },
+      "low_attendance_count": {
+        "CORRECT": 24
+      },
+      "my_class": {
+        "CORRECT": 26
+      },
+      "next_class": {
+        "CORRECT": 24,
+        "WRONG": 2
+      },
+      "next_period": {
+        "CORRECT": 26
+      },
+      "notices": {
+        "CORRECT": 24
+      },
+      "pending_fees_count": {
+        "CORRECT": 24,
+        "NO_MATCH": 2
+      },
+      "period_count": {
+        "CORRECT": 28
+      },
+      "periods_remaining": {
+        "CORRECT": 24,
+        "NO_MATCH": 2
+      },
+      "roll_number": {
+        "CORRECT": 26
+      },
+      "school_wide_subject_teacher": {
+        "CORRECT": 24,
+        "NO_MATCH": 2
+      },
+      "subject_teacher": {
+        "CORRECT": 26
+      },
+      "subjects_offered": {
+        "CORRECT": 24
+      },
+      "teacher_count_by_subject": {
+        "CORRECT": 24,
+        "NO_MATCH": 2
+      },
+      "teacher_identity": {
+        "CORRECT": 24
+      },
+      "teacher_location": {
+        "CORRECT": 26
+      },
+      "teacher_schedule_lookup": {
+        "CORRECT": 24,
+        "NO_MATCH": 2
+      },
+      "thanks": {
+        "CORRECT": 26
+      },
+      "timetable": {
+        "CORRECT": 26,
+        "NO_MATCH": 2
+      },
+      "total_students": {
+        "CORRECT": 26
+      },
+      "total_teachers": {
+        "CORRECT": 28
+      }
+    },
+    "confusion": [
+      {
+        "expected": "next_class",
+        "predicted": "classes_assigned",
+        "count": 2
+      },
+      {
+        "expected": "current_class",
+        "predicted": "classes_assigned",
+        "count": 2
+      }
+    ],
+    "latency_ms": {
+      "average": 0.6985119000237319,
+      "p95": 1.2289000005694106,
+      "maximum": 1.7586999965715222
+    },
+    "failures": [
+      {
+        "role": "principal",
+        "intent": "teacher_count_by_subject",
+        "text": "HOW MANY MATHEMATICS TEACHERS ARE THERE",
+        "category": "synthetic_unseen",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 1.1823999957414344
+      },
+      {
+        "role": "principal",
+        "intent": "school_wide_subject_teacher",
+        "text": "LIST EVERY MATHEMATICS TEACHER",
+        "category": "synthetic_unseen",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 1.2455000032787211
+      },
+      {
+        "role": "student",
+        "intent": "exam",
+        "text": "WHEN IS MY NEXT EXAMINATION",
+        "category": "synthetic_unseen",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "exam",
+            1
+          ],
+          [
+            "next_period",
+            1
+          ]
+        ],
+        "latency_ms": 0.8135000025504269
+      },
+      {
+        "role": "student",
+        "intent": "timetable",
+        "text": "WHAT LESSONS DO I HAVE THIS WEEK",
+        "category": "synthetic_unseen",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 0.8570999998482876
+      },
+      {
+        "role": "principal",
+        "intent": "pending_fees_count",
+        "text": "HOW MANY STUDENTS HAVE FEES DUE",
+        "category": "synthetic_unseen",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 1.0008999961428344
+      },
+      {
+        "role": "teacher",
+        "intent": "next_class",
+        "text": "WHAT CLASS DO I TEACH NEXT",
+        "category": "synthetic_unseen",
+        "outcome": "WRONG",
+        "predicted": "classes_assigned",
+        "top_score": 2,
+        "second_score": 1,
+        "margin": 1,
+        "ranked": [
+          [
+            "classes_assigned",
+            2
+          ],
+          [
+            "timetable",
+            1
+          ],
+          [
+            "next_class",
+            1
+          ]
+        ],
+        "latency_ms": 0.7239000042318366
+      },
+      {
+        "role": "teacher",
+        "intent": "current_class",
+        "text": "WHAT CLASS SHOULD I BE TEACHING NOW",
+        "category": "synthetic_unseen",
+        "outcome": "WRONG",
+        "predicted": "classes_assigned",
+        "top_score": 2,
+        "second_score": 1,
+        "margin": 1,
+        "ranked": [
+          [
+            "classes_assigned",
+            2
+          ],
+          [
+            "timetable",
+            1
+          ],
+          [
+            "current_class",
+            1
+          ]
+        ],
+        "latency_ms": 0.8668000009492971
+      },
+      {
+        "role": "teacher",
+        "intent": "periods_remaining",
+        "text": "HOW MANY LESSONS DO I HAVE LEFT TODAY",
+        "category": "synthetic_unseen",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "periods_remaining",
+            1
+          ]
+        ],
+        "latency_ms": 0.6873000020277686
+      },
+      {
+        "role": "teacher",
+        "intent": "free_periods",
+        "text": "WHEN IS MY FREE LESSON TODAY",
+        "category": "synthetic_unseen",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "free_periods",
+            1
+          ]
+        ],
+        "latency_ms": 0.5316999959177338
+      },
+      {
+        "role": "principal",
+        "intent": "teacher_schedule_lookup",
+        "text": "SHOW MS ALIS TIMETABLE",
+        "category": "synthetic_unseen",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 0.7155999992392026
+      },
+      {
+        "role": "hod",
+        "intent": "department_free_teachers",
+        "text": "WHO IN MY DEPARTMENT IS FREE NOW",
+        "category": "synthetic_unseen",
+        "outcome": "TIE",
+        "predicted": "department_free_teachers",
+        "top_score": 2,
+        "second_score": 1,
+        "margin": 1,
+        "ranked": [
+          [
+            "department_free_teachers",
+            2
+          ],
+          [
+            "current_class",
+            1
+          ],
+          [
+            "free_periods",
+            1
+          ]
+        ],
+        "latency_ms": 0.894600001629442
+      },
+      {
+        "role": "student",
+        "intent": "complaint_feedback",
+        "text": "I WANT TO REPORT A TEACHER",
+        "category": "synthetic_unseen",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "class_teacher",
+            1
+          ],
+          [
+            "subject_teacher",
+            1
+          ]
+        ],
+        "latency_ms": 0.8271999977296218
+      },
+      {
+        "role": "vice_principal",
+        "intent": "complaint_summary",
+        "text": "SHOW PENDING STUDENT COMPLAINTS",
+        "category": "synthetic_unseen",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "complaint_summary",
+            1
+          ]
+        ],
+        "latency_ms": 0.9410999991814606
+      },
+      {
+        "role": "principal",
+        "intent": "teacher_count_by_subject",
+        "text": "How many mathematics teachers are there?",
+        "category": "synthetic_unseen",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 1.3016000011703
+      },
+      {
+        "role": "principal",
+        "intent": "school_wide_subject_teacher",
+        "text": "List every mathematics teacher?",
+        "category": "synthetic_unseen",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 1.250699999218341
+      },
+      {
+        "role": "student",
+        "intent": "exam",
+        "text": "When is my next examination?",
+        "category": "synthetic_unseen",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "exam",
+            1
+          ],
+          [
+            "next_period",
+            1
+          ]
+        ],
+        "latency_ms": 0.734799999918323
+      },
+      {
+        "role": "student",
+        "intent": "timetable",
+        "text": "What lessons do i have this week?",
+        "category": "synthetic_unseen",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 0.8329999982379377
+      },
+      {
+        "role": "principal",
+        "intent": "pending_fees_count",
+        "text": "How many students have fees due?",
+        "category": "synthetic_unseen",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 1.0122999956365675
+      },
+      {
+        "role": "teacher",
+        "intent": "next_class",
+        "text": "What class do i teach next?",
+        "category": "synthetic_unseen",
+        "outcome": "WRONG",
+        "predicted": "classes_assigned",
+        "top_score": 2,
+        "second_score": 1,
+        "margin": 1,
+        "ranked": [
+          [
+            "classes_assigned",
+            2
+          ],
+          [
+            "timetable",
+            1
+          ],
+          [
+            "next_class",
+            1
+          ]
+        ],
+        "latency_ms": 0.6887999988975935
+      },
+      {
+        "role": "teacher",
+        "intent": "current_class",
+        "text": "What class should i be teaching now?",
+        "category": "synthetic_unseen",
+        "outcome": "WRONG",
+        "predicted": "classes_assigned",
+        "top_score": 2,
+        "second_score": 1,
+        "margin": 1,
+        "ranked": [
+          [
+            "classes_assigned",
+            2
+          ],
+          [
+            "timetable",
+            1
+          ],
+          [
+            "current_class",
+            1
+          ]
+        ],
+        "latency_ms": 0.8555000022170134
+      },
+      {
+        "role": "teacher",
+        "intent": "periods_remaining",
+        "text": "How many lessons do i have left today?",
+        "category": "synthetic_unseen",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "periods_remaining",
+            1
+          ]
+        ],
+        "latency_ms": 0.7593000045744702
+      },
+      {
+        "role": "teacher",
+        "intent": "free_periods",
+        "text": "When is my free lesson today?",
+        "category": "synthetic_unseen",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "free_periods",
+            1
+          ]
+        ],
+        "latency_ms": 0.5469000025186688
+      },
+      {
+        "role": "principal",
+        "intent": "teacher_schedule_lookup",
+        "text": "Show ms alis timetable?",
+        "category": "synthetic_unseen",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [],
+        "latency_ms": 0.7037000032141805
+      },
+      {
+        "role": "hod",
+        "intent": "department_free_teachers",
+        "text": "Who in my department is free now?",
+        "category": "synthetic_unseen",
+        "outcome": "TIE",
+        "predicted": "department_free_teachers",
+        "top_score": 2,
+        "second_score": 1,
+        "margin": 1,
+        "ranked": [
+          [
+            "department_free_teachers",
+            2
+          ],
+          [
+            "current_class",
+            1
+          ],
+          [
+            "free_periods",
+            1
+          ]
+        ],
+        "latency_ms": 0.9282999963033944
+      },
+      {
+        "role": "student",
+        "intent": "complaint_feedback",
+        "text": "I want to report a teacher?",
+        "category": "synthetic_unseen",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "class_teacher",
+            1
+          ],
+          [
+            "subject_teacher",
+            1
+          ]
+        ],
+        "latency_ms": 0.8448999942629598
+      },
+      {
+        "role": "vice_principal",
+        "intent": "complaint_summary",
+        "text": "Show pending student complaints?",
+        "category": "synthetic_unseen",
+        "outcome": "NO_MATCH",
+        "predicted": null,
+        "top_score": 0,
+        "second_score": 0,
+        "margin": 0,
+        "ranked": [
+          [
+            "complaint_summary",
+            1
+          ]
+        ],
+        "latency_ms": 0.9425000025657937
+      }
+    ]
+  },
+  "phrase_counts_before": {
+    "attendance": 45,
+    "class_teacher": 52,
+    "class_teacher_lookup": 40,
+    "class_timetable_lookup": 32,
+    "class_wise_count": 35,
+    "classes_assigned": 42,
+    "classroom_occupant": 36,
+    "complaint_feedback": 0,
+    "complaint_summary": 0,
+    "current_class": 17,
+    "department_free_teachers": 34,
+    "department_schedule_today": 23,
+    "department_teacher_count": 34,
+    "exam": 38,
+    "fee": 46,
+    "free_periods": 34,
+    "free_teachers": 34,
+    "greeting": 22,
+    "help": 23,
+    "identity": 35,
+    "low_attendance_count": 38,
+    "my_class": 38,
+    "next_class": 27,
+    "next_period": 15,
+    "notices": 48,
+    "pending_fees_count": 38,
+    "period_count": 34,
+    "periods_remaining": 27,
+    "roll_number": 32,
+    "school_wide_subject_teacher": 37,
+    "subject_teacher": 48,
+    "subjects_offered": 37,
+    "teacher_count_by_subject": 37,
+    "teacher_identity": 30,
+    "teacher_location": 28,
+    "teacher_schedule_lookup": 28,
+    "thanks": 22,
+    "timetable": 43,
+    "total_students": 27,
+    "total_teachers": 27
+  },
+  "phrase_counts_after": {
+    "attendance": 49,
+    "class_teacher": 55,
+    "class_teacher_lookup": 45,
+    "class_timetable_lookup": 38,
+    "class_wise_count": 42,
+    "classes_assigned": 48,
+    "classroom_occupant": 43,
+    "complaint_feedback": 58,
+    "complaint_summary": 17,
+    "current_class": 22,
+    "department_free_teachers": 40,
+    "department_schedule_today": 28,
+    "department_teacher_count": 38,
+    "exam": 41,
+    "fee": 53,
+    "free_periods": 40,
+    "free_teachers": 41,
+    "greeting": 29,
+    "help": 29,
+    "identity": 42,
+    "low_attendance_count": 45,
+    "my_class": 43,
+    "next_class": 33,
+    "next_period": 21,
+    "notices": 54,
+    "pending_fees_count": 45,
+    "period_count": 39,
+    "periods_remaining": 31,
+    "roll_number": 38,
+    "school_wide_subject_teacher": 42,
+    "subject_teacher": 52,
+    "subjects_offered": 41,
+    "teacher_count_by_subject": 43,
+    "teacher_identity": 36,
+    "teacher_location": 34,
+    "teacher_schedule_lookup": 34,
+    "thanks": 29,
+    "timetable": 48,
+    "total_students": 34,
+    "total_teachers": 33
+  }
+}

@@ -1,0 +1,2432 @@
+[
+  {
+    "role": "student",
+    "intent": "attendance",
+    "text": "how many days present",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "attendance",
+    "text": "how many days absent",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "attendance",
+    "text": "attendance percentage",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "attendance",
+    "text": "attendance %",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "attendance",
+    "text": "my attendance",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "attendance",
+    "text": "attendance status",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "attendance",
+    "text": "attendance record",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "attendance",
+    "text": "check attendance",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "attendance",
+    "text": "how is my attendance",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "attendance",
+    "text": "attendence",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "class_teacher",
+    "text": "class teacher",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "class_teacher",
+    "text": "my class teacher",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "class_teacher",
+    "text": "who is my class teacher",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "class_teacher",
+    "text": "class teacher name",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "class_teacher",
+    "text": "class teacher for",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "class_teacher",
+    "text": "who is the class teacher",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "class_teacher",
+    "text": "class teacher of",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "class_teacher",
+    "text": "tell me my class teacher",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "class_teacher",
+    "text": "whos my class teacher",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "class_teacher",
+    "text": "my class teacher name pls",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "class_teacher_lookup",
+    "text": "teacher for class",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "class_teacher_lookup",
+    "text": "teachers for class",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "class_teacher_lookup",
+    "text": "who is the teacher for class",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "class_teacher_lookup",
+    "text": "class teachers",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "class_teacher_lookup",
+    "text": "teachers assigned to class",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "class_teacher_lookup",
+    "text": "who teaches class 10a",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "class_teacher_lookup",
+    "text": "teachers for class 10a",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "class_teacher_lookup",
+    "text": "class 10a teacher list",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "class_teacher_lookup",
+    "text": "all teachers for 10a",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "class_teacher_lookup",
+    "text": "full teacher list for 10a",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "class_timetable_lookup",
+    "text": "timetable for class",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "class_timetable_lookup",
+    "text": "class timetable",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "class_timetable_lookup",
+    "text": "class schedule",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "class_timetable_lookup",
+    "text": "class routine",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "class_timetable_lookup",
+    "text": "grade 10 section a timetable",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "class_timetable_lookup",
+    "text": "class 10a schedule pls",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "class_timetable_lookup",
+    "text": "gimme timetable for 9b",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "class_timetable_lookup",
+    "text": "full timetable for 10a",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "class_timetable_lookup",
+    "text": "weekly timetable for a class",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "class_timetable_lookup",
+    "text": "class routine for 10a",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "class_wise_count",
+    "text": "students per class",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "class_wise_count",
+    "text": "class wise",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "class_wise_count",
+    "text": "class-wise",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "class_wise_count",
+    "text": "breakdown by class",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "class_wise_count",
+    "text": "section wise count",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "class_wise_count",
+    "text": "breakdown by section",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "class_wise_count",
+    "text": "gimme classwise breakdown",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "class_wise_count",
+    "text": "class-wise breakdown pls",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "class_wise_count",
+    "text": "how many per section",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "class_wise_count",
+    "text": "just give me the breakdown",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "classes_assigned",
+    "text": "which classes",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "classes_assigned",
+    "text": "my classes",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "classes_assigned",
+    "text": "classes assigned",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "classes_assigned",
+    "text": "classes i teach",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "classes_assigned",
+    "text": "which sections am i assigned",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "classes_assigned",
+    "text": "sections i handle",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "classes_assigned",
+    "text": "grades assigned to me",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "classes_assigned",
+    "text": "sections covered by me",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "classes_assigned",
+    "text": "which classes do i teach",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "classes_assigned",
+    "text": "what classes do i teach",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "classroom_occupant",
+    "text": "who is teaching class",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "classroom_occupant",
+    "text": "who is in class",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "classroom_occupant",
+    "text": "which teacher is in",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "classroom_occupant",
+    "text": "whos teaching 10a",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "classroom_occupant",
+    "text": "who's occupying that room",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "classroom_occupant",
+    "text": "who's in room 10a",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "classroom_occupant",
+    "text": "occupant check",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "classroom_occupant",
+    "text": "whos in 10a right now",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "classroom_occupant",
+    "text": "who is in that class now",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "classroom_occupant",
+    "text": "which teacher is there now",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "current_class",
+    "text": "what am i teaching now",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "current_class",
+    "text": "current class",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "current_class",
+    "text": "right now",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "current_class",
+    "text": "what am i doing right now",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "current_class",
+    "text": "what am i teaching",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "current_class",
+    "text": "which class am i teaching now",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "current_class",
+    "text": "which class am i in right now",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "current_class",
+    "text": "class right now",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "current_class",
+    "text": "gimme my current class",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "current_class",
+    "text": "just tell me current class",
+    "category": "production_golden"
+  },
+  {
+    "role": "hod",
+    "intent": "department_free_teachers",
+    "text": "teachers in my department are free",
+    "category": "production_golden"
+  },
+  {
+    "role": "hod",
+    "intent": "department_free_teachers",
+    "text": "free teachers in my department",
+    "category": "production_golden"
+  },
+  {
+    "role": "hod",
+    "intent": "department_free_teachers",
+    "text": "who is free in my department",
+    "category": "production_golden"
+  },
+  {
+    "role": "hod",
+    "intent": "department_free_teachers",
+    "text": "which teachers in my department are free",
+    "category": "production_golden"
+  },
+  {
+    "role": "hod",
+    "intent": "department_free_teachers",
+    "text": "who's not busy in my dept",
+    "category": "production_golden"
+  },
+  {
+    "role": "hod",
+    "intent": "department_free_teachers",
+    "text": "who's around in my dept",
+    "category": "production_golden"
+  },
+  {
+    "role": "hod",
+    "intent": "department_free_teachers",
+    "text": "any teacher free in my department",
+    "category": "production_golden"
+  },
+  {
+    "role": "hod",
+    "intent": "department_free_teachers",
+    "text": "who's free in science dept",
+    "category": "production_golden"
+  },
+  {
+    "role": "hod",
+    "intent": "department_free_teachers",
+    "text": "free staff in my department",
+    "category": "production_golden"
+  },
+  {
+    "role": "hod",
+    "intent": "department_free_teachers",
+    "text": "gimme free teachers in my dept",
+    "category": "production_golden"
+  },
+  {
+    "role": "hod",
+    "intent": "department_schedule_today",
+    "text": "my department's schedule today",
+    "category": "production_golden"
+  },
+  {
+    "role": "hod",
+    "intent": "department_schedule_today",
+    "text": "department schedule today",
+    "category": "production_golden"
+  },
+  {
+    "role": "hod",
+    "intent": "department_schedule_today",
+    "text": "my department schedule",
+    "category": "production_golden"
+  },
+  {
+    "role": "hod",
+    "intent": "department_schedule_today",
+    "text": "department's schedule today",
+    "category": "production_golden"
+  },
+  {
+    "role": "hod",
+    "intent": "department_schedule_today",
+    "text": "gimme dept schedule today",
+    "category": "production_golden"
+  },
+  {
+    "role": "hod",
+    "intent": "department_schedule_today",
+    "text": "quickly department schedule",
+    "category": "production_golden"
+  },
+  {
+    "role": "hod",
+    "intent": "department_schedule_today",
+    "text": "just tell me dept schedule today",
+    "category": "production_golden"
+  },
+  {
+    "role": "hod",
+    "intent": "department_schedule_today",
+    "text": "science department today",
+    "category": "production_golden"
+  },
+  {
+    "role": "hod",
+    "intent": "department_schedule_today",
+    "text": "math department schedule today",
+    "category": "production_golden"
+  },
+  {
+    "role": "hod",
+    "intent": "department_schedule_today",
+    "text": "todays department timetable",
+    "category": "production_golden"
+  },
+  {
+    "role": "hod",
+    "intent": "department_teacher_count",
+    "text": "how many teachers are in my department",
+    "category": "production_golden"
+  },
+  {
+    "role": "hod",
+    "intent": "department_teacher_count",
+    "text": "how many teachers in my department",
+    "category": "production_golden"
+  },
+  {
+    "role": "hod",
+    "intent": "department_teacher_count",
+    "text": "department teacher count",
+    "category": "production_golden"
+  },
+  {
+    "role": "hod",
+    "intent": "department_teacher_count",
+    "text": "teacher count for my department",
+    "category": "production_golden"
+  },
+  {
+    "role": "hod",
+    "intent": "department_teacher_count",
+    "text": "how many faculty in my dept",
+    "category": "production_golden"
+  },
+  {
+    "role": "hod",
+    "intent": "department_teacher_count",
+    "text": "dept headcount",
+    "category": "production_golden"
+  },
+  {
+    "role": "hod",
+    "intent": "department_teacher_count",
+    "text": "total faculty in my dept",
+    "category": "production_golden"
+  },
+  {
+    "role": "hod",
+    "intent": "department_teacher_count",
+    "text": "dept strength",
+    "category": "production_golden"
+  },
+  {
+    "role": "hod",
+    "intent": "department_teacher_count",
+    "text": "how many staff in my department",
+    "category": "production_golden"
+  },
+  {
+    "role": "hod",
+    "intent": "department_teacher_count",
+    "text": "department staff count",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "exam",
+    "text": "exam date",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "exam",
+    "text": "next exam",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "exam",
+    "text": "when is my exam",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "exam",
+    "text": "test date",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "exam",
+    "text": "exam dates",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "exam",
+    "text": "upcoming exam",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "exam",
+    "text": "upcoming exams",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "exam",
+    "text": "next test",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "exam",
+    "text": "my exam date",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "exam",
+    "text": "check exam date",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "fee",
+    "text": "fee status",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "fee",
+    "text": "fees paid",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "fee",
+    "text": "school fees",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "fee",
+    "text": "fees status",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "fee",
+    "text": "fee due",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "fee",
+    "text": "fees due",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "fee",
+    "text": "is my fee paid",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "fee",
+    "text": "check fees",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "fee",
+    "text": "outstanding fees",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "fee",
+    "text": "fee balance",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "free_periods",
+    "text": "free periods",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "free_periods",
+    "text": "am i free",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "free_periods",
+    "text": "do i have a free period",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "free_periods",
+    "text": "any free time",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "free_periods",
+    "text": "any spare time today",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "free_periods",
+    "text": "do i have a gap today",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "free_periods",
+    "text": "when do i get a break",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "free_periods",
+    "text": "any breaks today",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "free_periods",
+    "text": "am i free right now",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "free_periods",
+    "text": "do i have any free time",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "free_teachers",
+    "text": "which teachers are free",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "free_teachers",
+    "text": "free teachers right now",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "free_teachers",
+    "text": "who is available",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "free_teachers",
+    "text": "any teacher free right now",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "free_teachers",
+    "text": "who's free at the moment",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "free_teachers",
+    "text": "which staff is free",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "free_teachers",
+    "text": "gimme list of free teachers",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "free_teachers",
+    "text": "quickly any free teachers",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "free_teachers",
+    "text": "just tell me who's free",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "free_teachers",
+    "text": "hey any teachers free",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "greeting",
+    "text": "good morning",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "greeting",
+    "text": "good afternoon",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "greeting",
+    "text": "good evening",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "greeting",
+    "text": "hii",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "greeting",
+    "text": "hiii",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "greeting",
+    "text": "heyy",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "greeting",
+    "text": "heya",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "greeting",
+    "text": "yo yo",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "greeting",
+    "text": "sup",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "greeting",
+    "text": "wassup",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "help",
+    "text": "what can you do",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "help",
+    "text": "help me",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "help",
+    "text": "what do you do",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "help",
+    "text": "what can u do",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "help",
+    "text": "what do u do",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "help",
+    "text": "how do i use this",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "help",
+    "text": "how does this work",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "help",
+    "text": "what can this bot do",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "help",
+    "text": "options pls",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "help",
+    "text": "show me options",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "identity",
+    "text": "what is my name",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "identity",
+    "text": "who am i",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "identity",
+    "text": "my details",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "identity",
+    "text": "my info",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "identity",
+    "text": "share my identity card info",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "identity",
+    "text": "show my info",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "identity",
+    "text": "show my profile",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "identity",
+    "text": "my profile",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "identity",
+    "text": "my id card info",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "identity",
+    "text": "id card details",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "low_attendance_count",
+    "text": "low attendance",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "low_attendance_count",
+    "text": "below 75",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "low_attendance_count",
+    "text": "attendance risk",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "low_attendance_count",
+    "text": "students with poor attendance",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "low_attendance_count",
+    "text": "students below 75 attendance",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "low_attendance_count",
+    "text": "who has low attendance",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "low_attendance_count",
+    "text": "list low attendance students",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "low_attendance_count",
+    "text": "students with bad attendance",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "low_attendance_count",
+    "text": "which students have poor attendance",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "low_attendance_count",
+    "text": "attendance risk list",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "my_class",
+    "text": "what class am i in",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "my_class",
+    "text": "which class am i",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "my_class",
+    "text": "my class",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "my_class",
+    "text": "which grade am i in",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "my_class",
+    "text": "what grade am i in",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "my_class",
+    "text": "my grade",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "my_class",
+    "text": "my section",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "my_class",
+    "text": "which section am i in",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "my_class",
+    "text": "which grade and section",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "my_class",
+    "text": "what section am i",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "next_class",
+    "text": "next class",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "next_class",
+    "text": "which class next",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "next_class",
+    "text": "next period",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "next_class",
+    "text": "what is next",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "next_class",
+    "text": "what do i have next",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "next_class",
+    "text": "which class do i teach next",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "next_class",
+    "text": "next period for me",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "next_class",
+    "text": "what am i teaching next period",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "next_class",
+    "text": "gimme my next class",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "next_class",
+    "text": "just tell me next class",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "next_period",
+    "text": "next period",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "next_period",
+    "text": "next class",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "next_period",
+    "text": "what is next",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "next_period",
+    "text": "after this what do i have",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "next_period",
+    "text": "right after this",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "next_period",
+    "text": "what do i have next",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "next_period",
+    "text": "next period pls",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "next_period",
+    "text": "what comes after this period",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "next_period",
+    "text": "gimme next period",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "next_period",
+    "text": "just tell me next period",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "notices",
+    "text": "latest notices",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "notices",
+    "text": "any announcements",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "notices",
+    "text": "school notices",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "notices",
+    "text": "any updates",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "notices",
+    "text": "recent announcements",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "notices",
+    "text": "any notices",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "notices",
+    "text": "any notice",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "notices",
+    "text": "new notices",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "notices",
+    "text": "any new announcements",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "notices",
+    "text": "old announcements",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "pending_fees_count",
+    "text": "pending fees",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "pending_fees_count",
+    "text": "unpaid fees",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "pending_fees_count",
+    "text": "fee defaulters",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "pending_fees_count",
+    "text": "who has pending fees",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "pending_fees_count",
+    "text": "list students with pending fees",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "pending_fees_count",
+    "text": "fee defaulters list",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "pending_fees_count",
+    "text": "students who havent paid",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "pending_fees_count",
+    "text": "which students owe fees",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "pending_fees_count",
+    "text": "gimme pending fees list",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "pending_fees_count",
+    "text": "show unpaid fees students",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "period_count",
+    "text": "how many periods",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "period_count",
+    "text": "number of periods",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "period_count",
+    "text": "periods today",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "period_count",
+    "text": "periods this week",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "period_count",
+    "text": "period count today",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "period_count",
+    "text": "show my period count",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "period_count",
+    "text": "just tell me period count",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "period_count",
+    "text": "how many lectures today",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "period_count",
+    "text": "how many lectures this week",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "period_count",
+    "text": "weekly period count",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "periods_remaining",
+    "text": "periods left",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "periods_remaining",
+    "text": "how many periods left",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "periods_remaining",
+    "text": "periods remaining today",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "periods_remaining",
+    "text": "how many periods do i have left",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "periods_remaining",
+    "text": "how many periods left today",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "periods_remaining",
+    "text": "how many more periods",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "periods_remaining",
+    "text": "am i done for the day",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "periods_remaining",
+    "text": "am i almost done",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "periods_remaining",
+    "text": "quickly how many left",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "periods_remaining",
+    "text": "how much longer today",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "roll_number",
+    "text": "my roll number",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "roll_number",
+    "text": "what is my roll",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "roll_number",
+    "text": "roll no",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "roll_number",
+    "text": "roll number",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "roll_number",
+    "text": "my enrollment number please",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "roll_number",
+    "text": "tell me my roll no",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "roll_number",
+    "text": "roll number pls",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "roll_number",
+    "text": "my roll no pls",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "roll_number",
+    "text": "give me my roll number",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "roll_number",
+    "text": "gimme roll no",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "school_wide_subject_teacher",
+    "text": "who teaches",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "school_wide_subject_teacher",
+    "text": "teacher for subject",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "school_wide_subject_teacher",
+    "text": "who teaches physics to grade 12",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "school_wide_subject_teacher",
+    "text": "who teaches math school wide",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "school_wide_subject_teacher",
+    "text": "who teaches chemistry",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "school_wide_subject_teacher",
+    "text": "who teaches biology",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "school_wide_subject_teacher",
+    "text": "who teaches computer science",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "school_wide_subject_teacher",
+    "text": "who teaches english",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "school_wide_subject_teacher",
+    "text": "who teaches hindi",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "school_wide_subject_teacher",
+    "text": "who teaches sst",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "subject_teacher",
+    "text": "who teaches me",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "subject_teacher",
+    "text": "who is my teacher for",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "subject_teacher",
+    "text": "teacher for",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "subject_teacher",
+    "text": "my math sir",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "subject_teacher",
+    "text": "my science maam",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "subject_teacher",
+    "text": "my english maam",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "subject_teacher",
+    "text": "who teaches me math",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "subject_teacher",
+    "text": "who teaches me maths",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "subject_teacher",
+    "text": "who teaches me science",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "subject_teacher",
+    "text": "who teaches me english",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "subjects_offered",
+    "text": "subjects does the school",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "subjects_offered",
+    "text": "subjects does yara",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "subjects_offered",
+    "text": "subjects are offered",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "subjects_offered",
+    "text": "subjects offered",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "subjects_offered",
+    "text": "school subjects",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "subjects_offered",
+    "text": "list of subjects",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "subjects_offered",
+    "text": "subjects available",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "subjects_offered",
+    "text": "subjects does this school",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "subjects_offered",
+    "text": "what subjects can i take",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "subjects_offered",
+    "text": "curriculum list",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_count_by_subject",
+    "text": "teachers for subject",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_count_by_subject",
+    "text": "faculty count for a subject",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_count_by_subject",
+    "text": "how many teachers teach physics",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_count_by_subject",
+    "text": "how many teach chemistry",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_count_by_subject",
+    "text": "how many teach biology",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_count_by_subject",
+    "text": "how many teach computer science",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_count_by_subject",
+    "text": "how many teach english",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_count_by_subject",
+    "text": "how many teach hindi",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_count_by_subject",
+    "text": "how many teach sst",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_count_by_subject",
+    "text": "teacher count for math",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "teacher_identity",
+    "text": "what is my name",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "teacher_identity",
+    "text": "who am i",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "teacher_identity",
+    "text": "my details",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "teacher_identity",
+    "text": "my subject",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "teacher_identity",
+    "text": "show my profile",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "teacher_identity",
+    "text": "my profile",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "teacher_identity",
+    "text": "my employee details",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "teacher_identity",
+    "text": "employee id",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "teacher_identity",
+    "text": "my contact details",
+    "category": "production_golden"
+  },
+  {
+    "role": "teacher",
+    "intent": "teacher_identity",
+    "text": "my registered contact",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_location",
+    "text": "where is",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_location",
+    "text": "which class is teaching",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_location",
+    "text": "what is teaching right now",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_location",
+    "text": "wheres mr ahmed",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_location",
+    "text": "wheres ms priya",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_location",
+    "text": "which room is he in",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_location",
+    "text": "which room is she in",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_location",
+    "text": "where can i find",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_location",
+    "text": "gimme location of",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_location",
+    "text": "just tell me where he is",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_schedule_lookup",
+    "text": "schedule for",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_schedule_lookup",
+    "text": "timetable for teacher",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_schedule_lookup",
+    "text": "show me schedule for mr",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_schedule_lookup",
+    "text": "show me schedule for ms",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_schedule_lookup",
+    "text": "gimme his schedule",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_schedule_lookup",
+    "text": "gimme her schedule",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_schedule_lookup",
+    "text": "his timetable pls",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_schedule_lookup",
+    "text": "her timetable pls",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_schedule_lookup",
+    "text": "quickly show his schedule",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_schedule_lookup",
+    "text": "just tell me her schedule",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "thanks",
+    "text": "thank you",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "thanks",
+    "text": "thanks a lot",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "thanks",
+    "text": "thanks bro",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "thanks",
+    "text": "thank u",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "thanks",
+    "text": "thnx",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "thanks",
+    "text": "tysm",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "thanks",
+    "text": "much appreciated",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "thanks",
+    "text": "appreciate it",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "thanks",
+    "text": "thanks a ton",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "thanks",
+    "text": "cheers",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "timetable",
+    "text": "my timetable",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "timetable",
+    "text": "my schedule",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "timetable",
+    "text": "class schedule",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "timetable",
+    "text": "today's classes",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "timetable",
+    "text": "todays classes",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "timetable",
+    "text": "time table",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "timetable",
+    "text": "class routine",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "timetable",
+    "text": "today's schedule",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "timetable",
+    "text": "todays schedule",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "timetable",
+    "text": "today's timetable",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "total_students",
+    "text": "how many students",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "total_students",
+    "text": "total students",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "total_students",
+    "text": "number of students",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "total_students",
+    "text": "total student count",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "total_students",
+    "text": "how many students in school",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "total_students",
+    "text": "how many students enrolled",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "total_students",
+    "text": "total strength",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "total_students",
+    "text": "school strength",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "total_students",
+    "text": "overall student count",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "total_students",
+    "text": "how many kids in school",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "total_teachers",
+    "text": "how many teachers",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "total_teachers",
+    "text": "total teachers",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "total_teachers",
+    "text": "number of teachers",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "total_teachers",
+    "text": "total staff count",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "total_teachers",
+    "text": "how many staff members",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "total_teachers",
+    "text": "how many faculty",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "total_teachers",
+    "text": "total faculty",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "total_teachers",
+    "text": "number of faculty members",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "total_teachers",
+    "text": "faculty size",
+    "category": "production_golden"
+  },
+  {
+    "role": "principal",
+    "intent": "total_teachers",
+    "text": "how many educators",
+    "category": "production_golden"
+  },
+  {
+    "role": "student",
+    "intent": "class_teacher",
+    "text": "who is in charge of my class",
+    "category": "hard_negative"
+  },
+  {
+    "role": "student",
+    "intent": "subject_teacher",
+    "text": "who teaches me mathematics",
+    "category": "hard_negative"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_count_by_subject",
+    "text": "how many mathematics teachers are there",
+    "category": "hard_negative"
+  },
+  {
+    "role": "principal",
+    "intent": "school_wide_subject_teacher",
+    "text": "list every mathematics teacher",
+    "category": "hard_negative"
+  },
+  {
+    "role": "principal",
+    "intent": "total_teachers",
+    "text": "how many teachers work at the school",
+    "category": "hard_negative"
+  },
+  {
+    "role": "student",
+    "intent": "exam",
+    "text": "when is my next examination",
+    "category": "hard_negative"
+  },
+  {
+    "role": "student",
+    "intent": "timetable",
+    "text": "what lessons do i have this week",
+    "category": "hard_negative"
+  },
+  {
+    "role": "student",
+    "intent": "fee",
+    "text": "is my fee payment still due",
+    "category": "hard_negative"
+  },
+  {
+    "role": "principal",
+    "intent": "pending_fees_count",
+    "text": "how many students have fees due",
+    "category": "hard_negative"
+  },
+  {
+    "role": "teacher",
+    "intent": "next_class",
+    "text": "what class do i teach next",
+    "category": "hard_negative"
+  },
+  {
+    "role": "teacher",
+    "intent": "current_class",
+    "text": "what class should i be teaching now",
+    "category": "hard_negative"
+  },
+  {
+    "role": "teacher",
+    "intent": "period_count",
+    "text": "how many lessons do i teach today",
+    "category": "hard_negative"
+  },
+  {
+    "role": "teacher",
+    "intent": "periods_remaining",
+    "text": "how many lessons do i have left today",
+    "category": "hard_negative"
+  },
+  {
+    "role": "teacher",
+    "intent": "free_periods",
+    "text": "when is my free lesson today",
+    "category": "hard_negative"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_location",
+    "text": "where is ms ali right now",
+    "category": "hard_negative"
+  },
+  {
+    "role": "principal",
+    "intent": "classroom_occupant",
+    "text": "who is teaching 10a right now",
+    "category": "hard_negative"
+  },
+  {
+    "role": "principal",
+    "intent": "teacher_schedule_lookup",
+    "text": "show ms alis timetable",
+    "category": "hard_negative"
+  },
+  {
+    "role": "principal",
+    "intent": "class_timetable_lookup",
+    "text": "show the timetable for 10a",
+    "category": "hard_negative"
+  },
+  {
+    "role": "principal",
+    "intent": "class_teacher_lookup",
+    "text": "show all teachers for 10a",
+    "category": "hard_negative"
+  },
+  {
+    "role": "principal",
+    "intent": "class_teacher",
+    "text": "who is the class teacher for 10a",
+    "category": "hard_negative"
+  },
+  {
+    "role": "hod",
+    "intent": "department_free_teachers",
+    "text": "who in my department is free now",
+    "category": "hard_negative"
+  },
+  {
+    "role": "hod",
+    "intent": "department_schedule_today",
+    "text": "show my departments schedule today",
+    "category": "hard_negative"
+  },
+  {
+    "role": "hod",
+    "intent": "department_teacher_count",
+    "text": "how many teachers are in my department",
+    "category": "hard_negative"
+  },
+  {
+    "role": "student",
+    "intent": "complaint_feedback",
+    "text": "i want to report a teacher",
+    "category": "hard_negative"
+  },
+  {
+    "role": "vice_principal",
+    "intent": "complaint_summary",
+    "text": "show pending student complaints",
+    "category": "hard_negative"
+  }
+]
