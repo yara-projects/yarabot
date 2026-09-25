@@ -17,9 +17,9 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import app
 import nlp_helpers
 try:
-    from .utterance_spec import GENERALIZERS, HARD_NEGATIVES, UTTERANCES
+    from .utterance_spec import BOUNDARY_TRAINING, GENERALIZERS, HARD_NEGATIVES, UTTERANCES
 except ImportError:  # Direct script execution.
-    from utterance_spec import GENERALIZERS, HARD_NEGATIVES, UTTERANCES
+    from utterance_spec import BOUNDARY_TRAINING, GENERALIZERS, HARD_NEGATIVES, UTTERANCES
 
 
 ALWAYS = ["greeting", "thanks", "help"]
@@ -48,7 +48,7 @@ def rank(question, role, groups):
     original = app._known_subject_names
     try:
         app._known_subject_names = lambda: SUBJECTS
-        ranked = app._apply_subject_scoring_adjustment(ranked, question)
+        ranked = app._apply_subject_scoring_adjustment(ranked, question, groups[role])
     finally:
         app._known_subject_names = original
     return ranked
@@ -163,7 +163,9 @@ def main():
     accepted = defaultdict(list)
     for intent, values in UTTERANCES.items():
         role = role_for_intent(intent, groups)
-        training_phrases = values["candidate"] + [value.strip() for value in GENERALIZERS[intent].split("|")]
+        training_phrases = (values["candidate"]
+                            + [value.strip() for value in GENERALIZERS[intent].split("|")]
+                            + BOUNDARY_TRAINING.get(intent, []))
         for phrase in training_phrases:
             duplicate_ratio, duplicate_phrase = near_duplicate(phrase, base[intent] + accepted[intent])
             trial = {name: list(items) for name, items in base.items()}

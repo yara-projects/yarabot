@@ -947,6 +947,9 @@ def score_intent(cleaned_question, words, intent_name, personal_signal, class_co
     if (intent_name == "class_timetable_lookup" and class_code_present
             and re.search(r'\b(schedule|timetable|lessons?)\b', cleaned_question)):
         score += 3
+    if (intent_name == "teacher_schedule_lookup"
+            and re.search(r'\b(mr|mrs|ms|miss|dr)\b.*\b(schedule|timetable)\b', cleaned_question)):
+        score += 3
 
     return score
 

@@ -426,7 +426,7 @@ SUBJECT_SLOT_INTENTS = {"teacher_count_by_subject", "subject_teacher", "school_w
 SUBJECT_MISMATCH_PENALTY = 3
 
 
-def _apply_subject_scoring_adjustment(ranked, question):
+def _apply_subject_scoring_adjustment(ranked, question, possible_intents=None):
     """Re-scores `ranked` (rank_intents() output) when a real subject is
     named in `question`: any intent without a subject slot is penalized so
     a subject-slot intent already in the running wins outright instead of
@@ -435,13 +435,33 @@ def _apply_subject_scoring_adjustment(ranked, question):
     teachers teach?" must still fall through to its existing ambiguity
     clarification - this only fires once a subject was genuinely resolved
     against the DB, not on every principal question)."""
+    possible = set(possible_intents or [])
+    subject_slot_present = any(name in SUBJECT_SLOT_INTENTS for name, _ in ranked)
+    subject_blind_present = any(name not in SUBJECT_SLOT_INTENTS for name, _ in ranked)
+    count_signal = ("teacher_count_by_subject" in possible
+                    and re.search(r'\b(how many|number|count|total)\b', question)
+                    and re.search(r'\b(teachers?|staff|faculty)\b', question))
+    list_signal = ("school_wide_subject_teacher" in possible
+                   and re.search(r'\b(list|all|every|which|who)\b', question)
+                   and re.search(r'\b(teachers?|staff|faculty)\b', question))
+    if not (subject_slot_present and subject_blind_present) and not count_signal and not list_signal:
+        return ranked
+
+    subject = extract_subject_from_question(question, _known_subject_names())
+    if not subject:
+        return ranked
+
+    scores = dict(ranked)
+    if count_signal:
+        scores["teacher_count_by_subject"] = max(3, scores.get("teacher_count_by_subject", 0))
+    if list_signal:
+        scores["school_wide_subject_teacher"] = max(3, scores.get("school_wide_subject_teacher", 0))
+    ranked = sorted(scores.items(), key=lambda pair: -pair[1])
+
     subject_slot_present = any(name in SUBJECT_SLOT_INTENTS for name, _ in ranked)
     subject_blind_present = any(name not in SUBJECT_SLOT_INTENTS for name, _ in ranked)
     if not (subject_slot_present and subject_blind_present):
         return ranked
-    if not extract_subject_from_question(question, _known_subject_names()):
-        return ranked
-
     adjusted = [
         (name, score - SUBJECT_MISMATCH_PENALTY if name not in SUBJECT_SLOT_INTENTS else score)
         for name, score in ranked
@@ -540,7 +560,7 @@ def _nlp_lane_decision(question, role):
         return False, False, None, 0, None, None
 
     ranked = rank_intents(question, _personal_intents_for_role(role))
-    ranked = _apply_subject_scoring_adjustment(ranked, question)
+    ranked = _apply_subject_scoring_adjustment(ranked, question, _personal_intents_for_role(role))
     if role in PRINCIPAL_LIKE_ROLES:
         ranked = _apply_teacher_location_guard(ranked, question)
     intent, nlp_score = ranked[0] if ranked else (None, 0)
@@ -3108,7 +3128,9 @@ def answer_principal(question, forced_intent=None):
             "school_wide_subject_teacher", "class_teacher_lookup", "class_teacher",
             "low_attendance_count", "pending_fees_count", "notices", "subjects_offered"
         ])
-        principal_ranked = _apply_subject_scoring_adjustment(principal_ranked, question)
+        principal_ranked = _apply_subject_scoring_adjustment(
+            principal_ranked, question, _personal_intents_for_role("principal")
+        )
         principal_ranked = _apply_teacher_location_guard(principal_ranked, question)
         intent = principal_ranked[0][0] if principal_ranked else None
 

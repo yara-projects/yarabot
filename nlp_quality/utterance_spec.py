@@ -252,3 +252,17 @@ GENERALIZERS = {
     "complaint_feedback": "i need to tell the vp|i make a private teacher complaint",
     "complaint_summary": "student complaints waiting|latest private complaints",
 }
+
+
+BOUNDARY_TRAINING = {
+    "exam": ["my next examination"],
+    "timetable": ["lessons do i have this week"],
+    "pending_fees_count": ["students have fees due"],
+    "next_class": ["what class do i teach next"],
+    "current_class": ["what class should i be teaching now"],
+    "periods_remaining": ["lessons do i have left"],
+    "free_periods": ["my free lesson"],
+    "department_free_teachers": ["my department is free"],
+    "complaint_feedback": ["i want to report a teacher"],
+    "complaint_summary": ["pending student complaints"],
+}
