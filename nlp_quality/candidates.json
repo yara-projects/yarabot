@@ -182,6 +182,19 @@
     "reason": ""
   },
   {
+    "intent": "exam",
+    "role": "student",
+    "phrase": "my next examination",
+    "category": "generated_candidate",
+    "classification": "SAFE",
+    "predicted": "exam",
+    "top_score": 4,
+    "second_score": 1,
+    "margin": 3,
+    "near_duplicate_ratio": 0.6428571428571429,
+    "reason": "diagnostic warnings (non-blocking): shares keyword(s) ['next'] with 'next_period' [same role]; shares keyword(s) ['next'] with 'next_class' [different role - informational only]"
+  },
+  {
     "intent": "timetable",
     "role": "student",
     "phrase": "this weeks timetable",
@@ -271,6 +284,19 @@
     "margin": 7,
     "near_duplicate_ratio": 0.6111111111111112,
     "reason": "diagnostic warnings (non-blocking): overlaps existing phrase \"schedule for\" already registered under 'teacher_schedule_lookup' [different role - informational only]; shares keyword(s) ['schedule'] with 'teacher_schedule_lookup' [different role - informational only]; shares keyword(s) ['schedule'] with 'class_timetable_lookup' [different role - informational only]; shares keyword(s) ['schedule'] with 'department_schedule_today' [same role]"
+  },
+  {
+    "intent": "timetable",
+    "role": "student",
+    "phrase": "lessons do i have this week",
+    "category": "generated_candidate",
+    "classification": "SAFE",
+    "predicted": "timetable",
+    "top_score": 3,
+    "second_score": 0,
+    "margin": 3,
+    "near_duplicate_ratio": 0.64,
+    "reason": ""
   },
   {
     "intent": "fee",
@@ -1638,6 +1664,19 @@
     "reason": "diagnostic warnings (non-blocking): shares keyword(s) ['next'] with 'next_period' [different role - informational only]"
   },
   {
+    "intent": "next_class",
+    "role": "teacher",
+    "phrase": "what class do i teach next",
+    "category": "generated_candidate",
+    "classification": "SAFE",
+    "predicted": "next_class",
+    "top_score": 4,
+    "second_score": 2,
+    "margin": 2,
+    "near_duplicate_ratio": 0.9056603773584906,
+    "reason": "diagnostic warnings (non-blocking): shares keyword(s) ['class', 'teach'] with 'classes_assigned' [same role]; shares keyword(s) ['class'] with 'my_class' [different role - informational only]; shares keyword(s) ['next'] with 'next_period' [different role - informational only]; shares keyword(s) ['class'] with 'class_timetable_lookup' [different role - informational only]; shares keyword(s) ['class', 'teach'] with 'class_teacher_lookup' [different role - informational only]; shares keyword(s) ['class'] with 'class_teacher' [different role - informational only]"
+  },
+  {
     "intent": "current_class",
     "role": "teacher",
     "phrase": "what am i teaching now",
@@ -1727,6 +1766,19 @@
     "margin": 3,
     "near_duplicate_ratio": 0.5416666666666666,
     "reason": ""
+  },
+  {
+    "intent": "current_class",
+    "role": "teacher",
+    "phrase": "what class should i be teaching now",
+    "category": "generated_candidate",
+    "classification": "SAFE",
+    "predicted": "current_class",
+    "top_score": 4,
+    "second_score": 2,
+    "margin": 2,
+    "near_duplicate_ratio": 0.7540983606557377,
+    "reason": "diagnostic warnings (non-blocking): shares keyword(s) ['class'] with 'classes_assigned' [same role]; shares keyword(s) ['class'] with 'my_class' [different role - informational only]; shares keyword(s) ['teaching'] with 'classroom_occupant' [different role - informational only]; shares keyword(s) ['class'] with 'class_timetable_lookup' [different role - informational only]; shares keyword(s) ['class'] with 'class_teacher_lookup' [different role - informational only]; shares keyword(s) ['class'] with 'class_teacher' [different role - informational only]"
   },
   {
     "intent": "free_periods",
@@ -1820,6 +1872,19 @@
     "reason": "diagnostic warnings (non-blocking): shares keyword(s) ['class'] with 'classes_assigned' [same role]; shares keyword(s) ['class'] with 'my_class' [different role - informational only]; shares keyword(s) ['class'] with 'class_timetable_lookup' [different role - informational only]; shares keyword(s) ['class'] with 'class_teacher_lookup' [different role - informational only]; shares keyword(s) ['class'] with 'class_teacher' [different role - informational only]"
   },
   {
+    "intent": "free_periods",
+    "role": "teacher",
+    "phrase": "my free lesson",
+    "category": "generated_candidate",
+    "classification": "SAFE",
+    "predicted": "free_periods",
+    "top_score": 4,
+    "second_score": 0,
+    "margin": 4,
+    "near_duplicate_ratio": 0.625,
+    "reason": "diagnostic warnings (non-blocking): shares keyword(s) ['free'] with 'free_teachers' [different role - informational only]; shares keyword(s) ['free'] with 'department_free_teachers' [same role]"
+  },
+  {
     "intent": "periods_remaining",
     "role": "teacher",
     "phrase": "lessons left today",
@@ -1909,6 +1974,19 @@
     "margin": 4,
     "near_duplicate_ratio": 0.7741935483870968,
     "reason": "diagnostic warnings (non-blocking): shares keyword(s) ['periods'] with 'timetable' [same role]; shares keyword(s) ['periods'] with 'period_count' [same role]; shares keyword(s) ['periods'] with 'free_periods' [same role]"
+  },
+  {
+    "intent": "periods_remaining",
+    "role": "teacher",
+    "phrase": "lessons do i have left",
+    "category": "generated_candidate",
+    "classification": "SAFE",
+    "predicted": "periods_remaining",
+    "top_score": 4,
+    "second_score": 0,
+    "margin": 4,
+    "near_duplicate_ratio": 0.6829268292682927,
+    "reason": ""
   },
   {
     "intent": "teacher_identity",
@@ -2294,9 +2372,9 @@
     "category": "generated_candidate",
     "classification": "SAFE",
     "predicted": "teacher_schedule_lookup",
-    "top_score": 4,
+    "top_score": 7,
     "second_score": 0,
-    "margin": 4,
+    "margin": 7,
     "near_duplicate_ratio": 0.7272727272727273,
     "reason": "diagnostic warnings (non-blocking): shares keyword(s) ['schedule'] with 'timetable' [different role - informational only]; shares keyword(s) ['schedule'] with 'class_timetable_lookup' [same role]; shares keyword(s) ['schedule'] with 'department_schedule_today' [different role - informational only]"
   },
@@ -2912,6 +2990,19 @@
     "reason": "diagnostic warnings (non-blocking): overlaps existing phrase \"school fees\" already registered under 'fee' [different role - informational only]; overlaps existing phrase \"fees due\" already registered under 'fee' [different role - informational only]; shares keyword(s) ['due', 'fees'] with 'fee' [different role - informational only]"
   },
   {
+    "intent": "pending_fees_count",
+    "role": "principal",
+    "phrase": "students have fees due",
+    "category": "generated_candidate",
+    "classification": "SAFE",
+    "predicted": "pending_fees_count",
+    "top_score": 3,
+    "second_score": 0,
+    "margin": 3,
+    "near_duplicate_ratio": 0.8181818181818182,
+    "reason": "diagnostic warnings (non-blocking): overlaps existing phrase \"fees due\" already registered under 'fee' [different role - informational only]; shares keyword(s) ['due', 'fees'] with 'fee' [different role - informational only]; shares keyword(s) ['students'] with 'total_students' [same role]"
+  },
+  {
     "intent": "teacher_count_by_subject",
     "role": "principal",
     "phrase": "how many teach math",
@@ -3092,6 +3183,19 @@
     "margin": 3,
     "near_duplicate_ratio": 0.6333333333333333,
     "reason": "diagnostic warnings (non-blocking): shares keyword(s) ['department'] with 'department_schedule_today' [same role]; shares keyword(s) ['department'] with 'department_teacher_count' [same role]"
+  },
+  {
+    "intent": "department_free_teachers",
+    "role": "hod",
+    "phrase": "my department is free",
+    "category": "generated_candidate",
+    "classification": "SAFE",
+    "predicted": "department_free_teachers",
+    "top_score": 5,
+    "second_score": 1,
+    "margin": 4,
+    "near_duplicate_ratio": 0.8260869565217391,
+    "reason": "diagnostic warnings (non-blocking): shares keyword(s) ['free'] with 'free_periods' [same role]; overlaps existing phrase \"my department\" already registered under 'teacher_identity' [same role]; shares keyword(s) ['free'] with 'free_teachers' [different role - informational only]; shares keyword(s) ['department'] with 'department_schedule_today' [same role]; shares keyword(s) ['department'] with 'department_teacher_count' [same role]"
   },
   {
     "intent": "department_schedule_today",
@@ -3549,6 +3653,19 @@
     "reason": "diagnostic warnings (non-blocking): shares keyword(s) ['teacher'] with 'total_teachers' [different role - informational only]; shares keyword(s) ['teacher'] with 'subject_teacher' [same role]; shares keyword(s) ['teacher'] with 'class_teacher_lookup' [different role - informational only]; shares keyword(s) ['teacher'] with 'class_teacher' [same role]; shares keyword(s) ['complaint'] with 'complaint_summary' [different role - informational only]"
   },
   {
+    "intent": "complaint_feedback",
+    "role": "student",
+    "phrase": "i want to report a teacher",
+    "category": "generated_candidate",
+    "classification": "SAFE",
+    "predicted": "complaint_feedback",
+    "top_score": 3,
+    "second_score": 1,
+    "margin": 2,
+    "near_duplicate_ratio": 0.6153846153846154,
+    "reason": "diagnostic warnings (non-blocking): shares keyword(s) ['teacher'] with 'total_teachers' [different role - informational only]; shares keyword(s) ['teacher'] with 'subject_teacher' [same role]; shares keyword(s) ['teacher'] with 'class_teacher_lookup' [different role - informational only]; shares keyword(s) ['teacher'] with 'class_teacher' [same role]"
+  },
+  {
     "intent": "complaint_summary",
     "role": "vice_principal",
     "phrase": "show unresolved complaints",
@@ -3638,6 +3755,19 @@
     "margin": 4,
     "near_duplicate_ratio": 0.5882352941176471,
     "reason": "diagnostic warnings (non-blocking): shares keyword(s) ['complaints'] with 'complaint_feedback' [different role - informational only]"
+  },
+  {
+    "intent": "complaint_summary",
+    "role": "vice_principal",
+    "phrase": "pending student complaints",
+    "category": "generated_candidate",
+    "classification": "SAFE",
+    "predicted": "complaint_summary",
+    "top_score": 5,
+    "second_score": 0,
+    "margin": 5,
+    "near_duplicate_ratio": 0.8076923076923077,
+    "reason": "diagnostic warnings (non-blocking): shares keyword(s) ['student'] with 'total_students' [different role - informational only]; shares keyword(s) ['pending'] with 'pending_fees_count' [different role - informational only]; shares keyword(s) ['complaints'] with 'complaint_feedback' [different role - informational only]"
   },
   {
     "intent": "complaint_feedback",

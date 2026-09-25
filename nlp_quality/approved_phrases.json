@@ -265,6 +265,12 @@
   },
   {
     "intent": "complaint_feedback",
+    "phrase": "i want to report a teacher",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_feedback",
     "phrase": "i want to complain",
     "source": "manual",
     "added_by": "nlp-quality-2026-09-25"
@@ -619,6 +625,12 @@
   },
   {
     "intent": "complaint_summary",
+    "phrase": "pending student complaints",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "complaint_summary",
     "phrase": "any new complaints",
     "source": "manual",
     "added_by": "nlp-quality-2026-09-25"
@@ -708,6 +720,12 @@
     "added_by": "nlp-quality-2026-09-25"
   },
   {
+    "intent": "current_class",
+    "phrase": "what class should i be teaching now",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
     "intent": "department_free_teachers",
     "phrase": "available staff in my department",
     "source": "manual",
@@ -740,6 +758,12 @@
   {
     "intent": "department_free_teachers",
     "phrase": "department team has a gap",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "department_free_teachers",
+    "phrase": "my department is free",
     "source": "manual",
     "added_by": "nlp-quality-2026-09-25"
   },
@@ -812,6 +836,12 @@
   {
     "intent": "exam",
     "phrase": "my exams scheduled",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "exam",
+    "phrase": "my next examination",
     "source": "manual",
     "added_by": "nlp-quality-2026-09-25"
   },
@@ -890,6 +920,12 @@
   {
     "intent": "free_periods",
     "phrase": "i have no class today",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "free_periods",
+    "phrase": "my free lesson",
     "source": "manual",
     "added_by": "nlp-quality-2026-09-25"
   },
@@ -1164,6 +1200,12 @@
     "added_by": "nlp-quality-2026-09-25"
   },
   {
+    "intent": "next_class",
+    "phrase": "what class do i teach next",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
     "intent": "next_period",
     "phrase": "what lesson is after this",
     "source": "manual",
@@ -1278,6 +1320,12 @@
     "added_by": "nlp-quality-2026-09-25"
   },
   {
+    "intent": "pending_fees_count",
+    "phrase": "students have fees due",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
     "intent": "period_count",
     "phrase": "number of lessons today",
     "source": "manual",
@@ -1328,6 +1376,12 @@
   {
     "intent": "periods_remaining",
     "phrase": "periods i have left",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "periods_remaining",
+    "phrase": "lessons do i have left",
     "source": "manual",
     "added_by": "nlp-quality-2026-09-25"
   },
@@ -1658,6 +1712,12 @@
   {
     "intent": "timetable",
     "phrase": "my schedule for this week",
+    "source": "manual",
+    "added_by": "nlp-quality-2026-09-25"
+  },
+  {
+    "intent": "timetable",
+    "phrase": "lessons do i have this week",
     "source": "manual",
     "added_by": "nlp-quality-2026-09-25"
   },

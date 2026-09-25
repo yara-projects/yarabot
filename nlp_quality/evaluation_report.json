@@ -1,23 +1,22 @@
 {
   "candidate_counts": {
     "REJECT": 46,
-    "SAFE": 290,
+    "SAFE": 300,
     "AMBIGUOUS": 6
   },
-  "candidate_total": 342,
-  "approved_total": 290,
+  "candidate_total": 352,
+  "approved_total": 300,
   "held_out_before": {
     "total": 80,
-    "accuracy": 0.1625,
-    "tie_rate": 0.075,
-    "clarification_rate": 0.075,
-    "no_match_rate": 0.75,
-    "wrong_intent_rate": 0.0125,
+    "accuracy": 0.2,
+    "tie_rate": 0.0875,
+    "clarification_rate": 0.0875,
+    "no_match_rate": 0.7125,
+    "wrong_intent_rate": 0.0,
     "counts": {
-      "CORRECT": 13,
-      "NO_MATCH": 60,
-      "TIE": 6,
-      "WRONG": 1
+      "CORRECT": 16,
+      "NO_MATCH": 57,
+      "TIE": 7
     },
     "per_intent": {
       "attendance": {
@@ -121,8 +120,7 @@
         "NO_MATCH": 2
       },
       "school_wide_subject_teacher": {
-        "CORRECT": 1,
-        "NO_MATCH": 1
+        "CORRECT": 2
       },
       "subject_teacher": {
         "NO_MATCH": 1,
@@ -132,8 +130,8 @@
         "NO_MATCH": 2
       },
       "teacher_count_by_subject": {
-        "WRONG": 1,
-        "NO_MATCH": 1
+        "TIE": 1,
+        "CORRECT": 1
       },
       "teacher_identity": {
         "NO_MATCH": 1,
@@ -143,7 +141,8 @@
         "NO_MATCH": 2
       },
       "teacher_schedule_lookup": {
-        "NO_MATCH": 2
+        "CORRECT": 1,
+        "NO_MATCH": 1
       },
       "thanks": {
         "CORRECT": 1,
@@ -160,17 +159,11 @@
         "NO_MATCH": 2
       }
     },
-    "confusion": [
-      {
-        "expected": "teacher_count_by_subject",
-        "predicted": "total_teachers",
-        "count": 1
-      }
-    ],
+    "confusion": [],
     "latency_ms": {
-      "average": 0.8842962503877061,
-      "p95": 1.316099995165132,
-      "maximum": 1.5024999956949614
+      "average": 1.0414437500045892,
+      "p95": 1.8526000000065324,
+      "maximum": 2.4825000000419095
     },
     "failures": [
       {
@@ -189,7 +182,7 @@
             1
           ]
         ],
-        "latency_ms": 0.7815999997546896
+        "latency_ms": 1.2137000001075648
       },
       {
         "intent": "exam",
@@ -207,7 +200,7 @@
             1
           ]
         ],
-        "latency_ms": 0.6647000045632012
+        "latency_ms": 0.8103999999775624
       },
       {
         "intent": "exam",
@@ -229,7 +222,7 @@
             1
           ]
         ],
-        "latency_ms": 0.6455999973695725
+        "latency_ms": 0.8608000000549509
       },
       {
         "intent": "timetable",
@@ -242,7 +235,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 0.5479999963426962
+        "latency_ms": 0.6200000000262662
       },
       {
         "intent": "fee",
@@ -255,7 +248,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 0.6313999983831309
+        "latency_ms": 0.8108999999194566
       },
       {
         "intent": "fee",
@@ -273,7 +266,7 @@
             1
           ]
         ],
-        "latency_ms": 0.9505999987595715
+        "latency_ms": 1.1657000000013795
       },
       {
         "intent": "period_count",
@@ -286,7 +279,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 0.6966000000829808
+        "latency_ms": 0.7971999999654145
       },
       {
         "intent": "classes_assigned",
@@ -299,7 +292,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 0.5924999932176434
+        "latency_ms": 0.6843999999546213
       },
       {
         "intent": "classes_assigned",
@@ -312,7 +305,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 0.6950000024517067
+        "latency_ms": 0.8051999999452164
       },
       {
         "intent": "total_students",
@@ -330,7 +323,7 @@
             1
           ]
         ],
-        "latency_ms": 1.0322000016458333
+        "latency_ms": 1.2775000000146974
       },
       {
         "intent": "total_students",
@@ -348,7 +341,7 @@
             1
           ]
         ],
-        "latency_ms": 0.8563000010326505
+        "latency_ms": 1.3807999999926324
       },
       {
         "intent": "total_teachers",
@@ -370,7 +363,7 @@
             1
           ]
         ],
-        "latency_ms": 0.879999999597203
+        "latency_ms": 1.7425999999431951
       },
       {
         "intent": "total_teachers",
@@ -388,7 +381,7 @@
             1
           ]
         ],
-        "latency_ms": 0.9081000025616959
+        "latency_ms": 1.5144000000191227
       },
       {
         "intent": "class_wise_count",
@@ -401,7 +394,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 1.1331999994581565
+        "latency_ms": 1.8526000000065324
       },
       {
         "intent": "class_wise_count",
@@ -414,7 +407,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 0.8683000050950795
+        "latency_ms": 1.0489999999663269
       },
       {
         "intent": "greeting",
@@ -427,7 +420,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 0.4155999995418824
+        "latency_ms": 0.5917999999383028
       },
       {
         "intent": "thanks",
@@ -445,7 +438,7 @@
             1
           ]
         ],
-        "latency_ms": 0.8611000012024306
+        "latency_ms": 0.9614000000510714
       },
       {
         "intent": "help",
@@ -458,7 +451,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 0.9676000045146793
+        "latency_ms": 1.1064999999916836
       },
       {
         "intent": "help",
@@ -471,7 +464,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 0.5196999991312623
+        "latency_ms": 0.6482000000005428
       },
       {
         "intent": "identity",
@@ -484,7 +477,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 0.7261999999172986
+        "latency_ms": 0.8262000000058833
       },
       {
         "intent": "roll_number",
@@ -497,7 +490,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 0.996900002064649
+        "latency_ms": 1.0952000000088447
       },
       {
         "intent": "roll_number",
@@ -510,7 +503,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 0.44490000436780974
+        "latency_ms": 0.5810999999766864
       },
       {
         "intent": "my_class",
@@ -536,7 +529,7 @@
             1
           ]
         ],
-        "latency_ms": 0.7851999980630353
+        "latency_ms": 0.8735000000115178
       },
       {
         "intent": "next_period",
@@ -554,7 +547,7 @@
             1
           ]
         ],
-        "latency_ms": 0.8362000007764436
+        "latency_ms": 2.07609999995384
       },
       {
         "intent": "next_period",
@@ -580,7 +573,7 @@
             1
           ]
         ],
-        "latency_ms": 0.6752999979653396
+        "latency_ms": 1.2810000000627042
       },
       {
         "intent": "subject_teacher",
@@ -593,7 +586,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 0.7170000026235357
+        "latency_ms": 1.4075000000275395
       },
       {
         "intent": "next_class",
@@ -615,7 +608,7 @@
             4
           ]
         ],
-        "latency_ms": 0.7010999979684129
+        "latency_ms": 0.8676999999579493
       },
       {
         "intent": "next_class",
@@ -633,7 +626,7 @@
             1
           ]
         ],
-        "latency_ms": 0.7409999961964786
+        "latency_ms": 0.8776000000807471
       },
       {
         "intent": "current_class",
@@ -646,7 +639,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 0.4975000047124922
+        "latency_ms": 0.5903000001126202
       },
       {
         "intent": "free_periods",
@@ -659,7 +652,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 0.5461999971885234
+        "latency_ms": 0.6568000000015672
       },
       {
         "intent": "free_periods",
@@ -685,7 +678,7 @@
             1
           ]
         ],
-        "latency_ms": 0.4562999965855852
+        "latency_ms": 0.5254000000149972
       },
       {
         "intent": "periods_remaining",
@@ -703,7 +696,7 @@
             1
           ]
         ],
-        "latency_ms": 0.6366999950842
+        "latency_ms": 0.7312000000183616
       },
       {
         "intent": "periods_remaining",
@@ -729,7 +722,7 @@
             1
           ]
         ],
-        "latency_ms": 0.5441000030259602
+        "latency_ms": 0.6294999999454376
       },
       {
         "intent": "teacher_identity",
@@ -742,7 +735,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 0.6066999994800426
+        "latency_ms": 0.7210999999642809
       },
       {
         "intent": "teacher_location",
@@ -760,7 +753,7 @@
             1
           ]
         ],
-        "latency_ms": 0.9905000042635947
+        "latency_ms": 1.0879999999815482
       },
       {
         "intent": "teacher_location",
@@ -778,7 +771,7 @@
             1
           ]
         ],
-        "latency_ms": 0.6721000027027912
+        "latency_ms": 0.7982000000765765
       },
       {
         "intent": "classroom_occupant",
@@ -800,7 +793,7 @@
             1
           ]
         ],
-        "latency_ms": 1.0428000023239292
+        "latency_ms": 1.2752000000091357
       },
       {
         "intent": "classroom_occupant",
@@ -813,7 +806,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 0.7555000047432259
+        "latency_ms": 1.0965000000169312
       },
       {
         "intent": "free_teachers",
@@ -826,7 +819,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 1.2398000035318546
+        "latency_ms": 2.4825000000419095
       },
       {
         "intent": "free_teachers",
@@ -839,20 +832,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 0.8030000026337802
-      },
-      {
-        "intent": "teacher_schedule_lookup",
-        "role": "principal",
-        "text": "pull up ms alis teaching schedule",
-        "category": "held_out",
-        "outcome": "NO_MATCH",
-        "predicted": null,
-        "top_score": 0,
-        "second_score": 0,
-        "margin": 0,
-        "ranked": [],
-        "latency_ms": 1.3261000058264472
+        "latency_ms": 1.4572999999700187
       },
       {
         "intent": "teacher_schedule_lookup",
@@ -865,7 +845,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 1.0422999985166825
+        "latency_ms": 0.9541999999100881
       },
       {
         "intent": "class_timetable_lookup",
@@ -887,20 +867,7 @@
             4
           ]
         ],
-        "latency_ms": 0.8503999997628853
-      },
-      {
-        "intent": "school_wide_subject_teacher",
-        "role": "principal",
-        "text": "which staff members take biology",
-        "category": "held_out",
-        "outcome": "NO_MATCH",
-        "predicted": null,
-        "top_score": 0,
-        "second_score": 0,
-        "margin": 0,
-        "ranked": [],
-        "latency_ms": 1.2822999997297302
+        "latency_ms": 0.7709000000204469
       },
       {
         "intent": "class_teacher_lookup",
@@ -922,7 +889,7 @@
             1
           ]
         ],
-        "latency_ms": 1.2874000021838583
+        "latency_ms": 1.2212999999974272
       },
       {
         "intent": "class_teacher_lookup",
@@ -935,7 +902,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 1.2551000036182813
+        "latency_ms": 1.1095999999497508
       },
       {
         "intent": "class_teacher",
@@ -948,7 +915,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 1.4620000001741573
+        "latency_ms": 1.3192000000117332
       },
       {
         "intent": "class_teacher",
@@ -966,7 +933,7 @@
             1
           ]
         ],
-        "latency_ms": 0.7372999971266836
+        "latency_ms": 0.6429999999681968
       },
       {
         "intent": "low_attendance_count",
@@ -979,7 +946,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 1.2496999988798052
+        "latency_ms": 1.1161999999558248
       },
       {
         "intent": "low_attendance_count",
@@ -992,7 +959,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 1.5024999956949614
+        "latency_ms": 2.056299999935618
       },
       {
         "intent": "pending_fees_count",
@@ -1005,7 +972,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 1.156099999207072
+        "latency_ms": 1.981800000066869
       },
       {
         "intent": "pending_fees_count",
@@ -1018,38 +985,29 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 1.2717999998130836
+        "latency_ms": 1.3887000000067928
       },
       {
         "intent": "teacher_count_by_subject",
         "role": "principal",
         "text": "how many staff members teach biology",
         "category": "held_out",
-        "outcome": "WRONG",
-        "predicted": "total_teachers",
-        "top_score": 5,
-        "second_score": 0,
-        "margin": 5,
+        "outcome": "TIE",
+        "predicted": "teacher_count_by_subject",
+        "top_score": 3,
+        "second_score": 2,
+        "margin": 1,
         "ranked": [
           [
+            "teacher_count_by_subject",
+            3
+          ],
+          [
             "total_teachers",
-            5
+            2
           ]
         ],
-        "latency_ms": 1.4590999999199994
-      },
-      {
-        "intent": "teacher_count_by_subject",
-        "role": "principal",
-        "text": "give me the faculty count for chemistry",
-        "category": "held_out",
-        "outcome": "NO_MATCH",
-        "predicted": null,
-        "top_score": 0,
-        "second_score": 0,
-        "margin": 0,
-        "ranked": [],
-        "latency_ms": 1.168100003269501
+        "latency_ms": 1.3493999999809603
       },
       {
         "intent": "department_free_teachers",
@@ -1075,7 +1033,7 @@
             1
           ]
         ],
-        "latency_ms": 1.1507000017445534
+        "latency_ms": 1.0300000000142973
       },
       {
         "intent": "department_free_teachers",
@@ -1101,7 +1059,7 @@
             1
           ]
         ],
-        "latency_ms": 1.0450999980093911
+        "latency_ms": 0.9125999999923806
       },
       {
         "intent": "department_schedule_today",
@@ -1127,7 +1085,7 @@
             1
           ]
         ],
-        "latency_ms": 0.8558999979868531
+        "latency_ms": 0.7482000000891276
       },
       {
         "intent": "department_schedule_today",
@@ -1153,7 +1111,7 @@
             1
           ]
         ],
-        "latency_ms": 1.1038000011467375
+        "latency_ms": 0.9672000001046399
       },
       {
         "intent": "department_teacher_count",
@@ -1179,7 +1137,7 @@
             1
           ]
         ],
-        "latency_ms": 0.9487999996053986
+        "latency_ms": 0.8296000000882486
       },
       {
         "intent": "department_teacher_count",
@@ -1205,7 +1163,7 @@
             1
           ]
         ],
-        "latency_ms": 0.9568000023136847
+        "latency_ms": 0.8544000000938468
       },
       {
         "intent": "notices",
@@ -1218,7 +1176,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 0.7471999997505918
+        "latency_ms": 0.7087999999839667
       },
       {
         "intent": "subjects_offered",
@@ -1236,7 +1194,7 @@
             1
           ]
         ],
-        "latency_ms": 1.1530999981914647
+        "latency_ms": 1.0837999999466774
       },
       {
         "intent": "subjects_offered",
@@ -1249,7 +1207,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 0.7970000006025657
+        "latency_ms": 0.7381000000350468
       },
       {
         "intent": "complaint_feedback",
@@ -1271,7 +1229,7 @@
             1
           ]
         ],
-        "latency_ms": 0.8442000034847297
+        "latency_ms": 0.9501999999201871
       },
       {
         "intent": "complaint_feedback",
@@ -1297,7 +1255,7 @@
             1
           ]
         ],
-        "latency_ms": 1.3026999949943274
+        "latency_ms": 1.648700000032477
       },
       {
         "intent": "complaint_summary",
@@ -1315,7 +1273,7 @@
             1
           ]
         ],
-        "latency_ms": 0.8804000026430003
+        "latency_ms": 0.9188000000222019
       },
       {
         "intent": "complaint_summary",
@@ -1333,7 +1291,7 @@
             1
           ]
         ],
-        "latency_ms": 0.8662000036565587
+        "latency_ms": 0.8586999999806721
       }
     ]
   },
@@ -1471,22 +1429,22 @@
     },
     "confusion": [],
     "latency_ms": {
-      "average": 0.9290962503655464,
-      "p95": 1.308800005062949,
-      "maximum": 1.4239000011002645
+      "average": 1.0346675000022287,
+      "p95": 1.6075999999429769,
+      "maximum": 2.361100000030092
     },
     "failures": []
   },
   "hard_negatives_before": {
     "total": 25,
-    "accuracy": 0.44,
+    "accuracy": 0.56,
     "tie_rate": 0.04,
     "clarification_rate": 0.04,
-    "no_match_rate": 0.44,
+    "no_match_rate": 0.32,
     "wrong_intent_rate": 0.08,
     "counts": {
-      "CORRECT": 11,
-      "NO_MATCH": 11,
+      "CORRECT": 14,
+      "NO_MATCH": 8,
       "WRONG": 2,
       "TIE": 1
     },
@@ -1543,19 +1501,19 @@
         "NO_MATCH": 1
       },
       "school_wide_subject_teacher": {
-        "NO_MATCH": 1
+        "CORRECT": 1
       },
       "subject_teacher": {
         "CORRECT": 1
       },
       "teacher_count_by_subject": {
-        "NO_MATCH": 1
+        "CORRECT": 1
       },
       "teacher_location": {
         "CORRECT": 1
       },
       "teacher_schedule_lookup": {
-        "NO_MATCH": 1
+        "CORRECT": 1
       },
       "timetable": {
         "NO_MATCH": 1
@@ -1577,37 +1535,11 @@
       }
     ],
     "latency_ms": {
-      "average": 0.7797599994228221,
-      "p95": 1.0664999936125241,
-      "maximum": 1.0732999944593757
+      "average": 1.0554959999944913,
+      "p95": 1.5247999999701278,
+      "maximum": 1.6294999999217907
     },
     "failures": [
-      {
-        "role": "principal",
-        "intent": "teacher_count_by_subject",
-        "text": "how many mathematics teachers are there",
-        "category": "hard_negative",
-        "outcome": "NO_MATCH",
-        "predicted": null,
-        "top_score": 0,
-        "second_score": 0,
-        "margin": 0,
-        "ranked": [],
-        "latency_ms": 1.0705000022426248
-      },
-      {
-        "role": "principal",
-        "intent": "school_wide_subject_teacher",
-        "text": "list every mathematics teacher",
-        "category": "hard_negative",
-        "outcome": "NO_MATCH",
-        "predicted": null,
-        "top_score": 0,
-        "second_score": 0,
-        "margin": 0,
-        "ranked": [],
-        "latency_ms": 1.014599998597987
-      },
       {
         "role": "student",
         "intent": "exam",
@@ -1628,7 +1560,7 @@
             1
           ]
         ],
-        "latency_ms": 0.5877000003238209
+        "latency_ms": 0.7233000000042011
       },
       {
         "role": "student",
@@ -1641,7 +1573,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 0.6800999981351197
+        "latency_ms": 0.7481999999754407
       },
       {
         "role": "principal",
@@ -1654,7 +1586,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 0.8312999998452142
+        "latency_ms": 0.9436000000278
       },
       {
         "role": "teacher",
@@ -1680,7 +1612,7 @@
             1
           ]
         ],
-        "latency_ms": 0.5577000047196634
+        "latency_ms": 0.6710999999768319
       },
       {
         "role": "teacher",
@@ -1706,7 +1638,7 @@
             1
           ]
         ],
-        "latency_ms": 0.8014000050025061
+        "latency_ms": 0.8861999999680847
       },
       {
         "role": "teacher",
@@ -1724,7 +1656,7 @@
             1
           ]
         ],
-        "latency_ms": 0.6802999996580184
+        "latency_ms": 1.0538000000224201
       },
       {
         "role": "teacher",
@@ -1742,7 +1674,7 @@
             1
           ]
         ],
-        "latency_ms": 0.5601999946520664
+        "latency_ms": 0.9931999999253094
       },
       {
         "role": "teacher",
@@ -1760,20 +1692,7 @@
             1
           ]
         ],
-        "latency_ms": 0.5225999993854202
-      },
-      {
-        "role": "principal",
-        "intent": "teacher_schedule_lookup",
-        "text": "show ms alis timetable",
-        "category": "hard_negative",
-        "outcome": "NO_MATCH",
-        "predicted": null,
-        "top_score": 0,
-        "second_score": 0,
-        "margin": 0,
-        "ranked": [],
-        "latency_ms": 0.6102999977883883
+        "latency_ms": 0.8515000000670625
       },
       {
         "role": "hod",
@@ -1799,7 +1718,7 @@
             1
           ]
         ],
-        "latency_ms": 0.7248000038089231
+        "latency_ms": 0.9887999999591557
       },
       {
         "role": "student",
@@ -1821,7 +1740,7 @@
             1
           ]
         ],
-        "latency_ms": 0.7412999984808266
+        "latency_ms": 0.8748999999852458
       },
       {
         "role": "vice_principal",
@@ -1839,22 +1758,19 @@
             1
           ]
         ],
-        "latency_ms": 0.738000002456829
+        "latency_ms": 1.0137000000440821
       }
     ]
   },
   "hard_negatives_after": {
     "total": 25,
-    "accuracy": 0.48,
-    "tie_rate": 0.04,
-    "clarification_rate": 0.04,
-    "no_match_rate": 0.4,
-    "wrong_intent_rate": 0.08,
+    "accuracy": 1.0,
+    "tie_rate": 0.0,
+    "clarification_rate": 0.0,
+    "no_match_rate": 0.0,
+    "wrong_intent_rate": 0.0,
     "counts": {
-      "CORRECT": 12,
-      "NO_MATCH": 10,
-      "WRONG": 2,
-      "TIE": 1
+      "CORRECT": 25
     },
     "per_intent": {
       "class_teacher": {
@@ -1870,16 +1786,16 @@
         "CORRECT": 1
       },
       "complaint_feedback": {
-        "NO_MATCH": 1
+        "CORRECT": 1
       },
       "complaint_summary": {
-        "NO_MATCH": 1
+        "CORRECT": 1
       },
       "current_class": {
-        "WRONG": 1
+        "CORRECT": 1
       },
       "department_free_teachers": {
-        "TIE": 1
+        "CORRECT": 1
       },
       "department_schedule_today": {
         "CORRECT": 1
@@ -1888,319 +1804,66 @@
         "CORRECT": 1
       },
       "exam": {
-        "NO_MATCH": 1
+        "CORRECT": 1
       },
       "fee": {
         "CORRECT": 1
       },
       "free_periods": {
-        "NO_MATCH": 1
+        "CORRECT": 1
       },
       "next_class": {
-        "WRONG": 1
+        "CORRECT": 1
       },
       "pending_fees_count": {
-        "NO_MATCH": 1
+        "CORRECT": 1
       },
       "period_count": {
         "CORRECT": 1
       },
       "periods_remaining": {
-        "NO_MATCH": 1
+        "CORRECT": 1
       },
       "school_wide_subject_teacher": {
-        "NO_MATCH": 1
+        "CORRECT": 1
       },
       "subject_teacher": {
         "CORRECT": 1
       },
       "teacher_count_by_subject": {
-        "NO_MATCH": 1
+        "CORRECT": 1
       },
       "teacher_location": {
         "CORRECT": 1
       },
       "teacher_schedule_lookup": {
-        "NO_MATCH": 1
+        "CORRECT": 1
       },
       "timetable": {
-        "NO_MATCH": 1
+        "CORRECT": 1
       },
       "total_teachers": {
         "CORRECT": 1
       }
     },
-    "confusion": [
-      {
-        "expected": "next_class",
-        "predicted": "classes_assigned",
-        "count": 1
-      },
-      {
-        "expected": "current_class",
-        "predicted": "classes_assigned",
-        "count": 1
-      }
-    ],
+    "confusion": [],
     "latency_ms": {
-      "average": 0.837407999788411,
-      "p95": 1.1028000008082017,
-      "maximum": 1.2348000018391758
+      "average": 1.1521679999941625,
+      "p95": 1.6657999999551976,
+      "maximum": 2.4917000000641565
     },
-    "failures": [
-      {
-        "role": "principal",
-        "intent": "teacher_count_by_subject",
-        "text": "how many mathematics teachers are there",
-        "category": "hard_negative",
-        "outcome": "NO_MATCH",
-        "predicted": null,
-        "top_score": 0,
-        "second_score": 0,
-        "margin": 0,
-        "ranked": [],
-        "latency_ms": 1.1057000010623597
-      },
-      {
-        "role": "principal",
-        "intent": "school_wide_subject_teacher",
-        "text": "list every mathematics teacher",
-        "category": "hard_negative",
-        "outcome": "NO_MATCH",
-        "predicted": null,
-        "top_score": 0,
-        "second_score": 0,
-        "margin": 0,
-        "ranked": [],
-        "latency_ms": 1.0641999979270622
-      },
-      {
-        "role": "student",
-        "intent": "exam",
-        "text": "when is my next examination",
-        "category": "hard_negative",
-        "outcome": "NO_MATCH",
-        "predicted": null,
-        "top_score": 0,
-        "second_score": 0,
-        "margin": 0,
-        "ranked": [
-          [
-            "exam",
-            1
-          ],
-          [
-            "next_period",
-            1
-          ]
-        ],
-        "latency_ms": 0.7410000034724362
-      },
-      {
-        "role": "student",
-        "intent": "timetable",
-        "text": "what lessons do i have this week",
-        "category": "hard_negative",
-        "outcome": "NO_MATCH",
-        "predicted": null,
-        "top_score": 0,
-        "second_score": 0,
-        "margin": 0,
-        "ranked": [],
-        "latency_ms": 0.756499997805804
-      },
-      {
-        "role": "principal",
-        "intent": "pending_fees_count",
-        "text": "how many students have fees due",
-        "category": "hard_negative",
-        "outcome": "NO_MATCH",
-        "predicted": null,
-        "top_score": 0,
-        "second_score": 0,
-        "margin": 0,
-        "ranked": [],
-        "latency_ms": 0.8778999981586821
-      },
-      {
-        "role": "teacher",
-        "intent": "next_class",
-        "text": "what class do i teach next",
-        "category": "hard_negative",
-        "outcome": "WRONG",
-        "predicted": "classes_assigned",
-        "top_score": 2,
-        "second_score": 1,
-        "margin": 1,
-        "ranked": [
-          [
-            "classes_assigned",
-            2
-          ],
-          [
-            "timetable",
-            1
-          ],
-          [
-            "next_class",
-            1
-          ]
-        ],
-        "latency_ms": 0.5884999991394579
-      },
-      {
-        "role": "teacher",
-        "intent": "current_class",
-        "text": "what class should i be teaching now",
-        "category": "hard_negative",
-        "outcome": "WRONG",
-        "predicted": "classes_assigned",
-        "top_score": 2,
-        "second_score": 1,
-        "margin": 1,
-        "ranked": [
-          [
-            "classes_assigned",
-            2
-          ],
-          [
-            "timetable",
-            1
-          ],
-          [
-            "current_class",
-            1
-          ]
-        ],
-        "latency_ms": 0.8375999968848191
-      },
-      {
-        "role": "teacher",
-        "intent": "periods_remaining",
-        "text": "how many lessons do i have left today",
-        "category": "hard_negative",
-        "outcome": "NO_MATCH",
-        "predicted": null,
-        "top_score": 0,
-        "second_score": 0,
-        "margin": 0,
-        "ranked": [
-          [
-            "periods_remaining",
-            1
-          ]
-        ],
-        "latency_ms": 0.6005999966873787
-      },
-      {
-        "role": "teacher",
-        "intent": "free_periods",
-        "text": "when is my free lesson today",
-        "category": "hard_negative",
-        "outcome": "NO_MATCH",
-        "predicted": null,
-        "top_score": 0,
-        "second_score": 0,
-        "margin": 0,
-        "ranked": [
-          [
-            "free_periods",
-            1
-          ]
-        ],
-        "latency_ms": 0.5504000000655651
-      },
-      {
-        "role": "principal",
-        "intent": "teacher_schedule_lookup",
-        "text": "show ms alis timetable",
-        "category": "hard_negative",
-        "outcome": "NO_MATCH",
-        "predicted": null,
-        "top_score": 0,
-        "second_score": 0,
-        "margin": 0,
-        "ranked": [],
-        "latency_ms": 0.7522000014432706
-      },
-      {
-        "role": "hod",
-        "intent": "department_free_teachers",
-        "text": "who in my department is free now",
-        "category": "hard_negative",
-        "outcome": "TIE",
-        "predicted": "department_free_teachers",
-        "top_score": 2,
-        "second_score": 1,
-        "margin": 1,
-        "ranked": [
-          [
-            "department_free_teachers",
-            2
-          ],
-          [
-            "current_class",
-            1
-          ],
-          [
-            "free_periods",
-            1
-          ]
-        ],
-        "latency_ms": 0.8296000014524907
-      },
-      {
-        "role": "student",
-        "intent": "complaint_feedback",
-        "text": "i want to report a teacher",
-        "category": "hard_negative",
-        "outcome": "NO_MATCH",
-        "predicted": null,
-        "top_score": 0,
-        "second_score": 0,
-        "margin": 0,
-        "ranked": [
-          [
-            "class_teacher",
-            1
-          ],
-          [
-            "subject_teacher",
-            1
-          ]
-        ],
-        "latency_ms": 0.7070999999996275
-      },
-      {
-        "role": "vice_principal",
-        "intent": "complaint_summary",
-        "text": "show pending student complaints",
-        "category": "hard_negative",
-        "outcome": "NO_MATCH",
-        "predicted": null,
-        "top_score": 0,
-        "second_score": 0,
-        "margin": 0,
-        "ranked": [
-          [
-            "complaint_summary",
-            1
-          ]
-        ],
-        "latency_ms": 0.8981999999377877
-      }
-    ]
+    "failures": []
   },
   "golden_before": {
     "total": 405,
-    "accuracy": 0.9654320987654321,
+    "accuracy": 0.9728395061728395,
     "tie_rate": 0.0024691358024691358,
     "clarification_rate": 0.0024691358024691358,
-    "no_match_rate": 0.027160493827160494,
+    "no_match_rate": 0.019753086419753086,
     "wrong_intent_rate": 0.0049382716049382715,
     "counts": {
-      "CORRECT": 391,
-      "NO_MATCH": 11,
+      "CORRECT": 394,
+      "NO_MATCH": 8,
       "WRONG": 2,
       "TIE": 1
     },
@@ -2301,8 +1964,7 @@
         "CORRECT": 10
       },
       "school_wide_subject_teacher": {
-        "CORRECT": 10,
-        "NO_MATCH": 1
+        "CORRECT": 11
       },
       "subject_teacher": {
         "CORRECT": 11
@@ -2311,8 +1973,7 @@
         "CORRECT": 10
       },
       "teacher_count_by_subject": {
-        "CORRECT": 10,
-        "NO_MATCH": 1
+        "CORRECT": 11
       },
       "teacher_identity": {
         "CORRECT": 10
@@ -2321,8 +1982,7 @@
         "CORRECT": 11
       },
       "teacher_schedule_lookup": {
-        "CORRECT": 10,
-        "NO_MATCH": 1
+        "CORRECT": 11
       },
       "thanks": {
         "CORRECT": 10
@@ -2351,37 +2011,11 @@
       }
     ],
     "latency_ms": {
-      "average": 0.6121259258325603,
-      "p95": 0.9687999991001561,
-      "maximum": 2.1517999994102865
+      "average": 0.6850508641968819,
+      "p95": 1.2560000000121363,
+      "maximum": 2.2598000000471075
     },
     "failures": [
-      {
-        "role": "principal",
-        "intent": "teacher_count_by_subject",
-        "text": "how many mathematics teachers are there",
-        "category": "hard_negative",
-        "outcome": "NO_MATCH",
-        "predicted": null,
-        "top_score": 0,
-        "second_score": 0,
-        "margin": 0,
-        "ranked": [],
-        "latency_ms": 2.1517999994102865
-      },
-      {
-        "role": "principal",
-        "intent": "school_wide_subject_teacher",
-        "text": "list every mathematics teacher",
-        "category": "hard_negative",
-        "outcome": "NO_MATCH",
-        "predicted": null,
-        "top_score": 0,
-        "second_score": 0,
-        "margin": 0,
-        "ranked": [],
-        "latency_ms": 1.370199999655597
-      },
       {
         "role": "student",
         "intent": "exam",
@@ -2402,7 +2036,7 @@
             1
           ]
         ],
-        "latency_ms": 0.7236000019474886
+        "latency_ms": 0.7239000000254237
       },
       {
         "role": "student",
@@ -2415,7 +2049,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 0.6932000032975338
+        "latency_ms": 0.6968999999799053
       },
       {
         "role": "principal",
@@ -2428,7 +2062,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 0.9960000024875626
+        "latency_ms": 0.9266999999226755
       },
       {
         "role": "teacher",
@@ -2454,7 +2088,7 @@
             1
           ]
         ],
-        "latency_ms": 0.6674999967799522
+        "latency_ms": 0.6659999999101274
       },
       {
         "role": "teacher",
@@ -2480,7 +2114,7 @@
             1
           ]
         ],
-        "latency_ms": 0.872600001457613
+        "latency_ms": 0.8177999999361418
       },
       {
         "role": "teacher",
@@ -2498,7 +2132,7 @@
             1
           ]
         ],
-        "latency_ms": 0.654800001939293
+        "latency_ms": 0.6708999999318621
       },
       {
         "role": "teacher",
@@ -2516,7 +2150,7 @@
             1
           ]
         ],
-        "latency_ms": 0.7192000048235059
+        "latency_ms": 0.6677999999737949
       },
       {
         "role": "teacher",
@@ -2534,20 +2168,7 @@
             1
           ]
         ],
-        "latency_ms": 0.509900004544761
-      },
-      {
-        "role": "principal",
-        "intent": "teacher_schedule_lookup",
-        "text": "show ms alis timetable",
-        "category": "hard_negative",
-        "outcome": "NO_MATCH",
-        "predicted": null,
-        "top_score": 0,
-        "second_score": 0,
-        "margin": 0,
-        "ranked": [],
-        "latency_ms": 0.7150999954319559
+        "latency_ms": 0.5348999999341686
       },
       {
         "role": "hod",
@@ -2573,7 +2194,7 @@
             1
           ]
         ],
-        "latency_ms": 0.9998999958042987
+        "latency_ms": 1.0715999999320047
       },
       {
         "role": "student",
@@ -2595,7 +2216,7 @@
             1
           ]
         ],
-        "latency_ms": 0.7631999978912063
+        "latency_ms": 0.7696000000123604
       },
       {
         "role": "vice_principal",
@@ -2613,22 +2234,19 @@
             1
           ]
         ],
-        "latency_ms": 0.9044999969773926
+        "latency_ms": 0.8480999999846972
       }
     ]
   },
   "golden_after": {
     "total": 405,
-    "accuracy": 0.9679012345679012,
-    "tie_rate": 0.0024691358024691358,
-    "clarification_rate": 0.0024691358024691358,
-    "no_match_rate": 0.024691358024691357,
-    "wrong_intent_rate": 0.0049382716049382715,
+    "accuracy": 1.0,
+    "tie_rate": 0.0,
+    "clarification_rate": 0.0,
+    "no_match_rate": 0.0,
+    "wrong_intent_rate": 0.0,
     "counts": {
-      "CORRECT": 392,
-      "NO_MATCH": 10,
-      "WRONG": 2,
-      "TIE": 1
+      "CORRECT": 405
     },
     "per_intent": {
       "attendance": {
@@ -2653,18 +2271,16 @@
         "CORRECT": 11
       },
       "complaint_feedback": {
-        "NO_MATCH": 1
+        "CORRECT": 1
       },
       "complaint_summary": {
-        "NO_MATCH": 1
+        "CORRECT": 1
       },
       "current_class": {
-        "CORRECT": 10,
-        "WRONG": 1
+        "CORRECT": 11
       },
       "department_free_teachers": {
-        "CORRECT": 10,
-        "TIE": 1
+        "CORRECT": 11
       },
       "department_schedule_today": {
         "CORRECT": 11
@@ -2673,15 +2289,13 @@
         "CORRECT": 11
       },
       "exam": {
-        "CORRECT": 10,
-        "NO_MATCH": 1
+        "CORRECT": 11
       },
       "fee": {
         "CORRECT": 11
       },
       "free_periods": {
-        "CORRECT": 10,
-        "NO_MATCH": 1
+        "CORRECT": 11
       },
       "free_teachers": {
         "CORRECT": 10
@@ -2702,8 +2316,7 @@
         "CORRECT": 10
       },
       "next_class": {
-        "CORRECT": 10,
-        "WRONG": 1
+        "CORRECT": 11
       },
       "next_period": {
         "CORRECT": 10
@@ -2712,22 +2325,19 @@
         "CORRECT": 10
       },
       "pending_fees_count": {
-        "CORRECT": 10,
-        "NO_MATCH": 1
+        "CORRECT": 11
       },
       "period_count": {
         "CORRECT": 11
       },
       "periods_remaining": {
-        "CORRECT": 10,
-        "NO_MATCH": 1
+        "CORRECT": 11
       },
       "roll_number": {
         "CORRECT": 10
       },
       "school_wide_subject_teacher": {
-        "CORRECT": 10,
-        "NO_MATCH": 1
+        "CORRECT": 11
       },
       "subject_teacher": {
         "CORRECT": 11
@@ -2736,8 +2346,7 @@
         "CORRECT": 10
       },
       "teacher_count_by_subject": {
-        "CORRECT": 10,
-        "NO_MATCH": 1
+        "CORRECT": 11
       },
       "teacher_identity": {
         "CORRECT": 10
@@ -2746,15 +2355,13 @@
         "CORRECT": 11
       },
       "teacher_schedule_lookup": {
-        "CORRECT": 10,
-        "NO_MATCH": 1
+        "CORRECT": 11
       },
       "thanks": {
         "CORRECT": 10
       },
       "timetable": {
-        "CORRECT": 10,
-        "NO_MATCH": 1
+        "CORRECT": 11
       },
       "total_students": {
         "CORRECT": 10
@@ -2763,279 +2370,24 @@
         "CORRECT": 11
       }
     },
-    "confusion": [
-      {
-        "expected": "next_class",
-        "predicted": "classes_assigned",
-        "count": 1
-      },
-      {
-        "expected": "current_class",
-        "predicted": "classes_assigned",
-        "count": 1
-      }
-    ],
+    "confusion": [],
     "latency_ms": {
-      "average": 0.5958659258559001,
-      "p95": 0.931700000364799,
-      "maximum": 1.2339000022620894
+      "average": 0.7334750617272019,
+      "p95": 1.194600000076207,
+      "maximum": 3.1500999999707346
     },
-    "failures": [
-      {
-        "role": "principal",
-        "intent": "teacher_count_by_subject",
-        "text": "how many mathematics teachers are there",
-        "category": "hard_negative",
-        "outcome": "NO_MATCH",
-        "predicted": null,
-        "top_score": 0,
-        "second_score": 0,
-        "margin": 0,
-        "ranked": [],
-        "latency_ms": 1.0167000000365078
-      },
-      {
-        "role": "principal",
-        "intent": "school_wide_subject_teacher",
-        "text": "list every mathematics teacher",
-        "category": "hard_negative",
-        "outcome": "NO_MATCH",
-        "predicted": null,
-        "top_score": 0,
-        "second_score": 0,
-        "margin": 0,
-        "ranked": [],
-        "latency_ms": 0.9986000004573725
-      },
-      {
-        "role": "student",
-        "intent": "exam",
-        "text": "when is my next examination",
-        "category": "hard_negative",
-        "outcome": "NO_MATCH",
-        "predicted": null,
-        "top_score": 0,
-        "second_score": 0,
-        "margin": 0,
-        "ranked": [
-          [
-            "exam",
-            1
-          ],
-          [
-            "next_period",
-            1
-          ]
-        ],
-        "latency_ms": 0.6441000004997477
-      },
-      {
-        "role": "student",
-        "intent": "timetable",
-        "text": "what lessons do i have this week",
-        "category": "hard_negative",
-        "outcome": "NO_MATCH",
-        "predicted": null,
-        "top_score": 0,
-        "second_score": 0,
-        "margin": 0,
-        "ranked": [],
-        "latency_ms": 0.6922000029589981
-      },
-      {
-        "role": "principal",
-        "intent": "pending_fees_count",
-        "text": "how many students have fees due",
-        "category": "hard_negative",
-        "outcome": "NO_MATCH",
-        "predicted": null,
-        "top_score": 0,
-        "second_score": 0,
-        "margin": 0,
-        "ranked": [],
-        "latency_ms": 0.8095999946817756
-      },
-      {
-        "role": "teacher",
-        "intent": "next_class",
-        "text": "what class do i teach next",
-        "category": "hard_negative",
-        "outcome": "WRONG",
-        "predicted": "classes_assigned",
-        "top_score": 2,
-        "second_score": 1,
-        "margin": 1,
-        "ranked": [
-          [
-            "classes_assigned",
-            2
-          ],
-          [
-            "timetable",
-            1
-          ],
-          [
-            "next_class",
-            1
-          ]
-        ],
-        "latency_ms": 0.5850000015925616
-      },
-      {
-        "role": "teacher",
-        "intent": "current_class",
-        "text": "what class should i be teaching now",
-        "category": "hard_negative",
-        "outcome": "WRONG",
-        "predicted": "classes_assigned",
-        "top_score": 2,
-        "second_score": 1,
-        "margin": 1,
-        "ranked": [
-          [
-            "classes_assigned",
-            2
-          ],
-          [
-            "timetable",
-            1
-          ],
-          [
-            "current_class",
-            1
-          ]
-        ],
-        "latency_ms": 0.7703000010224059
-      },
-      {
-        "role": "teacher",
-        "intent": "periods_remaining",
-        "text": "how many lessons do i have left today",
-        "category": "hard_negative",
-        "outcome": "NO_MATCH",
-        "predicted": null,
-        "top_score": 0,
-        "second_score": 0,
-        "margin": 0,
-        "ranked": [
-          [
-            "periods_remaining",
-            1
-          ]
-        ],
-        "latency_ms": 0.5959999980404973
-      },
-      {
-        "role": "teacher",
-        "intent": "free_periods",
-        "text": "when is my free lesson today",
-        "category": "hard_negative",
-        "outcome": "NO_MATCH",
-        "predicted": null,
-        "top_score": 0,
-        "second_score": 0,
-        "margin": 0,
-        "ranked": [
-          [
-            "free_periods",
-            1
-          ]
-        ],
-        "latency_ms": 0.5404000039561652
-      },
-      {
-        "role": "principal",
-        "intent": "teacher_schedule_lookup",
-        "text": "show ms alis timetable",
-        "category": "hard_negative",
-        "outcome": "NO_MATCH",
-        "predicted": null,
-        "top_score": 0,
-        "second_score": 0,
-        "margin": 0,
-        "ranked": [],
-        "latency_ms": 0.6129999965196475
-      },
-      {
-        "role": "hod",
-        "intent": "department_free_teachers",
-        "text": "who in my department is free now",
-        "category": "hard_negative",
-        "outcome": "TIE",
-        "predicted": "department_free_teachers",
-        "top_score": 2,
-        "second_score": 1,
-        "margin": 1,
-        "ranked": [
-          [
-            "department_free_teachers",
-            2
-          ],
-          [
-            "current_class",
-            1
-          ],
-          [
-            "free_periods",
-            1
-          ]
-        ],
-        "latency_ms": 0.7661000054213218
-      },
-      {
-        "role": "student",
-        "intent": "complaint_feedback",
-        "text": "i want to report a teacher",
-        "category": "hard_negative",
-        "outcome": "NO_MATCH",
-        "predicted": null,
-        "top_score": 0,
-        "second_score": 0,
-        "margin": 0,
-        "ranked": [
-          [
-            "class_teacher",
-            1
-          ],
-          [
-            "subject_teacher",
-            1
-          ]
-        ],
-        "latency_ms": 0.7200999971246347
-      },
-      {
-        "role": "vice_principal",
-        "intent": "complaint_summary",
-        "text": "show pending student complaints",
-        "category": "hard_negative",
-        "outcome": "NO_MATCH",
-        "predicted": null,
-        "top_score": 0,
-        "second_score": 0,
-        "margin": 0,
-        "ranked": [
-          [
-            "complaint_summary",
-            1
-          ]
-        ],
-        "latency_ms": 0.7956999979796819
-      }
-    ]
+    "failures": []
   },
   "synthetic_after": {
     "total": 1000,
-    "accuracy": 0.974,
-    "tie_rate": 0.002,
-    "clarification_rate": 0.002,
-    "no_match_rate": 0.02,
-    "wrong_intent_rate": 0.004,
+    "accuracy": 0.997,
+    "tie_rate": 0.0,
+    "clarification_rate": 0.0,
+    "no_match_rate": 0.003,
+    "wrong_intent_rate": 0.0,
     "counts": {
-      "CORRECT": 974,
-      "NO_MATCH": 20,
-      "WRONG": 4,
-      "TIE": 2
+      "CORRECT": 997,
+      "NO_MATCH": 3
     },
     "per_intent": {
       "attendance": {
@@ -3060,20 +2412,16 @@
         "CORRECT": 26
       },
       "complaint_feedback": {
-        "CORRECT": 4,
-        "NO_MATCH": 2
+        "CORRECT": 6
       },
       "complaint_summary": {
-        "CORRECT": 4,
-        "NO_MATCH": 2
+        "CORRECT": 6
       },
       "current_class": {
-        "CORRECT": 24,
-        "WRONG": 2
+        "CORRECT": 26
       },
       "department_free_teachers": {
-        "CORRECT": 24,
-        "TIE": 2
+        "CORRECT": 26
       },
       "department_schedule_today": {
         "CORRECT": 26
@@ -3082,15 +2430,13 @@
         "CORRECT": 24
       },
       "exam": {
-        "CORRECT": 26,
-        "NO_MATCH": 2
+        "CORRECT": 28
       },
       "fee": {
         "CORRECT": 28
       },
       "free_periods": {
-        "CORRECT": 24,
-        "NO_MATCH": 2
+        "CORRECT": 26
       },
       "free_teachers": {
         "CORRECT": 24
@@ -3111,8 +2457,7 @@
         "CORRECT": 26
       },
       "next_class": {
-        "CORRECT": 24,
-        "WRONG": 2
+        "CORRECT": 26
       },
       "next_period": {
         "CORRECT": 26
@@ -3121,22 +2466,20 @@
         "CORRECT": 24
       },
       "pending_fees_count": {
-        "CORRECT": 24,
-        "NO_MATCH": 2
+        "CORRECT": 26
       },
       "period_count": {
         "CORRECT": 28
       },
       "periods_remaining": {
-        "CORRECT": 24,
-        "NO_MATCH": 2
+        "CORRECT": 26
       },
       "roll_number": {
         "CORRECT": 26
       },
       "school_wide_subject_teacher": {
-        "CORRECT": 24,
-        "NO_MATCH": 2
+        "CORRECT": 25,
+        "NO_MATCH": 1
       },
       "subject_teacher": {
         "CORRECT": 26
@@ -3155,15 +2498,13 @@
         "CORRECT": 26
       },
       "teacher_schedule_lookup": {
-        "CORRECT": 24,
-        "NO_MATCH": 2
+        "CORRECT": 26
       },
       "thanks": {
         "CORRECT": 26
       },
       "timetable": {
-        "CORRECT": 26,
-        "NO_MATCH": 2
+        "CORRECT": 28
       },
       "total_students": {
         "CORRECT": 26
@@ -3172,22 +2513,11 @@
         "CORRECT": 28
       }
     },
-    "confusion": [
-      {
-        "expected": "next_class",
-        "predicted": "classes_assigned",
-        "count": 2
-      },
-      {
-        "expected": "current_class",
-        "predicted": "classes_assigned",
-        "count": 2
-      }
-    ],
+    "confusion": [],
     "latency_ms": {
-      "average": 0.6985119000237319,
-      "p95": 1.2289000005694106,
-      "maximum": 1.7586999965715222
+      "average": 0.8219897999983914,
+      "p95": 1.5510000000631408,
+      "maximum": 2.6993000000175016
     },
     "failures": [
       {
@@ -3201,7 +2531,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 1.1823999957414344
+        "latency_ms": 1.3399999999137435
       },
       {
         "role": "principal",
@@ -3214,222 +2544,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 1.2455000032787211
-      },
-      {
-        "role": "student",
-        "intent": "exam",
-        "text": "WHEN IS MY NEXT EXAMINATION",
-        "category": "synthetic_unseen",
-        "outcome": "NO_MATCH",
-        "predicted": null,
-        "top_score": 0,
-        "second_score": 0,
-        "margin": 0,
-        "ranked": [
-          [
-            "exam",
-            1
-          ],
-          [
-            "next_period",
-            1
-          ]
-        ],
-        "latency_ms": 0.8135000025504269
-      },
-      {
-        "role": "student",
-        "intent": "timetable",
-        "text": "WHAT LESSONS DO I HAVE THIS WEEK",
-        "category": "synthetic_unseen",
-        "outcome": "NO_MATCH",
-        "predicted": null,
-        "top_score": 0,
-        "second_score": 0,
-        "margin": 0,
-        "ranked": [],
-        "latency_ms": 0.8570999998482876
-      },
-      {
-        "role": "principal",
-        "intent": "pending_fees_count",
-        "text": "HOW MANY STUDENTS HAVE FEES DUE",
-        "category": "synthetic_unseen",
-        "outcome": "NO_MATCH",
-        "predicted": null,
-        "top_score": 0,
-        "second_score": 0,
-        "margin": 0,
-        "ranked": [],
-        "latency_ms": 1.0008999961428344
-      },
-      {
-        "role": "teacher",
-        "intent": "next_class",
-        "text": "WHAT CLASS DO I TEACH NEXT",
-        "category": "synthetic_unseen",
-        "outcome": "WRONG",
-        "predicted": "classes_assigned",
-        "top_score": 2,
-        "second_score": 1,
-        "margin": 1,
-        "ranked": [
-          [
-            "classes_assigned",
-            2
-          ],
-          [
-            "timetable",
-            1
-          ],
-          [
-            "next_class",
-            1
-          ]
-        ],
-        "latency_ms": 0.7239000042318366
-      },
-      {
-        "role": "teacher",
-        "intent": "current_class",
-        "text": "WHAT CLASS SHOULD I BE TEACHING NOW",
-        "category": "synthetic_unseen",
-        "outcome": "WRONG",
-        "predicted": "classes_assigned",
-        "top_score": 2,
-        "second_score": 1,
-        "margin": 1,
-        "ranked": [
-          [
-            "classes_assigned",
-            2
-          ],
-          [
-            "timetable",
-            1
-          ],
-          [
-            "current_class",
-            1
-          ]
-        ],
-        "latency_ms": 0.8668000009492971
-      },
-      {
-        "role": "teacher",
-        "intent": "periods_remaining",
-        "text": "HOW MANY LESSONS DO I HAVE LEFT TODAY",
-        "category": "synthetic_unseen",
-        "outcome": "NO_MATCH",
-        "predicted": null,
-        "top_score": 0,
-        "second_score": 0,
-        "margin": 0,
-        "ranked": [
-          [
-            "periods_remaining",
-            1
-          ]
-        ],
-        "latency_ms": 0.6873000020277686
-      },
-      {
-        "role": "teacher",
-        "intent": "free_periods",
-        "text": "WHEN IS MY FREE LESSON TODAY",
-        "category": "synthetic_unseen",
-        "outcome": "NO_MATCH",
-        "predicted": null,
-        "top_score": 0,
-        "second_score": 0,
-        "margin": 0,
-        "ranked": [
-          [
-            "free_periods",
-            1
-          ]
-        ],
-        "latency_ms": 0.5316999959177338
-      },
-      {
-        "role": "principal",
-        "intent": "teacher_schedule_lookup",
-        "text": "SHOW MS ALIS TIMETABLE",
-        "category": "synthetic_unseen",
-        "outcome": "NO_MATCH",
-        "predicted": null,
-        "top_score": 0,
-        "second_score": 0,
-        "margin": 0,
-        "ranked": [],
-        "latency_ms": 0.7155999992392026
-      },
-      {
-        "role": "hod",
-        "intent": "department_free_teachers",
-        "text": "WHO IN MY DEPARTMENT IS FREE NOW",
-        "category": "synthetic_unseen",
-        "outcome": "TIE",
-        "predicted": "department_free_teachers",
-        "top_score": 2,
-        "second_score": 1,
-        "margin": 1,
-        "ranked": [
-          [
-            "department_free_teachers",
-            2
-          ],
-          [
-            "current_class",
-            1
-          ],
-          [
-            "free_periods",
-            1
-          ]
-        ],
-        "latency_ms": 0.894600001629442
-      },
-      {
-        "role": "student",
-        "intent": "complaint_feedback",
-        "text": "I WANT TO REPORT A TEACHER",
-        "category": "synthetic_unseen",
-        "outcome": "NO_MATCH",
-        "predicted": null,
-        "top_score": 0,
-        "second_score": 0,
-        "margin": 0,
-        "ranked": [
-          [
-            "class_teacher",
-            1
-          ],
-          [
-            "subject_teacher",
-            1
-          ]
-        ],
-        "latency_ms": 0.8271999977296218
-      },
-      {
-        "role": "vice_principal",
-        "intent": "complaint_summary",
-        "text": "SHOW PENDING STUDENT COMPLAINTS",
-        "category": "synthetic_unseen",
-        "outcome": "NO_MATCH",
-        "predicted": null,
-        "top_score": 0,
-        "second_score": 0,
-        "margin": 0,
-        "ranked": [
-          [
-            "complaint_summary",
-            1
-          ]
-        ],
-        "latency_ms": 0.9410999991814606
+        "latency_ms": 1.306399999975838
       },
       {
         "role": "principal",
@@ -3442,235 +2557,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 1.3016000011703
-      },
-      {
-        "role": "principal",
-        "intent": "school_wide_subject_teacher",
-        "text": "List every mathematics teacher?",
-        "category": "synthetic_unseen",
-        "outcome": "NO_MATCH",
-        "predicted": null,
-        "top_score": 0,
-        "second_score": 0,
-        "margin": 0,
-        "ranked": [],
-        "latency_ms": 1.250699999218341
-      },
-      {
-        "role": "student",
-        "intent": "exam",
-        "text": "When is my next examination?",
-        "category": "synthetic_unseen",
-        "outcome": "NO_MATCH",
-        "predicted": null,
-        "top_score": 0,
-        "second_score": 0,
-        "margin": 0,
-        "ranked": [
-          [
-            "exam",
-            1
-          ],
-          [
-            "next_period",
-            1
-          ]
-        ],
-        "latency_ms": 0.734799999918323
-      },
-      {
-        "role": "student",
-        "intent": "timetable",
-        "text": "What lessons do i have this week?",
-        "category": "synthetic_unseen",
-        "outcome": "NO_MATCH",
-        "predicted": null,
-        "top_score": 0,
-        "second_score": 0,
-        "margin": 0,
-        "ranked": [],
-        "latency_ms": 0.8329999982379377
-      },
-      {
-        "role": "principal",
-        "intent": "pending_fees_count",
-        "text": "How many students have fees due?",
-        "category": "synthetic_unseen",
-        "outcome": "NO_MATCH",
-        "predicted": null,
-        "top_score": 0,
-        "second_score": 0,
-        "margin": 0,
-        "ranked": [],
-        "latency_ms": 1.0122999956365675
-      },
-      {
-        "role": "teacher",
-        "intent": "next_class",
-        "text": "What class do i teach next?",
-        "category": "synthetic_unseen",
-        "outcome": "WRONG",
-        "predicted": "classes_assigned",
-        "top_score": 2,
-        "second_score": 1,
-        "margin": 1,
-        "ranked": [
-          [
-            "classes_assigned",
-            2
-          ],
-          [
-            "timetable",
-            1
-          ],
-          [
-            "next_class",
-            1
-          ]
-        ],
-        "latency_ms": 0.6887999988975935
-      },
-      {
-        "role": "teacher",
-        "intent": "current_class",
-        "text": "What class should i be teaching now?",
-        "category": "synthetic_unseen",
-        "outcome": "WRONG",
-        "predicted": "classes_assigned",
-        "top_score": 2,
-        "second_score": 1,
-        "margin": 1,
-        "ranked": [
-          [
-            "classes_assigned",
-            2
-          ],
-          [
-            "timetable",
-            1
-          ],
-          [
-            "current_class",
-            1
-          ]
-        ],
-        "latency_ms": 0.8555000022170134
-      },
-      {
-        "role": "teacher",
-        "intent": "periods_remaining",
-        "text": "How many lessons do i have left today?",
-        "category": "synthetic_unseen",
-        "outcome": "NO_MATCH",
-        "predicted": null,
-        "top_score": 0,
-        "second_score": 0,
-        "margin": 0,
-        "ranked": [
-          [
-            "periods_remaining",
-            1
-          ]
-        ],
-        "latency_ms": 0.7593000045744702
-      },
-      {
-        "role": "teacher",
-        "intent": "free_periods",
-        "text": "When is my free lesson today?",
-        "category": "synthetic_unseen",
-        "outcome": "NO_MATCH",
-        "predicted": null,
-        "top_score": 0,
-        "second_score": 0,
-        "margin": 0,
-        "ranked": [
-          [
-            "free_periods",
-            1
-          ]
-        ],
-        "latency_ms": 0.5469000025186688
-      },
-      {
-        "role": "principal",
-        "intent": "teacher_schedule_lookup",
-        "text": "Show ms alis timetable?",
-        "category": "synthetic_unseen",
-        "outcome": "NO_MATCH",
-        "predicted": null,
-        "top_score": 0,
-        "second_score": 0,
-        "margin": 0,
-        "ranked": [],
-        "latency_ms": 0.7037000032141805
-      },
-      {
-        "role": "hod",
-        "intent": "department_free_teachers",
-        "text": "Who in my department is free now?",
-        "category": "synthetic_unseen",
-        "outcome": "TIE",
-        "predicted": "department_free_teachers",
-        "top_score": 2,
-        "second_score": 1,
-        "margin": 1,
-        "ranked": [
-          [
-            "department_free_teachers",
-            2
-          ],
-          [
-            "current_class",
-            1
-          ],
-          [
-            "free_periods",
-            1
-          ]
-        ],
-        "latency_ms": 0.9282999963033944
-      },
-      {
-        "role": "student",
-        "intent": "complaint_feedback",
-        "text": "I want to report a teacher?",
-        "category": "synthetic_unseen",
-        "outcome": "NO_MATCH",
-        "predicted": null,
-        "top_score": 0,
-        "second_score": 0,
-        "margin": 0,
-        "ranked": [
-          [
-            "class_teacher",
-            1
-          ],
-          [
-            "subject_teacher",
-            1
-          ]
-        ],
-        "latency_ms": 0.8448999942629598
-      },
-      {
-        "role": "vice_principal",
-        "intent": "complaint_summary",
-        "text": "Show pending student complaints?",
-        "category": "synthetic_unseen",
-        "outcome": "NO_MATCH",
-        "predicted": null,
-        "top_score": 0,
-        "second_score": 0,
-        "margin": 0,
-        "ranked": [
-          [
-            "complaint_summary",
-            1
-          ]
-        ],
-        "latency_ms": 0.9425000025657937
+        "latency_ms": 1.6756999999643085
       }
     ]
   },
@@ -3724,27 +2611,27 @@
     "class_wise_count": 42,
     "classes_assigned": 48,
     "classroom_occupant": 43,
-    "complaint_feedback": 58,
-    "complaint_summary": 17,
-    "current_class": 22,
-    "department_free_teachers": 40,
+    "complaint_feedback": 59,
+    "complaint_summary": 18,
+    "current_class": 23,
+    "department_free_teachers": 41,
     "department_schedule_today": 28,
     "department_teacher_count": 38,
-    "exam": 41,
+    "exam": 42,
     "fee": 53,
-    "free_periods": 40,
+    "free_periods": 41,
     "free_teachers": 41,
     "greeting": 29,
     "help": 29,
     "identity": 42,
     "low_attendance_count": 45,
     "my_class": 43,
-    "next_class": 33,
+    "next_class": 34,
     "next_period": 21,
     "notices": 54,
-    "pending_fees_count": 45,
+    "pending_fees_count": 46,
     "period_count": 39,
-    "periods_remaining": 31,
+    "periods_remaining": 32,
     "roll_number": 38,
     "school_wide_subject_teacher": 42,
     "subject_teacher": 52,
@@ -3754,7 +2641,7 @@
     "teacher_location": 34,
     "teacher_schedule_lookup": 34,
     "thanks": 29,
-    "timetable": 48,
+    "timetable": 49,
     "total_students": 34,
     "total_teachers": 33
   }
