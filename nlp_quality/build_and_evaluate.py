@@ -48,7 +48,9 @@ def rank(question, role, groups):
     original = app._known_subject_names
     try:
         app._known_subject_names = lambda: SUBJECTS
-        ranked = app._apply_subject_scoring_adjustment(ranked, question, groups[role])
+        # /api/chat lowercases before it calls the routing layer; mirror that
+        # production boundary for the post-score subject adjustment too.
+        ranked = app._apply_subject_scoring_adjustment(ranked, question.lower(), groups[role])
     finally:
         app._known_subject_names = original
     return ranked

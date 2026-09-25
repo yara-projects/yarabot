@@ -161,9 +161,9 @@
     },
     "confusion": [],
     "latency_ms": {
-      "average": 1.0414437500045892,
-      "p95": 1.8526000000065324,
-      "maximum": 2.4825000000419095
+      "average": 1.1332387500146979,
+      "p95": 1.929900000050111,
+      "maximum": 3.532200000108787
     },
     "failures": [
       {
@@ -182,7 +182,7 @@
             1
           ]
         ],
-        "latency_ms": 1.2137000001075648
+        "latency_ms": 0.855400000091322
       },
       {
         "intent": "exam",
@@ -200,7 +200,7 @@
             1
           ]
         ],
-        "latency_ms": 0.8103999999775624
+        "latency_ms": 0.729599999885977
       },
       {
         "intent": "exam",
@@ -222,7 +222,7 @@
             1
           ]
         ],
-        "latency_ms": 0.8608000000549509
+        "latency_ms": 0.7792000001245469
       },
       {
         "intent": "timetable",
@@ -235,7 +235,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 0.6200000000262662
+        "latency_ms": 0.5728999999519147
       },
       {
         "intent": "fee",
@@ -248,7 +248,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 0.8108999999194566
+        "latency_ms": 0.763400000096226
       },
       {
         "intent": "fee",
@@ -266,7 +266,7 @@
             1
           ]
         ],
-        "latency_ms": 1.1657000000013795
+        "latency_ms": 1.0571000000254571
       },
       {
         "intent": "period_count",
@@ -279,7 +279,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 0.7971999999654145
+        "latency_ms": 0.7367999999132735
       },
       {
         "intent": "classes_assigned",
@@ -292,7 +292,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 0.6843999999546213
+        "latency_ms": 0.6398999998964428
       },
       {
         "intent": "classes_assigned",
@@ -305,7 +305,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 0.8051999999452164
+        "latency_ms": 0.7011999998667306
       },
       {
         "intent": "total_students",
@@ -323,7 +323,7 @@
             1
           ]
         ],
-        "latency_ms": 1.2775000000146974
+        "latency_ms": 1.1780999998336483
       },
       {
         "intent": "total_students",
@@ -341,7 +341,7 @@
             1
           ]
         ],
-        "latency_ms": 1.3807999999926324
+        "latency_ms": 0.9434999999484717
       },
       {
         "intent": "total_teachers",
@@ -363,7 +363,7 @@
             1
           ]
         ],
-        "latency_ms": 1.7425999999431951
+        "latency_ms": 0.9850000001279113
       },
       {
         "intent": "total_teachers",
@@ -381,7 +381,7 @@
             1
           ]
         ],
-        "latency_ms": 1.5144000000191227
+        "latency_ms": 1.0718000000906613
       },
       {
         "intent": "class_wise_count",
@@ -394,7 +394,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 1.8526000000065324
+        "latency_ms": 1.4962000000195985
       },
       {
         "intent": "class_wise_count",
@@ -407,7 +407,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 1.0489999999663269
+        "latency_ms": 1.2083999999958905
       },
       {
         "intent": "greeting",
@@ -420,7 +420,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 0.5917999999383028
+        "latency_ms": 0.5573000000822503
       },
       {
         "intent": "thanks",
@@ -438,7 +438,7 @@
             1
           ]
         ],
-        "latency_ms": 0.9614000000510714
+        "latency_ms": 0.9818999999424705
       },
       {
         "intent": "help",
@@ -451,7 +451,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 1.1064999999916836
+        "latency_ms": 1.1202999999113672
       },
       {
         "intent": "help",
@@ -464,7 +464,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 0.6482000000005428
+        "latency_ms": 0.6513000000722968
       },
       {
         "intent": "identity",
@@ -477,7 +477,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 0.8262000000058833
+        "latency_ms": 0.9632999999666936
       },
       {
         "intent": "roll_number",
@@ -490,7 +490,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 1.0952000000088447
+        "latency_ms": 1.1459000002105313
       },
       {
         "intent": "roll_number",
@@ -503,7 +503,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 0.5810999999766864
+        "latency_ms": 0.5934000000706874
       },
       {
         "intent": "my_class",
@@ -529,7 +529,7 @@
             1
           ]
         ],
-        "latency_ms": 0.8735000000115178
+        "latency_ms": 0.8344999998826097
       },
       {
         "intent": "next_period",
@@ -547,7 +547,7 @@
             1
           ]
         ],
-        "latency_ms": 2.07609999995384
+        "latency_ms": 0.9949000000233355
       },
       {
         "intent": "next_period",
@@ -573,7 +573,7 @@
             1
           ]
         ],
-        "latency_ms": 1.2810000000627042
+        "latency_ms": 0.8167999999386666
       },
       {
         "intent": "subject_teacher",
@@ -586,7 +586,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 1.4075000000275395
+        "latency_ms": 0.8593000000018947
       },
       {
         "intent": "next_class",
@@ -608,7 +608,7 @@
             4
           ]
         ],
-        "latency_ms": 0.8676999999579493
+        "latency_ms": 1.3440000000173313
       },
       {
         "intent": "next_class",
@@ -626,7 +626,7 @@
             1
           ]
         ],
-        "latency_ms": 0.8776000000807471
+        "latency_ms": 0.9704999999939901
       },
       {
         "intent": "current_class",
@@ -639,7 +639,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 0.5903000001126202
+        "latency_ms": 0.6123999999090302
       },
       {
         "intent": "free_periods",
@@ -652,7 +652,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 0.6568000000015672
+        "latency_ms": 0.6633000000419997
       },
       {
         "intent": "free_periods",
@@ -678,7 +678,7 @@
             1
           ]
         ],
-        "latency_ms": 0.5254000000149972
+        "latency_ms": 0.5588000001353066
       },
       {
         "intent": "periods_remaining",
@@ -696,7 +696,7 @@
             1
           ]
         ],
-        "latency_ms": 0.7312000000183616
+        "latency_ms": 0.7771000000502681
       },
       {
         "intent": "periods_remaining",
@@ -722,7 +722,7 @@
             1
           ]
         ],
-        "latency_ms": 0.6294999999454376
+        "latency_ms": 0.6524999998873682
       },
       {
         "intent": "teacher_identity",
@@ -735,7 +735,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 0.7210999999642809
+        "latency_ms": 0.7381000000350468
       },
       {
         "intent": "teacher_location",
@@ -753,7 +753,7 @@
             1
           ]
         ],
-        "latency_ms": 1.0879999999815482
+        "latency_ms": 1.1495000001104927
       },
       {
         "intent": "teacher_location",
@@ -771,7 +771,7 @@
             1
           ]
         ],
-        "latency_ms": 0.7982000000765765
+        "latency_ms": 0.8365999999568885
       },
       {
         "intent": "classroom_occupant",
@@ -793,7 +793,7 @@
             1
           ]
         ],
-        "latency_ms": 1.2752000000091357
+        "latency_ms": 1.3309000000845117
       },
       {
         "intent": "classroom_occupant",
@@ -806,7 +806,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 1.0965000000169312
+        "latency_ms": 0.9271999999782565
       },
       {
         "intent": "free_teachers",
@@ -819,7 +819,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 2.4825000000419095
+        "latency_ms": 1.5330000001085864
       },
       {
         "intent": "free_teachers",
@@ -832,7 +832,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 1.4572999999700187
+        "latency_ms": 0.8904000001166423
       },
       {
         "intent": "teacher_schedule_lookup",
@@ -845,7 +845,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 0.9541999999100881
+        "latency_ms": 1.1805999999978667
       },
       {
         "intent": "class_timetable_lookup",
@@ -867,7 +867,7 @@
             4
           ]
         ],
-        "latency_ms": 0.7709000000204469
+        "latency_ms": 0.9090000000924192
       },
       {
         "intent": "class_teacher_lookup",
@@ -889,7 +889,7 @@
             1
           ]
         ],
-        "latency_ms": 1.2212999999974272
+        "latency_ms": 3.532200000108787
       },
       {
         "intent": "class_teacher_lookup",
@@ -902,7 +902,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 1.1095999999497508
+        "latency_ms": 1.948300000094605
       },
       {
         "intent": "class_teacher",
@@ -915,7 +915,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 1.3192000000117332
+        "latency_ms": 1.719699999966906
       },
       {
         "intent": "class_teacher",
@@ -933,7 +933,7 @@
             1
           ]
         ],
-        "latency_ms": 0.6429999999681968
+        "latency_ms": 1.2317000000621192
       },
       {
         "intent": "low_attendance_count",
@@ -946,7 +946,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 1.1161999999558248
+        "latency_ms": 1.929900000050111
       },
       {
         "intent": "low_attendance_count",
@@ -959,7 +959,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 2.056299999935618
+        "latency_ms": 1.7075999999178748
       },
       {
         "intent": "pending_fees_count",
@@ -972,7 +972,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 1.981800000066869
+        "latency_ms": 1.1690000001181033
       },
       {
         "intent": "pending_fees_count",
@@ -985,7 +985,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 1.3887000000067928
+        "latency_ms": 1.3159000000086962
       },
       {
         "intent": "teacher_count_by_subject",
@@ -1007,7 +1007,7 @@
             2
           ]
         ],
-        "latency_ms": 1.3493999999809603
+        "latency_ms": 1.5339999999923748
       },
       {
         "intent": "department_free_teachers",
@@ -1033,7 +1033,7 @@
             1
           ]
         ],
-        "latency_ms": 1.0300000000142973
+        "latency_ms": 1.4421999999285617
       },
       {
         "intent": "department_free_teachers",
@@ -1059,7 +1059,7 @@
             1
           ]
         ],
-        "latency_ms": 0.9125999999923806
+        "latency_ms": 1.4394999998330604
       },
       {
         "intent": "department_schedule_today",
@@ -1085,7 +1085,7 @@
             1
           ]
         ],
-        "latency_ms": 0.7482000000891276
+        "latency_ms": 0.9001000000807835
       },
       {
         "intent": "department_schedule_today",
@@ -1111,7 +1111,7 @@
             1
           ]
         ],
-        "latency_ms": 0.9672000001046399
+        "latency_ms": 1.127600000017992
       },
       {
         "intent": "department_teacher_count",
@@ -1137,7 +1137,7 @@
             1
           ]
         ],
-        "latency_ms": 0.8296000000882486
+        "latency_ms": 0.9618999999929656
       },
       {
         "intent": "department_teacher_count",
@@ -1163,7 +1163,7 @@
             1
           ]
         ],
-        "latency_ms": 0.8544000000938468
+        "latency_ms": 1.7258000000310858
       },
       {
         "intent": "notices",
@@ -1176,7 +1176,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 0.7087999999839667
+        "latency_ms": 1.3676000000941713
       },
       {
         "intent": "subjects_offered",
@@ -1194,7 +1194,7 @@
             1
           ]
         ],
-        "latency_ms": 1.0837999999466774
+        "latency_ms": 2.0214999999552674
       },
       {
         "intent": "subjects_offered",
@@ -1207,7 +1207,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 0.7381000000350468
+        "latency_ms": 1.3848000000962202
       },
       {
         "intent": "complaint_feedback",
@@ -1229,7 +1229,7 @@
             1
           ]
         ],
-        "latency_ms": 0.9501999999201871
+        "latency_ms": 1.4319000001705717
       },
       {
         "intent": "complaint_feedback",
@@ -1255,7 +1255,7 @@
             1
           ]
         ],
-        "latency_ms": 1.648700000032477
+        "latency_ms": 1.878199999964636
       },
       {
         "intent": "complaint_summary",
@@ -1273,7 +1273,7 @@
             1
           ]
         ],
-        "latency_ms": 0.9188000000222019
+        "latency_ms": 1.101399999924979
       },
       {
         "intent": "complaint_summary",
@@ -1291,7 +1291,7 @@
             1
           ]
         ],
-        "latency_ms": 0.8586999999806721
+        "latency_ms": 1.0307000000011612
       }
     ]
   },
@@ -1429,9 +1429,9 @@
     },
     "confusion": [],
     "latency_ms": {
-      "average": 1.0346675000022287,
-      "p95": 1.6075999999429769,
-      "maximum": 2.361100000030092
+      "average": 1.1575537500021937,
+      "p95": 1.6468999999688094,
+      "maximum": 1.9965000001320732
     },
     "failures": []
   },
@@ -1535,9 +1535,9 @@
       }
     ],
     "latency_ms": {
-      "average": 1.0554959999944913,
-      "p95": 1.5247999999701278,
-      "maximum": 1.6294999999217907
+      "average": 1.0021960000176477,
+      "p95": 1.459300000078656,
+      "maximum": 2.251399999977366
     },
     "failures": [
       {
@@ -1560,7 +1560,7 @@
             1
           ]
         ],
-        "latency_ms": 0.7233000000042011
+        "latency_ms": 0.7723000001078617
       },
       {
         "role": "student",
@@ -1573,7 +1573,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 0.7481999999754407
+        "latency_ms": 0.75579999997899
       },
       {
         "role": "principal",
@@ -1586,7 +1586,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 0.9436000000278
+        "latency_ms": 0.947400000086418
       },
       {
         "role": "teacher",
@@ -1612,7 +1612,7 @@
             1
           ]
         ],
-        "latency_ms": 0.6710999999768319
+        "latency_ms": 0.7018000001153268
       },
       {
         "role": "teacher",
@@ -1638,7 +1638,7 @@
             1
           ]
         ],
-        "latency_ms": 0.8861999999680847
+        "latency_ms": 0.9148999999979424
       },
       {
         "role": "teacher",
@@ -1656,7 +1656,7 @@
             1
           ]
         ],
-        "latency_ms": 1.0538000000224201
+        "latency_ms": 0.7388999999875523
       },
       {
         "role": "teacher",
@@ -1674,7 +1674,7 @@
             1
           ]
         ],
-        "latency_ms": 0.9931999999253094
+        "latency_ms": 0.7042999998247979
       },
       {
         "role": "teacher",
@@ -1692,7 +1692,7 @@
             1
           ]
         ],
-        "latency_ms": 0.8515000000670625
+        "latency_ms": 0.5665999999564519
       },
       {
         "role": "hod",
@@ -1718,7 +1718,7 @@
             1
           ]
         ],
-        "latency_ms": 0.9887999999591557
+        "latency_ms": 1.055200000109835
       },
       {
         "role": "student",
@@ -1740,7 +1740,7 @@
             1
           ]
         ],
-        "latency_ms": 0.8748999999852458
+        "latency_ms": 0.8569999999963329
       },
       {
         "role": "vice_principal",
@@ -1758,7 +1758,7 @@
             1
           ]
         ],
-        "latency_ms": 1.0137000000440821
+        "latency_ms": 0.9320999999999913
       }
     ]
   },
@@ -1848,9 +1848,9 @@
     },
     "confusion": [],
     "latency_ms": {
-      "average": 1.1521679999941625,
-      "p95": 1.6657999999551976,
-      "maximum": 2.4917000000641565
+      "average": 1.0293520000141143,
+      "p95": 1.3486000000284548,
+      "maximum": 1.4275000000907312
     },
     "failures": []
   },
@@ -2011,9 +2011,9 @@
       }
     ],
     "latency_ms": {
-      "average": 0.6850508641968819,
-      "p95": 1.2560000000121363,
-      "maximum": 2.2598000000471075
+      "average": 0.8622516049343423,
+      "p95": 1.4571000001524226,
+      "maximum": 2.8320999999777996
     },
     "failures": [
       {
@@ -2036,7 +2036,7 @@
             1
           ]
         ],
-        "latency_ms": 0.7239000000254237
+        "latency_ms": 0.8074000002125103
       },
       {
         "role": "student",
@@ -2049,7 +2049,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 0.6968999999799053
+        "latency_ms": 0.8088999998108193
       },
       {
         "role": "principal",
@@ -2062,7 +2062,7 @@
         "second_score": 0,
         "margin": 0,
         "ranked": [],
-        "latency_ms": 0.9266999999226755
+        "latency_ms": 1.0772000000542903
       },
       {
         "role": "teacher",
@@ -2088,7 +2088,7 @@
             1
           ]
         ],
-        "latency_ms": 0.6659999999101274
+        "latency_ms": 0.885299999936251
       },
       {
         "role": "teacher",
@@ -2114,7 +2114,7 @@
             1
           ]
         ],
-        "latency_ms": 0.8177999999361418
+        "latency_ms": 1.2337999999090243
       },
       {
         "role": "teacher",
@@ -2132,7 +2132,7 @@
             1
           ]
         ],
-        "latency_ms": 0.6708999999318621
+        "latency_ms": 1.3056999998752872
       },
       {
         "role": "teacher",
@@ -2150,7 +2150,7 @@
             1
           ]
         ],
-        "latency_ms": 0.6677999999737949
+        "latency_ms": 0.8728000000246539
       },
       {
         "role": "teacher",
@@ -2168,7 +2168,7 @@
             1
           ]
         ],
-        "latency_ms": 0.5348999999341686
+        "latency_ms": 0.8508999999321532
       },
       {
         "role": "hod",
@@ -2194,7 +2194,7 @@
             1
           ]
         ],
-        "latency_ms": 1.0715999999320047
+        "latency_ms": 0.9872000000541448
       },
       {
         "role": "student",
@@ -2216,7 +2216,7 @@
             1
           ]
         ],
-        "latency_ms": 0.7696000000123604
+        "latency_ms": 1.0214000001269596
       },
       {
         "role": "vice_principal",
@@ -2234,7 +2234,7 @@
             1
           ]
         ],
-        "latency_ms": 0.8480999999846972
+        "latency_ms": 1.0204000000157976
       }
     ]
   },
@@ -2372,22 +2372,21 @@
     },
     "confusion": [],
     "latency_ms": {
-      "average": 0.7334750617272019,
-      "p95": 1.194600000076207,
-      "maximum": 3.1500999999707346
+      "average": 0.8286795061765049,
+      "p95": 1.3607999999294407,
+      "maximum": 1.916899999969246
     },
     "failures": []
   },
   "synthetic_after": {
     "total": 1000,
-    "accuracy": 0.997,
+    "accuracy": 1.0,
     "tie_rate": 0.0,
     "clarification_rate": 0.0,
-    "no_match_rate": 0.003,
+    "no_match_rate": 0.0,
     "wrong_intent_rate": 0.0,
     "counts": {
-      "CORRECT": 997,
-      "NO_MATCH": 3
+      "CORRECT": 1000
     },
     "per_intent": {
       "attendance": {
@@ -2478,8 +2477,7 @@
         "CORRECT": 26
       },
       "school_wide_subject_teacher": {
-        "CORRECT": 25,
-        "NO_MATCH": 1
+        "CORRECT": 26
       },
       "subject_teacher": {
         "CORRECT": 26
@@ -2488,8 +2486,7 @@
         "CORRECT": 24
       },
       "teacher_count_by_subject": {
-        "CORRECT": 24,
-        "NO_MATCH": 2
+        "CORRECT": 26
       },
       "teacher_identity": {
         "CORRECT": 24
@@ -2515,51 +2512,11 @@
     },
     "confusion": [],
     "latency_ms": {
-      "average": 0.8219897999983914,
-      "p95": 1.5510000000631408,
-      "maximum": 2.6993000000175016
+      "average": 0.8450963000036609,
+      "p95": 1.4754999999695428,
+      "maximum": 2.8542000000015832
     },
-    "failures": [
-      {
-        "role": "principal",
-        "intent": "teacher_count_by_subject",
-        "text": "HOW MANY MATHEMATICS TEACHERS ARE THERE",
-        "category": "synthetic_unseen",
-        "outcome": "NO_MATCH",
-        "predicted": null,
-        "top_score": 0,
-        "second_score": 0,
-        "margin": 0,
-        "ranked": [],
-        "latency_ms": 1.3399999999137435
-      },
-      {
-        "role": "principal",
-        "intent": "school_wide_subject_teacher",
-        "text": "LIST EVERY MATHEMATICS TEACHER",
-        "category": "synthetic_unseen",
-        "outcome": "NO_MATCH",
-        "predicted": null,
-        "top_score": 0,
-        "second_score": 0,
-        "margin": 0,
-        "ranked": [],
-        "latency_ms": 1.306399999975838
-      },
-      {
-        "role": "principal",
-        "intent": "teacher_count_by_subject",
-        "text": "How many mathematics teachers are there?",
-        "category": "synthetic_unseen",
-        "outcome": "NO_MATCH",
-        "predicted": null,
-        "top_score": 0,
-        "second_score": 0,
-        "margin": 0,
-        "ranked": [],
-        "latency_ms": 1.6756999999643085
-      }
-    ]
+    "failures": []
   },
   "phrase_counts_before": {
     "attendance": 45,
