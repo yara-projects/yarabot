@@ -35,6 +35,24 @@ CONTRACTIONS = {
     "there's": "there is", "theres": "there is",
 }
 
+# Frequent phone-typing mistakes observed in the September 2026 human
+# benchmark.  These are deliberately limited to routing/entity vocabulary;
+# broad spell correction would risk turning an unknown person or subject
+# into a real one without the user confirming it.
+TYPO_NORMALIZATIONS = {
+    "timtable": "timetable",
+    "tommorow": "tomorrow",
+    "chemstry": "chemistry",
+    "buisness": "business",
+    "techer": "teacher",
+    "departmnt": "department",
+    "mathematcs": "mathematics",
+    "scince": "science",
+    "princpal": "principal",
+    "princple": "principal",
+    "assisstant": "assistant",
+}
+
 # ---- Each intent's keyword/phrase list. Bigger + more varied = smarter bot.
 # Multi-word phrases are checked FIRST (more reliable), single words checked
 # after with fuzzy typo-matching.
@@ -376,6 +394,33 @@ INTENT_DATA = {
                     # clarification under the real score_intent() margin rules) ----
                     "show me schedule for mr", "show me schedule for ms", "gimme his schedule", "gimme her schedule", "his timetable pls", "her timetable pls", "quickly show his schedule", "just tell me her schedule", "bro show me her schedule", "which periods does he have", "which periods does she have", "his weekly schedule", "her weekly schedule", "check his schedule", "check her schedule", "staff schedule lookup", "look up teacher schedule", "find a teachers timetable", "a teachers full schedule", "his class schedule", "her class schedule", "teacher weekly timetable", "get me his schedule", "get me her schedule", "display his timetable", "display her timetable"],
         "keywords": ["schedule"],
+    },
+    "teacher_classes_lookup": {
+        "phrases": ["which classes does", "what classes does", "classes taught by",
+                    "classes handled by", "which classes does aarav kapoor teach"],
+        "keywords": ["classes", "teach", "handles"],
+    },
+    "teacher_department": {
+        "phrases": ["which department is", "what department is", "department of",
+                    "which department does", "what department does"],
+        "keywords": ["department"],
+    },
+    "department_staff": {
+        "phrases": ["staff in the department", "staff in", "department staff",
+                    "list the staff in", "list staff in", "teachers in the department",
+                    "department teacher list"],
+        "keywords": ["department", "staff", "teachers"],
+    },
+    "department_leadership": {
+        "phrases": ["who leads the department", "who leads", "department head",
+                    "head of the department", "hod of", "who is the hod of"],
+        "keywords": ["department", "head", "hod", "leads"],
+    },
+    "school_leadership": {
+        "phrases": ["who is the vice principal", "who is the assistant principal",
+                    "who is the principal", "vice principal name",
+                    "assistant principal name", "school principal"],
+        "keywords": ["principal", "leadership"],
     },
     # A class's general timetable - distinct from classroom_occupant (who's
     # in THIS class right now) and teacher_schedule_lookup (a named
@@ -857,6 +902,8 @@ def clean_question(question):
     question = question.lower().strip().replace("’", "'")
     for contraction, expanded in CONTRACTIONS.items():
         question = re.sub(r"\b" + re.escape(contraction) + r"\b", expanded, question)
+    for typo, corrected in TYPO_NORMALIZATIONS.items():
+        question = re.sub(r"\b" + re.escape(typo) + r"\b", corrected, question)
     question = re.sub(r"[?!.,]", "", question)
     # Contractions have already been expanded, so remaining apostrophes are
     # possessives. Treat "this week's" and "this weeks" alike, and collapse
@@ -906,6 +953,15 @@ def score_intent(cleaned_question, words, intent_name, personal_signal, class_co
     if intent_name == "total_teachers" and re.search(r'\b(free|available)\b', cleaned_question):
         return 0
     if intent_name == "teacher_identity" and re.search(r'\bdepartment\s+(?:head|lead|chair)\b', cleaned_question):
+        return 0
+    if (intent_name == "teacher_identity" and not personal_signal
+            and (class_code_present
+                 or re.search(r'\b(who\s+teaches|who\s+handles|which\s+department|what\s+department|department\s+of|vice\s+principal|assistant\s+principal)\b', cleaned_question))):
+        return 0
+    if (intent_name == "classes_assigned" and not personal_signal
+            and re.search(r'\b(which|what)\s+classes\s+does\b|\bclasses\s+(?:taught|handled)\s+by\b', cleaned_question)):
+        return 0
+    if intent_name == "department_leadership" and re.search(r'\bmy\s+(?:department|dept)\b', cleaned_question):
         return 0
     if (intent_name == "teacher_identity" and re.search(r'\bdepartments?\b', cleaned_question)
             and re.search(r'\b(schedule|plan|roster|free|available|gap|count|total|staff|team)\b', cleaned_question)):

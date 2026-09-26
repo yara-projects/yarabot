@@ -16,7 +16,7 @@ load_dotenv()
 
 from flask import (
     Flask, render_template, request, jsonify, session, redirect, url_for,
-    Response, stream_with_context
+    Response, stream_with_context, g, has_request_context
 )
 from datetime import date
 import datetime
@@ -33,7 +33,11 @@ from itertools import cycle
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from auth_helpers import verify_password
-from nlp_helpers import detect_intent, detect_intent_with_score, rank_intents, refresh_phrase_cache
+from almanac_store import get_almanac
+from nlp_helpers import (
+    clean_question, detect_intent, detect_intent_with_score, rank_intents,
+    refresh_phrase_cache,
+)
 from gemini_rag import gemini_answer_stream, almanac_match_confidence, classify_personal_intent, log_learned_phrase
 from config import DB_CONFIG
 from validators import GRADE_SECTION_PATTERN, EARLY_YEARS_CLASSES
@@ -227,22 +231,31 @@ def is_pure_greeting(question):
 # Named separately (not just inline in ROLE_PERSONAL_INTENTS) so "hod" can
 # be built as "everything a teacher sees, plus its own department-scoped
 # intents" in code, not just in prose - see HOD_LIKE_ROLES above.
+STAFF_LOOKUP_INTENTS = [
+    "teacher_schedule_lookup", "teacher_classes_lookup", "teacher_department",
+    "school_wide_subject_teacher", "class_teacher_lookup", "class_teacher",
+    "department_staff", "department_leadership", "school_leadership",
+]
+
 TEACHER_INTENTS = ["period_count", "timetable", "classes_assigned", "next_class",
                     "current_class", "free_periods", "periods_remaining", "teacher_identity",
-                    "notices", "subjects_offered"]
+                    "notices", "subjects_offered"] + STAFF_LOOKUP_INTENTS
 HOD_DEPARTMENT_INTENTS = ["department_free_teachers", "department_schedule_today",
                            "department_teacher_count"]
 
 ROLE_PERSONAL_INTENTS = {
     "student": ["attendance", "exam", "timetable", "fee", "identity",
                 "roll_number", "my_class", "class_teacher", "next_period",
-                "subject_teacher", "notices", "subjects_offered", "complaint_feedback"],
+                "subject_teacher", "teacher_department", "notices", "subjects_offered",
+                "complaint_feedback"],
     "teacher": TEACHER_INTENTS,
     "hod": TEACHER_INTENTS + HOD_DEPARTMENT_INTENTS,
     "principal": ["teacher_count_by_subject", "total_students", "total_teachers",
                   "class_wise_count", "teacher_location", "classroom_occupant",
                   "free_teachers", "teacher_schedule_lookup", "class_timetable_lookup",
                   "school_wide_subject_teacher", "class_teacher_lookup", "class_teacher",
+                  "teacher_classes_lookup", "teacher_department", "department_staff",
+                  "department_leadership", "school_leadership",
                   "low_attendance_count", "pending_fees_count", "notices", "subjects_offered"],
 }
 
@@ -321,6 +334,8 @@ INTENT_DESCRIPTIONS = {
     "classroom_occupant": "who's teaching a class right now",
     "free_teachers": "which teachers are free right now",
     "teacher_schedule_lookup": "a teacher's schedule",
+    "teacher_classes_lookup": "which classes a named teacher teaches",
+    "teacher_department": "a named teacher's department",
     "class_timetable_lookup": "a class's timetable",
     "school_wide_subject_teacher": "who teaches a subject school-wide",
     "class_teacher_lookup": "a class's subject-teacher list",
@@ -331,6 +346,9 @@ INTENT_DESCRIPTIONS = {
     "department_free_teachers": "which teachers in your department are free",
     "department_schedule_today": "your department's schedule today",
     "department_teacher_count": "how many teachers are in your department",
+    "department_staff": "the staff in a department",
+    "department_leadership": "who leads a department",
+    "school_leadership": "the principal or vice principal",
     "notices": "the latest notices",
     "subjects_offered": "which subjects the school offers",
     "complaint_feedback": "filing a private complaint about a teacher",
@@ -482,6 +500,69 @@ def _apply_teacher_location_guard(ranked, question):
     return [pair for pair in ranked if pair[0] != "teacher_location"]
 
 
+def _explicit_lookup_intent(question, role):
+    """Resolve high-evidence school-directory questions before role defaults.
+
+    A named teacher, class code, subject, or department is stronger evidence
+    than the fact that the asker happens to be a teacher.  This prevents
+    third-person lookups from falling into ``teacher_identity`` or
+    ``classes_assigned`` while leaving all genuinely first-person questions
+    on their existing handlers.
+    """
+    q = clean_question(question)
+    cls = extract_class_from_question(q)
+
+    if cls and re.search(r'\b(class|homeroom)\s+teacher\b', q):
+        return "class_teacher"
+
+    if cls:
+        subject = extract_subject_from_question(q, _known_subject_names())
+    else:
+        subject = None
+    if (cls and subject
+            and re.search(r'\b(who\s+(?:teaches|takes|handles)|teacher\b)', q)):
+        return "subject_teacher" if role == "student" else "school_wide_subject_teacher"
+    if cls and re.search(r'\bwho\s+(?:teaches|takes|handles)\b', q):
+        if subject:
+            return "subject_teacher" if role == "student" else "school_wide_subject_teacher"
+        if re.search(r'\bwho\s+(?:teaches|takes|handles)\s+(?!class\b|grade\b|\d)', q):
+            return "subject_teacher" if role == "student" else "school_wide_subject_teacher"
+        return "class_teacher_lookup"
+
+    if re.search(r'\bwho\s+(?:teaches|takes)\b|\bteacher\s+for\b', q):
+        # Keep unsupported or misspelled subject names on a deterministic
+        # handler that asks for clarification. They must never fall through
+        # to an LLM that might silently substitute a nearby real subject.
+        return "subject_teacher" if role == "student" else "school_wide_subject_teacher"
+
+    if re.search(r'\b(which|what)\s+department\s+is\b|\bdepartment\s+of\b', q):
+        tid, _, ambiguity = extract_teacher_name_from_question(q, _teachers_with_subjects())
+        if tid or ambiguity:
+            return "teacher_department"
+
+    if role == "student":
+        return None
+
+    if re.search(r'\b(which|what)\s+classes\s+does\b|\bclasses\s+(?:taught|handled)\s+by\b', q):
+        tid, _, ambiguity = extract_teacher_name_from_question(q, _teachers_with_subjects())
+        if tid or ambiguity:
+            return "teacher_classes_lookup"
+
+    if re.search(r'\b(who\s+leads|head\s+of|hod\s+of)\b.*\bdepartment\b|\bwho\s+leads\b.*\bdepartment\b', q):
+        if extract_department_from_question(q)[0]:
+            return "department_leadership"
+
+    if (re.search(r'\b(list|show|which|who|all)\b.*\b(staff|teachers?|faculty)\b', q)
+            and (re.search(r'\b(department|dept)\b', q)
+                 or extract_department_from_question(q)[0])):
+        return "department_staff"
+
+    if re.search(r'\bwho\s+is\s+the\s+(?:vice\s+principal|assistant\s+principal|principal)\b', q):
+        return "school_leadership"
+
+    return None
+
+
 def _nlp_lane_decision(question, role):
     """
     Core routing decision behind use_nlp_lane() (plain bool) and
@@ -553,6 +634,10 @@ def _nlp_lane_decision(question, role):
     # because it says "my".
     if is_policy_framed(question):
         return False, False, None, 0, None, None
+
+    explicit_intent = _explicit_lookup_intent(question, role)
+    if explicit_intent:
+        return True, False, explicit_intent, 10, None, None
 
     has_personal_pronoun = role not in DB_FIRST_ROLES and is_personal_question(question)
 
@@ -1530,6 +1615,155 @@ def _is_topic_switch(question, role, pending_intent):
     return intent is not None and intent != pending_intent and score >= NLP_PHRASE_MATCH_SCORE
 
 
+CONVERSATION_CONTEXT_TTL_SECONDS = 10 * 60
+_SUBJECT_CONTEXT_INTENTS = {"subject_teacher", "school_wide_subject_teacher"}
+
+
+def _remember_conversation_context(intent, question, role, linked_id, reply):
+    """Keep only the small set of slots needed for natural follow-ups.
+
+    This is not a transcript and contains no private record values.  It
+    stores the last lookup intent plus school-directory entities so phrases
+    such as "what about 12b" can replace one slot without losing the rest.
+    """
+    if not intent or reply in _CLARIFICATION_PROMPTS or reply.startswith("I didn't"):
+        return
+
+    tracked_intents = _SUBJECT_CONTEXT_INTENTS | {
+        "timetable", "class_timetable_lookup", "class_teacher", "class_teacher_lookup",
+        "teacher_schedule_lookup", "teacher_classes_lookup", "teacher_department",
+    }
+    if intent not in tracked_intents:
+        return
+
+    subject = extract_subject_from_question(question, _known_subject_names())
+    cls = extract_class_from_question(question)
+    day = extract_day_from_question(question)
+    teacher_names = []
+
+    if intent in _SUBJECT_CONTEXT_INTENTS and subject:
+        if not cls and role == "student":
+            row = query("SELECT class FROM students WHERE student_id=%s", (linked_id,), fetch=True)
+            cls = row[0] if row else None
+        bold_values = re.findall(r'\*\*([^*]+)\*\*', reply)
+        teacher_names = sorted({
+            value for value in bold_values
+            if value.lower() != subject.lower()
+            and not extract_class_from_question(value)
+            and (not cls or value.upper() != cls.upper())
+        })
+        if not cls:
+            teacher_names.extend(
+                line.split(":", 1)[1].strip()
+                for line in reply.splitlines()
+                if line.lstrip().startswith("- **") and ":" in line
+            )
+            teacher_names = sorted(set(teacher_names))
+    elif intent in {"teacher_schedule_lookup", "teacher_classes_lookup", "teacher_department"}:
+        tid, name, ambiguity = extract_teacher_name_from_question(question, _teachers_with_subjects())
+        if tid and not ambiguity:
+            teacher_names = [name]
+    elif intent == "class_teacher" and cls:
+        row = query("""
+            SELECT te.name FROM class_teachers ct
+            JOIN teachers te ON ct.teacher_id=te.teacher_id WHERE ct.class=%s
+        """, (cls,), fetch=True)
+        if row:
+            teacher_names = [row[0]]
+
+    session["conversation_context"] = {
+        "intent": intent,
+        "role": role,
+        "subject": subject,
+        "class": cls,
+        "day": day,
+        "teacher_names": teacher_names,
+        "expires_at": time.time() + CONVERSATION_CONTEXT_TTL_SECONDS,
+    }
+
+
+def _contextual_pronoun_reply(question, context):
+    q = clean_question(question)
+    if not re.search(r'\b(she|he|they|them|that teacher|who was that)\b', q):
+        return None
+
+    names = context.get("teacher_names") or []
+    if not names:
+        return "Which teacher do you mean?"
+    if len(names) > 1:
+        return "Which teacher do you mean — " + ", ".join(names) + "?"
+
+    name = names[0]
+    if "department" in q or re.search(r'\bin\s+[a-z ]+$', q):
+        return handle_teacher_department(f"department of {name}")
+    if re.search(r'\bwhat\s+subject\b|\bsubject.*teach\b', q):
+        for _, teacher_name, subjects in _teachers_with_subjects():
+            if teacher_name == name:
+                return (f"**{name}** teaches **{subjects}**."
+                        if subjects else f"I couldn't find a subject assignment for {name}.")
+    if "class teacher" in q:
+        cls = context.get("class")
+        if not cls:
+            return "Which class would you like me to check?"
+        row = query("""
+            SELECT te.name FROM class_teachers ct
+            JOIN teachers te ON ct.teacher_id=te.teacher_id WHERE ct.class=%s
+        """, (cls,), fetch=True)
+        if not row:
+            return f"No class teacher has been assigned for {cls} yet."
+        if row[0] == name:
+            return f"Yes. **{name}** is also **{cls}'s class teacher**."
+        return f"No. **{cls}'s class teacher is {row[0]}**."
+    if "who was that" in q:
+        return f"That was **{name}**."
+    return None
+
+
+def _resume_conversation_context(question, role, linked_id):
+    context = session.get("conversation_context")
+    if not context or context.get("role") != role or time.time() > context.get("expires_at", 0):
+        session.pop("conversation_context", None)
+        return None
+
+    q = clean_question(question)
+    pronoun_reply = _contextual_pronoun_reply(q, context)
+    if pronoun_reply is not None:
+        return pronoun_reply
+
+    is_slot_follow_up = bool(re.match(r'^(?:and\b|what about\b|how about\b|sorry\b|i meant\b)', q))
+    if not is_slot_follow_up:
+        return None
+
+    new_class = extract_class_from_question(q)
+    new_subject = extract_subject_from_question(q, _known_subject_names())
+    new_day = extract_day_from_question(q)
+    previous_intent = context.get("intent")
+
+    if previous_intent in _SUBJECT_CONTEXT_INTENTS and (new_class or new_subject):
+        subject = new_subject or context.get("subject")
+        cls = new_class or context.get("class")
+        if not subject:
+            return "Which subject do you mean?"
+        merged = f"who teaches {subject}" + (f" in {cls}" if cls else "")
+        intent = "subject_teacher" if role == "student" else "school_wide_subject_teacher"
+        reply = _dispatch_to_role_handler(role, merged, linked_id, forced_intent=intent)
+        _remember_conversation_context(intent, merged, role, linked_id, reply)
+        return reply
+
+    if previous_intent in {"timetable", "class_timetable_lookup"} and new_day:
+        cls = context.get("class")
+        if previous_intent == "class_timetable_lookup" and cls:
+            merged = f"timetable for {cls} {new_day}"
+            reply = handle_class_timetable_lookup(merged)
+        else:
+            merged = f"my timetable {new_day}"
+            reply = _dispatch_to_role_handler(role, merged, linked_id, forced_intent="timetable")
+        _remember_conversation_context(previous_intent, merged, role, linked_id, reply)
+        return reply
+
+    return None
+
+
 def _maybe_set_pending_clarification(role, reply, original_message):
     """Called after every NLP-lane/classifier-lane reply - if it's one of
     the exact clarifying prompts above, remember what was asked (plus the
@@ -1644,7 +1878,7 @@ def chat():
     if not question:
         return jsonify({"reply": "Please type a question first."})
 
-    question_lower = question.lower()
+    question_lower = clean_question(question)
 
     # Check for a pending clarification BEFORE normal routing - popped
     # immediately either way (success or failure), so it can only ever
@@ -1668,9 +1902,17 @@ def chat():
             if resumed is not None and resumed != config["prompt"]:
                 print(f'[CLARIFICATION RESUMED] intent={pending_intent} role={role} '
                       f'follow_up={question_lower!r}')
+                _remember_conversation_context(
+                    pending_intent, f"{pending.get('original_message', '')} {question_lower}",
+                    role, linked_id, resumed
+                )
                 return jsonify({"reply": resumed})
             print(f'[CLARIFICATION EXPIRED] intent={pending_intent} role={role} '
                   f'follow_up={question_lower!r} -> falling through to normal routing')
+
+    contextual_reply = _resume_conversation_context(question_lower, role, linked_id)
+    if contextual_reply is not None:
+        return jsonify({"reply": contextual_reply})
 
     # ROUTING:
     # Lane 1: Personal question → NLP + MySQL (private, personal data).
@@ -1700,7 +1942,15 @@ def chat():
     if use_nlp:
         # Personal lane — use NLP + MySQL
         print(f'[NLP LANE] Question: {question_lower}')
-        reply = _dispatch_to_role_handler(role, question_lower, linked_id)
+        # get_routing_decision() already selected a confident intent. Pass
+        # that exact choice through so the role handler cannot independently
+        # reclassify the same text into a self-service intent (or miss it)
+        # using a different candidate list. Pure greetings intentionally
+        # carry no selected intent and continue through the handler's normal
+        # greeting detection.
+        reply = _dispatch_to_role_handler(
+            role, question_lower, linked_id, forced_intent=weak_intent
+        )
 
         # If NLP couldn't recognize it even with personal words, fall back
         # to Gemini as a last resort. The answer is now genuinely coming
@@ -1713,6 +1963,7 @@ def chat():
             return stream_gemini_reply(question_lower, role)
 
         _maybe_set_pending_clarification(role, reply, question_lower)
+        _remember_conversation_context(weak_intent, question_lower, role, linked_id, reply)
         return jsonify({"reply": reply})
 
     if try_classifier and tie_candidates:
@@ -1745,6 +1996,9 @@ def chat():
                   f'(candidates: {tie_candidates})')
             reply = _dispatch_to_role_handler(role, question_lower, linked_id, forced_intent=classified_intent)
             _maybe_set_pending_clarification(role, reply, question_lower)
+            _remember_conversation_context(
+                classified_intent, question_lower, role, linked_id, reply
+            )
             if reply not in _CLARIFICATION_PROMPTS:
                 log_learned_phrase(question_lower, classified_intent, role)
             return jsonify({"reply": reply})
@@ -1783,6 +2037,9 @@ def chat():
                   f'(NLP: {weak_intent!r} score {weak_score}, almanac not confident)')
             reply = _dispatch_to_role_handler(role, question_lower, linked_id, forced_intent=classified_intent)
             _maybe_set_pending_clarification(role, reply, question_lower)
+            _remember_conversation_context(
+                classified_intent, question_lower, role, linked_id, reply
+            )
 
             # Learned Phrases: log only a genuine delivery - the classifier
             # picked an intent AND the handler actually answered, not a
@@ -1936,9 +2193,12 @@ def extract_subject_from_question(question, known_subjects):
        and a plain "science" question got hijacked into "Computer Science"
        because the word "science" is also a substring of THAT longer name.
     """
-    q = question.lower()
+    q = clean_question(question)
 
-    full_matches = [s for s in known_subjects if s.lower().strip() in q]
+    full_matches = [
+        s for s in known_subjects
+        if re.search(r'(?<!\w)' + re.escape(s.lower().strip()) + r'(?!\w)', q)
+    ]
     if full_matches:
         return max(full_matches, key=len)
 
@@ -1950,10 +2210,10 @@ def extract_subject_from_question(question, known_subjects):
     if alias_matches:
         return max(set(alias_matches), key=len)
 
-    q_words = q.split()
+    q_words = re.findall(r'\b\w+\b', q)
     partial_matches = [
         s for s in known_subjects
-        if any(len(w) >= 4 and w in s.lower() for w in q_words)
+        if any(len(w) >= 4 and s.lower().startswith(w) for w in q_words)
     ]
     if partial_matches:
         return max(partial_matches, key=len)
@@ -2058,8 +2318,37 @@ def _known_subject_names():
     """Fetches the school-wide list of subject names, for
     extract_subject_from_question() to match against. Shared by the
     student exam/subject-teacher lookups."""
+    if has_request_context() and hasattr(g, "known_subject_names"):
+        return g.known_subject_names
     rows = query("SELECT DISTINCT subject_name FROM subjects", fetch=True, many=True) or []
-    return [r[0] for r in rows]
+    names = [r[0] for r in rows]
+    if has_request_context():
+        g.known_subject_names = names
+    return names
+
+
+def _known_departments():
+    if has_request_context() and hasattr(g, "known_departments"):
+        return g.known_departments
+    rows = query("SELECT department_id, name FROM departments", fetch=True, many=True) or []
+    if has_request_context():
+        g.known_departments = rows
+    return rows
+
+
+def extract_department_from_question(question):
+    """Return a real department only when its complete name is present.
+
+    Typo normalization happens before this function is called.  Whole-word
+    matching prevents an unknown label from being silently coerced into a
+    real department, mirroring the subject extractor's safety rule.
+    """
+    q = clean_question(question)
+    matches = [
+        (department_id, name) for department_id, name in _known_departments()
+        if re.search(r'(?<!\w)' + re.escape(name.lower()) + r'(?!\w)', q)
+    ]
+    return max(matches, key=lambda row: len(row[1])) if matches else (None, None)
 
 
 def _teachers_with_subjects():
@@ -2070,7 +2359,9 @@ def _teachers_with_subjects():
     now teach more than one subject, see teacher_subjects in
     setup_database.py) - shared by every handler that needs to match a
     named teacher in a question."""
-    return query("""
+    if has_request_context() and hasattr(g, "teachers_with_subjects"):
+        return g.teachers_with_subjects
+    rows = query("""
         SELECT te.teacher_id, te.name,
                COALESCE(GROUP_CONCAT(DISTINCT s.subject_name ORDER BY s.subject_name SEPARATOR ', '), '')
         FROM teachers te
@@ -2078,6 +2369,9 @@ def _teachers_with_subjects():
         LEFT JOIN subjects s ON ts.subject_id = s.subject_id
         GROUP BY te.teacher_id, te.name
     """, fetch=True, many=True) or []
+    if has_request_context():
+        g.teachers_with_subjects = rows
+    return rows
 
 
 # =========================================================
@@ -2247,6 +2541,24 @@ def handle_subject_teacher(question, student_id, known_subjects):
 
     if not subject:
         return "Which subject's teacher do you mean?"
+
+    explicit_class = extract_class_from_question(question)
+    if explicit_class:
+        results = query("""
+            SELECT DISTINCT te.name
+            FROM timetable t
+            JOIN subjects s ON t.subject_id = s.subject_id
+            JOIN teachers te ON t.teacher_id = te.teacher_id
+            WHERE t.class = %s AND s.subject_name = %s
+        """, (explicit_class, subject), fetch=True, many=True)
+
+        if not results:
+            return f"No teacher found for {subject} in {explicit_class}."
+        names = sorted({name for (name,) in results})
+        if len(names) == 1:
+            return f"**{names[0]}** teaches **{subject}** in **{explicit_class}**."
+        return (f"**{subject}** in **{explicit_class}** is taught by: "
+                + ", ".join(f"**{name}**" for name in names) + ".")
 
     results = query("""
         SELECT DISTINCT te.name
@@ -2690,6 +3002,116 @@ def handle_teacher_schedule_lookup(question):
     return f"**{name}**'s schedule:\n" + "\n".join(lines)
 
 
+def handle_teacher_classes_lookup(question):
+    teachers = _teachers_with_subjects()
+    tid, name, clarification = extract_teacher_name_from_question(question, teachers)
+    if clarification:
+        return clarification
+    if not tid:
+        return "Which teacher would you like me to check?"
+
+    rows = query(
+        "SELECT DISTINCT class FROM timetable WHERE teacher_id=%s ORDER BY class",
+        (tid,), fetch=True, many=True
+    ) or []
+    classes = [row[0] for row in rows]
+    if not classes:
+        return f"I couldn't find any classes assigned to {name}."
+    return f"**{name}** teaches: **{', '.join(classes)}**."
+
+
+def handle_teacher_department(question):
+    teachers = _teachers_with_subjects()
+    tid, name, clarification = extract_teacher_name_from_question(question, teachers)
+    if clarification:
+        return clarification
+    if not tid:
+        return "Which teacher's department would you like to check?"
+
+    row = query("""
+        SELECT d.name
+        FROM teachers te
+        LEFT JOIN departments d ON te.department_id=d.department_id
+        WHERE te.teacher_id=%s
+    """, (tid,), fetch=True)
+    if not row or not row[0]:
+        return f"I couldn't find a department for {name}."
+    return f"**{name}** is in the **{row[0]} Department**."
+
+
+def handle_department_staff(question, default_teacher_id=None):
+    department_id, department_name = extract_department_from_question(question)
+    if not department_id and default_teacher_id and re.search(r'\bmy\s+(?:department|dept)\b', question):
+        row = query("""
+            SELECT d.department_id, d.name
+            FROM teachers te JOIN departments d ON te.department_id=d.department_id
+            WHERE te.teacher_id=%s
+        """, (default_teacher_id,), fetch=True)
+        if row:
+            department_id, department_name = row
+
+    if not department_id:
+        return "Which department's staff would you like to see?"
+
+    rows = query("""
+        SELECT te.name,
+               COALESCE(GROUP_CONCAT(DISTINCT s.subject_name ORDER BY s.subject_name SEPARATOR ', '), '')
+        FROM teachers te
+        LEFT JOIN teacher_subjects ts ON te.teacher_id=ts.teacher_id
+        LEFT JOIN subjects s ON ts.subject_id=s.subject_id
+        WHERE te.department_id=%s
+        GROUP BY te.teacher_id, te.name
+        ORDER BY te.name
+    """, (department_id,), fetch=True, many=True) or []
+    if not rows:
+        return f"No staff are listed for the {department_name} Department."
+    lines = [f"- **{name}**" + (f" — {subjects}" if subjects else "") for name, subjects in rows]
+    return f"Staff in the **{department_name} Department**:\n" + "\n".join(lines)
+
+
+def handle_department_leadership(question):
+    department_id, department_name = extract_department_from_question(question)
+    if not department_id:
+        return "Which department would you like me to check?"
+
+    pattern = re.compile(
+        r'^' + re.escape(department_name) + r'\s+(?:(Acting)\s+)?HOD:\s*([^\n]+)$',
+        re.IGNORECASE | re.MULTILINE
+    )
+    # Almanac formatting uses "Mathematics (Acting HOD): ..." for acting
+    # heads, while permanent heads use "Science HOD: ...".
+    acting_pattern = re.compile(
+        r'^' + re.escape(department_name) + r'\s+\((Acting)\s+HOD\):\s*([^\n]+)$',
+        re.IGNORECASE | re.MULTILINE
+    )
+    match = pattern.search(get_almanac()) or acting_pattern.search(get_almanac())
+    if not match:
+        return f"No HOD is listed for the {department_name} Department."
+    qualifier = "Acting HOD" if match.group(1) else "HOD"
+    return (f"**{match.group(2).strip()}** is the **{qualifier} of the "
+            f"{department_name} Department**.")
+
+
+def handle_school_leadership(question):
+    q = clean_question(question)
+    if "assistant principal" in q:
+        label = "Assistant Principal"
+    elif "vice principal" in q:
+        label = "Vice Principal"
+    elif re.search(r'\bprincipal\b', q):
+        label = "Principal"
+    else:
+        return "Which school leadership role would you like me to check?"
+
+    pattern = re.compile(
+        r'^' + re.escape(label) + r':\s*([^—\n]+)', re.IGNORECASE | re.MULTILINE
+    )
+    match = pattern.search(get_almanac())
+    if not match:
+        return f"I couldn't find the {label}'s name in the school directory."
+    return f"The **{label}** is **{match.group(1).strip()}**."
+
+
 def handle_class_timetable_lookup(question):
     """Full (not current-period-only) timetable for a class, day-filterable.
     Distinct from handle_classroom_occupant() (who's teaching THIS class
@@ -2759,6 +3181,12 @@ def handle_school_wide_subject_teacher(question):
 
     results = query(sql, tuple(params), fetch=True, many=True)
     if results:
+        if cls:
+            names = sorted({name for name, _ in results})
+            if len(names) == 1:
+                return f"**{names[0]}** teaches **{subject}** in **{cls}**."
+            return (f"**{subject}** in **{cls}** is taught by: "
+                    + ", ".join(f"**{name}**" for name in names) + ".")
         lines = [f"- **{c}**: {name}" for name, c in results]
         return f"Teachers for **{subject}**:\n" + "\n".join(lines)
     return f"No teacher found for {subject}" + (f" in {cls}." if cls else ".")
@@ -2774,6 +3202,11 @@ def handle_class_teacher_lookup(question):
     cls = extract_class_from_question(question)
     if not cls:
         return "Which class would you like to check? Please include the class (e.g. 10-A)."
+
+    if (re.search(r'\bwho\s+handles\b', clean_question(question))
+            and not extract_subject_from_question(question, _known_subject_names())):
+        return (f"Do you mean **{cls}'s class teacher**, or all subject teachers "
+                f"assigned to **{cls}**?")
 
     results = query("""
         SELECT DISTINCT s.subject_name, te.name
@@ -2886,7 +3319,8 @@ def answer_student(question, student_id, forced_intent=None):
         question,
         ["greeting", "thanks", "help", "attendance", "exam", "timetable", "fee",
          "identity", "roll_number", "my_class", "class_teacher", "next_period",
-         "subject_teacher", "notices", "subjects_offered", "complaint_feedback"]
+         "subject_teacher", "teacher_department", "notices", "subjects_offered",
+         "complaint_feedback"]
     )
 
     # subject_teacher's "who teaches me"/"teacher for" phrases are about a
@@ -2970,6 +3404,9 @@ def answer_student(question, student_id, forced_intent=None):
         known_subjects = _known_subject_names()
         return handle_subject_teacher(question, student_id, known_subjects)
 
+    elif intent == "teacher_department":
+        return handle_teacher_department(question)
+
     elif intent == "notices":
         return handle_notices("student", question)
 
@@ -2997,9 +3434,7 @@ def answer_teacher(question, teacher_id, forced_intent=None, extra_intents=None,
     # unaffected.
     intent = "greeting" if _normalized_greeting(question) in ("who are you", "how are you", "how are u") else forced_intent if forced_intent is not None else detect_intent(
         question,
-        ["greeting", "thanks", "help", "period_count", "timetable", "classes_assigned",
-         "next_class", "current_class", "free_periods", "periods_remaining", "teacher_identity",
-         "notices", "subjects_offered"] + (extra_intents or [])
+        ["greeting", "thanks", "help"] + TEACHER_INTENTS + (extra_intents or [])
     )
 
     if intent == "greeting":
@@ -3079,6 +3514,33 @@ def answer_teacher(question, teacher_id, forced_intent=None, extra_intents=None,
     elif intent == "teacher_identity":
         return handle_teacher_identity(teacher_id)
 
+    elif intent == "teacher_schedule_lookup":
+        return handle_teacher_schedule_lookup(question)
+
+    elif intent == "teacher_classes_lookup":
+        return handle_teacher_classes_lookup(question)
+
+    elif intent == "teacher_department":
+        return handle_teacher_department(question)
+
+    elif intent == "school_wide_subject_teacher":
+        return handle_school_wide_subject_teacher(question)
+
+    elif intent == "class_teacher_lookup":
+        return handle_class_teacher_lookup(question)
+
+    elif intent == "class_teacher":
+        return handle_class_teacher(question)
+
+    elif intent == "department_staff":
+        return handle_department_staff(question, default_teacher_id=teacher_id)
+
+    elif intent == "department_leadership":
+        return handle_department_leadership(question)
+
+    elif intent == "school_leadership":
+        return handle_school_leadership(question)
+
     elif intent == "notices":
         return handle_notices(role, question)
 
@@ -3126,6 +3588,8 @@ def answer_principal(question, forced_intent=None):
             "teacher_location", "classroom_occupant", "free_teachers",
             "teacher_schedule_lookup", "class_timetable_lookup",
             "school_wide_subject_teacher", "class_teacher_lookup", "class_teacher",
+            "teacher_classes_lookup", "teacher_department", "department_staff",
+            "department_leadership", "school_leadership",
             "low_attendance_count", "pending_fees_count", "notices", "subjects_offered"
         ])
         principal_ranked = _apply_subject_scoring_adjustment(
@@ -3225,6 +3689,12 @@ def answer_principal(question, forced_intent=None):
     elif intent == "teacher_schedule_lookup":
         return handle_teacher_schedule_lookup(question)
 
+    elif intent == "teacher_classes_lookup":
+        return handle_teacher_classes_lookup(question)
+
+    elif intent == "teacher_department":
+        return handle_teacher_department(question)
+
     elif intent == "class_timetable_lookup":
         return handle_class_timetable_lookup(question)
 
@@ -3236,6 +3706,15 @@ def answer_principal(question, forced_intent=None):
 
     elif intent == "class_teacher":
         return handle_class_teacher(question)
+
+    elif intent == "department_staff":
+        return handle_department_staff(question)
+
+    elif intent == "department_leadership":
+        return handle_department_leadership(question)
+
+    elif intent == "school_leadership":
+        return handle_school_leadership(question)
 
     elif intent == "low_attendance_count":
         return handle_low_attendance_count()
