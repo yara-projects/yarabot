@@ -1739,6 +1739,7 @@ def _calendar_information_gap_reply(question, role):
     has_exam_schedule = any(
         re.search(r'\b(?:exam|examination|test)\b', block)
         and re.search(r'\b(?:schedule|calendar|date|dates)\b', block)
+        and (not day or day in block)
         for block in grounding_blocks
     )
     if has_exam_schedule:

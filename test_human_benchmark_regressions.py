@@ -307,6 +307,16 @@ class HumanBenchmarkContextTests(unittest.TestCase):
                     "I couldn't find a Grade 8 exam schedule for Tuesday. "
                     "Check the latest exam circular or contact the school office.",
                 )
+            with patch.object(
+                    app, "search_almanac",
+                    return_value="ADMISSIONS / Entrance examination dates\nApplications open in January",
+                 ), patch.object(app, "search_notice_context", return_value=""):
+                self.assertEqual(
+                    app._calendar_information_gap_reply(
+                        "school exam schedule for grade 8 on tuesday", "principal"),
+                    "I couldn't find a Grade 8 exam schedule for Tuesday. "
+                    "Check the latest exam circular or contact the school office.",
+                )
             self.assertTrue(app._BARE_CLASS_FOLLOWUP_RE.fullmatch("what about 10-a"))
 
 
