@@ -128,6 +128,14 @@ class HumanBenchmarkRoutingTests(unittest.TestCase):
             self.assertEqual(app.handle_school_leadership("who is the principal"),
                              "The **Principal** is **Mrs. Aasima Saleem**.")
 
+    def test_subject_day_timetable_empty_result_is_clear(self):
+        with patch.object(app, "_known_subject_names", return_value=SUBJECTS), \
+                patch.object(app, "query", return_value=[]):
+            self.assertEqual(
+                app.handle_student_timetable("my timetable sunday chemistry", 1),
+                "No Chemistry classes are scheduled on Sunday.",
+            )
+
     def test_ambiguous_handles_query_asks_which_teacher_view(self):
         with patch.object(app, "_known_subject_names", return_value=SUBJECTS):
             reply = app.handle_class_teacher_lookup("who handles 11b")

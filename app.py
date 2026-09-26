@@ -2821,9 +2821,12 @@ def handle_student_timetable(question, student_id):
     results = query(base_query, tuple(params), fetch=True, many=True)
 
     if not results:
-        if day or subject:
-            detail = " ".join(filter(None, [subject, f"on {day.capitalize()}" if day else None]))
-            return f"No {detail} classes are scheduled."
+        if subject and day:
+            return f"No {subject} classes are scheduled on {day.capitalize()}."
+        if subject:
+            return f"No {subject} classes are scheduled."
+        if day:
+            return f"No classes scheduled for {day.capitalize()}."
         return "No timetable found for your class yet."
 
     if day:
