@@ -51,6 +51,9 @@ TYPO_NORMALIZATIONS = {
     "princpal": "principal",
     "princple": "principal",
     "assisstant": "assistant",
+    "tmrw": "tomorrow",
+    "dept": "department",
+    "rn": "right now",
 }
 
 # ---- Each intent's keyword/phrase list. Bigger + more varied = smarter bot.
@@ -394,6 +397,13 @@ INTENT_DATA = {
                     # clarification under the real score_intent() margin rules) ----
                     "show me schedule for mr", "show me schedule for ms", "gimme his schedule", "gimme her schedule", "his timetable pls", "her timetable pls", "quickly show his schedule", "just tell me her schedule", "bro show me her schedule", "which periods does he have", "which periods does she have", "his weekly schedule", "her weekly schedule", "check his schedule", "check her schedule", "staff schedule lookup", "look up teacher schedule", "find a teachers timetable", "a teachers full schedule", "his class schedule", "her class schedule", "teacher weekly timetable", "get me his schedule", "get me her schedule", "display his timetable", "display her timetable"],
         "keywords": ["schedule"],
+    },
+    "teacher_profile_lookup": {
+        # Routed only when app.py extracts a real named teacher or an
+        # explicit honorific. Generic "who is this teacher" must remain a
+        # clarification rather than becoming a confident directory lookup.
+        "phrases": [],
+        "keywords": [],
     },
     "teacher_classes_lookup": {
         "phrases": ["which classes does", "what classes does", "classes taught by",
@@ -887,7 +897,13 @@ def has_class_code(cleaned_question):
     """True if a class code - grade-section ("10-a"/"10a"/"10 a") or an
     early-years standalone code ("nursery"/"lkg"/"ukg") - is mentioned
     anywhere in the question."""
-    return bool(_CLASS_CODE_RE.search(cleaned_question) or _EARLY_YEARS_RE.search(cleaned_question))
+    verbose_class = re.search(
+        r'\b(?:grade|class)\s+(\d{1,2})\s+(?:section\s+)?([a-z])\b',
+        cleaned_question, re.IGNORECASE
+    )
+    return bool(_CLASS_CODE_RE.search(cleaned_question)
+                or _EARLY_YEARS_RE.search(cleaned_question)
+                or verbose_class)
 
 
 def clean_question(question):

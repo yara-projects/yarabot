@@ -233,6 +233,7 @@ def is_pure_greeting(question):
 # intents" in code, not just in prose - see HOD_LIKE_ROLES above.
 STAFF_LOOKUP_INTENTS = [
     "teacher_schedule_lookup", "teacher_classes_lookup", "teacher_department",
+    "teacher_profile_lookup",
     "school_wide_subject_teacher", "class_teacher_lookup", "class_teacher",
     "department_staff", "department_leadership", "school_leadership",
 ]
@@ -246,7 +247,9 @@ HOD_DEPARTMENT_INTENTS = ["department_free_teachers", "department_schedule_today
 ROLE_PERSONAL_INTENTS = {
     "student": ["attendance", "exam", "timetable", "fee", "identity",
                 "roll_number", "my_class", "class_teacher", "next_period",
-                "subject_teacher", "teacher_department", "notices", "subjects_offered",
+                "subject_teacher", "class_teacher_lookup", "teacher_department",
+                "teacher_profile_lookup", "department_leadership", "school_leadership",
+                "notices", "subjects_offered",
                 "complaint_feedback"],
     "teacher": TEACHER_INTENTS,
     "hod": TEACHER_INTENTS + HOD_DEPARTMENT_INTENTS,
@@ -255,6 +258,7 @@ ROLE_PERSONAL_INTENTS = {
                   "free_teachers", "teacher_schedule_lookup", "class_timetable_lookup",
                   "school_wide_subject_teacher", "class_teacher_lookup", "class_teacher",
                   "teacher_classes_lookup", "teacher_department", "department_staff",
+                  "teacher_profile_lookup",
                   "department_leadership", "school_leadership",
                   "low_attendance_count", "pending_fees_count", "notices", "subjects_offered"],
 }
@@ -330,6 +334,7 @@ INTENT_DESCRIPTIONS = {
     "free_periods": "your free periods",
     "periods_remaining": "how many periods you have left today",
     "teacher_identity": "your own details",
+    "teacher_profile_lookup": "information about a named teacher",
     "teacher_location": "where a teacher is right now",
     "classroom_occupant": "who's teaching a class right now",
     "free_teachers": "which teachers are free right now",
@@ -512,6 +517,20 @@ def _explicit_lookup_intent(question, role):
     q = clean_question(question)
     cls = extract_class_from_question(q)
 
+    if role in {"teacher", "hod", "vice_principal"}:
+        if cls and re.search(r'\b(?:when\s+do\s+i\s+teach|do\s+i\s+teach|my\s+(?:class|schedule))\b', q):
+            return "timetable"
+        if re.search(r'\b(?:show|what(?:s|\s+is))\s+my\s+periods?\s+(?:right\s+now|now)\b', q):
+            return "current_class"
+
+    if re.search(r'\bwho\s+is\s+(?!the\s+(?:vice\s+|assistant\s+)?principal\b)(?:mr|mrs|ms|miss|dr)\b', q):
+        return "teacher_profile_lookup"
+    teacher_id, _, teacher_ambiguity = extract_teacher_name_from_question(
+        q, _teachers_with_subjects()
+    )
+    if re.search(r'\bwho\s+is\b', q) and (teacher_id or teacher_ambiguity):
+        return "teacher_profile_lookup"
+
     if cls and re.search(r'\b(class|homeroom)\s+teacher\b', q):
         return "class_teacher"
 
@@ -540,7 +559,19 @@ def _explicit_lookup_intent(question, role):
         if tid or ambiguity:
             return "teacher_department"
 
+    if re.search(r'\bhod\s+of\b', q):
+        return "department_leadership"
+    if (re.search(r'\b(?:who\s+leads|head\s+of)\b', q)
+            and (re.search(r'\bdepartment\b', q)
+                 or extract_department_from_question(q)[0])):
+        return "department_leadership"
+
+    if re.search(r'\bwho\s+is\s+the\s+(?:vice\s+principal|assistant\s+principal|principal)\b', q):
+        return "school_leadership"
+
     if role == "student":
+        if cls and re.search(r'\bwho\s+(?:handles|teaches|takes)\b', q):
+            return "class_teacher_lookup"
         return None
 
     if re.search(r'\b(which|what)\s+classes\s+does\b|\bclasses\s+(?:taught|handled)\s+by\b', q):
@@ -548,17 +579,11 @@ def _explicit_lookup_intent(question, role):
         if tid or ambiguity:
             return "teacher_classes_lookup"
 
-    if re.search(r'\b(who\s+leads|head\s+of|hod\s+of)\b.*\bdepartment\b|\bwho\s+leads\b.*\bdepartment\b', q):
-        if extract_department_from_question(q)[0]:
-            return "department_leadership"
-
-    if (re.search(r'\b(list|show|which|who|all)\b.*\b(staff|teachers?|faculty)\b', q)
+    if ((re.search(r'\b(list|show|which|who|all)\b.*\b(staff|teachers?|faculty)\b', q)
+            or re.search(r'\bwho\s+works\s+in\b', q))
             and (re.search(r'\b(department|dept)\b', q)
                  or extract_department_from_question(q)[0])):
         return "department_staff"
-
-    if re.search(r'\bwho\s+is\s+the\s+(?:vice\s+principal|assistant\s+principal|principal)\b', q):
-        return "school_leadership"
 
     return None
 
@@ -1619,6 +1644,65 @@ CONVERSATION_CONTEXT_TTL_SECONDS = 10 * 60
 _SUBJECT_CONTEXT_INTENTS = {"subject_teacher", "school_wide_subject_teacher"}
 
 
+def _general_topic(question):
+    if re.search(r'\b(events?|activities?)\b', question):
+        return "events"
+    if re.search(r'\b(exams?|tests?)\b', question):
+        return "exams"
+    return None
+
+
+def _remember_general_context(question):
+    topic = _general_topic(question)
+    if not topic:
+        return
+    grade_match = re.search(r'\bgrade\s+(\d{1,2})\b', question)
+    session["general_context"] = {
+        "topic": topic,
+        "day": extract_day_from_question(question),
+        "grade": grade_match.group(1) if grade_match else None,
+        "expires_at": time.time() + CONVERSATION_CONTEXT_TTL_SECONDS,
+    }
+    # An explicit general topic starts a new conversation. Keeping an old
+    # personal timetable context here caused "what about Tuesday" to turn
+    # an events conversation into the logged-in staff member's schedule.
+    session.pop("conversation_context", None)
+
+
+def _apply_general_followup_context(question):
+    context = session.get("general_context")
+    if not context or time.time() > context.get("expires_at", 0):
+        session.pop("general_context", None)
+        return question
+
+    q = clean_question(question)
+    explicit_topic = _general_topic(q)
+    follow_up = bool(re.match(
+        r'^(?:and\b|what about\b|how about\b|which one\b|sorry\b|i meant\b)', q
+    ))
+    if not explicit_topic and not follow_up:
+        return question
+
+    topic = explicit_topic or context.get("topic")
+    day = extract_day_from_question(q) or context.get("day")
+    grade_match = re.search(r'\bgrade\s+(\d{1,2})\b', q)
+    grade = grade_match.group(1) if grade_match else context.get("grade")
+
+    if topic == "events":
+        merged = "school events" + (f" on {day}" if day else "")
+    else:
+        merged = "school exam schedule"
+        if grade:
+            merged += f" for grade {grade}"
+        if day:
+            merged += f" on {day}"
+        if re.search(r'\bwhich one\b.*\bfirst\b', q):
+            merged += "; which exam is first"
+
+    _remember_general_context(merged)
+    return merged
+
+
 def _remember_conversation_context(intent, question, role, linked_id, reply):
     """Keep only the small set of slots needed for natural follow-ups.
 
@@ -1632,6 +1716,7 @@ def _remember_conversation_context(intent, question, role, linked_id, reply):
     tracked_intents = _SUBJECT_CONTEXT_INTENTS | {
         "timetable", "class_timetable_lookup", "class_teacher", "class_teacher_lookup",
         "teacher_schedule_lookup", "teacher_classes_lookup", "teacher_department",
+        "department_staff", "department_schedule_today",
     }
     if intent not in tracked_intents:
         return
@@ -1639,6 +1724,7 @@ def _remember_conversation_context(intent, question, role, linked_id, reply):
     subject = extract_subject_from_question(question, _known_subject_names())
     cls = extract_class_from_question(question)
     day = extract_day_from_question(question)
+    _, department = extract_department_from_question(question)
     teacher_names = []
 
     if intent in _SUBJECT_CONTEXT_INTENTS and subject:
@@ -1677,6 +1763,7 @@ def _remember_conversation_context(intent, question, role, linked_id, reply):
         "subject": subject,
         "class": cls,
         "day": day,
+        "department": department,
         "teacher_names": teacher_names,
         "expires_at": time.time() + CONVERSATION_CONTEXT_TTL_SECONDS,
     }
@@ -1694,6 +1781,17 @@ def _contextual_pronoun_reply(question, context):
         return "Which teacher do you mean — " + ", ".join(names) + "?"
 
     name = names[0]
+    cls = extract_class_from_question(q)
+    if cls and re.search(r'\b(?:teach|teaches|take|takes|handle|handles)\b', q):
+        teacher = next((row for row in _teachers_with_subjects() if row[1] == name), None)
+        if not teacher:
+            return f"I couldn't find a teacher record for {name}."
+        row = query(
+            "SELECT 1 FROM timetable WHERE teacher_id=%s AND class=%s LIMIT 1",
+            (teacher[0], cls), fetch=True
+        )
+        return (f"Yes. **{name}** teaches **{cls}**."
+                if row else f"No. **{name}** is not assigned to **{cls}**.")
     if "department" in q or re.search(r'\bin\s+[a-z ]+$', q):
         return handle_teacher_department(f"department of {name}")
     if re.search(r'\bwhat\s+subject\b|\bsubject.*teach\b', q):
@@ -1728,6 +1826,12 @@ def _resume_conversation_context(question, role, linked_id):
     q = clean_question(question)
     pronoun_reply = _contextual_pronoun_reply(q, context)
     if pronoun_reply is not None:
+        referenced_class = extract_class_from_question(q)
+        if referenced_class and re.search(r'\b(?:teach|teaches|take|takes|handle|handles)\b', q):
+            context["intent"] = "teacher_allocation_check"
+            context["class"] = referenced_class
+            context["expires_at"] = time.time() + CONVERSATION_CONTEXT_TTL_SECONDS
+            session["conversation_context"] = context
         return pronoun_reply
 
     is_slot_follow_up = bool(re.match(r'^(?:and\b|what about\b|how about\b|sorry\b|i meant\b)', q))
@@ -1738,6 +1842,27 @@ def _resume_conversation_context(question, role, linked_id):
     new_subject = extract_subject_from_question(q, _known_subject_names())
     new_day = extract_day_from_question(q)
     previous_intent = context.get("intent")
+
+    if previous_intent == "teacher_allocation_check" and new_class:
+        names = context.get("teacher_names") or []
+        if len(names) != 1:
+            return "Which teacher do you mean?"
+        reply = _contextual_pronoun_reply(
+            f"does he teach {new_class}", {**context, "teacher_names": names}
+        )
+        context["class"] = new_class
+        context["expires_at"] = time.time() + CONVERSATION_CONTEXT_TTL_SECONDS
+        session["conversation_context"] = context
+        return reply
+
+    if previous_intent == "department_staff":
+        department_id, department = extract_department_from_question(q)
+        if department_id:
+            reply = handle_department_staff(department)
+            _remember_conversation_context(
+                "department_staff", department, role, linked_id, reply
+            )
+            return reply
 
     if previous_intent in _SUBJECT_CONTEXT_INTENTS and (new_class or new_subject):
         subject = new_subject or context.get("subject")
@@ -1750,14 +1875,20 @@ def _resume_conversation_context(question, role, linked_id):
         _remember_conversation_context(intent, merged, role, linked_id, reply)
         return reply
 
-    if previous_intent in {"timetable", "class_timetable_lookup"} and new_day:
+    if previous_intent in {"timetable", "class_timetable_lookup"} and (new_day or new_subject):
         cls = context.get("class")
         if previous_intent == "class_timetable_lookup" and cls:
-            merged = f"timetable for {cls} {new_day}"
+            merged = " ".join(filter(None, [f"timetable for {cls}", new_day, new_subject]))
             reply = handle_class_timetable_lookup(merged)
         else:
-            merged = f"my timetable {new_day}"
+            merged = " ".join(filter(None, ["my timetable", new_day or context.get("day"), new_subject]))
             reply = _dispatch_to_role_handler(role, merged, linked_id, forced_intent="timetable")
+        _remember_conversation_context(previous_intent, merged, role, linked_id, reply)
+        return reply
+
+    if previous_intent == "department_schedule_today" and new_day:
+        merged = f"department schedule {new_day}"
+        reply = handle_department_schedule_today(linked_id, merged)
         _remember_conversation_context(previous_intent, merged, role, linked_id, reply)
         return reply
 
@@ -1769,6 +1900,20 @@ def _maybe_set_pending_clarification(role, reply, original_message):
     the exact clarifying prompts above, remember what was asked (plus the
     ORIGINAL message, for _resume_clarification_reply()'s merge-fallback)
     so the NEXT message can try to complete it instead of starting fresh."""
+    choice_match = re.match(
+        r"Do you mean \*\*(.+?)'s class teacher\*\*, or all subject teachers",
+        reply
+    )
+    if choice_match:
+        session["pending_clarification"] = {
+            "intent": "class_teacher_choice",
+            "role": role,
+            "class": choice_match.group(1),
+            "original_message": original_message,
+            "expires_at": time.time() + CLARIFICATION_TTL_SECONDS,
+        }
+        return
+
     intent = _CLARIFICATION_BY_PROMPT.get((role, reply))
     if intent:
         session["pending_clarification"] = {
@@ -1879,6 +2024,7 @@ def chat():
         return jsonify({"reply": "Please type a question first."})
 
     question_lower = clean_question(question)
+    question_lower = _apply_general_followup_context(question_lower)
 
     # Check for a pending clarification BEFORE normal routing - popped
     # immediately either way (success or failure), so it can only ever
@@ -1891,6 +2037,16 @@ def chat():
         if time.time() > pending.get("expires_at", 0):
             print(f'[CLARIFICATION SKIPPED] intent={pending_intent} role={role} '
                   f'follow_up={question_lower!r} reason=expired -> falling through to normal routing')
+        elif pending_intent == "class_teacher_choice":
+            cls = pending.get("class")
+            if re.search(r'\bclass\s+teacher\b', question_lower):
+                reply = handle_class_teacher(cls)
+                _remember_conversation_context("class_teacher", cls, role, linked_id, reply)
+                return jsonify({"reply": reply})
+            if re.search(r'\b(?:all\s+)?subject\s+teachers?\b|\ball\s+teachers?\b', question_lower):
+                reply = handle_class_teacher_lookup(cls)
+                _remember_conversation_context("class_teacher_lookup", cls, role, linked_id, reply)
+                return jsonify({"reply": reply})
         elif _is_topic_switch(question_lower, role, pending_intent):
             print(f'[CLARIFICATION SKIPPED] intent={pending_intent} role={role} '
                   f'follow_up={question_lower!r} reason=topic-switch -> falling through to normal routing')
@@ -1960,6 +2116,7 @@ def chat():
             # print() with UnicodeEncodeError on Windows (stdout defaults
             # to cp1252), which took down every NLP-miss request with a 500.
             print(f'[NLP MISS -> GEMINI FALLBACK] Question: {question_lower}')
+            _remember_general_context(question_lower)
             return stream_gemini_reply(question_lower, role)
 
         _maybe_set_pending_clarification(role, reply, question_lower)
@@ -2052,6 +2209,7 @@ def chat():
         # fall through to the exact same Gemini/almanac lane as today.
 
     # General lane — use Gemini + almanac, streamed
+    _remember_general_context(question_lower)
     return stream_gemini_reply(question_lower, role)
 
 
@@ -2308,6 +2466,13 @@ def extract_class_from_question(question):
         if re.search(r'\b' + re.escape(code.lower()) + r'\b', q_lower):
             return code
 
+    verbose_match = re.search(
+        r'\b(?:grade|class)\s+(\d{1,2})\s+(?:section\s+)?([A-Za-z])\b',
+        question, re.IGNORECASE
+    )
+    if verbose_match and 1 <= int(verbose_match.group(1)) <= 12:
+        return f"{verbose_match.group(1)}-{verbose_match.group(2).upper()}"
+
     match = re.search(GRADE_SECTION_PATTERN, question)
     if match:
         return f"{match.group(1)}-{match.group(2).upper()}"
@@ -2344,11 +2509,42 @@ def extract_department_from_question(question):
     real department, mirroring the subject extractor's safety rule.
     """
     q = clean_question(question)
+    known = _known_departments()
+    aliases = {"math": "Mathematics", "maths": "Mathematics"}
+
+    candidates = []
+    patterns = (
+        r'\b(?:hod|head)\s+of\s+(.+?)(?:\s+department)?$',
+        r'\bwho\s+leads\s+(?:the\s+)?(.+?)(?:\s+department)?$',
+        r'\b(?:staff|teachers|faculty)\s+in\s+(?:the\s+)?(.+?)(?:\s+department)?(?:\s+please|\s+pls)?$',
+        r'\b(?:list|show)?\s*(?:the\s+)?(.+?)(?:\s+department)?\s+(?:staff|teachers|faculty)(?:\s+please|\s+pls)?$',
+        r'\bwho\s+works\s+in\s+(?:the\s+)?(.+?)(?:\s+department)?$',
+        r'\b(?:the\s+)?(.+?)\s+department(?:\s+(?:staff|teachers|faculty))?(?:\s+please|\s+pls)?$',
+    )
+    for pattern in patterns:
+        match = re.search(pattern, q)
+        if match:
+            candidate = re.sub(r'\s+(?:please|pls)$', '', match.group(1)).strip()
+            candidates.append(candidate)
+
+    # Department questions must match the complete requested label. This
+    # keeps an unsupported compound such as "space science" from silently
+    # becoming the real Science department.
+    for candidate in candidates:
+        canonical = aliases.get(candidate, candidate)
+        exact = [row for row in known if row[1].lower() == canonical.lower()]
+        if exact:
+            return exact[0]
+
+    # Canonical department names remain valid in ordinary directory wording
+    # such as "list computer science staff" where no marker follows the name.
     matches = [
-        (department_id, name) for department_id, name in _known_departments()
-        if re.search(r'(?<!\w)' + re.escape(name.lower()) + r'(?!\w)', q)
+        row for row in known
+        if re.search(r'(?<!\w)' + re.escape(row[1].lower()) + r'(?!\w)', q)
     ]
-    return max(matches, key=lambda row: len(row[1])) if matches else (None, None)
+    if matches and not candidates:
+        return max(matches, key=lambda row: len(row[1]))
+    return (None, None)
 
 
 def _teachers_with_subjects():
@@ -2598,6 +2794,7 @@ def handle_student_timetable(question, student_id):
     separate intent - the unfiltered case keeps the exact same output
     format as before this expansion."""
     day = extract_day_from_question(question)
+    subject = extract_subject_from_question(question, _known_subject_names())
 
     base_query = """
         SELECT t.day, t.period_no, s.subject_name, te.name
@@ -2612,6 +2809,9 @@ def handle_student_timetable(question, student_id):
     if day:
         base_query += " AND LOWER(t.day) = %s"
         params.append(day)
+    if subject:
+        base_query += " AND TRIM(s.subject_name) = TRIM(%s)"
+        params.append(subject)
 
     base_query += """
         ORDER BY FIELD(t.day,'Monday','Tuesday','Wednesday',
@@ -2621,8 +2821,9 @@ def handle_student_timetable(question, student_id):
     results = query(base_query, tuple(params), fetch=True, many=True)
 
     if not results:
-        if day:
-            return f"No classes scheduled for {day.capitalize()}."
+        if day or subject:
+            detail = " ".join(filter(None, [subject, f"on {day.capitalize()}" if day else None]))
+            return f"No {detail} classes are scheduled."
         return "No timetable found for your class yet."
 
     if day:
@@ -2771,6 +2972,37 @@ def handle_teacher_identity(teacher_id):
     return "I couldn't find your details."
 
 
+def handle_teacher_profile_lookup(question):
+    """Public directory details for a teacher named in the question."""
+    teacher_id, name, clarification = extract_teacher_name_from_question(
+        question, _teachers_with_subjects()
+    )
+    if clarification:
+        return clarification
+    if not teacher_id:
+        return "I couldn't find a teacher matching that name."
+
+    row = query("""
+        SELECT d.name,
+               COALESCE(GROUP_CONCAT(DISTINCT s.subject_name ORDER BY s.subject_name SEPARATOR ', '), '')
+        FROM teachers te
+        LEFT JOIN departments d ON te.department_id=d.department_id
+        LEFT JOIN teacher_subjects ts ON te.teacher_id=ts.teacher_id
+        LEFT JOIN subjects s ON ts.subject_id=s.subject_id
+        WHERE te.teacher_id=%s
+        GROUP BY te.teacher_id, d.name
+    """, (teacher_id,), fetch=True)
+    if not row:
+        return "I couldn't find a teacher matching that name."
+    department, subjects = row
+    details = []
+    if subjects:
+        details.append(f"teaches **{subjects}**")
+    if department:
+        details.append(f"is in the **{department} Department**")
+    return f"**{name}** " + " and ".join(details) + "." if details else f"**{name}** is on the school staff."
+
+
 # =========================================================
 # HOD EXPANSION — department-scoped versions of the principal-tier
 # free_teachers/total_teachers/schedule-lookup handlers, filtered down to
@@ -2814,14 +3046,15 @@ def handle_department_free_teachers(teacher_id):
     return "Every teacher in your department is currently in class."
 
 
-def handle_department_schedule_today(teacher_id):
+def handle_department_schedule_today(teacher_id, question=""):
     """Every teacher in the HOD's department, scheduled periods for today -
     department-scoped equivalent of a class timetable lookup."""
     department_id = _hod_department_id(teacher_id)
     if not department_id:
         return "You don't have a department on record yet."
 
-    today = datetime.datetime.now().strftime("%A")
+    requested_day = extract_day_from_question(question)
+    today = requested_day.capitalize() if requested_day else datetime.datetime.now().strftime("%A")
     results = query("""
         SELECT te.name, t.period_no, s.subject_name, t.class
         FROM timetable t
@@ -2869,6 +3102,7 @@ def handle_teacher_timetable(question, teacher_id):
     Extends the existing 'timetable' intent's handling - unfiltered case
     keeps the exact same output format as before this expansion."""
     day = extract_day_from_question(question)
+    cls = extract_class_from_question(question)
 
     base_query = "SELECT day, period_no, class FROM timetable WHERE teacher_id = %s"
     params = [teacher_id]
@@ -2876,6 +3110,9 @@ def handle_teacher_timetable(question, teacher_id):
     if day:
         base_query += " AND LOWER(day) = %s"
         params.append(day)
+    if cls:
+        base_query += " AND class = %s"
+        params.append(cls)
 
     base_query += """
         ORDER BY FIELD(day,'Monday','Tuesday','Wednesday',
@@ -2885,8 +3122,10 @@ def handle_teacher_timetable(question, teacher_id):
     results = query(base_query, tuple(params), fetch=True, many=True)
 
     if not results:
-        if day:
-            return f"No classes scheduled for {day.capitalize()}."
+        if day or cls:
+            detail = " ".join(filter(None, [f"for {cls}" if cls else None,
+                                              f"on {day.capitalize()}" if day else None]))
+            return f"No classes scheduled {detail}."
         return "No timetable entries found for you yet."
 
     if day:
@@ -3104,12 +3343,17 @@ def handle_school_leadership(question):
         return "Which school leadership role would you like me to check?"
 
     pattern = re.compile(
-        r'^' + re.escape(label) + r':\s*([^—\n]+)', re.IGNORECASE | re.MULTILINE
+        r'^' + re.escape(label) + r':\s*([^\n]+)', re.IGNORECASE | re.MULTILINE
     )
-    match = pattern.search(get_almanac())
-    if not match:
+    matches = pattern.findall(get_almanac())
+    directory_values = [value for value in matches if not re.search(
+        r'\b(?:appointment|hours?|sunday|monday|tuesday|wednesday|thursday|friday|saturday)\b',
+        value, re.IGNORECASE
+    )]
+    if not directory_values:
         return f"I couldn't find the {label}'s name in the school directory."
-    return f"The **{label}** is **{match.group(1).strip()}**."
+    name = re.split(r'\s+—\s+|\s+-\s+', directory_values[0], maxsplit=1)[0].strip()
+    return f"The **{label}** is **{name}**."
 
 
 def handle_class_timetable_lookup(question):
@@ -3319,7 +3563,9 @@ def answer_student(question, student_id, forced_intent=None):
         question,
         ["greeting", "thanks", "help", "attendance", "exam", "timetable", "fee",
          "identity", "roll_number", "my_class", "class_teacher", "next_period",
-         "subject_teacher", "teacher_department", "notices", "subjects_offered",
+         "subject_teacher", "class_teacher_lookup", "teacher_department",
+         "teacher_profile_lookup", "department_leadership", "school_leadership",
+         "notices", "subjects_offered",
          "complaint_feedback"]
     )
 
@@ -3404,8 +3650,20 @@ def answer_student(question, student_id, forced_intent=None):
         known_subjects = _known_subject_names()
         return handle_subject_teacher(question, student_id, known_subjects)
 
+    elif intent == "class_teacher_lookup":
+        return handle_class_teacher_lookup(question)
+
     elif intent == "teacher_department":
         return handle_teacher_department(question)
+
+    elif intent == "teacher_profile_lookup":
+        return handle_teacher_profile_lookup(question)
+
+    elif intent == "department_leadership":
+        return handle_department_leadership(question)
+
+    elif intent == "school_leadership":
+        return handle_school_leadership(question)
 
     elif intent == "notices":
         return handle_notices("student", question)
@@ -3523,6 +3781,9 @@ def answer_teacher(question, teacher_id, forced_intent=None, extra_intents=None,
     elif intent == "teacher_department":
         return handle_teacher_department(question)
 
+    elif intent == "teacher_profile_lookup":
+        return handle_teacher_profile_lookup(question)
+
     elif intent == "school_wide_subject_teacher":
         return handle_school_wide_subject_teacher(question)
 
@@ -3551,7 +3812,7 @@ def answer_teacher(question, teacher_id, forced_intent=None, extra_intents=None,
         return handle_department_free_teachers(teacher_id)
 
     elif intent == "department_schedule_today":
-        return handle_department_schedule_today(teacher_id)
+        return handle_department_schedule_today(teacher_id, question)
 
     elif intent == "department_teacher_count":
         return handle_department_teacher_count(teacher_id)
@@ -3588,7 +3849,7 @@ def answer_principal(question, forced_intent=None):
             "teacher_location", "classroom_occupant", "free_teachers",
             "teacher_schedule_lookup", "class_timetable_lookup",
             "school_wide_subject_teacher", "class_teacher_lookup", "class_teacher",
-            "teacher_classes_lookup", "teacher_department", "department_staff",
+            "teacher_classes_lookup", "teacher_department", "teacher_profile_lookup", "department_staff",
             "department_leadership", "school_leadership",
             "low_attendance_count", "pending_fees_count", "notices", "subjects_offered"
         ])
@@ -3694,6 +3955,9 @@ def answer_principal(question, forced_intent=None):
 
     elif intent == "teacher_department":
         return handle_teacher_department(question)
+
+    elif intent == "teacher_profile_lookup":
+        return handle_teacher_profile_lookup(question)
 
     elif intent == "class_timetable_lookup":
         return handle_class_timetable_lookup(question)

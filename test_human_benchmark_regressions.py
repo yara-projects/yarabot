@@ -86,6 +86,48 @@ class HumanBenchmarkRoutingTests(unittest.TestCase):
                 "who teaches astrophysics in class 4", 1, SUBJECTS
             ), "Which subject's teacher do you mean?")
 
+    def test_v2_shorthand_and_verbose_class_forms_route_deterministically(self):
+        self.assertEqual(app.extract_class_from_question(
+            "who handles math grade 10 section a"), "10-A")
+        self.assertEqual(nlp_helpers.clean_question("schedule tmrw rn"),
+                         "schedule tomorrow right now")
+        cases = [
+            ("teacher", "who handles math grade 10 section a", "school_wide_subject_teacher"),
+            ("teacher", "when do i teach 8c", "timetable"),
+            ("teacher", "show my periods rn", "current_class"),
+            ("hod", "list staff in math pls", "department_staff"),
+            ("hod", "who teaches chem in grade 9 section a", "school_wide_subject_teacher"),
+            ("assistant_principal", "who works in english dept", "department_staff"),
+        ]
+        for role, question, intent in cases:
+            with self.subTest(role=role, question=question):
+                self.assert_intent(question, role, intent)
+
+    def test_unknown_compound_department_is_not_coerced(self):
+        self.assertEqual(app.extract_department_from_question(
+            "who is the hod of space science"), (None, None))
+        self.assertEqual(app.extract_department_from_question(
+            "staff in maths dept pls"), (2, "Mathematics"))
+        for role in ("student", "principal"):
+            self.assert_intent("who is the hod of space science", role,
+                               "department_leadership")
+
+    def test_named_and_unknown_teacher_biographies_use_directory_lookup(self):
+        for role in ("student", "teacher", "hod", "vice_principal", "principal"):
+            self.assert_intent("who is Aarav Kapoor", role, "teacher_profile_lookup")
+            self.assert_intent("who is mr khalid moon", role, "teacher_profile_lookup")
+        self.assertEqual(app.handle_teacher_profile_lookup("who is mr khalid moon"),
+                         "I couldn't find a teacher matching that name.")
+
+    def test_principal_name_ignores_office_hours_line(self):
+        almanac = (
+            "Principal: By appointment only, Sunday-Thursday.\n"
+            "Principal: Mrs. Aasima Saleem — ext. 108 — principal@yara.edu.sa\n"
+        )
+        with patch.object(app, "get_almanac", return_value=almanac):
+            self.assertEqual(app.handle_school_leadership("who is the principal"),
+                             "The **Principal** is **Mrs. Aasima Saleem**.")
+
     def test_ambiguous_handles_query_asks_which_teacher_view(self):
         with patch.object(app, "_known_subject_names", return_value=SUBJECTS):
             reply = app.handle_class_teacher_lookup("who handles 11b")
@@ -154,6 +196,46 @@ class HumanBenchmarkContextTests(unittest.TestCase):
         with client.session_transaction() as state:
             self.assertNotIn("user_id", state)
             self.assertNotIn("conversation_context", state)
+
+    def test_class_teacher_choice_keeps_the_original_class(self):
+        client = app.app.test_client()
+        with client.session_transaction() as state:
+            state.update(user_id=4, role="vice_principal", linked_id=3)
+            state["pending_clarification"] = {
+                "intent": "class_teacher_choice", "role": "vice_principal",
+                "class": "10-A", "original_message": "who handles 10a",
+                "expires_at": time.time() + 60,
+            }
+        with patch.object(app, "_chatbot_enabled", return_value=True), \
+                patch.object(app, "handle_class_teacher", return_value="10-A teacher") as handler, \
+                patch.object(app, "_remember_conversation_context"):
+            response = client.post("/api/chat", json={"message": "class teacher"})
+        self.assertEqual(response.get_json()["reply"], "10-A teacher")
+        handler.assert_called_once_with("10-A")
+
+    def test_department_and_general_topic_followups_replace_old_context(self):
+        with app.app.test_request_context("/"):
+            app.session["conversation_context"] = {
+                "intent": "department_staff", "role": "hod",
+                "subject": None, "class": None, "day": None,
+                "department": "Mathematics", "teacher_names": [],
+                "expires_at": time.time() + 60,
+            }
+            with patch.object(app, "_known_departments", return_value=DEPARTMENTS), \
+                    patch.object(app, "handle_department_staff", return_value="cs staff") as handler, \
+                    patch.object(app, "_remember_conversation_context"):
+                self.assertEqual(app._resume_conversation_context(
+                    "what about computer science", "hod", 3), "cs staff")
+                handler.assert_called_once_with("Computer Science")
+
+            app.session["general_context"] = {
+                "topic": "events", "day": "monday", "grade": None,
+                "expires_at": time.time() + 60,
+            }
+            self.assertEqual(app._apply_general_followup_context("what about tuesday"),
+                             "school events on tuesday")
+            self.assertEqual(app._apply_general_followup_context("and exams for grade 8"),
+                             "school exam schedule for grade 8 on tuesday")
 
 
 if __name__ == "__main__":
