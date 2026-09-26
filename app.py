@@ -38,7 +38,10 @@ from nlp_helpers import (
     clean_question, detect_intent, detect_intent_with_score, rank_intents,
     refresh_phrase_cache,
 )
-from gemini_rag import gemini_answer_stream, almanac_match_confidence, classify_personal_intent, log_learned_phrase
+from gemini_rag import (
+    gemini_answer_stream, almanac_match_confidence, classify_personal_intent,
+    log_learned_phrase, search_almanac, search_notice_context,
+)
 from config import DB_CONFIG
 from validators import GRADE_SECTION_PATTERN, EARLY_YEARS_CLASSES
 import mysql.connector
@@ -1703,6 +1706,56 @@ def _apply_general_followup_context(question):
     return merged
 
 
+def _calendar_information_gap_reply(question, role):
+    """Give a specific answer when the calendar has no matching facts."""
+    topic = _general_topic(question)
+    if not topic:
+        return None
+
+    almanac_context = search_almanac(question)
+    notice_context = search_notice_context(question, _notice_visible_roles(role))
+    grounding_blocks = [
+        block.lower() for block in almanac_context.split("\n\n")
+        if block.strip()
+    ]
+    if notice_context:
+        grounding_blocks.append(notice_context.lower())
+    day = extract_day_from_question(question)
+    grade_match = re.search(r'\bgrade\s+(\d{1,2})\b', question)
+    grade = grade_match.group(1) if grade_match else None
+
+    if topic == "events":
+        has_grounded_event = any(
+            re.search(r'\b(?:event|events|activity|activities)\b', block)
+            and (not day or day in block)
+            for block in grounding_blocks
+        )
+        if has_grounded_event:
+            return None
+        when = f" for {day.capitalize()}" if day else ""
+        return (f"I couldn't find a school event listed{when}. "
+                "Check the latest school notice or contact the school office.")
+
+    has_exam_schedule = any(
+        re.search(r'\b(?:exam|examination|test)\b', block)
+        and re.search(r'\b(?:schedule|calendar|date|dates)\b', block)
+        for block in grounding_blocks
+    )
+    if has_exam_schedule:
+        return None
+    detail = f"Grade {grade} " if grade else ""
+    when = f" for {day.capitalize()}" if day else ""
+    return (f"I couldn't find a {detail}exam schedule{when}. "
+            "Check the latest exam circular or contact the school office.")
+
+
+_BARE_CLASS_FOLLOWUP_RE = re.compile(
+    r'^(?:(?:what|how)\s+about|and|sorry\s+i\s+meant|i\s+meant)?\s*'
+    r'(?:class|grade)?\s*\d{1,2}[\s-]?[a-z]\s*(?:too)?$',
+    re.IGNORECASE,
+)
+
+
 def _remember_conversation_context(intent, question, role, linked_id, reply):
     """Keep only the small set of slots needed for natural follow-ups.
 
@@ -1836,6 +1889,10 @@ def _resume_conversation_context(question, role, linked_id):
 
     is_slot_follow_up = bool(re.match(r'^(?:and\b|what about\b|how about\b|sorry\b|i meant\b)', q))
     if not is_slot_follow_up:
+        # A self-contained new question replaces the old antecedent. Without
+        # this, a teacher remembered several turns ago can later capture an
+        # unrelated "does she teach..." question after the topic changed.
+        session.pop("conversation_context", None)
         return None
 
     new_class = extract_class_from_question(q)
@@ -2069,6 +2126,18 @@ def chat():
     contextual_reply = _resume_conversation_context(question_lower, role, linked_id)
     if contextual_reply is not None:
         return jsonify({"reply": contextual_reply})
+
+    if _BARE_CLASS_FOLLOWUP_RE.fullmatch(question_lower):
+        cls = extract_class_from_question(question_lower)
+        return jsonify({
+            "reply": (f"What would you like to check for **{cls}** — its subject teachers, "
+                      "class teacher, or timetable?")
+        })
+
+    calendar_gap_reply = _calendar_information_gap_reply(question_lower, role)
+    if calendar_gap_reply is not None:
+        _remember_general_context(question_lower)
+        return jsonify({"reply": calendar_gap_reply})
 
     # ROUTING:
     # Lane 1: Personal question → NLP + MySQL (private, personal data).
@@ -2977,9 +3046,42 @@ def handle_teacher_identity(teacher_id):
 
 def handle_teacher_profile_lookup(question):
     """Public directory details for a teacher named in the question."""
-    teacher_id, name, clarification = extract_teacher_name_from_question(
-        question, _teachers_with_subjects()
-    )
+    teachers = _teachers_with_subjects()
+    requested = re.search(r'\bwho\s+is\s+(?:the\s+)?(.+)$', clean_question(question))
+    requested_tokens = []
+    if requested:
+        requested_tokens = [
+            token for token in re.findall(r'\b[a-z]+\b', requested.group(1))
+            if token not in TEACHER_NAME_TITLES | {"teacher", "please", "pls"}
+        ]
+
+    # A supplied first name plus surname is an exact-name claim. Require
+    # every supplied token to belong to the same stored teacher; otherwise
+    # "Omar Galaxy" can silently become the real Omar Khan merely because
+    # one token happened to match.
+    if len(requested_tokens) >= 2:
+        exact_matches = []
+        for row in teachers:
+            stored_tokens = {
+                token.strip(".") for token in row[1].lower().split()
+                if token.strip(".") not in TEACHER_NAME_TITLES
+            }
+            if all(token in stored_tokens for token in requested_tokens):
+                exact_matches.append(row)
+        if len(exact_matches) == 1:
+            teacher_id, name, _ = exact_matches[0]
+            clarification = None
+        elif len(exact_matches) > 1:
+            teacher_id = name = None
+            clarification = _teacher_ambiguity_clarification(
+                exact_matches[0][1], exact_matches
+            )
+        else:
+            teacher_id = name = clarification = None
+    else:
+        teacher_id, name, clarification = extract_teacher_name_from_question(
+            question, teachers
+        )
     if clarification:
         return clarification
     if not teacher_id:

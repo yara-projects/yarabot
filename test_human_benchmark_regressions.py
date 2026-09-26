@@ -119,6 +119,39 @@ class HumanBenchmarkRoutingTests(unittest.TestCase):
         self.assertEqual(app.handle_teacher_profile_lookup("who is mr khalid moon"),
                          "I couldn't find a teacher matching that name.")
 
+    def test_v3_unknown_surname_does_not_match_a_real_first_name(self):
+        teachers = [
+            (1, "Omar Khan", "Chemistry"),
+            (2, "Zara Chopra", "Physics"),
+            (3, "Zara Kapoor", "Social Studies"),
+            (4, "Aarav Kapoor", "Biology"),
+        ]
+        with patch.object(app, "_teachers_with_subjects", return_value=teachers):
+            for question in (
+                "who is Mr Omar Galaxy", "who is Ms Zara Galaxy",
+                "who is Mr Aarav Galaxy",
+            ):
+                with self.subTest(question=question):
+                    self.assertEqual(
+                        app.handle_teacher_profile_lookup(question),
+                        "I couldn't find a teacher matching that name.",
+                    )
+
+    def test_v3_phone_typos_preserve_compound_entities(self):
+        departments = DEPARTMENTS + [(4, "English")]
+        with patch.object(app, "_known_departments", return_value=departments):
+            self.assertEqual(app.extract_department_from_question(
+                "staf in computr science dep"), (3, "Computer Science"))
+            self.assertEqual(app.extract_department_from_question(
+                "staf in comp science dep"), (3, "Computer Science"))
+        normalized = {
+            "mathemetics": "mathematics", "matmatics": "mathematics",
+            "mathemtics": "mathematics", "physcs": "physics",
+            "geograpy": "geography",
+        }
+        for typo, expected in normalized.items():
+            self.assertEqual(nlp_helpers.clean_question(typo), expected)
+
     def test_principal_name_ignores_office_hours_line(self):
         almanac = (
             "Principal: By appointment only, Sunday-Thursday.\n"
@@ -244,6 +277,37 @@ class HumanBenchmarkContextTests(unittest.TestCase):
                              "school events on tuesday")
             self.assertEqual(app._apply_general_followup_context("and exams for grade 8"),
                              "school exam schedule for grade 8 on tuesday")
+
+    def test_new_topic_clears_old_teacher_antecedent(self):
+        with app.app.test_request_context("/"):
+            app.session["conversation_context"] = {
+                "intent": "class_teacher", "role": "student",
+                "subject": None, "class": "10-A", "day": None,
+                "teacher_names": ["Vivaan Mehta"],
+                "expires_at": time.time() + 60,
+            }
+            self.assertIsNone(app._resume_conversation_context(
+                "tell me about school fees", "student", 1
+            ))
+            self.assertNotIn("conversation_context", app.session)
+
+    def test_calendar_gap_and_bare_class_followup_are_targeted(self):
+        with app.app.test_request_context("/"):
+            with patch.object(app, "search_almanac", return_value=""), \
+                    patch.object(app, "search_notice_context", return_value=""):
+                self.assertEqual(
+                    app._calendar_information_gap_reply(
+                        "school events on monday", "principal"),
+                    "I couldn't find a school event listed for Monday. "
+                    "Check the latest school notice or contact the school office.",
+                )
+                self.assertEqual(
+                    app._calendar_information_gap_reply(
+                        "school exam schedule for grade 8 on tuesday", "principal"),
+                    "I couldn't find a Grade 8 exam schedule for Tuesday. "
+                    "Check the latest exam circular or contact the school office.",
+                )
+            self.assertTrue(app._BARE_CLASS_FOLLOWUP_RE.fullmatch("what about 10-a"))
 
 
 if __name__ == "__main__":
