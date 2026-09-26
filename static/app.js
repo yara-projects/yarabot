@@ -18,6 +18,7 @@ let messageCount = 0;
 // in-flight requests all come back 401 around the same time - reset to
 // false again once a fresh login succeeds (see showChatPage()).
 let sessionExpiredHandled = false;
+let chatRequestInFlight = false;
 
 
 // =========================================================
@@ -848,7 +849,7 @@ function sendQuick(msg) {
 
 async function sendMessage() {
     const input = document.getElementById("chat-input");
-    if (input.disabled) return; // kill-switched - input already reflects this, nothing to send
+    if (input.disabled || chatRequestInFlight) return;
     const message = input.value.trim();
     if (!message) return;
 
@@ -862,12 +863,19 @@ async function sendMessage() {
 
     appendMessage("user", message);
     showTypingBubble();
+    chatRequestInFlight = true;
+    input.disabled = true;
+    const sendButton = document.getElementById("send-button");
+    if (sendButton) sendButton.disabled = true;
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 25000);
 
     try {
         const res = await fetch("/api/chat", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ message })
+            body: JSON.stringify({ message }),
+            signal: controller.signal
         });
 
         if (res.status === 401) {
@@ -899,7 +907,14 @@ async function sendMessage() {
 
     } catch (e) {
         removeTypingBubble();
-        appendMessage("bot", "Connection error. Please check that the server is running.");
+        appendMessage("bot", e.name === "AbortError"
+            ? "That took too long. Please try the question again."
+            : "I couldn't connect just now. Please try again.");
+    } finally {
+        clearTimeout(timeoutId);
+        chatRequestInFlight = false;
+        input.disabled = !chatbotEnabled;
+        if (sendButton) sendButton.disabled = !chatbotEnabled;
     }
 }
 
@@ -1153,8 +1168,26 @@ function clearChat() {
 // LOGOUT
 // =========================================================
 async function handleLogout() {
-    await fetch("/api/logout", { method: "POST" });
-    location.reload();
+    const button = document.getElementById("logout-button");
+    if (button) {
+        button.disabled = true;
+        button.textContent = "Signing out...";
+    }
+    try {
+        const response = await fetch("/api/logout", { method: "POST" });
+        if (!response.ok) throw new Error("logout failed");
+        userRole = null;
+        currentProfile = null;
+        messageCount = 0;
+        closeSidebar();
+        showLoginPage();
+        history.replaceState(null, "", "/");
+    } catch (error) {
+        if (button) {
+            button.disabled = false;
+            button.textContent = "Try Sign Out Again";
+        }
+    }
 }
 
 
