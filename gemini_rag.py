@@ -51,6 +51,7 @@ from collections import Counter
 from functools import lru_cache
 import mysql.connector
 from google import genai
+from google.genai import types
 from openai import OpenAI
 from config import DB_CONFIG
 from almanac_store import get_almanac, get_almanac_snapshot
@@ -329,6 +330,8 @@ GEMINI_MODEL = 'gemini-3.5-flash-lite'
 # (404 model_not_found) - verify against the live model list, don't trust
 # a model string from memory.
 GROQ_MODEL = 'openai/gpt-oss-20b'
+GEMINI_TIMEOUT_MS = 12000
+GROQ_TIMEOUT_SECONDS = 8.0
 
 # Forces both gemini_answer() and gemini_answer_stream() through Groq
 # instead of Gemini, for testing the fallback path without a real rate
@@ -351,7 +354,10 @@ def _get_gemini_client():
         return _gemini_client
     with _client_lock:
         if _gemini_client is None or _gemini_client_key != api_key:
-            _gemini_client = genai.Client(api_key=api_key)
+            _gemini_client = genai.Client(
+                api_key=api_key,
+                http_options=types.HttpOptions(timeout=GEMINI_TIMEOUT_MS),
+            )
             _gemini_client_key = api_key
     return _gemini_client
 
@@ -364,7 +370,12 @@ def _get_groq_client():
         return _groq_client
     with _client_lock:
         if _groq_client is None or _groq_client_key != api_key:
-            _groq_client = OpenAI(api_key=api_key, base_url='https://api.groq.com/openai/v1')
+            _groq_client = OpenAI(
+                api_key=api_key,
+                base_url='https://api.groq.com/openai/v1',
+                timeout=GROQ_TIMEOUT_SECONDS,
+                max_retries=0,
+            )
             _groq_client_key = api_key
     return _groq_client
 
@@ -400,6 +411,15 @@ def is_rate_limit_error(error):
     error_str = str(error).lower()
     return any(term in error_str for term in
                ['429', 'quota', 'rate limit', 'resource_exhausted'])
+
+
+def is_transient_provider_error(error):
+    """Errors where the grounded Groq fallback is safer than making the user wait."""
+    error_str = str(error).lower()
+    return is_rate_limit_error(error) or any(term in error_str for term in [
+        'timeout', 'timed out', 'connection', 'temporarily unavailable',
+        'service unavailable', 'internal server error', '500', '502', '503', '504',
+    ])
 
 
 def ask_groq(question, context):
@@ -746,8 +766,8 @@ def gemini_answer(question, visible_roles=()):
         try:
             answer = ask_gemini(question, context)
         except Exception as e:
-            if is_rate_limit_error(e):
-                print(f'[GEMINI RATE LIMITED -> GROQ FALLBACK] Question: {question}')
+            if is_transient_provider_error(e):
+                print(f'[GEMINI TEMPORARY FAILURE -> GROQ FALLBACK] Question: {question}')
                 answer = ask_groq(question, context)
             else:
                 print(f'[GEMINI ERROR] {e}')
@@ -808,14 +828,13 @@ def gemini_answer_stream(question, visible_roles=()):
                 yield chunk
 
         except Exception as e:
-            if is_rate_limit_error(e):
-                print(f'[GEMINI RATE LIMITED -> GROQ FALLBACK] Question: {question}')
+            if is_transient_provider_error(e) and not full_answer:
+                print(f'[GEMINI TEMPORARY FAILURE -> GROQ FALLBACK] Question: {question}')
                 groq_answer = ask_groq(question, context)
                 full_answer += groq_answer
                 yield groq_answer
-                # Fall through to the cache check below - Groq's answer (or a
-                # partial-Gemini + Groq combination) should still get cached
-                # like any other successful reply.
+                # Fall through to the cache check below - Groq's complete
+                # answer should still get cached like any other successful reply.
             else:
                 print(f'[GEMINI STREAM ERROR] {e}')
                 if not full_answer:

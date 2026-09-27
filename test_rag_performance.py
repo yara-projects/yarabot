@@ -45,6 +45,7 @@ class RagCacheTests(unittest.TestCase):
     def setUp(self):
         gemini_rag._notice_rows_cache.clear()
         gemini_rag._cached_almanac_index.cache_clear()
+        gemini_rag._cache.clear()
 
     def tearDown(self):
         gemini_rag._notice_rows_cache.clear()
@@ -53,6 +54,7 @@ class RagCacheTests(unittest.TestCase):
         gemini_rag._gemini_client_key = None
         gemini_rag._groq_client = None
         gemini_rag._groq_client_key = None
+        gemini_rag._cache.clear()
 
     def test_notice_rows_are_reused_within_ttl(self):
         cursor = MagicMock()
@@ -82,6 +84,16 @@ class RagCacheTests(unittest.TestCase):
             self.assertIs(gemini_rag._get_groq_client(), gemini_rag._get_groq_client())
         self.assertEqual(gemini_client.call_count, 1)
         self.assertEqual(groq_client.call_count, 1)
+
+    def test_gemini_timeout_falls_back_to_grounded_groq_answer(self):
+        with patch.object(gemini_rag, 'search_notice_context', return_value=''), \
+             patch.object(gemini_rag, 'get_almanac_snapshot', return_value=('SCHOOL HOURS', 1)), \
+             patch.object(gemini_rag, 'search_almanac', return_value='SCHOOL HOURS'), \
+             patch.object(gemini_rag, 'ask_gemini_stream', side_effect=TimeoutError('timed out')), \
+             patch.object(gemini_rag, 'ask_groq', return_value='School starts at 7 AM.') as groq:
+            answer = ''.join(gemini_rag.gemini_answer_stream('when does school start'))
+        self.assertEqual(answer, 'School starts at 7 AM.')
+        groq.assert_called_once_with('when does school start', 'SCHOOL HOURS')
 
     def test_almanac_index_is_reused_for_same_revision(self):
         text = 'SCHOOL HOURS\nOpening time is 7 AM.'
