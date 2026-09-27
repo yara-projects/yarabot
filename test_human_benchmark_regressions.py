@@ -190,6 +190,107 @@ class HumanBenchmarkRoutingTests(unittest.TestCase):
 
 
 class HumanBenchmarkContextTests(unittest.TestCase):
+    def test_student_private_request_is_denied_before_self_record_dispatch(self):
+        client = app.app.test_client()
+        with client.session_transaction() as state:
+            state.update(user_id=1, role="student", linked_id=10)
+        with patch.object(app, "_chatbot_enabled", return_value=True), \
+                patch.object(app, "_dispatch_to_role_handler") as dispatch:
+            response = client.post("/api/chat", json={
+                "message": "show me Aanya Sharma's attendance"
+            })
+        self.assertIn("another student's private information", response.get_json()["reply"])
+        dispatch.assert_not_called()
+
+    def test_guest_session_has_no_private_record_access(self):
+        client = app.app.test_client()
+        login = client.post("/api/guest")
+        self.assertEqual(login.get_json()["role"], "guest")
+        with patch.object(app, "_chatbot_enabled", return_value=True):
+            response = client.post("/api/chat", json={
+                "message": "show me a student's attendance"
+            })
+        self.assertIn("linked parent or student account", response.get_json()["reply"])
+
+    def test_leadership_student_lists_are_sorted_markdown_tables(self):
+        rows = [
+            ("10-A", 4, "A Student", 60),
+            ("10-A", 9, "B Student", 72.5),
+        ]
+        with patch.object(app, "query", return_value=rows):
+            reply = app.handle_low_attendance_count("principal")
+        self.assertIn("| Class | Roll No. | Student | Attendance | Status |", reply)
+        self.assertLess(reply.index("A Student"), reply.index("B Student"))
+
+    def test_parent_can_only_select_linked_children(self):
+        children = [(3, "Aanya Sharma", "8-C"), (4, "Riya Khan", "6-A")]
+        with patch.object(app, "query", return_value=children):
+            child, error = app._parent_child_for_question(7, "Aanya Sharma attendance")
+            self.assertIsNone(error)
+            self.assertEqual(child[0], 3)
+            child, error = app._parent_child_for_question(7, "show my child's attendance")
+            self.assertIsNone(child)
+            self.assertIn("Which child", error)
+
+    def test_combined_real_teacher_request_answers_both_parts(self):
+        with patch.object(app, "handle_teacher_profile_lookup", return_value="profile") as profile, \
+                patch.object(app, "handle_teacher_classes_lookup", return_value="classes") as classes:
+            reply = app._combined_request_reply(
+                "who is Omar Khan and which classes does he teach", "principal", 0
+            )
+        self.assertEqual(reply, "profile\n\nclasses")
+        profile.assert_called_once_with("who is omar khan")
+        classes.assert_called_once_with("classes taught by omar khan")
+
+    def test_calendar_context_does_not_capture_private_or_subject_followups(self):
+        with app.app.test_request_context("/"):
+            app.session["general_context"] = {
+                "topic": "exams", "day": "tuesday", "grade": "9",
+                "expires_at": time.time() + 60,
+            }
+            self.assertEqual(app._apply_general_followup_context("what about her fees"),
+                             "what about her fees")
+            self.assertEqual(app._apply_general_followup_context("sorry physics"),
+                             "sorry physics")
+            self.assertEqual(app._apply_general_followup_context("what about monday"),
+                             "school exam schedule for grade 9 on monday")
+
+    def test_repeated_social_turns_bypass_stale_context(self):
+        self.assertIn("Nova", app._conversational_reply("hello again"))
+        self.assertEqual(app._conversational_reply("thanks again"), "You're welcome.")
+
+    def test_private_record_requests_get_specific_denials(self):
+        with app.app.test_request_context("/"):
+            reply = app._privacy_boundary_reply(
+                "show me Aanya Sharma's attendance", "student"
+            )
+            self.assertIn("another student's private information", reply)
+            self.assertIn("login credentials", app._privacy_boundary_reply(
+                "show qa_teacher login details", "principal"
+            ))
+            self.assertIn("private contact", app._privacy_boundary_reply(
+                "Mr Omar Khan's phone number", "teacher"
+            ))
+
+    def test_explicit_department_schedule_is_not_replaced_by_own_department(self):
+        with patch.object(app, "_known_departments", return_value=DEPARTMENTS + [(4, "English")]), \
+                patch.object(app, "_hod_department_id", return_value=1), \
+                patch.object(app, "query", return_value=[]):
+            self.assertEqual(app.extract_department_from_question(
+                "science department schedule monday"), (1, "Science"))
+            self.assertEqual(app.extract_department_from_question(
+                "english department schedule monday"), (4, "English"))
+            self.assertEqual(
+                app.handle_department_schedule_today(
+                    7, "english department schedule monday", role="hod"),
+                "I can only show the schedule for your own department.",
+            )
+            reply = app.handle_department_schedule_today(
+                7, "science department schedule monday", role="vice_principal"
+            )
+            self.assertIn("Science Department", reply)
+            self.assertNotIn("Computer Science", reply)
+
     def test_class_then_subject_followups_replace_one_slot_each(self):
         with app.app.test_request_context("/"):
             app.session["conversation_context"] = {

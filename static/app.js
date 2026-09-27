@@ -148,6 +148,16 @@ const quickActions = {
         { label: "My Periods",     msg: "how many periods do I have" },
         { label: "My Classes",     msg: "which classes do I teach" },
     ],
+    parent: [
+        { label: "Child Attendance", msg: "show my child's attendance" },
+        { label: "Fee Status", msg: "show my child's fee status" },
+        { label: "Timetable", msg: "show my child's timetable" },
+    ],
+    guest: [
+        { label: "Admissions", msg: "how do admissions work" },
+        { label: "School Hours", msg: "what are the school hours" },
+        { label: "Location", msg: "where is the school located" },
+    ],
     principal: [
         { label: "Total Students", msg: "how many students are there" },
         { label: "Total Teachers", msg: "how many teachers do we have" },
@@ -202,6 +212,20 @@ async function handleLogin() {
     }
 
     setLoginLoading(btn, false);
+}
+
+async function continueAsGuest() {
+    const errorEl = document.getElementById("login-error");
+    try {
+        const res = await fetch("/api/guest", { method: "POST" });
+        const data = await res.json();
+        if (!data.success) throw new Error("guest login failed");
+        userRole = data.role;
+        showChatPage(data.profile);
+    } catch (_) {
+        errorEl.textContent = "Guest access is unavailable right now.";
+        errorEl.classList.remove("hidden");
+    }
 }
 
 // Tracks the running countdown's interval ID so a new lockout response
@@ -334,6 +358,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // role once on the chat page, so this has to run regardless of
     // whether restoreSession() below finds a session at all.
     checkSystemStatus();
+    checkLoadStatus();
+    setInterval(checkLoadStatus, 30000);
 
     document.getElementById("kill-switch-btn").addEventListener("click", openKillModal);
     document.getElementById("kill-modal-cancel").addEventListener("click", closeKillModal);
@@ -544,6 +570,16 @@ function buildIDCard(profile) {
             </div>
         `;
 
+    } else if (userRole === "parent") {
+        nameEl.textContent = profile.name;
+        subEl.textContent = "Parent account";
+        statsEl.innerHTML = `<div class="text-xs opacity-80">${(profile.children || []).join(" · ")}</div>`;
+
+    } else if (userRole === "guest") {
+        nameEl.textContent = "Guest";
+        subEl.textContent = "Public school information";
+        statsEl.innerHTML = "";
+
     } else if (userRole === "teacher") {
         nameEl.textContent = profile.name;
         subEl.textContent  = `${profile.subject} Teacher`;
@@ -631,6 +667,20 @@ async function checkSystemStatus() {
         chatbotEnabled = true; // unreachable - fail open, same default as app.py's _chatbot_enabled()
     }
     applySystemStatus();
+}
+
+async function checkLoadStatus() {
+    try {
+        const res = await fetch("/api/load-status");
+        if (!res.ok) return;
+        const data = await res.json();
+        const banner = document.getElementById("load-banner");
+        if (!banner) return;
+        banner.textContent = data.message || "";
+        banner.classList.toggle("hidden", data.level === "normal");
+    } catch (_) {
+        // Load messaging is advisory; a failed status check must not affect chat.
+    }
 }
 
 function applySystemStatus() {

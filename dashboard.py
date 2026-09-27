@@ -188,7 +188,7 @@ if st.sidebar.button("Log Out"):
 
 page = st.sidebar.radio(
     "Go to",
-    ["Students", "Teachers", "Departments", "Class Teachers", "Subjects", "Timetable", "Exams",
+    ["Students", "Teachers", "Departments", "Class Teachers", "Class Sections", "Subjects", "Timetable", "Exams",
      "Logins", "System Status", "Notices", "Almanac", "Suggested Additions", "Learned Phrases"]
 )
 
@@ -962,6 +962,46 @@ elif page == "Class Teachers":
 
 
 # =========================================================
+# PAGE: CLASS SECTIONS
+# =========================================================
+elif page == "Class Sections":
+    st.title("Boys and Girls Class Sections")
+    st.caption("Assign each class before using Vice Principal or Assistant Principal student summaries.")
+
+    class_rows = safe_query("SELECT DISTINCT class FROM students ORDER BY class", fetch=True, many=True) or []
+    classes = [row[0] for row in class_rows]
+    with st.form("class_section_form"):
+        selected_classes = st.multiselect("Classes", classes)
+        selected_section = st.radio("Section", ["Boys", "Girls"], horizontal=True)
+        save_sections = st.form_submit_button("Save assignments")
+    if save_sections:
+        if not selected_classes:
+            st.warning("Select at least one class.")
+        else:
+            conn = get_connection()
+            cursor = conn.cursor()
+            cursor.executemany(
+                """INSERT INTO class_sections (class, school_section) VALUES (%s, %s)
+                   ON DUPLICATE KEY UPDATE school_section=VALUES(school_section)""",
+                [(cls, selected_section.lower()) for cls in selected_classes],
+            )
+            conn.commit()
+            cursor.close()
+            conn.close()
+            st.success(f"Assigned {len(selected_classes)} class(es) to the {selected_section} Section.")
+            st.rerun()
+
+    mappings = safe_query(
+        "SELECT class, school_section FROM class_sections ORDER BY class",
+        fetch=True, many=True,
+    ) or []
+    if mappings:
+        st.dataframe(pd.DataFrame(mappings, columns=["Class", "Section"]), hide_index=True)
+    else:
+        st.info("No class sections assigned yet.")
+
+
+# =========================================================
 # PAGE: SUBJECTS
 # =========================================================
 elif page == "Subjects":
@@ -1437,14 +1477,14 @@ elif page == "Logins":
 
     login_role = st.radio(
         "Create login for:",
-        ["Student", "Teacher", "HOD", "Vice Principal", "Assistant Principal", "Principal"],
+        ["Student", "Parent", "Teacher", "HOD", "Vice Principal", "Assistant Principal", "Principal"],
         key="login_role_choice"
     )
     # DB role values use underscores ("vice_principal") - can't just
     # .lower() the label the way the original Student/Teacher/Principal-only
     # version did ("Vice Principal".lower() has a space, not an underscore).
     ROLE_VALUE_BY_LABEL = {
-        "Student": "student", "Teacher": "teacher", "HOD": "hod",
+        "Student": "student", "Parent": "parent", "Teacher": "teacher", "HOD": "hod",
         "Vice Principal": "vice_principal", "Assistant Principal": "assistant_principal",
         "Principal": "principal",
     }
@@ -1482,6 +1522,52 @@ elif page == "Logins":
                     finally:
                         cursor.close()
                         conn.close()
+    elif login_role == "Parent":
+        students = safe_query(
+            "SELECT student_id, name, class FROM students ORDER BY name",
+            fetch=True, many=True,
+        ) or []
+        student_options = {f"{name} ({cls})": sid for sid, name, cls in students}
+        with st.form("create_parent_login_form", clear_on_submit=True):
+            parent_name = st.text_input("Parent name")
+            parent_contact = st.text_input("Parent contact")
+            linked_children = st.multiselect("Linked children", list(student_options))
+            new_username = st.text_input("Username")
+            new_password = st.text_input("Password", type="password")
+            login_submitted = st.form_submit_button("Create Parent Login")
+        if login_submitted:
+            errors = collect_errors(
+                validate_name(parent_name), validate_contact(parent_contact),
+                validate_username(new_username), validate_password(new_password),
+            )
+            if not linked_children:
+                errors.append("Link at least one student to the parent account.")
+            if errors:
+                for error in errors:
+                    st.error(f"⚠️ {error}")
+            else:
+                conn = get_connection()
+                cursor = conn.cursor()
+                try:
+                    cursor.execute("INSERT INTO parents (name, contact) VALUES (%s, %s)",
+                                   (parent_name.strip(), parent_contact.strip()))
+                    parent_id = cursor.lastrowid
+                    cursor.executemany(
+                        "INSERT INTO parent_student_links (parent_id, student_id) VALUES (%s, %s)",
+                        [(parent_id, student_options[label]) for label in linked_children],
+                    )
+                    cursor.execute(
+                        "INSERT INTO users (username, password_hash, role, linked_id) VALUES (%s, %s, 'parent', %s)",
+                        (new_username.strip(), hash_password(new_password), parent_id),
+                    )
+                    conn.commit()
+                    st.success(f"✅ Parent login created for {parent_name.strip()}.")
+                except mysql.connector.IntegrityError:
+                    conn.rollback()
+                    st.error("⚠️ That username is already taken.")
+                finally:
+                    cursor.close()
+                    conn.close()
     else:
         conn = get_connection()
         cursor = conn.cursor()

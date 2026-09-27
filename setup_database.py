@@ -52,6 +52,24 @@ CREATE TABLE IF NOT EXISTS students (
 )
 """
 
+tables["parents"] = """
+CREATE TABLE IF NOT EXISTS parents (
+    parent_id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    contact VARCHAR(15)
+)
+"""
+
+tables["parent_student_links"] = """
+CREATE TABLE IF NOT EXISTS parent_student_links (
+    parent_id INT NOT NULL,
+    student_id INT NOT NULL,
+    PRIMARY KEY (parent_id, student_id),
+    FOREIGN KEY (parent_id) REFERENCES parents(parent_id),
+    FOREIGN KEY (student_id) REFERENCES students(student_id)
+)
+"""
+
 tables["teachers"] = """
 CREATE TABLE IF NOT EXISTS teachers (
     teacher_id INT PRIMARY KEY AUTO_INCREMENT,
@@ -97,6 +115,13 @@ CREATE TABLE IF NOT EXISTS class_teachers (
     class VARCHAR(10) PRIMARY KEY,
     teacher_id INT,
     FOREIGN KEY (teacher_id) REFERENCES teachers(teacher_id)
+)
+"""
+
+tables["class_sections"] = """
+CREATE TABLE IF NOT EXISTS class_sections (
+    class VARCHAR(10) PRIMARY KEY,
+    school_section ENUM('boys','girls') NOT NULL
 )
 """
 
@@ -195,7 +220,7 @@ CREATE TABLE IF NOT EXISTS users (
     user_id INT PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(50) UNIQUE,
     password_hash VARCHAR(255),
-    role ENUM('student','teacher','hod','vice_principal','assistant_principal','principal','admin'),
+    role ENUM('student','parent','teacher','hod','vice_principal','assistant_principal','principal','admin'),
     linked_id INT,
     last_seen_notice_id INT DEFAULT 0,
     last_seen_complaint_id INT DEFAULT 0
@@ -307,8 +332,8 @@ CREATE TABLE IF NOT EXISTS school_almanac (
 # FK order: departments must exist before teachers (teachers.department_id).
 # timetable/teacher_subjects/class_teachers need subjects/teachers, so those
 # go after both. system_logs needs users to already exist (performed_by FK).
-creation_order = ["departments", "subjects", "teachers", "teacher_subjects", "class_teachers",
-                   "students", "timetable", "exams", "notes", "notices",
+creation_order = ["departments", "subjects", "teachers", "teacher_subjects", "class_teachers", "class_sections",
+                   "students", "parents", "parent_student_links", "timetable", "exams", "notes", "notices",
                    "unanswered_questions", "learned_phrases", "users", "complaints",
                    "system_settings", "system_logs", "tie_break_log", "intent_phrases",
                    "school_almanac"]

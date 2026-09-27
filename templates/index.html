@@ -693,6 +693,11 @@
                 >
                     <span id="login-btn-text">Sign In</span>
                 </button>
+                <button
+                    type="button"
+                    onclick="continueAsGuest()"
+                    class="w-full text-gray-700 font-medium py-3 rounded-xl text-sm border border-gray-200 bg-white transition-all active:scale-[0.97]"
+                >Continue as Guest</button>
             </div>
         </div>
 
@@ -941,6 +946,7 @@
         <div id="disabled-banner" class="hidden bg-red-50 border-b border-red-200 text-red-700 text-xs sm:text-sm text-center py-2 px-4 flex-shrink-0 relative z-20">
             Nova is temporarily unavailable. Please contact the school office.
         </div>
+        <div id="load-banner" class="hidden bg-amber-50 border-b border-amber-200 text-amber-800 text-xs sm:text-sm text-center py-2 px-4 flex-shrink-0 relative z-20" role="status"></div>
 
         <!-- Chat messages -->
         <!-- tabindex="0": axe-core's scrollable-region-focusable flags this

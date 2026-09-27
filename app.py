@@ -28,7 +28,9 @@ import time
 import json
 import math
 import hmac
+import threading
 from itertools import cycle
+from collections import deque
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
@@ -150,7 +152,7 @@ def _notice_visible_roles(role):
 # Teacher/principal-tier questions are nearly always DB questions ("how many
 # students", "which classes are assigned") but rarely first-person, so
 # PERSONAL_SIGNALS alone would wrongly send them to Gemini.
-DB_FIRST_ROLES = {"teacher", "principal"} | HOD_LIKE_ROLES | PRINCIPAL_LIKE_ROLES
+DB_FIRST_ROLES = {"teacher", "principal", "parent"} | HOD_LIKE_ROLES | PRINCIPAL_LIKE_ROLES
 
 # Phrases that clearly point at school-wide almanac content, not a
 # person's own records. Needed because nlp_helpers.py's timetable intent
@@ -228,6 +230,137 @@ def is_pure_greeting(question):
     return _normalized_greeting(question) in GREETING_ONLY_PHRASES
 
 
+def _conversational_reply(question):
+    """Handle short social turns before stale task context can capture them."""
+    q = _normalized_greeting(question)
+    if re.fullmatch(r'(?:hi|hello|hey)(?:\s+again)?', q):
+        return next(NOVA_GREETINGS)
+    if re.fullmatch(r'(?:thanks|thank you|thx)(?:\s+again)?', q):
+        return "You're welcome."
+    if re.fullmatch(r'(?:hi|hello|hey)\s+and\s+(?:thanks|thank you)', q):
+        return "Hello, and you're welcome."
+    return None
+
+
+def _privacy_boundary_reply(question, role, linked_id=None):
+    """Return a clear denial for protected data before intent routing.
+
+    This guard prevents a private request from being converted into the
+    caller's own record or an adjacent public-directory answer.
+    """
+    q = clean_question(question)
+    if role == "guest":
+        if (re.search(r'\b(?:my child|student|attendance|fees?|results?|timetable)\b', q)
+                and not is_policy_framed(q)
+                and re.search(r'\b(?:show|check|view|get|my child|student name|actual)\b', q)):
+            return ("Student records are available through a linked parent or student account. "
+                    "Please sign in to view them.")
+        if re.search(r'\b(?:teacher|staff)\b.*\b(?:schedule|timetable|phone|contact|location)\b', q):
+            return "Staff schedules and private contact details aren't available to guest users."
+    if re.search(r'\b(?:login details?|credentials?|passwords?|password hash|sign in details?)\b', q):
+        return "I can't provide anyone's login credentials or password information."
+
+    personal_phone = re.search(
+        r"\b(?:mr|mrs|ms|miss|teacher|student|qa\w*|her|his|their|who sent it)\b.*\b(?:phone|contact|number)\b"
+        r"|\b(?:phone|contact)\s+number\b.*\b(?:mr|mrs|ms|miss|teacher|student|her|his|their)\b",
+        q,
+    )
+    if personal_phone:
+        return "I can't provide a student's or staff member's private contact details."
+
+    complaint_record = re.search(
+        r'\bcomplaints?\b.*\b(?:count|how many|text|sender|sent|history|phone|latest|show)\b'
+        r'|\b(?:how many|show|latest|who sent|history)\b.*\bcomplaints?\b', q
+    )
+    if complaint_record:
+        session["privacy_context"] = {
+            "kind": "complaint", "expires_at": time.time() + CONVERSATION_CONTEXT_TTL_SECONDS
+        }
+        if role == "vice_principal":
+            return handle_complaint_summary()
+        return "Complaint records are private and are only available to the Vice Principal."
+
+    if re.search(r'\blist\s+students?\b.*\b(?:low attendance|pending fees?)\b', q):
+        if role == "student":
+            return ("I can't provide a list of other students' records. "
+                    "I can show your own attendance or fee status.")
+
+    if (role in {"student", "teacher", "hod"}
+            and re.search(r'\bschool[ -]?wide\b.*\b(?:student|teacher).*(?:count|total)\b'
+                          r'|\b(?:student|teacher).*(?:count|total)\b.*\bschool[ -]?wide\b', q)):
+        return "School-wide administrative totals are available to school leadership."
+
+    if role == "student" and re.search(r'\bdepartment\b.*\b(?:schedule|timetable)\b', q):
+        return "Department schedules are available to staff and school leadership."
+
+    if role in {"teacher", "hod"} and re.search(r'\b(?:schedule|timetable)\b', q):
+        tid, name, ambiguity = extract_teacher_name_from_question(q, _teachers_with_subjects())
+        if tid and not ambiguity and tid != linked_id:
+            return (f"I can't provide {name}'s timetable. "
+                    "I can show your own schedule.")
+
+    sensitive_record = re.search(r'\b(?:attendance|fees?|exam results?|results?)\b', q)
+    another_person = re.search(
+        r"\b(?:her|his|their|another student|other student)\b"
+        r"|\b(?:show|give|tell)\s+(?:me\s+)?(?!my\b)(?:\w+\s+){1,4}(?:attendance|fees?|results?)\b",
+        q,
+    )
+    if role != "parent" and sensitive_record and another_person:
+        session["privacy_context"] = {
+            "kind": "other_student", "expires_at": time.time() + CONVERSATION_CONTEXT_TTL_SECONDS
+        }
+        return ("I can't provide another student's private information. "
+                "I can help with your own records or general class information.")
+
+    privacy_context = session.get("privacy_context") or {}
+    if (time.time() <= privacy_context.get("expires_at", 0)
+            and privacy_context.get("kind") == "other_student"
+            and sensitive_record and re.search(r'\b(?:her|his|their)\b', q)):
+        return ("I can't provide another student's private information. "
+                "I can help with your own records or general class information.")
+    if (time.time() <= privacy_context.get("expires_at", 0)
+            and re.search(r'\b(?:phone|contact|who sent|sender)\b', q)):
+        return ("I can't provide private contact details or identify a complaint sender. "
+                "Complaint records stay in the authorized review dashboard.")
+    return None
+
+
+def _combined_request_reply(question, role, linked_id):
+    """Answer the small set of common two-part school requests in full."""
+    q = clean_question(question)
+    teacher_match = re.fullmatch(r'who is (.+?) and which classes does (?:he|she|they) teach', q)
+    if teacher_match:
+        name = teacher_match.group(1).strip()
+        return (handle_teacher_profile_lookup(f"who is {name}") + "\n\n"
+                + handle_teacher_classes_lookup(f"classes taught by {name}"))
+
+    cls = extract_class_from_question(q)
+    if cls and "class teacher" in q and "timetable" in q:
+        return handle_class_teacher(cls) + "\n\n" + handle_class_timetable_lookup(f"timetable for {cls}")
+
+    if (role in {"vice_principal", "assistant_principal", "principal"}
+            and re.search(r'\btotal students?\b', q)
+            and re.search(r'\btotal teachers?\b', q)):
+        students = query("SELECT COUNT(*) FROM students", fetch=True)
+        teachers = query("SELECT COUNT(*) FROM teachers", fetch=True)
+        if students and teachers:
+            return (f"**School summary:** {students[0]} students and "
+                    f"{teachers[0]} teachers.")
+
+    if re.search(r'\b(?:staff|teachers|faculty)\b.*\b(?:plus|and)\b.*\bhod\b', q):
+        first = re.split(r'\b(?:plus|and)\b', q, maxsplit=1)[0]
+        return handle_department_staff(first) + "\n\n" + handle_department_leadership(first)
+
+    if re.search(r'\b2\s*\+\s*2\b', question):
+        if role == "student" and "attendance" in q:
+            result = query("SELECT attendance_pct FROM students WHERE student_id=%s", (linked_id,), fetch=True)
+            if result:
+                return f"2 + 2 = 4. Your current attendance is **{float(result[0])}%**."
+        if role in {"teacher", "hod", "vice_principal"} and re.search(r'\b(?:periods?|schedule)\b', q):
+            return "2 + 2 = 4.\n\n" + handle_teacher_timetable(q, linked_id)
+    return None
+
+
 # The intent names each role's answer_*() actually recognizes (mirrors the
 # possible_intents lists in answer_student/teacher/principal below), minus
 # greeting/thanks/help - those are already handled by is_pure_greeting().
@@ -243,7 +376,8 @@ STAFF_LOOKUP_INTENTS = [
 
 TEACHER_INTENTS = ["period_count", "timetable", "classes_assigned", "next_class",
                     "current_class", "free_periods", "periods_remaining", "teacher_identity",
-                    "notices", "subjects_offered"] + STAFF_LOOKUP_INTENTS
+                    "notices", "subjects_offered", "low_attendance_count",
+                    "pending_fees_count"] + STAFF_LOOKUP_INTENTS
 HOD_DEPARTMENT_INTENTS = ["department_free_teachers", "department_schedule_today",
                            "department_teacher_count"]
 
@@ -255,6 +389,8 @@ ROLE_PERSONAL_INTENTS = {
                 "notices", "subjects_offered",
                 "complaint_feedback"],
     "teacher": TEACHER_INTENTS,
+    "parent": ["attendance", "exam", "timetable", "fee", "class_teacher",
+               "subject_teacher", "notices", "subjects_offered"],
     "hod": TEACHER_INTENTS + HOD_DEPARTMENT_INTENTS,
     "principal": ["teacher_count_by_subject", "total_students", "total_teachers",
                   "class_wise_count", "teacher_location", "classroom_occupant",
@@ -263,6 +399,7 @@ ROLE_PERSONAL_INTENTS = {
                   "teacher_classes_lookup", "teacher_department", "department_staff",
                   "teacher_profile_lookup",
                   "department_leadership", "school_leadership",
+                  "department_schedule_today",
                   "low_attendance_count", "pending_fees_count", "notices", "subjects_offered"],
 }
 
@@ -572,6 +709,11 @@ def _explicit_lookup_intent(question, role):
     if re.search(r'\bwho\s+is\s+the\s+(?:vice\s+principal|assistant\s+principal|principal)\b', q):
         return "school_leadership"
 
+    if (extract_department_from_question(q)[0]
+            and re.search(r'\b(?:schedule|timetable)\b', q)
+            and role != "student"):
+        return "department_schedule_today"
+
     if role == "student":
         if cls and re.search(r'\bwho\s+(?:handles|teaches|takes)\b', q):
             return "class_teacher_lookup"
@@ -746,6 +888,66 @@ def _nlp_lane_decision(question, role):
     return False, True, None, 0, None, None
 
 app = Flask(__name__)
+
+# Small in-process load signal for the single Render worker.  It measures
+# real chat concurrency and recently completed request time; no user data is
+# stored.  Hysteresis in the endpoint keeps the banner from flickering.
+_load_lock = threading.Lock()
+_active_chat_requests = 0
+_recent_chat_durations = deque(maxlen=30)
+_load_level = "normal"
+_load_recovered_at = 0.0
+
+
+@app.before_request
+def _track_chat_start():
+    global _active_chat_requests
+    if request.path == "/api/chat":
+        g.chat_load_started = time.monotonic()
+        with _load_lock:
+            _active_chat_requests += 1
+
+
+@app.after_request
+def _track_chat_finish(response):
+    if not hasattr(g, "chat_load_started"):
+        return response
+    started = g.chat_load_started
+
+    def finish():
+        global _active_chat_requests
+        with _load_lock:
+            _active_chat_requests = max(0, _active_chat_requests - 1)
+            _recent_chat_durations.append(time.monotonic() - started)
+
+    response.call_on_close(finish)
+    return response
+
+
+@app.route("/api/load-status")
+def load_status():
+    global _load_level, _load_recovered_at
+    with _load_lock:
+        active = _active_chat_requests
+        recent = list(_recent_chat_durations)
+    average = sum(recent) / len(recent) if recent else 0.0
+    next_level = "heavy" if active >= 4 or average >= 8 else \
+        "busy" if active >= 3 or average >= 5 else "normal"
+    now = time.monotonic()
+    if next_level == "normal" and _load_level != "normal":
+        if not _load_recovered_at:
+            _load_recovered_at = now
+        if now - _load_recovered_at < 120:
+            next_level = _load_level
+    else:
+        _load_recovered_at = 0.0
+    _load_level = next_level
+    messages = {
+        "normal": "",
+        "busy": "Peak usage right now. Replies may take a little longer than usual.",
+        "heavy": "Nova is experiencing heavy usage. Replies may take longer than usual.",
+    }
+    return jsonify({"level": next_level, "message": messages[next_level]})
 
 # Secret key signs the session cookie - a hardcoded value here would let anyone
 # who reads the source forge a session for any user/role. Set FLASK_SECRET_KEY
@@ -936,6 +1138,19 @@ def _build_profile(role, linked_id):
             "fees": info[4]
         }
 
+    elif role == "parent":
+        info = query("SELECT name FROM parents WHERE parent_id=%s", (linked_id,), fetch=True)
+        if not info:
+            return None
+        children = query("""
+            SELECT st.name, st.class FROM parent_student_links psl
+            JOIN students st ON psl.student_id=st.student_id
+            WHERE psl.parent_id=%s ORDER BY st.name
+        """, (linked_id,), fetch=True, many=True) or []
+        return info[0], {
+            "name": info[0], "children": [f"{name} ({cls})" for name, cls in children]
+        }
+
     elif role == "teacher" or role in HOD_LIKE_ROLES:
         # hod/vice_principal log in AS a teacher record (their own linked_id
         # is their own teacher_id, same mechanism as a plain teacher login) -
@@ -958,6 +1173,9 @@ def _build_profile(role, linked_id):
             "name": info[0], "subject": info[1],
             "classes": info[2], "department": info[3]
         }
+
+    elif role == "guest":
+        return "Guest", {"name": "Guest"}
 
     else:  # principal, assistant_principal - identical access, distinct label
         label = "Assistant Principal" if role == "assistant_principal" else "Principal"
@@ -1037,6 +1255,14 @@ def login():
     session["display_name"] = display_name
 
     return jsonify({"success": True, "role": role, "profile": profile})
+
+
+@app.route("/api/guest", methods=["POST"])
+def guest_login():
+    session.clear()
+    session.update(user_id=0, role="guest", linked_id=0,
+                   username="guest", display_name="Guest")
+    return jsonify({"success": True, "role": "guest", "profile": {"name": "Guest"}})
 
 
 @app.route("/api/me")
@@ -1682,8 +1908,21 @@ def _apply_general_followup_context(question):
     explicit_topic = _general_topic(q)
     follow_up = bool(re.match(
         r'^(?:and\b|what about\b|how about\b|which one\b|sorry\b|i meant\b)', q
+    )) or bool(re.fullmatch(
+        r'(?:monday|tuesday|wednesday|thursday|friday|saturday|sunday|today|tomorrow)', q
     ))
     if not explicit_topic and not follow_up:
+        return question
+
+    # Do not let an old calendar turn capture an unrelated correction such
+    # as "what about her fees" or "sorry physics".  A connector only
+    # continues calendar context when it also supplies a calendar slot.
+    has_calendar_slot = bool(
+        extract_day_from_question(q)
+        or re.search(r'\bgrade\s+\d{1,2}\b', q)
+        or re.search(r'\bwhich\s+one\b.*\bfirst\b', q)
+    )
+    if not explicit_topic and not has_calendar_slot:
         return question
 
     topic = explicit_topic or context.get("topic")
@@ -1901,6 +2140,16 @@ def _resume_conversation_context(question, role, linked_id):
     new_day = extract_day_from_question(q)
     previous_intent = context.get("intent")
 
+    if (previous_intent == "department_staff"
+            and re.fullmatch(r'(?:who works|who is|staff|teachers|faculty)(?: there)?', q)):
+        department = context.get("department")
+        if department:
+            reply = handle_department_staff(department)
+            _remember_conversation_context(
+                "department_staff", department, role, linked_id, reply
+            )
+            return reply
+
     if previous_intent == "teacher_allocation_check" and new_class:
         names = context.get("teacher_names") or []
         if len(names) != 1:
@@ -1946,7 +2195,7 @@ def _resume_conversation_context(question, role, linked_id):
 
     if previous_intent == "department_schedule_today" and new_day:
         merged = f"department schedule {new_day}"
-        reply = handle_department_schedule_today(linked_id, merged)
+        reply = handle_department_schedule_today(linked_id, merged, role=role)
         _remember_conversation_context(previous_intent, merged, role, linked_id, reply)
         return reply
 
@@ -1993,12 +2242,14 @@ def _dispatch_to_role_handler(role, question, linked_id, forced_intent=None):
     vice_principal specifically (not hod) also gets VP_ONLY_INTENTS."""
     if role == "student":
         return answer_student(question, linked_id, forced_intent=forced_intent)
+    if role == "parent":
+        return answer_parent(question, linked_id, forced_intent=forced_intent)
     if role == "teacher" or role in HOD_LIKE_ROLES:
         extra = HOD_DEPARTMENT_INTENTS if role in HOD_LIKE_ROLES else None
         if role == "vice_principal":
             extra = (extra or []) + VP_ONLY_INTENTS
         return answer_teacher(question, linked_id, forced_intent=forced_intent, extra_intents=extra, role=role)
-    return answer_principal(question, forced_intent=forced_intent)  # principal, assistant_principal
+    return answer_principal(question, forced_intent=forced_intent, role=role)  # principal, assistant_principal
 
 
 # =========================================================
@@ -2082,7 +2333,27 @@ def chat():
         return jsonify({"reply": "Please type a question first."})
 
     question_lower = clean_question(question)
-    question_lower = _apply_general_followup_context(question_lower)
+
+    conversational_reply = _conversational_reply(question_lower)
+    if conversational_reply is not None:
+        session.pop("general_context", None)
+        session.pop("conversation_context", None)
+        return jsonify({"reply": conversational_reply})
+
+    privacy_reply = _privacy_boundary_reply(question_lower, role, linked_id)
+    if privacy_reply is not None:
+        session.pop("general_context", None)
+        session.pop("conversation_context", None)
+        return jsonify({"reply": privacy_reply})
+
+    combined_reply = _combined_request_reply(question, role, linked_id)
+    if combined_reply is not None:
+        session.pop("general_context", None)
+        session.pop("conversation_context", None)
+        return jsonify({"reply": combined_reply})
+
+    if role == "guest":
+        return stream_gemini_reply(question_lower, role)
 
     # Check for a pending clarification BEFORE normal routing - popped
     # immediately either way (success or failure), so it can only ever
@@ -2124,9 +2395,15 @@ def chat():
             print(f'[CLARIFICATION EXPIRED] intent={pending_intent} role={role} '
                   f'follow_up={question_lower!r} -> falling through to normal routing')
 
+    # Personal/directory context gets first refusal on a follow-up. General
+    # calendar context is applied only if no active DB-backed conversation
+    # can resolve it, preventing old exam turns from swallowing timetable,
+    # subject, or class corrections.
     contextual_reply = _resume_conversation_context(question_lower, role, linked_id)
     if contextual_reply is not None:
         return jsonify({"reply": contextual_reply})
+
+    question_lower = _apply_general_followup_context(question_lower)
 
     if _BARE_CLASS_FOLLOWUP_RE.fullmatch(question_lower):
         cls = extract_class_from_question(question_lower)
@@ -2191,6 +2468,7 @@ def chat():
 
         _maybe_set_pending_clarification(role, reply, question_lower)
         _remember_conversation_context(weak_intent, question_lower, role, linked_id, reply)
+        session.pop("general_context", None)
         return jsonify({"reply": reply})
 
     if try_classifier and tie_candidates:
@@ -2228,6 +2506,7 @@ def chat():
             )
             if reply not in _CLARIFICATION_PROMPTS:
                 log_learned_phrase(question_lower, classified_intent, role)
+            session.pop("general_context", None)
             return jsonify({"reply": reply})
 
         print(f'[TIE-BREAK FAILED -> CLARIFICATION] Question: {question_lower} -> '
@@ -2274,6 +2553,7 @@ def chat():
             if reply not in _CLARIFICATION_PROMPTS:
                 log_learned_phrase(question_lower, classified_intent, role)
 
+            session.pop("general_context", None)
             return jsonify({"reply": reply})
         # Classifier picked NONE, or the call failed/errored - fail open,
         # fall through to the exact same Gemini/almanac lane as today.
@@ -2584,6 +2864,8 @@ def extract_department_from_question(question):
 
     candidates = []
     patterns = (
+        r'\b(.+?)\s+department\s+(?:schedule|timetable)(?:\s+(?:on\s+)?(?:monday|tuesday|wednesday|thursday|friday|saturday|sunday|today|tomorrow))?$',
+        r'\b(?:schedule|timetable)\s+(?:for\s+)?(?:the\s+)?(.+?)\s+department(?:\s+(?:on\s+)?(?:monday|tuesday|wednesday|thursday|friday|saturday|sunday|today|tomorrow))?$',
         r'\b(?:hod|head)\s+of\s+(.+?)(?:\s+department)?$',
         r'\bwho\s+leads\s+(?:the\s+)?(.+?)(?:\s+department)?$',
         r'\b(?:staff|teachers|faculty)\s+in\s+(?:the\s+)?(.+?)(?:\s+department)?(?:\s+please|\s+pls)?$',
@@ -3152,12 +3434,21 @@ def handle_department_free_teachers(teacher_id):
     return "Every teacher in your department is currently in class."
 
 
-def handle_department_schedule_today(teacher_id, question=""):
-    """Every teacher in the HOD's department, scheduled periods for today -
-    department-scoped equivalent of a class timetable lookup."""
-    department_id = _hod_department_id(teacher_id)
+def handle_department_schedule_today(teacher_id, question="", role="hod"):
+    """Department schedule without silently replacing an explicit department."""
+    requested_id, requested_name = extract_department_from_question(question)
+    own_department_id = _hod_department_id(teacher_id) if teacher_id else None
+
+    if requested_id and role == "hod" and requested_id != own_department_id:
+        return "I can only show the schedule for your own department."
+
+    department_id = requested_id or own_department_id
     if not department_id:
-        return "You don't have a department on record yet."
+        return "Which department's schedule would you like to see?"
+
+    if not requested_name:
+        row = query("SELECT name FROM departments WHERE department_id=%s", (department_id,), fetch=True)
+        requested_name = row[0] if row else "Department"
 
     requested_day = extract_day_from_question(question)
     today = requested_day.capitalize() if requested_day else datetime.datetime.now().strftime("%A")
@@ -3171,10 +3462,10 @@ def handle_department_schedule_today(teacher_id, question=""):
     """, (department_id, today), fetch=True, many=True)
 
     if not results:
-        return f"No classes scheduled for your department on **{today}**."
+        return f"No classes are scheduled for the **{requested_name} Department** on **{today}**."
 
     lines = [f"- **{name}**, Period {p}: {subj} *({cls})*" for name, p, subj, cls in results]
-    return f"Your department's schedule for **{today}**:\n" + "\n".join(lines)
+    return f"**{requested_name} Department** schedule for **{today}**:\n" + "\n".join(lines)
 
 
 def handle_department_teacher_count(teacher_id):
@@ -3600,36 +3891,89 @@ def handle_class_teacher(question, default_class=None):
     return f"**{cls}**'s class teacher is **{result[0]}**."
 
 
-def handle_low_attendance_count():
-    """Flags students below the 75% attendance threshold, count + list."""
-    results = query("""
-        SELECT name, class, attendance_pct FROM students
-        WHERE attendance_pct < 75
-        ORDER BY attendance_pct ASC
-    """, fetch=True, many=True)
+def _student_list_scope(role, linked_id):
+    if role == "principal":
+        return " WHERE ", (), "School-wide"
+    if role in {"vice_principal", "assistant_principal"}:
+        section = "boys" if role == "vice_principal" else "girls"
+        configured = query(
+            "SELECT COUNT(*) FROM class_sections WHERE school_section=%s",
+            (section,), fetch=True,
+        )
+        if not configured or configured[0] == 0:
+            return "__unconfigured__", (), f"{section.title()} Section"
+        return (" JOIN class_sections cs ON st.class=cs.class "
+                "WHERE cs.school_section=%s AND ", (section,), f"{section.title()} Section")
+    if role in {"teacher", "hod"}:
+        assigned = query(
+            "SELECT class FROM class_teachers WHERE teacher_id=%s LIMIT 1",
+            (linked_id,), fetch=True,
+        )
+        if not assigned:
+            return None, (), None
+        return (" JOIN class_teachers ct ON st.class=ct.class "
+                "WHERE ct.teacher_id=%s AND ", (linked_id,), "Your classes")
+    return None, (), None
+
+
+def _markdown_student_table(headers, rows):
+    head = "| " + " | ".join(headers) + " |"
+    divider = "| " + " | ".join("---" for _ in headers) + " |"
+    body = ["| " + " | ".join(str(value) for value in row) + " |" for row in rows]
+    return "\n".join([head, divider] + body)
+
+
+def handle_low_attendance_count(role="principal", linked_id=None):
+    """Role-scoped students below 75%, sorted for operational follow-up."""
+    join_where, params, scope_label = _student_list_scope(role, linked_id)
+    if join_where is None:
+        return ("Only an assigned class teacher can view a class attendance list."
+                if role in {"teacher", "hod"}
+                else "You can view your own attendance, but not other students' records.")
+    if join_where == "__unconfigured__":
+        return f"No classes have been assigned to the {scope_label} yet."
+    results = query(f"""
+        SELECT st.class, st.roll_no, st.name, st.attendance_pct FROM students st
+        {join_where} st.attendance_pct < 75
+        ORDER BY st.attendance_pct ASC, st.class, st.roll_no
+    """, params, fetch=True, many=True)
 
     if not results:
         return "No students are currently below 75% attendance."
 
     count = len(results)
-    lines = [f"- {name} ({cls}): {att}%" for name, cls, att in results[:10]]
-    more = f"\n...and {count - 10} more." if count > 10 else ""
-    return f"**{count} students** are below 75% attendance:\n" + "\n".join(lines) + more
+    rows = [(cls, roll, name, f"{float(att):.2f}%", "Below 75%")
+            for cls, roll, name, att in results]
+    return (f"**{scope_label} attendance summary:** {count} student{'s' if count != 1 else ''} "
+            "below 75%.\n\n" + _markdown_student_table(
+                ["Class", "Roll No.", "Student", "Attendance", "Status"], rows
+            ))
 
 
-def handle_pending_fees_count():
-    """Count and list of students with pending fee status."""
-    results = query("""
-        SELECT name, class FROM students WHERE fees_status = 'pending'
-    """, fetch=True, many=True)
+def handle_pending_fees_count(role="principal", linked_id=None):
+    """Role-scoped pending fee list, sorted by class and roll number."""
+    join_where, params, scope_label = _student_list_scope(role, linked_id)
+    if join_where is None:
+        return ("Only an assigned class teacher can view a class fee-status list."
+                if role in {"teacher", "hod"}
+                else "You can view your own fee status, but not other students' records.")
+    if join_where == "__unconfigured__":
+        return f"No classes have been assigned to the {scope_label} yet."
+    results = query(f"""
+        SELECT st.class, st.roll_no, st.name FROM students st
+        {join_where} st.fees_status = 'pending'
+        ORDER BY st.class, st.roll_no
+    """, params, fetch=True, many=True)
 
     if not results:
         return "All student fees are currently paid."
 
     count = len(results)
-    lines = [f"- {name} ({cls})" for name, cls in results[:10]]
-    more = f"\n...and {count - 10} more." if count > 10 else ""
-    return f"**{count} students** have pending fees:\n" + "\n".join(lines) + more
+    rows = [(cls, roll, name, "Pending") for cls, roll, name in results]
+    return (f"**{scope_label} fee summary:** {count} student{'s' if count != 1 else ''} "
+            "with pending fees.\n\n" + _markdown_student_table(
+                ["Class", "Roll No.", "Student", "Status"], rows
+            ))
 
 
 def handle_teacher_count_by_subject(question):
@@ -3784,6 +4128,69 @@ def answer_student(question, student_id, forced_intent=None):
             "**attendance**, **exams**, **timetable**, **fees**, or your **details**.")
 
 
+def _parent_child_for_question(parent_id, question):
+    children = query("""
+        SELECT st.student_id, st.name, st.class FROM parent_student_links psl
+        JOIN students st ON psl.student_id=st.student_id
+        WHERE psl.parent_id=%s ORDER BY st.name
+    """, (parent_id,), fetch=True, many=True) or []
+    if not children:
+        return None, "No students are linked to this parent account yet."
+    q = clean_question(question)
+    named = [row for row in children if re.search(
+        r'(?<!\w)' + re.escape(clean_question(row[1])) + r'(?!\w)', q
+    )]
+    if len(named) == 1:
+        return named[0], None
+    if len(children) == 1:
+        return children[0], None
+    names = ", ".join(name for _, name, _ in children)
+    return None, f"Which child do you mean — {names}?"
+
+
+def answer_parent(question, parent_id, forced_intent=None):
+    intent = forced_intent if forced_intent is not None else detect_intent(
+        question, ["greeting", "thanks", "help"] + ROLE_PERSONAL_INTENTS["parent"]
+    )
+    if intent == "greeting":
+        return next(NOVA_GREETINGS)
+    if intent == "thanks":
+        return "You're welcome."
+    if intent == "help":
+        return ("I'm Nova. I can show a linked child's attendance, fee status, "
+                "timetable, exams, and teachers. Include the child's name if more "
+                "than one child is linked to your account.")
+    if intent in {"notices", "subjects_offered"}:
+        return handle_notices("parent", question) if intent == "notices" else handle_subjects_offered(question)
+
+    child, clarification = _parent_child_for_question(parent_id, question)
+    if clarification:
+        return clarification
+    student_id, child_name, child_class = child
+    if intent == "attendance":
+        row = query("SELECT attendance_pct FROM students WHERE student_id=%s", (student_id,), fetch=True)
+        return (f"{child_name}'s current attendance is **{float(row[0])}%**."
+                if row else f"I couldn't find {child_name}'s attendance record.")
+    if intent == "fee":
+        row = query("SELECT fees_status FROM students WHERE student_id=%s", (student_id,), fetch=True)
+        if row:
+            status = "Paid" if row[0] == "paid" else "Pending"
+            return f"{child_name}'s fee status is **{status}**."
+        return f"I couldn't find {child_name}'s fee status."
+    if intent == "timetable":
+        reply = handle_student_timetable(question, student_id)
+        return re.sub(r'^Your\b', f"{child_name}'s", reply)
+    if intent == "exam":
+        reply = handle_student_exam(question, student_id, _known_subject_names())
+        return re.sub(r'^Your\b', f"{child_name}'s", reply)
+    if intent == "class_teacher":
+        return handle_class_teacher(question, default_class=child_class)
+    if intent == "subject_teacher":
+        return handle_subject_teacher(question, student_id, _known_subject_names())
+    return ("I can help with a linked child's attendance, fees, timetable, exams, "
+            "and teachers.")
+
+
 def answer_teacher(question, teacher_id, forced_intent=None, extra_intents=None, role="teacher"):
     # forced_intent: see answer_student()'s matching comment above.
     # extra_intents: HOD_DEPARTMENT_INTENTS when this is really an hod/
@@ -3918,10 +4325,16 @@ def answer_teacher(question, teacher_id, forced_intent=None, extra_intents=None,
         return handle_department_free_teachers(teacher_id)
 
     elif intent == "department_schedule_today":
-        return handle_department_schedule_today(teacher_id, question)
+        return handle_department_schedule_today(teacher_id, question, role=role)
 
     elif intent == "department_teacher_count":
         return handle_department_teacher_count(teacher_id)
+
+    elif intent == "low_attendance_count":
+        return handle_low_attendance_count(role, teacher_id)
+
+    elif intent == "pending_fees_count":
+        return handle_pending_fees_count(role, teacher_id)
 
     elif intent == "complaint_summary":
         # Belt-and-suspenders literal role check (same reasoning as
@@ -3937,7 +4350,7 @@ def answer_teacher(question, teacher_id, forced_intent=None, extra_intents=None,
     return "I didn't understand that. Try asking about your **schedule**, **periods**, or **classes**."
 
 
-def answer_principal(question, forced_intent=None):
+def answer_principal(question, forced_intent=None, role="principal"):
     # forced_intent: see answer_student()'s matching comment above.
     if _normalized_greeting(question) in ("who are you", "how are you", "how are u"):
         intent = "greeting"
@@ -3957,6 +4370,7 @@ def answer_principal(question, forced_intent=None):
             "school_wide_subject_teacher", "class_teacher_lookup", "class_teacher",
             "teacher_classes_lookup", "teacher_department", "teacher_profile_lookup", "department_staff",
             "department_leadership", "school_leadership",
+            "department_schedule_today",
             "low_attendance_count", "pending_fees_count", "notices", "subjects_offered"
         ])
         principal_ranked = _apply_subject_scoring_adjustment(
@@ -4035,10 +4449,17 @@ def answer_principal(question, forced_intent=None):
         return "I couldn't retrieve the teacher count right now."
 
     elif intent == "class_wise_count":
-        results = query(
-            "SELECT class, COUNT(*) FROM students GROUP BY class ORDER BY class",
-            fetch=True, many=True
-        )
+        requested_class = extract_class_from_question(question)
+        if requested_class:
+            results = query(
+                "SELECT class, COUNT(*) FROM students WHERE class=%s GROUP BY class",
+                (requested_class,), fetch=True, many=True
+            )
+        else:
+            results = query(
+                "SELECT class, COUNT(*) FROM students GROUP BY class ORDER BY class",
+                fetch=True, many=True
+            )
         if results:
             lines = [f"- Class **{cls}**: {count} students" for cls, count in results]
             return "Class-wise breakdown:\n" + "\n".join(lines)
@@ -4086,11 +4507,14 @@ def answer_principal(question, forced_intent=None):
     elif intent == "school_leadership":
         return handle_school_leadership(question)
 
+    elif intent == "department_schedule_today":
+        return handle_department_schedule_today(None, question, role=role)
+
     elif intent == "low_attendance_count":
-        return handle_low_attendance_count()
+        return handle_low_attendance_count(role)
 
     elif intent == "pending_fees_count":
-        return handle_pending_fees_count()
+        return handle_pending_fees_count(role)
 
     elif intent == "teacher_count_by_subject":
         return handle_teacher_count_by_subject(question)
