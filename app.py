@@ -819,6 +819,7 @@ def _nlp_lane_decision(question, role):
     if role in PRINCIPAL_LIKE_ROLES:
         ranked = _apply_teacher_location_guard(ranked, question)
     intent, nlp_score = ranked[0] if ranked else (None, 0)
+    had_any_nlp_match = intent is not None
 
     if intent is not None:
         if nlp_score < NLP_SCORE_FLOOR:
@@ -870,12 +871,11 @@ def _nlp_lane_decision(question, role):
     almanac_confident = almanac_confident and almanac_score >= nlp_score
 
     if intent is not None:
-        # Weak (keyword-only) match, no personal-pronoun protection. If the
-        # almanac ALSO isn't confidently ahead, neither lane is sure -
-        # classifier's turn. Otherwise the weak match wins on its own
-        # merits, same as before.
+        # A strict, high-coverage almanac match has already beaten this weak
+        # keyword-only personal match. Send it directly to the grounded
+        # answer lane instead of paying for a Groq classification first.
         if almanac_confident:
-            return False, True, intent, nlp_score, None, None
+            return False, False, intent, nlp_score, None, None
         return True, False, intent, nlp_score, None, None
 
     # intent is None: a genuine zero, with or without personal-pronoun
@@ -883,6 +883,16 @@ def _nlp_lane_decision(question, role):
     # for the classifier; otherwise this is exactly the "neither lane
     # confident" gap the classifier exists to catch.
     if almanac_confident:
+        return False, False, None, 0, None, None
+
+    # If NLP found no personal-intent evidence at all but retrieval found a
+    # usable school section, this is a public almanac question. Going through
+    # Groq first only makes Groq answer NONE before Gemini sees the same
+    # question. Preserve the classifier for every weak/ambiguous personal
+    # match, including matches discarded by NLP_SCORE_FLOOR.
+    if (not had_any_nlp_match
+            and len(clean_question(question).split()) >= 2
+            and search_almanac(question)):
         return False, False, None, 0, None, None
 
     return False, True, None, 0, None, None

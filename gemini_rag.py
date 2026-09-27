@@ -46,7 +46,9 @@ import os
 import re
 import time
 import math
+import threading
 from collections import Counter
+from functools import lru_cache
 import mysql.connector
 from google import genai
 from openai import OpenAI
@@ -136,6 +138,22 @@ def _almanac_sections(almanac):
     return sections
 
 
+@lru_cache(maxsize=2)
+def _cached_almanac_index(almanac):
+    """Parse one almanac revision once, then reuse its local search index."""
+    sections = tuple(_almanac_sections(almanac))
+    section_words = tuple(
+        (_almanac_words(section.split('\n', 1)[0]),
+         _almanac_words(section.split('\n', 1)[1] if '\n' in section else ''))
+        for section in sections
+    )
+    document_frequency = Counter(
+        word for title_words, body_words in section_words
+        for word in title_words | body_words
+    )
+    return sections, section_words, document_frequency
+
+
 def _almanac_words(text):
     return {'transport' if word == 'transportation' else _singularize(word)
             for word in re.findall(r'\b\w+\b', text.casefold())}
@@ -155,12 +173,7 @@ def _score_almanac_sections(question, almanac=None):
     if not almanac:
         return []
 
-    sections = _almanac_sections(almanac)
-    section_words = [(_almanac_words(section.split('\n', 1)[0]),
-                      _almanac_words(section.split('\n', 1)[1] if '\n' in section else ''))
-                     for section in sections]
-    document_frequency = Counter(word for title_words, body_words in section_words
-                                 for word in title_words | body_words)
+    sections, section_words, document_frequency = _cached_almanac_index(almanac)
     question_words, grade_n = _almanac_question_words(question)
 
     scored = []
@@ -225,24 +238,54 @@ _NOTICE_STOPWORDS = {'what', 'when', 'where', 'how', 'who', 'is', 'are', 'the',
                      'exactly'}
 
 
+NOTICE_CACHE_TTL_SECONDS = 30
+_notice_rows_cache = {}
+_notice_cache_lock = threading.Lock()
+
+
+def _notice_rows(visible_roles):
+    """Load role-visible notices at most once per short TTL, serving stale rows on outage."""
+    roles = tuple(sorted(set(visible_roles)))
+    if not roles:
+        return ()
+    now = time.monotonic()
+    cached = _notice_rows_cache.get(roles)
+    if cached and now - cached['loaded_at'] < NOTICE_CACHE_TTL_SECONDS:
+        return cached['rows']
+
+    with _notice_cache_lock:
+        now = time.monotonic()
+        cached = _notice_rows_cache.get(roles)
+        if cached and now - cached['loaded_at'] < NOTICE_CACHE_TTL_SECONDS:
+            return cached['rows']
+        conn = None
+        cursor = None
+        try:
+            conn = mysql.connector.connect(**DB_CONFIG)
+            cursor = conn.cursor()
+            conditions = ["target_roles='all'"] + ["FIND_IN_SET(%s, target_roles)"] * len(roles)
+            cursor.execute(
+                f"SELECT title, body FROM notices WHERE ({' OR '.join(conditions)})",
+                roles
+            )
+            rows = tuple(cursor.fetchall())
+            _notice_rows_cache[roles] = {'rows': rows, 'loaded_at': now}
+            return rows
+        except Exception as e:
+            print(f'[NOTICES CONTEXT ERROR] {e}')
+            return cached['rows'] if cached else ()
+        finally:
+            if cursor is not None:
+                cursor.close()
+            if conn is not None:
+                conn.close()
+
+
 def _score_notices(question, visible_roles):
     if not visible_roles:
         return []
 
-    try:
-        conn = mysql.connector.connect(**DB_CONFIG)
-        cursor = conn.cursor()
-        conditions = ["target_roles='all'"] + ["FIND_IN_SET(%s, target_roles)"] * len(visible_roles)
-        cursor.execute(
-            f"SELECT title, body FROM notices WHERE ({' OR '.join(conditions)})",
-            tuple(visible_roles)
-        )
-        rows = cursor.fetchall()
-        cursor.close()
-        conn.close()
-    except Exception as e:
-        print(f'[NOTICES CONTEXT ERROR] {e}')
-        return []
+    rows = _notice_rows(visible_roles)
 
     cleaned_question = question.lower()
     for ch in '?!.,':
@@ -293,6 +336,38 @@ GROQ_MODEL = 'openai/gpt-oss-20b'
 # Set FORCE_GROQ=true in .env - read once at import, so toggling needs a restart.
 FORCE_GROQ = os.getenv('FORCE_GROQ', 'false').strip().lower() == 'true'
 
+_client_lock = threading.Lock()
+_gemini_client = None
+_gemini_client_key = None
+_groq_client = None
+_groq_client_key = None
+
+
+def _get_gemini_client():
+    """Reuse the provider client while still allowing late environment loading."""
+    global _gemini_client, _gemini_client_key
+    api_key = os.getenv('GEMINI_API_KEY')
+    if _gemini_client is not None and _gemini_client_key == api_key:
+        return _gemini_client
+    with _client_lock:
+        if _gemini_client is None or _gemini_client_key != api_key:
+            _gemini_client = genai.Client(api_key=api_key)
+            _gemini_client_key = api_key
+    return _gemini_client
+
+
+def _get_groq_client():
+    """Reuse the Groq HTTP client while still allowing late environment loading."""
+    global _groq_client, _groq_client_key
+    api_key = os.getenv('GROQ_API_KEY')
+    if _groq_client is not None and _groq_client_key == api_key:
+        return _groq_client
+    with _client_lock:
+        if _groq_client is None or _groq_client_key != api_key:
+            _groq_client = OpenAI(api_key=api_key, base_url='https://api.groq.com/openai/v1')
+            _groq_client_key = api_key
+    return _groq_client
+
 
 def _build_prompt(question, context):
     # Persona block is additive, layered on top of the existing grounding/
@@ -342,11 +417,7 @@ def ask_groq(question, context):
         return NO_CONTEXT_MESSAGE
 
     try:
-        # Built fresh per call, not at module level - a client built at
-        # import time can bake in a missing GROQ_API_KEY if this module
-        # loads before load_dotenv() runs (bit us once already, with
-        # GEMINI_API_KEY in a bare test script).
-        client = OpenAI(api_key=os.getenv('GROQ_API_KEY'), base_url='https://api.groq.com/openai/v1')
+        client = _get_groq_client()
         response = client.chat.completions.create(
             model=GROQ_MODEL,
             messages=[{'role': 'user', 'content': _build_prompt(question, context)}],
@@ -398,8 +469,7 @@ QUESTION: "{question}"
 Reply with ONLY the category name exactly as written above, or NONE. No explanation, no punctuation, nothing else."""
 
     try:
-        # Built fresh per call, same reasoning as ask_groq()'s client above.
-        client = OpenAI(api_key=os.getenv('GROQ_API_KEY'), base_url='https://api.groq.com/openai/v1')
+        client = _get_groq_client()
         response = client.chat.completions.create(
             model=GROQ_MODEL,
             messages=[{'role': 'user', 'content': prompt}],
@@ -434,7 +504,7 @@ def ask_gemini(question, context):
     if not context:
         return NO_CONTEXT_MESSAGE
 
-    client = genai.Client(api_key=os.getenv('GEMINI_API_KEY'))
+    client = _get_gemini_client()
     response = client.models.generate_content(
         model=GEMINI_MODEL,
         contents=_build_prompt(question, context)
@@ -447,7 +517,7 @@ def ask_gemini_stream(question, context):
         yield NO_CONTEXT_MESSAGE
         return
 
-    client = genai.Client(api_key=os.getenv('GEMINI_API_KEY'))
+    client = _get_gemini_client()
     stream = client.models.generate_content_stream(
         model=GEMINI_MODEL,
         contents=_build_prompt(question, context)
