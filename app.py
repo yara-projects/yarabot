@@ -305,7 +305,8 @@ def _privacy_boundary_reply(question, role, linked_id=None):
         r"|\b(?:show|give|tell)\s+(?:me\s+)?(?!my\b)(?:\w+\s+){1,4}(?:attendance|fees?|results?)\b",
         q,
     )
-    if role != "parent" and sensitive_record and another_person:
+    if (role != "parent" and sensitive_record and another_person
+            and not is_policy_framed(q)):
         session["privacy_context"] = {
             "kind": "other_student", "expires_at": time.time() + CONVERSATION_CONTEXT_TTL_SECONDS
         }

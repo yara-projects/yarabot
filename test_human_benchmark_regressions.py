@@ -272,6 +272,12 @@ class HumanBenchmarkContextTests(unittest.TestCase):
                 "Mr Omar Khan's phone number", "teacher"
             ))
 
+    def test_public_fee_structure_is_not_treated_as_another_students_record(self):
+        with app.app.test_request_context("/"):
+            question = "please show the full school fee structure"
+            self.assertIsNone(app._privacy_boundary_reply(question, "student"))
+            self.assertIsNone(app._privacy_boundary_reply(question, "guest"))
+
     def test_explicit_department_schedule_is_not_replaced_by_own_department(self):
         with patch.object(app, "_known_departments", return_value=DEPARTMENTS + [(4, "English")]), \
                 patch.object(app, "_hod_department_id", return_value=1), \
