@@ -476,6 +476,7 @@ function showChatPage(profile) {
     // A fresh, successful session is in place again - re-arm the
     // session-expiry guard so a LATER expiry can trigger it again.
     sessionExpiredHandled = false;
+    resetLogoutButton();
 
     document.getElementById("login-page").classList.add("hidden");
     document.getElementById("chat-page").classList.remove("hidden");
@@ -1217,26 +1218,41 @@ function clearChat() {
 // =========================================================
 // LOGOUT
 // =========================================================
+function resetLogoutButton() {
+    const button = document.getElementById("logout-button");
+    if (!button) return;
+    button.disabled = false;
+    button.textContent = "Sign Out";
+}
+
 async function handleLogout() {
     const button = document.getElementById("logout-button");
+    if (!button || button.disabled) return;
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 8000);
     if (button) {
         button.disabled = true;
         button.textContent = "Signing out...";
     }
     try {
-        const response = await fetch("/api/logout", { method: "POST" });
+        const response = await fetch("/api/logout", {
+            method: "POST",
+            signal: controller.signal,
+            keepalive: true,
+        });
         if (!response.ok) throw new Error("logout failed");
         userRole = null;
         currentProfile = null;
         messageCount = 0;
+        resetLogoutButton();
         closeSidebar();
         showLoginPage();
         history.replaceState(null, "", "/");
     } catch (error) {
-        if (button) {
-            button.disabled = false;
-            button.textContent = "Try Sign Out Again";
-        }
+        button.disabled = false;
+        button.textContent = "Try Sign Out Again";
+    } finally {
+        clearTimeout(timeoutId);
     }
 }
 
