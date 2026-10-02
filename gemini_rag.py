@@ -327,6 +327,34 @@ API_ERROR_MESSAGE = (
     "I can't check the school information right now. Please try again shortly."
 )
 
+
+def _documented_public_reply(question, almanac):
+    """Read two explicit public contact facts without exposing wider directories."""
+    q = question.lower()
+    if re.search(r'\b(?:and|plus)\b', q):
+        return None
+    sections = _almanac_sections(almanac)
+    if (re.search(r'\b(?:phone|telephone|contact number)\b', q)
+            and re.search(r'\bschool\b', q)):
+        for section in sections:
+            title, _, body = section.partition('\n')
+            if title.strip().upper() != 'SCHOOL CONTACT INFORMATION':
+                continue
+            match = re.search(r'^(?:Enquiries|Phone|Telephone):\s*(.+)$', body, re.M | re.I)
+            if match:
+                return 'School enquiries: ' + match.group(1).strip()
+        return NO_CONTEXT_MESSAGE
+    if re.search(r'\broutes?\b', q) and re.search(r'\b(?:switch|change|changes)\b', q):
+        for section in sections:
+            title, _, body = section.partition('\n')
+            if not re.search(r'\btransport(?:ation)?\b', title, re.I):
+                continue
+            match = re.search(r'^For (?:any )?route changes[^\n]*', body, re.M | re.I)
+            if match:
+                return match.group(0).strip()
+        return NO_CONTEXT_MESSAGE
+    return None
+
 GEMINI_DECLINED_PHRASE = "I don't have that information. Please check with the school office."
 
 GEMINI_MODEL = 'gemini-3.5-flash-lite'
@@ -746,6 +774,10 @@ def cache_answer(normalized_question, answer, almanac_version):
 
 
 def gemini_answer(question, visible_roles=()):
+    almanac_content, almanac_version = get_almanac_snapshot()
+    documented = _documented_public_reply(question, almanac_content)
+    if documented is not None:
+        return documented
     normalized = normalize_cache_question(question)
 
     notice_context = search_notice_context(question, visible_roles) if visible_roles else ''
@@ -756,7 +788,6 @@ def gemini_answer(question, visible_roles=()):
         if cached:
             return cached
 
-    almanac_content, almanac_version = get_almanac_snapshot()
     almanac_context = search_almanac(question, almanac_content)
     context = f"{almanac_context}\n\n{notice_context}".strip() if notice_context else almanac_context
 
@@ -800,7 +831,11 @@ def gemini_answer(question, visible_roles=()):
 
 
 def gemini_answer_stream(question, visible_roles=()):
-
+    almanac_content, almanac_version = get_almanac_snapshot()
+    documented = _documented_public_reply(question, almanac_content)
+    if documented is not None:
+        yield documented
+        return
     normalized = normalize_cache_question(question)
 
     notice_context = search_notice_context(question, visible_roles) if visible_roles else ''
@@ -812,7 +847,6 @@ def gemini_answer_stream(question, visible_roles=()):
             yield cached
             return
 
-    almanac_content, almanac_version = get_almanac_snapshot()
     almanac_context = search_almanac(question, almanac_content)
     context = f"{almanac_context}\n\n{notice_context}".strip() if notice_context else almanac_context
 

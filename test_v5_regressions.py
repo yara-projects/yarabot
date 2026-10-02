@@ -271,5 +271,34 @@ class V5Tests(unittest.TestCase):
                 for question in ['how can i pay school fees','how to pay school fees','what are the school fees']:
                     self.assertIsNone(app._privacy_boundary_reply(question,role,1),question)
 
+    def test_school_telephone_uses_enquiries_not_staff_directory(self):
+        text='SCHOOL CONTACT INFORMATION\nEnquiries: 011 1234567\n\nSCHOOL MANAGEMENT\nManager mobile: 999 9999'
+        with patch.object(gemini_rag,'get_almanac_snapshot',return_value=(text,1)), \
+             patch.object(gemini_rag,'ask_gemini') as llm, \
+             patch.object(gemini_rag,'ask_gemini_stream') as stream:
+            self.assertEqual(gemini_rag.gemini_answer('what is the public school telephone'),'School enquiries: 011 1234567')
+            self.assertEqual(''.join(gemini_rag.gemini_answer_stream('school phone')),'School enquiries: 011 1234567')
+            llm.assert_not_called()
+            stream.assert_not_called()
+
+    def test_bus_change_uses_only_documented_instruction(self):
+        instruction='For any route changes, contact the Admin Manager (ext. 115).'
+        text='SCHOOL TRANSPORTATION\nBus 1 driver: private directory details\n'+instruction
+        with patch.object(gemini_rag,'get_almanac_snapshot',return_value=(text,1)), \
+             patch.object(gemini_rag,'ask_gemini_stream') as stream:
+            self.assertEqual(''.join(gemini_rag.gemini_answer_stream('can my child switch bus routes')),instruction)
+            stream.assert_not_called()
+
+    def test_public_contact_reply_tracks_updated_almanac(self):
+        with patch.object(gemini_rag,'get_almanac_snapshot',side_effect=[('SCHOOL CONTACT INFORMATION\nPhone: 111',1),('SCHOOL CONTACT INFORMATION\nPhone: 222',2)]):
+            self.assertIn('111',gemini_rag.gemini_answer('school phone'))
+            self.assertIn('222',gemini_rag.gemini_answer('school phone'))
+
+    def test_missing_public_contact_never_uses_staff_number(self):
+        with patch.object(gemini_rag,'get_almanac_snapshot',return_value=('SCHOOL MANAGEMENT\nPhone: 999',1)), \
+             patch.object(gemini_rag,'ask_gemini') as llm:
+            self.assertEqual(gemini_rag.gemini_answer('school telephone'),gemini_rag.NO_CONTEXT_MESSAGE)
+            llm.assert_not_called()
+
 if __name__ == '__main__':
     unittest.main()
