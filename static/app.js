@@ -453,7 +453,7 @@ function renderGreeting(profile) {
 
     document.getElementById("greeting-time").textContent = timeGreeting;
     document.getElementById("greeting-name").textContent = firstName;
-    document.getElementById("greeting-sub").textContent = "How can I help you today?";
+    document.getElementById("greeting-sub").textContent = "I'm Nova. Choose a question below or type your own.";
 
     // Suggestion chips reuse the exact same per-role data as the sidebar's
     // Quick Actions (quickActions[userRole]) - a second, inline discovery
@@ -876,7 +876,7 @@ function handleSessionExpired() {
     sessionExpiredHandled = true;
 
     removeTypingBubble();
-    clearChat();
+    clearChat(false);
     userRole = null;
     currentProfile = null;
 
@@ -1180,7 +1180,24 @@ function removeTypingBubble() {
     cleanupDetachedLottie();
 }
 
-function clearChat() {
+async function clearChat(resetContext = true) {
+    if (resetContext) {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 8000);
+        try {
+            const response = await fetch('/api/clear-chat', { method: 'POST', signal: controller.signal });
+            if (response.status === 401) {
+                handleSessionExpired();
+                return;
+            }
+            if (!response.ok) throw new Error('clear failed');
+        } catch (error) {
+            alert('The chat could not be cleared. Please try again.');
+            return;
+        } finally {
+            clearTimeout(timeoutId);
+        }
+    }
     messageCount = 0;
 
     // Rebuilds the exact same greeting markup as templates/index.html's

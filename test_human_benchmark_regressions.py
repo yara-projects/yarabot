@@ -224,16 +224,21 @@ class HumanBenchmarkContextTests(unittest.TestCase):
 
     def test_parent_can_only_select_linked_children(self):
         children = [(3, "Aanya Sharma", "8-C"), (4, "Riya Khan", "6-A")]
-        with patch.object(app, "query", return_value=children):
+        with app.app.test_request_context('/'), patch.object(app, "query", return_value=children):
             child, error = app._parent_child_for_question(7, "Aanya Sharma attendance")
             self.assertIsNone(error)
             self.assertEqual(child[0], 3)
+            app.session.pop('parent_child_id', None)
             child, error = app._parent_child_for_question(7, "show my child's attendance")
             self.assertIsNone(child)
             self.assertIn("Which child", error)
 
     def test_combined_real_teacher_request_answers_both_parts(self):
-        with patch.object(app, "handle_teacher_profile_lookup", return_value="profile") as profile, \
+        with app.app.test_request_context('/'), \
+                patch.object(app, '_known_subject_names', return_value=[]), \
+                patch.object(app, '_known_departments', return_value=[]), \
+                patch.object(app, '_teachers_with_subjects', return_value=[(7, 'Omar Khan', 'English')]), \
+                patch.object(app, "handle_teacher_profile_lookup", return_value="profile") as profile, \
                 patch.object(app, "handle_teacher_classes_lookup", return_value="classes") as classes:
             reply = app._combined_request_reply(
                 "who is Omar Khan and which classes does he teach", "principal", 0

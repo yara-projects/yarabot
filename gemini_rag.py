@@ -161,7 +161,10 @@ def _almanac_words(text):
 
 
 def _almanac_question_words(question):
+    question = re.sub(r'\btelephone\b', 'phone contact', question, flags=re.I)
+    question = re.sub(r'\b(?:starting|opening) time\b', 'hours', question, flags=re.I)
     words = _almanac_words(question) - _ALMANAC_STOPWORDS
+    words -= {'public', 'pls', 'please'}
     grade_n = _question_grade_number(question.lower())
     if grade_n is not None:
         words.discard(str(grade_n))
@@ -203,6 +206,10 @@ def _score_almanac_sections(question, almanac=None):
 
 
 def search_almanac(question, almanac=None):
+    parts = re.split(r'\s+(?:and|plus)\s+', question)
+    if len(parts) > 1:
+        contexts = [search_almanac(part, almanac) for part in parts]
+        return '\n\n'.join(dict.fromkeys(context for context in contexts if context))
     scored = _score_almanac_sections(question, almanac)
     top = [section for _, section in scored[:3]]
 
@@ -396,6 +403,8 @@ If the answer is not clearly in the provided information, say exactly:
 "{GEMINI_DECLINED_PHRASE}"
 Never make up dates, events, or policies. Keep your answer concise, friendly, and accurate.
 Use bullet points if listing multiple dates or items.
+For multiple independent questions, address each separately. Identify which part lacks information.
+Do not confuse entrance-test subjects with the curriculum. If a uniform differs by boys/girls and the question does not specify the section, ask which uniform is needed or give both documented options.
 
 SCHOOL INFORMATION:
 {context}
