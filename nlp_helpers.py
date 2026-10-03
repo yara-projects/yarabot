@@ -46,6 +46,7 @@ TYPO_NORMALIZATIONS = {
     "buisness": "business",
     "techer": "teacher",
     "departmnt": "department",
+    "attendnce": "attendance",
     "mathematcs": "mathematics",
     "scince": "science",
     "princpal": "principal",

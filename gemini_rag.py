@@ -329,13 +329,43 @@ API_ERROR_MESSAGE = (
 
 
 def _documented_public_reply(question, almanac):
-    """Read two explicit public contact facts without exposing wider directories."""
+    """Read documented public facts without exposing wider directories."""
     q = question.lower()
     if re.search(r'\b(?:and|plus)\b', q):
+        replies = [_documented_public_reply(part, almanac) for part in re.split(r'\s+(?:and|plus)\s+', q)]
+        if all(reply is not None for reply in replies):
+            return '\n\n'.join(replies)
         return None
     sections = _almanac_sections(almanac)
+    if 'uniform' in q:
+        if re.search(r'\b(?:shop|supplier|buy|purchase|where)\b', q):
+            for section in sections:
+                title, _, body = section.partition('\n')
+                if 'UNIFORM' in title.upper():
+                    match = re.search(r'^[- ]*(Contact[^\n]*uniform supplier[^\n]*)', body, re.M | re.I)
+                    if match:
+                        return 'Uniform supplier: ' + match.group(1).strip()
+            return 'Uniform supplier: I do not have a supplier documented.'
+        if (not re.search(r'\b(?:boys?|girls?|male|female)\b', q)
+                and not re.search(r'\b(?:compulsory|mandatory|policy|rules?|winter|blazers?)\b', q)):
+            return 'Which uniform do you need: boys or girls? Please include the grade too.'
+    if re.search(r'\b(?:transport|bus)\b.*\bregistration\b', q):
+        for section in sections:
+            title, _, body = section.partition('\n')
+            if re.search(r'\btransport(?:ation)?\b', title, re.I):
+                lines = [line.strip() for line in body.splitlines() if re.search(r'\b(?:registration|register|enrol)\b', line, re.I)]
+                if lines:
+                    return 'Transport registration: ' + '\n'.join(lines)
+        return 'Transport registration: I do not have a documented registration procedure. Ask the transport office about registration.'
+    if re.search(r'\b(?:school days|school (?:starting|opening) time|lessons? start)\b', q):
+        for section in sections:
+            title, _, body = section.partition('\n')
+            if title.strip().upper() == 'SCHOOL HOURS':
+                return 'School hours:\n' + '\n'.join('- ' + line.strip() for line in body.splitlines() if line.strip())
+        return NO_CONTEXT_MESSAGE
     if (re.search(r'\b(?:phone|telephone|contact number)\b', q)
-            and re.search(r'\bschool\b', q)):
+            and re.search(r'\b(?:school|yara)\b', q)
+            and not re.search(r'\b(?:teacher|staff|driver|principal|manager)\b', q)):
         for section in sections:
             title, _, body = section.partition('\n')
             if title.strip().upper() != 'SCHOOL CONTACT INFORMATION':
@@ -344,7 +374,7 @@ def _documented_public_reply(question, almanac):
             if match:
                 return 'School enquiries: ' + match.group(1).strip()
         return NO_CONTEXT_MESSAGE
-    if re.search(r'\broutes?\b', q) and re.search(r'\b(?:switch|change|changes)\b', q):
+    if re.search(r'\broutes?\b', q) and re.search(r'\b(?:switch|change|changes|different)\b', q):
         for section in sections:
             title, _, body = section.partition('\n')
             if not re.search(r'\btransport(?:ation)?\b', title, re.I):
