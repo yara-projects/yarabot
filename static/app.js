@@ -19,6 +19,8 @@ let messageCount = 0;
 // false again once a fresh login succeeds (see showChatPage()).
 let sessionExpiredHandled = false;
 let chatRequestInFlight = false;
+let chatSessionGeneration = 0;
+let activeChatController = null;
 
 
 // =========================================================
@@ -464,7 +466,7 @@ function renderGreeting(profile) {
     const actions = quickActions[userRole] || [];
     chipsContainer.innerHTML = actions.map(action => action.href
         ? `<a href="${action.href}" class="suggestion-chip">${action.label}</a>`
-        : `<button onclick="sendQuick('${action.msg}')" class="suggestion-chip">${action.label}</button>`
+        : `<button data-message="${encodeURIComponent(action.msg)}" onclick="sendQuick(decodeURIComponent(this.dataset.message))" class="suggestion-chip">${action.label}</button>`
     ).join("");
 }
 
@@ -477,6 +479,8 @@ function showChatPage(profile) {
     // session-expiry guard so a LATER expiry can trigger it again.
     sessionExpiredHandled = false;
     resetLogoutButton();
+    currentProfile = profile;
+    clearChat(false);
 
     document.getElementById("login-page").classList.add("hidden");
     document.getElementById("chat-page").classList.remove("hidden");
@@ -639,7 +643,7 @@ function buildQuickActions() {
     // <button onclick="sendQuick(...)">.
     container.innerHTML = actions.map(action => action.href
         ? `<a href="${action.href}" class="${chipClasses} block">${action.label}</a>`
-        : `<button onclick="sendQuick('${action.msg}')" class="${chipClasses}">${action.label}</button>`
+        : `<button data-message="${encodeURIComponent(action.msg)}" onclick="sendQuick(decodeURIComponent(this.dataset.message))" class="${chipClasses}">${action.label}</button>`
     ).join("");
 }
 
@@ -919,6 +923,8 @@ async function sendMessage() {
     const sendButton = document.getElementById("send-button");
     if (sendButton) sendButton.disabled = true;
     const controller = new AbortController();
+    activeChatController = controller;
+    const generation = chatSessionGeneration;
     const timeoutId = setTimeout(() => controller.abort(), 25000);
 
     try {
@@ -928,6 +934,7 @@ async function sendMessage() {
             body: JSON.stringify({ message }),
             signal: controller.signal
         });
+        if (generation !== chatSessionGeneration) return;
 
         if (res.status === 401) {
             handleSessionExpired();
@@ -941,9 +948,10 @@ async function sendMessage() {
         const contentType = res.headers.get("Content-Type") || "";
 
         if (contentType.includes("text/event-stream")) {
-            await handleStreamingReply(res);
+            await handleStreamingReply(res, generation);
         } else {
             const data = await res.json();
+            if (generation !== chatSessionGeneration) return;
             removeTypingBubble();
             appendMessage("bot", data.reply || data.error || "Something went wrong.");
             // A stale tab that hasn't re-checked /api/system-status yet
@@ -957,15 +965,19 @@ async function sendMessage() {
         }
 
     } catch (e) {
+        if (generation !== chatSessionGeneration) return;
         removeTypingBubble();
         appendMessage("bot", e.name === "AbortError"
             ? "That took too long. Please try the question again."
             : "I couldn't connect just now. Please try again.");
     } finally {
         clearTimeout(timeoutId);
-        chatRequestInFlight = false;
-        input.disabled = !chatbotEnabled;
-        if (sendButton) sendButton.disabled = !chatbotEnabled;
+        if (generation === chatSessionGeneration) {
+            activeChatController = null;
+            chatRequestInFlight = false;
+            input.disabled = !chatbotEnabled;
+            if (sendButton) sendButton.disabled = !chatbotEnabled;
+        }
     }
 }
 
@@ -979,7 +991,7 @@ async function sendMessage() {
  * same path as a single chunk, so it disappears essentially instantly;
  * a real Gemini call disappears the moment the first words are ready.
  */
-async function handleStreamingReply(res) {
+async function handleStreamingReply(res, generation = chatSessionGeneration) {
     const reader = res.body.getReader();
     const decoder = new TextDecoder();
 
@@ -990,6 +1002,10 @@ async function handleStreamingReply(res) {
 
     while (true) {
         const { value, done } = await reader.read();
+        if (generation !== chatSessionGeneration) {
+            await reader.cancel();
+            return;
+        }
         if (done) break;
 
         buffer += decoder.decode(value, { stream: true });
@@ -1181,6 +1197,7 @@ function removeTypingBubble() {
 }
 
 async function clearChat(resetContext = true) {
+    const generation = chatSessionGeneration;
     if (resetContext) {
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 8000);
@@ -1198,6 +1215,15 @@ async function clearChat(resetContext = true) {
             clearTimeout(timeoutId);
         }
     }
+    if (generation !== chatSessionGeneration) return;
+    chatSessionGeneration++;
+    if (activeChatController) activeChatController.abort();
+    activeChatController = null;
+    chatRequestInFlight = false;
+    document.getElementById('chat-input').value = '';
+    document.getElementById('chat-input').disabled = !chatbotEnabled;
+    const sendButton = document.getElementById('send-button');
+    if (sendButton) sendButton.disabled = !chatbotEnabled;
     messageCount = 0;
 
     // Rebuilds the exact same greeting markup as templates/index.html's
@@ -1260,7 +1286,7 @@ async function handleLogout() {
         if (!response.ok) throw new Error("logout failed");
         userRole = null;
         currentProfile = null;
-        messageCount = 0;
+        clearChat(false);
         resetLogoutButton();
         closeSidebar();
         showLoginPage();
