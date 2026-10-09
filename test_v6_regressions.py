@@ -55,6 +55,8 @@ class V6Tests(unittest.TestCase):
         if 'SELECT te.name FROM class_teachers' in ' '.join(sql.split()):
             return ('Fixture Teacher',)
         if 'FROM timetable' in sql:
+            if 'SELECT DISTINCT te.name' in sql:
+                return [('Fixture Teacher',)]
             return [('Monday', 1, 'Chemistry', 'Fixture Teacher')] if kwargs.get('many') else None
         if 'FROM teachers' in sql:
             if 'GROUP_CONCAT' in sql:
@@ -166,6 +168,21 @@ class V6Tests(unittest.TestCase):
         self.assertIn('Grade 8 exam schedule', replies[1])
         self.assertIn('Grade 8 exam schedule', replies[2])
 
+    def test_mixed_notice_event_retains_public_calendar_context(self):
+        for role in ['parent', 'guest', 'principal']:
+            with patch.object(app, 'handle_notices', return_value='Fixture notice'):
+                replies = self.turns(self.client(role), ['notice summary and next school event',
+                                                        'what about tuesday', 'and exams for grade 8',
+                                                        'which one is first'])
+            self.assertIn('school event listed for Tuesday', replies[1])
+            self.assertIn('Grade 8 exam schedule for Tuesday', replies[2])
+            self.assertIn('Grade 8 exam schedule for Tuesday', replies[3])
+
+    def test_other_grade_calendar_is_not_grounding_for_requested_grade(self):
+        with patch.object(app, 'search_almanac', return_value='Grade 11 exam schedule: Monday, 12 October 2026'):
+            reply = self.turns(self.client('parent'), ['school exam schedule for grade 8'])[0]
+            self.assertIn('Grade 8 exam schedule', reply)
+
     def test_parent_child_correction_replaces_class_and_keeps_day(self):
         self.children = [(3, 'First Child', '11-D'), (4, 'Second Child', '9-D')]
         replies = self.turns(self.client('parent'), ['First Child timetable 11-D monday',
@@ -175,6 +192,24 @@ class V6Tests(unittest.TestCase):
         sql, params = next((sql, params) for sql, params in reversed(self.calls) if 'FROM timetable' in sql)
         self.assertEqual(params[0], 4)
         self.assertIn('monday', params)
+
+    def test_parent_subject_teacher_keeps_selected_day_and_child(self):
+        for final in ['who takes that subject', 'who teaches that', 'which teacher takes it']:
+            replies = self.turns(self.client('parent'), ['my child timetable monday', 'Tuesday',
+                                                        'chemstry only', final])
+            self.assertIn('Fixture Teacher', replies[-1])
+            sql, params = next((sql, params) for sql, params in reversed(self.calls) if 'SELECT DISTINCT te.name' in sql)
+            self.assertIn('t.day = %s', sql)
+            self.assertIn('tuesday', params)
+            self.assertIn('Chemistry', params)
+            self.assertEqual(params[0], 3)
+        client = self.client('parent')
+        replies = self.turns(client, ['10-b timetable tuesday chemistry', 'who takes that subject'])
+        self.assertIn('outside', replies[-1])
+        with client.session_transaction() as session:
+            self.assertEqual(session['parent_record_context']['class'], '10-B')
+        replies = self.turns(self.client('parent'), ['10-b timetable tuesday', 'who takes that subject'])
+        self.assertIn('outside', replies[-1])
 
     def test_student_results_are_not_upcoming_schedule_or_other_person(self):
         for q in ['show MY RESULTS', 'show my exam results', 'did i pass maths']:
@@ -197,6 +232,38 @@ class V6Tests(unittest.TestCase):
         with app.app.test_request_context('/'):
             app.handle_subjects_offered('year 11 subjects')
         self.assertIn('11-%', self.calls[-1][1])
+
+    def test_explicit_staff_request_replaces_previous_hod_intent(self):
+        with app.app.test_request_context('/'), patch.object(app, 'handle_department_staff', return_value='English staff') as staff, patch.object(app, 'handle_department_leadership') as leadership:
+            app._remember_conversation_context('department_leadership', 'Science department', 'principal', 3, 'Science leader')
+            self.assertEqual(app._resume_conversation_context('what about English staff', 'principal', 3), 'English staff')
+            staff.assert_called_once_with('English')
+            leadership.assert_not_called()
+
+    def test_social_and_unspecified_help_do_not_invent_topic(self):
+        for role in ['guest', 'student', 'parent', 'principal']:
+            replies = self.turns(self.client(role), ['hey nova', 'THANKS btw', 'HELP i dont understand the school info'])
+            self.assertIn('welcome', replies[1].lower())
+            self.assertIn('Which school topic', replies[2])
+
+    def test_exam_stress_is_not_calendar_request(self):
+        for role in ['guest', 'student', 'principal']:
+            reply = self.turns(self.client(role), ['how can students get help for exam stress'])[0]
+            self.assertIn('exam-stress support', reply)
+            self.assertNotIn('exam schedule', reply)
+        reply = self.turns(self.client('student'), ['how can i calm down before exams'])[0]
+        self.assertIn('exam-stress support', reply)
+        reply = self.turns(self.client('student'), ['when are the next exams'])[0]
+        self.assertIn('exam schedule', reply)
+        reply = self.turns(self.client('student'), ['how can i calm down before exams and show my timetable monday'])[0]
+        self.assertIn('exam-stress support', reply)
+        self.assertIn('Fixture Teacher', reply)
+
+    def test_bare_department_followup_keeps_leadership_intent(self):
+        with app.app.test_request_context('/'), patch.object(app, 'handle_department_leadership', return_value='English leader') as leadership:
+            app._remember_conversation_context('department_leadership', 'Science department', 'principal', 3, 'Science leader')
+            self.assertEqual(app._resume_conversation_context('what about English', 'principal', 3), 'English leader')
+            leadership.assert_called_once_with('English')
 
 
 if __name__ == '__main__':

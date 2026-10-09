@@ -233,12 +233,21 @@ def is_pure_greeting(question):
 def _conversational_reply(question):
     """Handle short social turns before stale task context can capture them."""
     q = _normalized_greeting(question)
-    if re.fullmatch(r'(?:hi|hello|hey)(?:\s+again)?', q):
+    if re.fullmatch(r'(?:hi|hello|hey)(?:\s+again)?(?:\s+nova)?', q):
         return next(NOVA_GREETINGS)
-    if re.fullmatch(r'(?:thanks|thank you|thx)(?:\s+again)?', q):
+    if re.fullmatch(r'(?:thanks|thank you|thx)(?:\s+(?:again|btw|thats all|see ya))?', q):
         return "You're welcome."
     if re.fullmatch(r'(?:hi|hello|hey)\s+and\s+(?:thanks|thank you)', q):
         return "Hello, and you're welcome."
+    if re.fullmatch(r'help(?: i (?:dont|do not) understand (?:the )?school info)?', q):
+        return 'Which school topic would you like help with?'
+    return None
+
+
+def _exam_stress_reply(question):
+    if (re.search(r'\bexams?\b', question)
+            and re.search(r'\b(?:stress|stressed|calm down)\b', question)):
+        return "I don't have a verified school contact for exam-stress support. Please ask the school office who students can talk to."
     return None
 
 
@@ -415,6 +424,7 @@ def _combined_request_reply(question, role, linked_id):
         return available + '\n\n' + handle_notices(role, q)
     if re.search(r'\bnotices? summary\b', q) and re.search(r'\band\b.*\bevent\b', q):
         event = _calendar_information_gap_reply('next school event', role) or gemini_answer('next school event', _notice_visible_roles(role))
+        _remember_general_context('next school event')
         return handle_notices(role, q) + '\n\n' + event
 
     if (role in {"vice_principal", "assistant_principal", "principal"}
@@ -2111,6 +2121,7 @@ def _calendar_information_gap_reply(question, role):
         re.search(r'\b(?:exam|examination|test)\b', block)
         and re.search(r'\b(?:schedule|calendar|date|dates)\b', block)
         and (not day or day in block)
+        and (not grade or re.search(r'\b(?:grade|class)\s+' + re.escape(grade) + r'\b|\ball grades\b', block))
         for block in grounding_blocks
     )
     if has_exam_schedule:
@@ -2388,6 +2399,9 @@ def _resume_conversation_context(question, role, linked_id):
         department_id, department = extract_department_from_question(q)
         if department_id:
             intent = previous_intent
+            explicit_intent = _explicit_lookup_intent(q, role)
+            if explicit_intent in {'department_staff', 'department_leadership', 'department_schedule_today'}:
+                intent = explicit_intent
             merged = department + ' department' + (f" {new_day or context.get('day')}" if new_day or context.get('day') else '')
             if intent == 'department_schedule_today':
                 reply = handle_department_schedule_today(linked_id, merged, role=role)
@@ -2607,6 +2621,22 @@ def chat():
             return Response(stream_with_context(mixed_reply()), mimetype='text/event-stream')
         return jsonify({"reply": privacy_reply})
 
+    support_reply = _exam_stress_reply(question_lower)
+    if support_reply is not None:
+        session.pop('general_context', None)
+        session.pop('conversation_context', None)
+        parts = re.split(r'\s+(?:and|plus)\s+', question_lower)
+        replies = []
+        for part in parts:
+            reply = _exam_stress_reply(part)
+            if reply is None:
+                if role == 'guest' or is_policy_framed(part) or is_general_knowledge_question(part):
+                    reply = gemini_answer(part, _notice_visible_roles(role))
+                else:
+                    reply = _dispatch_to_role_handler(role, part, linked_id, forced_intent=_explicit_lookup_intent(part, role))
+            replies.append(reply)
+        return jsonify({'reply': '\n\n'.join(replies)})
+
     if role == 'parent':
         if session.get('parent_denied_target') and re.search(r'\b(?:translate|her record|his record|their record)\b', question_lower):
             return jsonify({'reply': "That child isn't linked to your parent account. Please give a linked child's full name to view records."})
@@ -2615,18 +2645,25 @@ def chat():
             return jsonify({'reply': resumed_parent})
 
     previous_context = session.pop('conversation_context', None)
+    previous_general_context = session.pop('general_context', None)
     combined_reply = _combined_request_reply(question, role, linked_id)
     if combined_reply is not None:
-        session.pop("general_context", None)
         session.pop('pending_clarification', None)
         return jsonify({"reply": combined_reply})
     if previous_context:
         session['conversation_context'] = previous_context
+    if previous_general_context:
+        session['general_context'] = previous_general_context
 
     if role != 'guest' and question_lower == 'teacher':
         return jsonify({'reply': 'Do you mean a class teacher or a subject teacher? Include the class, subject, or teacher name.'})
 
     if role == "guest":
+        question_lower = _apply_general_followup_context(question_lower)
+        calendar_gap_reply = _calendar_information_gap_reply(question_lower, role)
+        if calendar_gap_reply is not None:
+            _remember_general_context(question_lower)
+            return jsonify({'reply': calendar_gap_reply})
         if re.fullmatch(r'(?:teacher|class|schedule)', question_lower):
             return jsonify({'reply': 'Do you mean school hours, the curriculum, or a teacher in the public school directory? Personal timetables require sign-in.'})
         if extract_class_from_question(question_lower) and re.search(r'\bwho (?:handles|teaches|takes)\b', question_lower):
@@ -3397,6 +3434,10 @@ def handle_subject_teacher(question, student_id, known_subjects):
         return "Which subject's teacher do you mean?"
 
     explicit_class = extract_class_from_question(question)
+    day = extract_day_from_question(question)
+    day_filter = ' AND t.day = %s' if day else ''
+    day_params = (day,) if day else ()
+    day_label = f' on {day.title()}' if day else ''
     if explicit_class:
         results = query("""
             SELECT DISTINCT te.name
@@ -3404,14 +3445,14 @@ def handle_subject_teacher(question, student_id, known_subjects):
             JOIN subjects s ON t.subject_id = s.subject_id
             JOIN teachers te ON t.teacher_id = te.teacher_id
             WHERE t.class = %s AND s.subject_name = %s
-        """, (explicit_class, subject), fetch=True, many=True)
+        """ + day_filter, (explicit_class, subject) + day_params, fetch=True, many=True)
 
         if not results:
-            return f"No teacher found for {subject} in {explicit_class}."
+            return f"No teacher found for {subject} in {explicit_class}{day_label}."
         names = sorted({name for (name,) in results})
         if len(names) == 1:
-            return f"**{names[0]}** teaches **{subject}** in **{explicit_class}**."
-        return (f"**{subject}** in **{explicit_class}** is taught by: "
+            return f"**{names[0]}** teaches **{subject}** in **{explicit_class}**{day_label}."
+        return (f"**{subject}** in **{explicit_class}**{day_label} is taught by: "
                 + ", ".join(f"**{name}**" for name in names) + ".")
 
     results = query("""
@@ -3421,18 +3462,18 @@ def handle_subject_teacher(question, student_id, known_subjects):
         JOIN teachers te ON t.teacher_id = te.teacher_id
         JOIN students st ON st.class = t.class
         WHERE st.student_id = %s AND s.subject_name = %s
-    """, (student_id, subject), fetch=True, many=True)
+    """ + day_filter, (student_id, subject) + day_params, fetch=True, many=True)
 
     if not results:
-        return f"I couldn't find a teacher for {subject} in your class."
+        return f"I couldn't find a teacher for {subject} in your class{day_label}."
 
     names = sorted(name for (name,) in results)
 
     if len(names) == 1:
-        return f"**{subject}** is taught by **{names[0]}**."
+        return f"**{subject}**{day_label} is taught by **{names[0]}**."
 
     teacher_list = ", ".join(f"**{n}**" for n in names)
-    return f"**{subject}** is taught by multiple teachers this week: {teacher_list}."
+    return f"**{subject}** is taught by multiple teachers{day_label or ' this week'}: {teacher_list}."
 
 
 def handle_complaint_feedback():
@@ -4625,7 +4666,8 @@ def _resume_parent_record(question, parent_id):
     context = session.get('parent_record_context') or {}
     q = clean_question(question)
     follow_up = (context.get('pending') or re.match(r'^(?:and|what about|sorry|actually|now|her|his|their)\b', q)
-                 or re.fullmatch(r'.+ only(?: please| pls)?', q))
+                 or re.fullmatch(r'.+ only(?: please| pls)?', q)
+                 or re.fullmatch(r'(?:monday|tuesday|wednesday|thursday|friday|saturday|sunday|today|tomorrow)', q))
     if re.search(r'\bexams?\b', q) and _extract_report_grade(q) and not re.search(r'\b(?:my child|her|his|their)\b', q):
         session.pop('parent_record_context', None)
         return None
@@ -4635,6 +4677,12 @@ def _resume_parent_record(question, parent_id):
         intent = 'attendance'
     if re.search(r'\bclass teacher\b', q):
         intent = 'class_teacher'
+    if (context.get('parent_id') == parent_id and time.time() <= context.get('expires_at', 0)
+            and re.fullmatch(r'(?:who (?:takes|teaches) that(?: subject)?|which teacher takes it)(?: please| pls)?', q)):
+        intent = 'subject_teacher'
+        q += (f" {context['subject']}" if context.get('subject') else '') + (f" {context['day']}" if context.get('day') else '')
+        if context.get('class'):
+            q += f" {context['class']}"
     if is_policy_framed(q) or is_general_knowledge_question(q):
         session.pop('parent_record_context', None)
         return None
