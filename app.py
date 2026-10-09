@@ -307,7 +307,7 @@ def _privacy_boundary_reply(question, role, linked_id=None):
                     "I can show your own schedule.")
 
     sensitive_record = re.search(r'\b(?:attendance|fees?|exam results?|results?)\b', q)
-    if role == 'student' and re.fullmatch(r'(?:(?:show|check|view) (?:me )?)?my(?: own)? (?:attendance|fees?|results?)(?: now| please| pls)?', q):
+    if role == 'student' and re.fullmatch(r'(?:(?:ok|okay) )?(?:(?:show|check|view) (?:me )?)?my(?: own)? (?:attendance|fees?|(?:exam )?results?)(?: now| please| pls| then| instead)?', q):
         session.pop('privacy_context', None)
         return None
     if (role in {'student', 'guest'} and sensitive_record
@@ -439,6 +439,14 @@ def _combined_request_reply(question, role, linked_id):
                 return f"2 + 2 = 4. Your current attendance is **{float(result[0])}%**."
         if role in {"teacher", "hod", "vice_principal"} and re.search(r'\b(?:periods?|schedule)\b', q):
             return "2 + 2 = 4.\n\n" + handle_teacher_timetable(q, linked_id)
+    public_parts = re.split(r'\s+(?:and|plus)\s+', q)
+    if len(public_parts) > 1 and all(
+            _is_curriculum_question(part) or re.search(
+                r'\b(?:facilities|campus amenities|(?:school )?phone number|fee structure)\b', part)
+            for part in public_parts):
+        return '\n\n'.join(handle_subjects_offered(part) if _is_curriculum_question(part)
+                           else f"{part.capitalize()}: {gemini_answer(part, _notice_visible_roles(role))}"
+                           for part in public_parts)
     return None
 
 
@@ -729,7 +737,7 @@ def _apply_teacher_location_guard(ranked, question):
 def _is_curriculum_question(question):
     q = re.sub(r'\bnot (?:an? )?(?:entrance test|admissions?)\b', '', clean_question(question))
     return (bool(re.search(r'\b(?:subjects?|curriculum|study)\b', q))
-            and bool(re.search(r'\b(?:grade|class|offered|curriculum)\b|\b(?:grade|class)\d', q))
+            and bool(re.search(r'\b(?:grade|class|year|yr|offered|curriculum)\b|\b(?:grade|class)\d', q))
             and not re.search(r'\b(?:entrance|admission|teacher|teaches)\b', q))
 
 
@@ -758,7 +766,7 @@ def _explicit_lookup_intent(question, role):
     if _is_curriculum_question(q):
         return 'subjects_offered'
     if role in {'principal', 'vice_principal', 'assistant_principal', 'teacher', 'hod'}:
-        if re.search(r'\b(?:low attendance|attendance risk|attendance counts?)\b', q):
+        if re.search(r'\b(?:low attendance|attendance risk|attendance counts?|lowest attend\w*)\b', q):
             return 'low_attendance_count'
         if re.search(r'\b(?:pending|unpaid)\b.*\bfees?\b', q):
             return 'pending_fees_count'
@@ -2134,7 +2142,7 @@ def _remember_conversation_context(intent, question, role, linked_id, reply):
         "timetable", "class_timetable_lookup", "class_teacher", "class_teacher_lookup", "my_class",
         "teacher_schedule_lookup", "teacher_classes_lookup", "teacher_department",
         "department_staff", "department_schedule_today", "department_leadership", "teacher_profile_lookup",
-        "low_attendance_count", "pending_fees_count", "total_students", "exam",
+        "low_attendance_count", "pending_fees_count", "total_students", "exam", "attendance", "fee",
     }
     if intent not in tracked_intents:
         return
@@ -2183,6 +2191,7 @@ def _remember_conversation_context(intent, question, role, linked_id, reply):
         "role": role,
         "subject": subject,
         "class": cls,
+        "grade": _extract_report_grade(question),
         "day": day,
         "department": department,
         "section": next(iter(set(re.findall(r'\b(boys|girls)\b', question))), None) if len(set(re.findall(r'\b(boys|girls)\b', question))) == 1 else None,
@@ -2193,7 +2202,7 @@ def _remember_conversation_context(intent, question, role, linked_id, reply):
 
 def _contextual_pronoun_reply(question, context):
     q = clean_question(question)
-    if not re.search(r'\b(she|he|they|them|that teacher|who was that)\b', q):
+    if not re.search(r'\b(she|he|his|her|they|them|their|that teacher|who was that)\b', q):
         return None
 
     names = context.get("teacher_names") or []
@@ -2203,6 +2212,8 @@ def _contextual_pronoun_reply(question, context):
         return "Which teacher do you mean — " + ", ".join(names) + "?"
 
     name = names[0]
+    if re.search(r'\b(?:his|her|their) classes\b', q):
+        return handle_teacher_classes_lookup(f'classes taught by {name}')
     cls = extract_class_from_question(q)
     if cls and re.search(r'\b(?:teach|teaches|take|takes|handle|handles)\b', q):
         teacher = next((row for row in _teachers_with_subjects() if row[1] == name), None)
@@ -2248,6 +2259,12 @@ def _resume_conversation_context(question, role, linked_id):
     q = clean_question(question)
     previous_intent = context.get('intent')
     department = context.get('department')
+    if role == 'student' and previous_intent in {'attendance', 'fee'} and re.fullmatch(r'(?:and|what about) (?:my )?(?:attendance|fees?)(?: please| pls)?', q):
+        intent = 'attendance' if 'attendance' in q else 'fee'
+        merged = 'my attendance' if intent == 'attendance' else 'my fees'
+        reply = answer_student(merged, linked_id, forced_intent=intent)
+        _remember_conversation_context(intent, merged, role, linked_id, reply)
+        return reply
     if previous_intent == 'total_students' and re.fullmatch(r'(?:class|section)(?:[ -](?:wise|breakdown))?(?: (?:student )?(?:totals|counts|breakdown))?(?: pls| please)?', q):
         reply = handle_student_totals(q, role, linked_id)
         context['expires_at'] = time.time() + CONVERSATION_CONTEXT_TTL_SECONDS
@@ -2273,11 +2290,14 @@ def _resume_conversation_context(question, role, linked_id):
         _remember_conversation_context('class_teacher', cls, role, linked_id, reply)
         return reply
     if previous_intent in {'low_attendance_count', 'pending_fees_count'}:
-        if re.match(r'^(?:who (?:is|has).*lowest|what about (?:fees|boys|girls)|and fees|show only|only|sorry|actually|what about \d|class[ -]wise|class breakdown|section[ -]wise|section breakdown|girls and boys comparison|compare boys and girls)', q):
+        if re.match(r'^(?:who (?:is|has).*lowest|what about (?:(?:pending |unpaid )?fees|boys|girls)|and (?:unpaid |pending )?fees|pending fees there|show only|only|sorry|actually|what about \d|class[ -]wise|class breakdown|section[ -]wise|section breakdown|girls and boys comparison|compare boys and girls)', q):
             intent = 'pending_fees_count' if 'fees' in q else previous_intent
-            cls = extract_class_from_question(q) or context.get('class')
+            cls = extract_class_from_question(q) or (None if _extract_report_grade(q) else context.get('class'))
             explicit_sections = re.findall(r'\b(?:boys|girls)\b', q)
             merged = q + (f' {cls}' if cls else '') + (f" {context['section']}" if context.get('section') and not explicit_sections else '')
+            grade = _extract_report_grade(q) or (None if extract_class_from_question(q) else context.get('grade'))
+            if grade:
+                merged += f' grade {grade}'
             intents = context.get('report_intents') or [intent]
             reply = '\n\n'.join((handle_pending_fees_count if item == 'pending_fees_count' else handle_low_attendance_count)(role, linked_id, merged) for item in intents)
             _remember_conversation_context(intent, merged, role, linked_id, reply)
@@ -2588,6 +2608,8 @@ def chat():
         return jsonify({"reply": privacy_reply})
 
     if role == 'parent':
+        if session.get('parent_denied_target') and re.search(r'\b(?:translate|her record|his record|their record)\b', question_lower):
+            return jsonify({'reply': "That child isn't linked to your parent account. Please give a linked child's full name to view records."})
         resumed_parent = _resume_parent_record(question_lower, linked_id)
         if resumed_parent is not None:
             return jsonify({'reply': resumed_parent})
@@ -2665,6 +2687,9 @@ def chat():
         return jsonify({"reply": contextual_reply})
 
     question_lower = _apply_general_followup_context(question_lower)
+
+    if role == 'student' and re.search(r'\bmy (?:exam )?results\b|\bdid i pass\b', question_lower):
+        return jsonify({'reply': "I don't have your exam results. I can show your upcoming exam schedule."})
 
     if _BARE_CLASS_FOLLOWUP_RE.fullmatch(question_lower):
         cls = extract_class_from_question(question_lower)
@@ -3260,6 +3285,7 @@ def handle_subjects_offered(question):
     data lives in the subjects/timetable tables, not the almanac file
     Gemini reads from, so Gemini has no way to answer this on its own."""
     words = dict(zip(['one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve'],range(1,13)))
+    question = re.sub(r'\b(?:year|yr)\b', 'grade', question)
     question = re.sub(r'\b(grade|class)(\d)', r'\1 \2', question)
     question = re.sub(r'\b(grade|class)\s+(' + '|'.join(words) + r')\b', lambda match: match[1] + ' ' + str(words[match[2]]), question)
     cls = extract_class_from_question(question)
@@ -4207,6 +4233,18 @@ def _student_list_scope(role, linked_id):
     return None, (), None
 
 
+def _extract_report_grade(question):
+    words = {'one': 1, 'two': 2, 'three': 3, 'four': 4, 'five': 5, 'six': 6,
+             'seven': 7, 'eight': 8, 'nine': 9, 'ten': 10, 'eleven': 11, 'twelve': 12}
+    match = re.search(r'\b(?:grade|class|yr|year)\s*(\d{1,2}|' + '|'.join(words) + r')\b', question.lower())
+    if match:
+        value = match.group(1)
+        grade = words[value] if value in words else int(value)
+        if 1 <= grade <= 12:
+            return grade
+    return None
+
+
 def _filter_student_report(role, question, join_where, params, label):
     """Apply requested filters inside the role's authorized scope."""
     q = clean_question(question)
@@ -4236,6 +4274,11 @@ def _filter_student_report(role, question, join_where, params, label):
         join_where += ' st.class=%s AND '
         params += (cls,)
         label += f' / {cls}'
+    grade = _extract_report_grade(q)
+    if grade:
+        join_where += ' st.class LIKE %s AND '
+        params += (f'{grade}-%',)
+        label += f' / Grade {grade}'
     return join_where, params, label, None
 
 
@@ -4531,6 +4574,8 @@ def _parent_child_for_question(parent_id, question):
     if not children:
         return None, "No students are linked to this parent account yet."
     q = re.sub(r"['’]s\b", '', clean_question(question))
+    q = re.sub(r'^(?:ok|okay)\s+', '', q)
+    q = re.sub(r'\s+(?:then|instead)$', '', q)
     named = [row for row in children if re.search(
         r'(?<!\w)' + re.escape(clean_question(row[1])) + r'(?:s)?(?!\w)', q
     )]
@@ -4538,6 +4583,8 @@ def _parent_child_for_question(parent_id, question):
         session.pop('parent_denied_target', None)
         session['parent_child_id'] = named[0][0]
         return named[0], None
+    if re.fullmatch(r'my(?: own)? (?:child|childs|son|daughter)(?:s)? (?:attendance|fees?|timetable|results?)', q):
+        session.pop('parent_denied_target', None)
     correction = re.sub(r'^(?:sorry\s+)?(?:i meant|actually)\s+', '', q)
     context = session.get('parent_record_context') or {}
     if (context.get('parent_id') == parent_id and time.time() <= context.get('expires_at', 0)
@@ -4551,7 +4598,7 @@ def _parent_child_for_question(parent_id, question):
     if explicit:
         target = explicit.group(1).strip()
         generic = {'what', 'is', 'are', 'was', 'how', 'much', 'many', 'my', 'child', 'childs', 'son', 'sons', 'daughter', 'daughters', 'his', 'her', 'their', 'and', 'about', 'did', 'pay', 'the', 'status', 'please', 'show', 'check', 'me', 'current', 'of', 'today', 'record'}
-        if target and set(target.split()) - generic:
+        if target and set(target.split()) - generic and not _BARE_CLASS_FOLLOWUP_RE.fullmatch(target):
             session['parent_denied_target'] = True
             session.pop('parent_child_id', None)
             return None, "I can only show records for children linked to your parent account. Please use a linked child's full name."
@@ -4577,11 +4624,33 @@ def _resume_parent_record(question, parent_id):
     """Resume a child-selection prompt or a short linked-record follow-up."""
     context = session.get('parent_record_context') or {}
     q = clean_question(question)
+    follow_up = (context.get('pending') or re.match(r'^(?:and|what about|sorry|actually|now|her|his|their)\b', q)
+                 or re.fullmatch(r'.+ only(?: please| pls)?', q))
+    if re.search(r'\bexams?\b', q) and _extract_report_grade(q) and not re.search(r'\b(?:my child|her|his|their)\b', q):
+        session.pop('parent_record_context', None)
+        return None
     intent = next((intent for word, intent in [('attendance', 'attendance'), ('fees', 'fee'), ('fee', 'fee'), ('timetable', 'timetable'), ('exams', 'exam'), ('exam', 'exam')]
                    if re.search(r'\b' + word + r'\b', q)), None)
+    if re.search(r'\b(?:absent|missed)\b.*\bdays?\b|\bdays?\b.*\b(?:absent|missed)\b', q):
+        intent = 'attendance'
+    if re.search(r'\bclass teacher\b', q):
+        intent = 'class_teacher'
     if is_policy_framed(q) or is_general_knowledge_question(q):
         session.pop('parent_record_context', None)
         return None
+    if context.get('parent_id') == parent_id and time.time() <= context.get('expires_at', 0):
+        if context.get('class'):
+            children = query('''SELECT st.student_id, st.name, st.class FROM parent_student_links psl
+                JOIN students st ON psl.student_id=st.student_id WHERE psl.parent_id=%s ORDER BY st.name''', (parent_id,), fetch=True, many=True) or []
+            if any(re.search(r'(?<!\w)' + re.escape(clean_question(name)) + r'(?:s)?(?!\w)', q)
+                   for _, name, _ in children):
+                context = {**context, 'class': None}
+        if intent or follow_up:
+            if (intent or context.get('intent')) == 'timetable':
+                if context.get('day') and not extract_day_from_question(q):
+                    q += f" {context['day']}"
+                if context.get('subject') and not extract_subject_from_question(q, _known_subject_names()):
+                    q += f" {context['subject']}"
     if 'attendance' in q and re.search(r'\bfees?\b', q) and 'and' in q:
         if re.search(r'\b(?:both|all)\b.*\bchildren\b', q):
             children = query('''SELECT st.student_id, st.name, st.class FROM parent_student_links psl
@@ -4594,14 +4663,24 @@ def _resume_parent_record(question, parent_id):
         child, error = _parent_child_for_question(parent_id, q)
         return error or f"I don't have exam results for {child[1]}. I can show their upcoming exam schedule."
     if intent:
+        if (context.get('parent_id') == parent_id and time.time() <= context.get('expires_at', 0)
+                and context.get('class') and not extract_class_from_question(q)
+                and re.match(r'^(?:and|what about|her|his|their|class teacher|timetable|schedule)\b', q)
+                and not re.search(r'\bmy(?: own)? (?:child|childs|son|daughter)\b', q)):
+            q += f" {context['class']}"
+        if intent == 'class_teacher' and re.search(r'\band\b.*\b(?:periods|timetable)\b', q):
+            return (answer_parent(q, parent_id, forced_intent='class_teacher') + '\n\n'
+                    + answer_parent(q, parent_id, forced_intent='timetable'))
         return answer_parent(q, parent_id, forced_intent=intent)
     if context.get('parent_id') != parent_id or time.time() > context.get('expires_at', 0):
         return None
-    if context.get('pending') or re.match(r'^(?:and|what about|sorry|actually|now|her|his|their)\b', q) or intent:
+    if follow_up:
         if context.get('record_intents') and not intent:
             reply = '\n\n'.join(answer_parent(q, parent_id, forced_intent=item) for item in context['record_intents'])
             session['parent_record_context']['record_intents'] = context['record_intents']
             return reply
+        if context.get('class') and not extract_class_from_question(q):
+            q += f" {context['class']}"
         return answer_parent(q, parent_id, forced_intent=intent or context['intent'])
     return None
 
@@ -4625,13 +4704,21 @@ def answer_parent(question, parent_id, forced_intent=None):
     if intent in {'attendance', 'fee', 'timetable', 'exam', 'class_teacher', 'subject_teacher'}:
         session['parent_record_context'] = {
             'parent_id': parent_id, 'intent': intent, 'pending': bool(clarification),
+            'class': extract_class_from_question(question),
+            'day': extract_day_from_question(question),
+            'subject': extract_subject_from_question(question, _known_subject_names()),
             'expires_at': time.time() + CONVERSATION_CONTEXT_TTL_SECONDS,
         }
     if clarification:
         return clarification
     student_id, child_name, child_class = child
+    requested_class = extract_class_from_question(question)
+    if requested_class and requested_class != child_class:
+        return f"{requested_class} is outside your linked child's class ({child_class}). I can only show records for children linked to your parent account."
     if intent == "attendance":
         row = query("SELECT attendance_pct FROM students WHERE student_id=%s", (student_id,), fetch=True)
+        if row and re.search(r'\b(?:days?|how many)\b.*\b(?:absent|miss|missed)\b|\b(?:absent|miss|missed).*\bdays?\b', question):
+            return f"{child_name}'s attendance is **{float(row[0])}%**. I don't have an absent-day count; the available record only stores attendance percentage."
         return (f"{child_name}'s current attendance is **{float(row[0])}%**."
                 if row else f"I couldn't find {child_name}'s attendance record.")
     if intent == "fee":
