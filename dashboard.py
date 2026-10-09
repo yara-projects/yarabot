@@ -16,7 +16,8 @@ import streamlit as st
 import mysql.connector
 import pandas as pd
 from auth_helpers import hash_password, verify_password
-from config import DB_CONFIG
+from config import DB_CONFIG, USE_CLOUD_DB
+from dashboard_ui import apply_theme, login_header, navigation, searchable_table
 from almanac_store import read_almanac, save_almanac, append_suggested_almanac_entry
 from nlp_helpers import check_phrase_safety, add_phrase, refresh_phrase_cache, INTENT_DATA, ALWAYS_SCORED_INTENTS
 from app import ROLE_PERSONAL_INTENTS
@@ -28,25 +29,25 @@ from validators import (
 )
 import csv_import
 
-st.set_page_config(page_title="School Dashboard", page_icon="🏫", layout="wide")
-
-st.markdown("""
-<style>
-h1 { color: #2c3e50; }
-h2 { color: #34495e; border-bottom: 2px solid #eee; padding-bottom: 6px; }
-div.stButton button, div.stFormSubmitButton button { border-radius: 6px; }
-</style>
-""", unsafe_allow_html=True)
+st.set_page_config(page_title="YaraBot | School administration", page_icon="Y", layout="wide")
+apply_theme()
+if os.getenv("DASHBOARD_HOSTED") == "true" or os.getenv("RENDER") == "true":
+    from start_dashboard import validate_environment
+    try:
+        validate_environment(os.environ)
+    except ValueError as error:
+        st.error(str(error))
+        st.stop()
 
 
 def get_connection():
     try:
         return mysql.connector.connect(**DB_CONFIG)
     except mysql.connector.Error as err:
-        st.error(
-            "⚠️ Could not connect to the database. Make sure MySQL is running "
-            f"and your config.py settings are correct.\n\nDetails: {err}"
-        )
+        st.error("Could not connect to the school database. Check the Aiven service and connection settings."
+                 if USE_CLOUD_DB else "Could not connect to MySQL. Check the local database and connection settings.")
+        with st.expander("Connection details"):
+            st.code(str(err), language=None)
         st.stop()
 
 
@@ -91,7 +92,7 @@ ADMIN_PASSWORD_HASH = os.environ.get(
 )
 if "DASHBOARD_ADMIN_PASSWORD_HASH" not in os.environ:
     print("WARNING: DASHBOARD_ADMIN_PASSWORD_HASH not set - using the default "
-          "admin/admin123 login. Set it before deploying for real.")
+          "development login. Set it before deploying for real.")
 
 # Lets "Refresh NLP Now" (Learned Phrases page) reach app.py's own
 # /api/admin/refresh-nlp-cache - a genuinely separate process, and in
@@ -150,7 +151,7 @@ if "login_window_start" not in st.session_state:
     st.session_state.login_window_start = 0.0
 
 if not st.session_state.admin_logged_in:
-    st.title("🏫 School Dashboard - Admin Login")
+    login_header()
 
     now = time.time()
     if now - st.session_state.login_window_start > LOGIN_ATTEMPT_WINDOW:
@@ -164,7 +165,7 @@ if not st.session_state.admin_logged_in:
         with st.form("admin_login_form"):
             username_input = st.text_input("Username")
             password_input = st.text_input("Password", type="password")
-            login_clicked = st.form_submit_button("Log In")
+            login_clicked = st.form_submit_button("Sign in", type="primary", width="stretch")
 
             if login_clicked:
                 if username_input == ADMIN_USERNAME and verify_password(password_input, ADMIN_PASSWORD_HASH):
@@ -181,23 +182,36 @@ if not st.session_state.admin_logged_in:
 # =========================================================
 # SIDEBAR NAVIGATION (only reachable after login)
 # =========================================================
-st.sidebar.title("🏫 School Dashboard")
-if st.sidebar.button("Log Out"):
-    st.session_state.admin_logged_in = False
-    st.rerun()
+page = navigation(ADMIN_USERNAME, USE_CLOUD_DB)
 
-page = st.sidebar.radio(
-    "Go to",
-    ["Students", "Teachers", "Departments", "Class Teachers", "Class Sections", "Subjects", "Timetable", "Exams",
-     "Logins", "System Status", "Notices", "Almanac", "Suggested Additions", "Learned Phrases"]
-)
+if page == "Overview":
+    totals = safe_query(
+        "SELECT (SELECT COUNT(*) FROM students), (SELECT COUNT(*) FROM teachers), "
+        "(SELECT COUNT(*) FROM subjects), (SELECT COUNT(*) FROM users)", fetch=True
+    )
+    if totals is not None:
+        for column, label, value in zip(st.columns(4), ["Students", "Teachers", "Subjects", "Chatbot accounts"], totals):
+            column.metric(label, value)
+    st.header("Your workspace")
+    col_people, col_nova = st.columns(2)
+    with col_people:
+        with st.container(border=True):
+            st.subheader("School records")
+            st.write("Manage students and staff, assign class teachers, and keep timetables and exams current.")
+            st.caption("Choose People & access or Teaching & learning in the sidebar.")
+    with col_nova:
+        with st.container(border=True):
+            st.subheader("Nova’s knowledge")
+            st.write("Edit school information, review unanswered questions, and approve new phrases.")
+            st.caption("Choose Nova & school information in the sidebar. Knowledge changes normally reach Nova within a minute.")
+    st.info("You are working with the current school database. Saved edits affect the connected chatbot.")
+    st.link_button("Open live chatbot", FLASK_APP_URL, type="primary")
 
 
 # =========================================================
 # PAGE: STUDENTS
 # =========================================================
 if page == "Students":
-    st.title("Students")
 
     st.header("Add New Student")
     tab1, tab2 = st.tabs(["Add One Entry", "Bulk Upload (CSV)"])
@@ -357,7 +371,7 @@ if page == "Students":
 
     if rows:
         df = pd.DataFrame(rows, columns=["ID", "Name", "Class", "Roll No", "Fees", "Attendance %"])
-        st.dataframe(df, hide_index=True)
+        searchable_table(df, "students")
     else:
         st.info("No students added yet. Use the form above to add one.")
 
@@ -392,7 +406,7 @@ if page == "Students":
 
             col1, col2 = st.columns(2)
             with col1:
-                update_clicked = st.form_submit_button("Save Changes")
+                update_clicked = st.form_submit_button("Save Changes", type="primary")
             with col2:
                 delete_clicked = st.form_submit_button("Delete Student", type="secondary")
 
@@ -439,7 +453,6 @@ if page == "Students":
 # PAGE: TEACHERS
 # =========================================================
 elif page == "Teachers":
-    st.title("Teachers")
 
     st.header("Add New Teacher")
 
@@ -651,7 +664,7 @@ elif page == "Teachers":
             teacher_rows,
             columns=["ID", "Name", "Subjects", "Contact", "Classes Assigned", "Department"]
         )
-        st.dataframe(teacher_df, hide_index=True)
+        searchable_table(teacher_df, "teachers")
     else:
         st.info("No teachers added yet. Use the form above to add one.")
 
@@ -700,7 +713,7 @@ elif page == "Teachers":
 
             colA, colB = st.columns(2)
             with colA:
-                t_update_clicked = st.form_submit_button("Save Changes")
+                t_update_clicked = st.form_submit_button("Save Changes", type="primary")
             with colB:
                 t_delete_clicked = st.form_submit_button("Delete Teacher", type="secondary")
 
@@ -766,7 +779,6 @@ elif page == "Teachers":
 # edit/delete, and assigning each one's HOD.
 # =========================================================
 elif page == "Departments":
-    st.title("Departments")
 
     st.header("Add New Department")
     with st.form("add_department_form", clear_on_submit=True):
@@ -801,7 +813,7 @@ elif page == "Departments":
 
     if department_rows:
         dept_df = pd.DataFrame(department_rows, columns=["ID", "Name", "HOD", "Teachers"])
-        st.dataframe(dept_df, hide_index=True)
+        searchable_table(dept_df, "departments")
     else:
         st.info("No departments added yet. Use the form above to add one.")
 
@@ -836,7 +848,7 @@ elif page == "Departments":
 
             colA, colB = st.columns(2)
             with colA:
-                d_update_clicked = st.form_submit_button("Save Changes")
+                d_update_clicked = st.form_submit_button("Save Changes", type="primary")
             with colB:
                 d_delete_clicked = st.form_submit_button("Delete Department", type="secondary")
 
@@ -875,7 +887,6 @@ elif page == "Departments":
 # PAGE: CLASS TEACHERS
 # =========================================================
 elif page == "Class Teachers":
-    st.title("Class Teachers")
     st.write(
         "Assign one class teacher (homeroom teacher) per class section - "
         "answers a student's 'who is my class teacher'."
@@ -965,7 +976,6 @@ elif page == "Class Teachers":
 # PAGE: CLASS SECTIONS
 # =========================================================
 elif page == "Class Sections":
-    st.title("Boys and Girls Class Sections")
     st.caption("Assign each class before using Vice Principal or Assistant Principal student summaries.")
 
     class_rows = safe_query("SELECT DISTINCT class FROM students ORDER BY class", fetch=True, many=True) or []
@@ -1005,7 +1015,6 @@ elif page == "Class Sections":
 # PAGE: SUBJECTS
 # =========================================================
 elif page == "Subjects":
-    st.title("Subjects")
 
     st.header("Add New Subject")
     with st.form("add_subject_form", clear_on_submit=True):
@@ -1044,7 +1053,7 @@ elif page == "Subjects":
 
     if subject_list:
         subj_df = pd.DataFrame(subject_list, columns=["ID", "Subject Name", "Class"])
-        st.dataframe(subj_df, hide_index=True)
+        searchable_table(subj_df, "subjects")
     else:
         st.info("No subjects added yet. Use the form above to add one.")
 
@@ -1069,7 +1078,7 @@ elif page == "Subjects":
 
             colX, colY = st.columns(2)
             with colX:
-                s_update_clicked = st.form_submit_button("Save Changes")
+                s_update_clicked = st.form_submit_button("Save Changes", type="primary")
             with colY:
                 s_delete_clicked = st.form_submit_button("Delete Subject", type="secondary")
 
@@ -1116,7 +1125,6 @@ elif page == "Subjects":
 # PAGE: TIMETABLE
 # =========================================================
 elif page == "Timetable":
-    st.title("Timetable")
 
     conn = get_connection()
     cursor = conn.cursor()
@@ -1245,7 +1253,7 @@ elif page == "Timetable":
 
     if tt_rows:
         tt_df = pd.DataFrame(tt_rows, columns=["ID", "Class", "Day", "Period", "Subject", "Teacher"])
-        st.dataframe(tt_df.drop(columns=["ID"]), hide_index=True)
+        searchable_table(tt_df.drop(columns=["ID"]), "timetable")
     else:
         st.info("No timetable entries yet.")
 
@@ -1291,7 +1299,7 @@ elif page == "Timetable":
 
             colP, colQ = st.columns(2)
             with colP:
-                tt_update_clicked = st.form_submit_button("Save Changes")
+                tt_update_clicked = st.form_submit_button("Save Changes", type="primary")
             with colQ:
                 tt_delete_clicked = st.form_submit_button("Delete Entry", type="secondary")
 
@@ -1332,7 +1340,6 @@ elif page == "Timetable":
 # PAGE: EXAMS
 # =========================================================
 elif page == "Exams":
-    st.title("Exams")
 
     conn = get_connection()
     cursor = conn.cursor()
@@ -1388,7 +1395,7 @@ elif page == "Exams":
 
     if exam_rows:
         exam_df = pd.DataFrame(exam_rows, columns=["ID", "Class", "Subject", "Exam Date", "Exam Type"])
-        st.dataframe(exam_df.drop(columns=["ID"]), hide_index=True)
+        searchable_table(exam_df.drop(columns=["ID"]), "exams")
     else:
         st.info("No exams added yet.")
 
@@ -1431,7 +1438,7 @@ elif page == "Exams":
 
             colM, colN = st.columns(2)
             with colM:
-                exam_update_clicked = st.form_submit_button("Save Changes")
+                exam_update_clicked = st.form_submit_button("Save Changes", type="primary")
             with colN:
                 exam_delete_clicked = st.form_submit_button("Delete Exam", type="secondary")
 
@@ -1470,7 +1477,6 @@ elif page == "Exams":
 # PAGE: LOGINS
 # =========================================================
 elif page == "Logins":
-    st.title("Login Credentials")
 
     st.header("Create Login Credentials")
     st.caption("Give a student or teacher a username + password so they can log into the chatbot.")
@@ -1641,7 +1647,7 @@ elif page == "Logins":
 
     if user_rows:
         user_df = pd.DataFrame(user_rows, columns=["Username", "Role"])
-        st.dataframe(user_df, hide_index=True)
+        searchable_table(user_df, "logins")
     else:
         st.info("No logins created yet.")
 
@@ -1660,7 +1666,6 @@ elif page == "Logins":
 # user_id, logged by app.py from their actual chatbot session.
 # =========================================================
 elif page == "System Status":
-    st.title("System Status")
 
     conn = get_connection()
     cursor = conn.cursor()
@@ -1751,7 +1756,6 @@ elif page == "System Status":
 # chatbot side, and the "notices" entry in nlp_helpers.py's INTENT_DATA.
 # =========================================================
 elif page == "Notices":
-    st.title("School Notices / Announcements")
     st.caption("Post announcements students, teachers, HODs, and/or the principal can see through the chatbot.")
 
     # Labels shown here map to app.py's _notice_visible_roles() vocabulary -
@@ -1832,7 +1836,6 @@ elif page == "Notices":
 # Self-service editor for the shared almanac database record.
 # =========================================================
 elif page == "Almanac":
-    st.title("School Almanac / General Information")
     st.caption(
         "This is the general school knowledge the AI assistant (Nova) uses to answer "
         "questions like holidays, PTM dates, admissions, and school policies. "
@@ -1864,7 +1867,7 @@ elif page == "Almanac":
                 help="Keep related information grouped together, separated by a blank line - "
                      "this helps Nova find the right section when answering a question."
             )
-            save_clicked = st.form_submit_button("Save Changes")
+            save_clicked = st.form_submit_button("Save Changes", type="primary")
 
             if save_clicked:
                 try:
@@ -1895,7 +1898,6 @@ elif page == "Almanac":
 # routing bugs.
 # =========================================================
 elif page == "Suggested Additions":
-    st.title("💡 Suggested Additions")
     st.caption(
         "Questions students, teachers, or the principal asked that Nova genuinely "
         "couldn't answer, sorted by how often they've been asked. Add the ones worth "
@@ -1986,7 +1988,6 @@ elif page == "Suggested Additions":
 # out the normal 60-second TTL.
 # =========================================================
 elif page == "Learned Phrases":
-    st.title("🧠 Learned Phrases")
     st.caption(
         "Phrasings the AI classifier figured out that NLP's own scoring missed, sorted "
         "by how often they've been asked. Approving one adds it to NLP's live phrase "
@@ -1997,7 +1998,7 @@ elif page == "Learned Phrases":
         "'Refresh NLP Now' below."
     )
 
-    if st.button("🔄 Refresh NLP Now"):
+    if st.button("Refresh NLP Now"):
         refresh_phrase_cache(force=True)
         if _refresh_live_nlp_cache():
             st.success("✅ Refreshed — the live app will use every approved/manual phrase immediately.")
@@ -2088,7 +2089,7 @@ elif page == "Learned Phrases":
                     st.rerun()
 
     st.divider()
-    st.subheader("➕ Add a phrase manually")
+    st.subheader("Add a phrase manually")
     st.caption(
         "For a phrasing you already know is missing, without waiting for the AI "
         "classifier to surface it above. Runs the same safety check first."

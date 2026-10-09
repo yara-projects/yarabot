@@ -1,0 +1,35 @@
+# Separate dashboard service; import this Blueprint file in Render.
+services:
+  - type: web
+    name: yarabot-dashboard
+    runtime: python
+    plan: free
+    region: frankfurt
+    repo: https://github.com/yara-projects/yarabot
+    branch: main
+    buildCommand: pip install -r requirements.txt
+    startCommand: python start_dashboard.py
+    healthCheckPath: /_stcore/health
+    envVars:
+      - key: USE_CLOUD_DB
+        value: "true"
+      - key: DASHBOARD_HOSTED
+        value: "true"
+      - key: FLASK_APP_URL
+        value: https://yarabot-backend-t4cy.onrender.com
+      - key: DASHBOARD_ADMIN_USERNAME
+        sync: false
+      - key: DASHBOARD_ADMIN_PASSWORD_HASH
+        sync: false
+      - key: CLOUD_DB_HOST
+        sync: false
+      - key: CLOUD_DB_PORT
+        sync: false
+      - key: CLOUD_DB_USER
+        sync: false
+      - key: CLOUD_DB_PASSWORD
+        sync: false
+      - key: CLOUD_DB_NAME
+        sync: false
+      - key: DASHBOARD_API_TOKEN
+        sync: false

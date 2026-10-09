@@ -1,0 +1,32 @@
+/* Local assets only: the admin workspace does not load third-party fonts. */
+.stApp { background: #f5f6fa; }
+[data-testid="stMainBlockContainer"] { max-width: 1180px; padding: 3rem 2.5rem 5rem; }
+[data-testid="stMainBlockContainer"]:has(.login-brand) { max-width: 620px; padding-top: 5rem; }
+[data-testid="stSidebar"] { background: #fff; border-right: 1px solid #e4e7ef; }
+[data-testid="stSidebarContent"] { padding-top: 1rem; }
+.sidebar-brand, .login-brand { display: flex; align-items: center; gap: 12px; color: #20283f; font-weight: 750; font-size: 24px; margin-bottom: 24px; }
+.sidebar-brand small, .login-brand small { display: block; font-size: 10px; letter-spacing: 1.6px; color: #647089; margin-top: 3px; }
+.brand-mark { background: #5446c7; color: white; border-radius: 14px; width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center; font-size: 24px; }
+.page-eyebrow { color: #707b94; letter-spacing: 1.5px; font-size: 11px; font-weight: 650; margin-bottom: 12px; }
+h1 { color: #20283f; letter-spacing: -1.1px; font-size: 2.5rem !important; }
+h2 { color: #20283f; font-size: 1.35rem !important; margin-top: 1rem; }
+h3 { color: #34415d; font-size: 1.12rem !important; }
+[data-testid="stCaptionContainer"] { color: #657189; }
+[data-testid="stForm"], [data-testid="stMetric"], [data-testid="stExpander"] { background: #fff; border: 1px solid #e3e7f0; border-radius: 16px; }
+[data-testid="stForm"] { padding: 24px; }
+[data-baseweb="input"], [data-baseweb="textarea"], [data-baseweb="select"] > div { background: #f8f9fc; border: 1px solid #dbe0ec; border-radius: 9px; }
+[data-testid="stMetric"] { padding: 20px; }
+[data-testid="stMetricValue"] { color: #342b82; }
+[data-testid="stDataFrame"] { border-radius: 12px; overflow: hidden; border: 1px solid #e3e7f0; }
+div.stButton button, div.stFormSubmitButton button, [data-testid="stLinkButton"] a { border-radius: 9px; font-weight: 600; min-height: 42px; }
+div.stButton button[kind="primary"], div.stFormSubmitButton button[kind="primary"] { background: #5446c7; border-color: #5446c7; color: white; }
+.st-key-dashboard_logout button { color: #b42332; background: #fff4f4; border-color: #f2cdd2; }
+[data-testid="stSidebar"] [role="radiogroup"] { gap: 4px; }
+[data-testid="stSidebar"] [role="radiogroup"] label { padding: 9px 10px; border-radius: 9px; }
+[data-testid="stSidebar"] [role="radiogroup"] label:has(input:checked) { background: #efedff; color: #4435aa; }
+button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 2px solid #5446c7 !important; outline-offset: 3px; }
+@media (max-width: 700px) {
+  [data-testid="stMainBlockContainer"] { padding: 1.6rem 1rem 3rem; }
+  h1 { font-size: 2rem !important; }
+  [data-testid="stForm"] { padding: 16px; }
+}
