@@ -2255,9 +2255,13 @@ def _resume_conversation_context(question, role, linked_id):
         return reply
     if department and previous_intent in {'department_staff', 'department_leadership', 'department_schedule_today'}:
         if re.fullmatch(r'who (?:(?:leads|heads|runs) (?:it|there|that department)|is (?:their|its) boss)', q):
-            return handle_department_leadership(department)
+            reply = handle_department_leadership(department)
+            _remember_conversation_context('department_leadership', department + ' department', role, linked_id, reply)
+            return reply
         if re.fullmatch(r'who works (?:there|in it)', q):
-            return handle_department_staff(department)
+            reply = handle_department_staff(department)
+            _remember_conversation_context('department_staff', department + ' department', role, linked_id, reply)
+            return reply
         if re.search(r'\b(?:its|their|that department)\b.*\b(?:schedule|timetable)\b', q):
             merged = f'{department} department schedule {extract_day_from_question(q) or ""}'
             reply = handle_department_schedule_today(linked_id, merged, role=role)
@@ -4264,6 +4268,7 @@ def handle_student_totals(question, role, linked_id):
 def _student_report_view(question, rows, label, attendance=False):
     """Present the explicitly requested report view without dropping its filters."""
     q = clean_question(question)
+    metric = 'attendance below 75%' if attendance else 'pending fees'
     if attendance and re.search(r'\blowest\b', q):
         rows = sorted(rows, key=lambda row: float(str(row[3]).rstrip('%')))[:1]
         return f'**{label}: lowest attendance**\n\n' + _markdown_student_table(['Class', 'Roll No.', 'Student', 'Attendance', 'Status'], rows)
@@ -4272,14 +4277,14 @@ def _student_report_view(question, rows, label, attendance=False):
         for row in rows:
             counts[row[0]] = counts.get(row[0], 0) + 1
         ordered = sorted(counts.items(), key=lambda row: (-row[1], row[0]))
-        return f'**{label}: counts by class**\n\n' + _markdown_student_table(['Class', 'Students'], ordered)
+        return f'**{label}: {metric} counts by class**\n\n' + _markdown_student_table(['Class', 'Students'], ordered)
     if re.search(r'\b(?:section breakdown|section[ -]wise|comparison|compare)\b', q):
         mappings = dict(query('SELECT class, school_section FROM class_sections', fetch=True, many=True) or [])
         counts = {}
         for row in rows:
             section = mappings.get(row[0], 'Unassigned')
             counts[section] = counts.get(section, 0) + 1
-        return f'**{label}: counts by section**\n\n' + _markdown_student_table(['Section', 'Students'], sorted(counts.items()))
+        return f'**{label}: {metric} counts by section**\n\n' + _markdown_student_table(['Section', 'Students'], sorted(counts.items()))
     if re.search(r'\b(?:counts?|how many|numbers?|totals?)\b', q) and not re.search(r'\b(?:list|names|students)\b', q):
         kind = 'below 75% attendance' if attendance else 'with pending fees'
         return f'**{label}: {len(rows)} students {kind}.**'
