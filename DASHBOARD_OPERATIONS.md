@@ -82,5 +82,7 @@ run the existing routing safety check and verify the live role-specific result.
 
 The first chatbot pilot has been dispatched to the selected testing chat.
 Dashboard hosting still requires access to the Yara Render account and dedicated
-admin credentials. This document is the agreed procedure, not an installed
-scheduler or an automatically running repair controller.
+admin credentials. The approved **YaraBot test–fix–retest pilot** heartbeat is
+active every 30 minutes in the coding chat, with a maximum of three repair rounds.
+It waits for database recovery, stays quiet on unchanged blocks, and records
+progress in ignored `qa_loop_state.json`. Keep the computer on and Codex running.

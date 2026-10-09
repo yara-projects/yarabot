@@ -3,3 +3,4 @@ __pycache__/
 *.pyc
 notes/
 graphify-out/
+qa_loop_state.json
