@@ -10,6 +10,10 @@ class AnswerCacheTests(unittest.TestCase):
     def setUp(self):
         gemini_rag._cache.clear()
         self.addCleanup(gemini_rag._cache.clear)
+        # Isolate model-cache behavior from the documented public-fact lane.
+        p = patch.object(gemini_rag, '_documented_public_reply', return_value=None)
+        p.start()
+        self.addCleanup(p.stop)
 
     def test_distinct_question_calls_model_and_exact_repeat_uses_cache(self):
         def answer(question, _context):

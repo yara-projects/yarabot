@@ -34,6 +34,7 @@ class AlmanacTests(unittest.TestCase):
         self.addCleanup(gemini_rag._cache.clear)
         record = [("SCHOOL HOURS\nOpening time: 7 AM.", 1)]
         with patch.object(almanac_store, "read_almanac", side_effect=lambda: record[0]), \
+             patch.object(gemini_rag, "_documented_public_reply", return_value=None), \
              patch.object(gemini_rag, "ask_gemini", side_effect=lambda _q, context: context) as model:
             almanac_store.get_almanac_snapshot(force=True)
             first = gemini_rag.gemini_answer("school hours")

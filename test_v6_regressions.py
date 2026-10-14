@@ -354,6 +354,40 @@ class V6Tests(unittest.TestCase):
         self.assertIsNone(gemini_rag._documented_public_reply('how can someone report bullying',
                                                             'BULLYING: Use the documented support route.'))
 
+    def test_school_hours_variants_use_documented_hours(self):
+        almanac = '--------------------\nSCHOOL HOURS\n--------------------\nFixture school opening hours.'
+        with patch.object(gemini_rag, 'get_almanac_snapshot', return_value=(almanac, 'fixture')), patch.object(gemini_rag, 'ask_gemini', return_value=gemini_rag.NO_CONTEXT_MESSAGE), patch.object(gemini_rag, 'ask_gemini_stream', return_value=iter([gemini_rag.NO_CONTEXT_MESSAGE])):
+            for question in ['what about school hours', 'school hours pls', 'what are the school hours',
+                             'what about school timings', 'and school hours pls']:
+                self.assertIn('Fixture school opening hours', gemini_rag.gemini_answer(question))
+                self.assertIn('Fixture school opening hours', ''.join(gemini_rag.gemini_answer_stream(question)))
+
+    def test_documented_hours_change_uses_latest_snapshot_without_model(self):
+        first = '--------------------\nSCHOOL HOURS\n--------------------\nFixture opening time: 7 AM.'
+        second = first.replace('7 AM', '8 AM')
+        with patch.object(gemini_rag, 'get_almanac_snapshot', side_effect=[(first, 1), (second, 2)]), patch.object(gemini_rag, 'ask_gemini') as model:
+            self.assertIn('7 AM', gemini_rag.gemini_answer('school hours'))
+            self.assertIn('8 AM', gemini_rag.gemini_answer('school hours'))
+            model.assert_not_called()
+
+    def test_guest_hours_wording_clears_prior_department(self):
+        almanac = '--------------------\nSCHOOL HOURS\n--------------------\nFixture hours.'
+        for question in ['and school hours pls', 'what about school timings', 'what about school hours']:
+            with patch.object(gemini_rag, 'get_almanac_snapshot', return_value=(almanac, 'fixture')), patch.object(app, 'stream_gemini_reply', side_effect=lambda q, role: app.jsonify(reply=gemini_rag.gemini_answer(q))):
+                replies = self.turns(self.client('guest'), ['who is the hod of English', question, 'who leads it'])
+            self.assertIn('Fixture hours', replies[1])
+            self.assertIn('Which department', replies[2])
+
+    def test_documented_combination_keeps_both_components_with_leading_and(self):
+        almanac = ('--------------------\nSCHOOL HOURS\n--------------------\nFixture hours.\n'
+                   '--------------------\nSCHOOL CONTACT INFORMATION\n--------------------\nEnquiries: Fixture Phone')
+        with patch.object(gemini_rag, 'get_almanac_snapshot', return_value=(almanac, 'fixture')):
+            for question in ['school hours and school telephone', 'and school hours pls and school telephone']:
+                answer = gemini_rag.gemini_answer(question)
+                self.assertIn('Fixture hours', answer)
+                self.assertIn('Fixture Phone', answer)
+                self.assertEqual(''.join(gemini_rag.gemini_answer_stream(question)), answer)
+
     def test_mixed_phone_uses_explicit_public_school_target(self):
         with patch.object(app, 'gemini_answer', side_effect=lambda q, roles: q):
             reply = self.turns(self.client('guest'), ['phone number and fee structure for class 8'])[0]

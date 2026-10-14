@@ -331,8 +331,9 @@ API_ERROR_MESSAGE = (
 def _documented_public_reply(question, almanac):
     """Read documented public facts without exposing wider directories."""
     q = question.lower()
-    if re.search(r'\b(?:and|plus)\b', q):
-        replies = [_documented_public_reply(part, almanac) for part in re.split(r'\s+(?:and|plus)\s+', q)]
+    parts = re.split(r'\s+(?:and|plus)\s+', q)
+    if len(parts) > 1:
+        replies = [_documented_public_reply(part, almanac) for part in parts]
         if all(reply is not None for reply in replies):
             return '\n\n'.join(replies)
         return None
@@ -362,7 +363,7 @@ def _documented_public_reply(question, almanac):
                 if lines:
                     return 'Transport registration: ' + '\n'.join(lines)
         return 'Transport registration: I do not have a documented registration procedure. Ask the transport office about registration.'
-    if re.search(r'\b(?:school days|school (?:starting|opening) time|lessons? start)\b', q):
+    if re.search(r'\b(?:school hours|school timings?|school days|school (?:starting|opening) time|lessons? start)\b', q):
         for section in sections:
             title, _, body = section.partition('\n')
             if title.strip().upper() == 'SCHOOL HOURS':
