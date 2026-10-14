@@ -790,8 +790,15 @@ def _apply_teacher_location_guard(ranked, question):
     return [pair for pair in ranked if pair[0] != "teacher_location"]
 
 
+def _normalize_curriculum_grade(question):
+    ordinals = dict(zip(('first', 'second', 'third', 'fourth', 'fifth', 'sixth',
+                         'seventh', 'eighth', 'ninth', 'tenth', 'eleventh', 'twelfth'), range(1, 13)))
+    return re.sub(r'\b(' + '|'.join(ordinals) + r')\s+grad(?:e|ers?)\b',
+                  lambda match: 'grade ' + str(ordinals[match[1]]), clean_question(question))
+
+
 def _is_curriculum_question(question):
-    q = re.sub(r'\bnot (?:an? |the )?(?:entrance(?: (?:test|exam|paper))?|admissions?)\b', '', clean_question(question))
+    q = re.sub(r'\bnot (?:an? |the )?(?:entrance(?: (?:test|exam|paper))?|admissions?)\b', '', _normalize_curriculum_grade(question))
     return (bool(re.search(r'\b(?:subjects?|curriculum|study)\b', q))
             and bool(re.search(r'\b(?:grade|class|year|yr|offered|curriculum)\b|\b(?:grade|class)\d', q))
             and not re.search(r'\b(?:entrance|admission|teacher|teaches)\b', q))
@@ -2062,6 +2069,8 @@ _SUBJECT_CONTEXT_INTENTS = {"subject_teacher", "school_wide_subject_teacher"}
 
 
 def _general_topic(question):
+    if _is_curriculum_question(question):
+        return None
     if re.search(r'\b(events?|activities?)\b', question):
         return "events"
     if re.search(r'\b(exams?|tests?)\b', question):
@@ -3381,6 +3390,7 @@ def handle_subjects_offered(question):
     does 10-A study"). Instant DB lookup, no Gemini call needed - this
     data lives in the subjects/timetable tables, not the almanac file
     Gemini reads from, so Gemini has no way to answer this on its own."""
+    question = _normalize_curriculum_grade(question)
     words = dict(zip(['one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve'],range(1,13)))
     question = re.sub(r'\b(?:year|yr)\b', 'grade', question)
     question = re.sub(r'\b(grade|class)(\d)', r'\1 \2', question)

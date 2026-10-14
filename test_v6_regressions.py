@@ -247,6 +247,15 @@ class V6Tests(unittest.TestCase):
         for question in ['grade 10 entrance exam subjects', 'class ten entrance paper subjects']:
             self.assertFalse(app._is_curriculum_question(question))
 
+    def test_curriculum_paraphrases_do_not_become_exam_calendar(self):
+        for question in ['grade 10 curriculum, not admission test topics pls',
+                         'what subjects do tenth graders study, not entrance exam stuff?']:
+            with self.subTest(question=question):
+                reply = self.turns(self.client('guest'), [question])[0]
+                self.assertIn('Grade 10', reply)
+                self.assertNotIn('exam schedule', reply)
+                self.assertIn('10-%', self.calls[-1][1])
+
     def test_lesson_start_contrast_names_separate_information_gap(self):
         almanac = ('--------------------\nSCHOOL HOURS\n--------------------\n'
                    'Fixture school hours: 7:00 AM - 1:00 PM.\n'
