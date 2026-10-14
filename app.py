@@ -791,7 +791,7 @@ def _apply_teacher_location_guard(ranked, question):
 
 
 def _is_curriculum_question(question):
-    q = re.sub(r'\bnot (?:an? )?(?:entrance test|admissions?)\b', '', clean_question(question))
+    q = re.sub(r'\bnot (?:an? |the )?(?:entrance(?: (?:test|exam|paper))?|admissions?)\b', '', clean_question(question))
     return (bool(re.search(r'\b(?:subjects?|curriculum|study)\b', q))
             and bool(re.search(r'\b(?:grade|class|year|yr|offered|curriculum)\b|\b(?:grade|class)\d', q))
             and not re.search(r'\b(?:entrance|admission|teacher|teaches)\b', q))

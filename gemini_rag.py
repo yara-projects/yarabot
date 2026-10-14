@@ -363,11 +363,18 @@ def _documented_public_reply(question, almanac):
                 if lines:
                     return 'Transport registration: ' + '\n'.join(lines)
         return 'Transport registration: I do not have a documented registration procedure. Ask the transport office about registration.'
-    if re.search(r'\b(?:school hours|school timings?|school days|school (?:starting|opening) time|lessons? start)\b', q):
+    lesson_start = (bool(re.search(r'\blessons? (?:actually )?(?:start|begin)\b', q))
+                    and not re.search(r'\b(?:my|his|her|their|teacher|staff)\b', q))
+    if lesson_start or re.search(r'\b(?:school hours|school timings?|school days|school (?:starting|opening) time)\b', q):
         for section in sections:
             title, _, body = section.partition('\n')
             if title.strip().upper() == 'SCHOOL HOURS':
-                return 'School hours:\n' + '\n'.join('- ' + line.strip() for line in body.splitlines() if line.strip())
+                reply = 'School hours:\n' + '\n'.join('- ' + line.strip() for line in body.splitlines() if line.strip())
+                if lesson_start and not re.search(r'\blessons?\b.*\b(?:start|begin)\b', body, re.I):
+                    return "I don't have a separate lesson-start time documented; school hours and arrival deadlines are not necessarily the first lesson time.\n\n" + reply
+                return reply
+        if lesson_start:
+            return "I don't have a documented lesson-start time or school-hours record. Please ask the school office for the first lesson time, separately from the arrival deadline."
         return NO_CONTEXT_MESSAGE
     if (re.search(r'\b(?:phone|telephone|contact number)\b', q)
             and re.search(r'\b(?:school|yara)\b', q)

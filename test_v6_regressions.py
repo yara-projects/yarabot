@@ -237,6 +237,36 @@ class V6Tests(unittest.TestCase):
             app.handle_subjects_offered('year 11 subjects')
         self.assertIn('11-%', self.calls[-1][1])
 
+    def test_curriculum_excludes_negated_entrance_paper(self):
+        for question in ['class ten subjects not the entrance paper',
+                         'grade 10 subjects not an entrance exam']:
+            with self.subTest(question=question):
+                reply = self.turns(self.client('guest'), [question])[0]
+                self.assertIn('Grade 10', reply)
+                self.assertIn('10-%', self.calls[-1][1])
+        for question in ['grade 10 entrance exam subjects', 'class ten entrance paper subjects']:
+            self.assertFalse(app._is_curriculum_question(question))
+
+    def test_lesson_start_contrast_names_separate_information_gap(self):
+        almanac = ('--------------------\nSCHOOL HOURS\n--------------------\n'
+                   'Fixture school hours: 7:00 AM - 1:00 PM.\n'
+                   'Fixture arrival deadline: 6:55 AM.')
+        with patch.object(gemini_rag, 'get_almanac_snapshot', return_value=(almanac, 'fixture')), patch.object(gemini_rag, 'ask_gemini', return_value=gemini_rag.NO_CONTEXT_MESSAGE), patch.object(gemini_rag, 'ask_gemini_stream', return_value=iter([gemini_rag.NO_CONTEXT_MESSAGE])):
+            for question in ['when do lessons actually begin not arrival time',
+                             'when do lessons start not the arrival deadline']:
+                with self.subTest(question=question):
+                    reply = gemini_rag.gemini_answer(question)
+                    self.assertIn('separate lesson-start', reply)
+                    self.assertIn('7:00 AM', reply)
+                    self.assertIn('6:55 AM', reply)
+                    self.assertEqual(''.join(gemini_rag.gemini_answer_stream(question)), reply)
+                    with patch.object(app, 'stream_gemini_reply', side_effect=lambda q, role: app.jsonify(reply=gemini_rag.gemini_answer(q))):
+                        self.assertEqual(self.turns(self.client('guest'), [question])[0], reply)
+            self.assertIsNone(gemini_rag._documented_public_reply('when does his lesson start', almanac))
+        self.assertIn('documented lesson-start time', gemini_rag._documented_public_reply('when do lessons begin', ''))
+        explicit = almanac + '\nLessons begin at the fixture first-period time.'
+        self.assertNotIn("I don't have", gemini_rag._documented_public_reply('when do lessons begin', explicit))
+
     def test_explicit_staff_request_replaces_previous_hod_intent(self):
         with app.app.test_request_context('/'), patch.object(app, 'handle_department_staff', return_value='English staff') as staff, patch.object(app, 'handle_department_leadership') as leadership:
             app._remember_conversation_context('department_leadership', 'Science department', 'principal', 3, 'Science leader')
