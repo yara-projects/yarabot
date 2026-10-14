@@ -258,6 +258,11 @@ def _school_scope_reply(question):
 
 
 def _guest_department_reply(question):
+    if (is_general_knowledge_question(question) or is_policy_framed(question)
+            or _is_curriculum_question(question) or _general_topic(question)
+            or re.search(r'\bschool (?:phone|telephone|contact|address|location)\b|\b(?:facilities|campus amenities|lost|bullying|notices)\b', question)):
+        session.pop('conversation_context', None)
+        return None
     context = session.get('conversation_context') or {}
     if time.time() > context.get('expires_at', 0):
         context = {}
@@ -2646,6 +2651,16 @@ def chat():
         session.pop("conversation_context", None)
         return jsonify({"reply": conversational_reply})
 
+    scope_parts = re.split(r'\s+(?:and|plus)\s+', question_lower)
+    if any(_school_scope_reply(part) for part in scope_parts):
+        session.pop('general_context', None)
+        session.pop('conversation_context', None)
+        replies = []
+        for part in scope_parts:
+            reply = _privacy_boundary_reply(part, role, linked_id) or _school_scope_reply(part)
+            replies.append(reply or _school_component_reply(part, role, linked_id))
+        return jsonify({'reply': '\n\n'.join(replies)})
+
     privacy_reply = _privacy_boundary_reply(question_lower, role, linked_id)
     if privacy_reply is not None:
         session.pop("general_context", None)
@@ -2661,13 +2676,6 @@ def chat():
                 yield 'data: [DONE]\n\n'
             return Response(stream_with_context(mixed_reply()), mimetype='text/event-stream')
         return jsonify({"reply": privacy_reply})
-
-    scope_parts = re.split(r'\s+(?:and|plus)\s+', question_lower)
-    if any(_school_scope_reply(part) for part in scope_parts):
-        session.pop('general_context', None)
-        session.pop('conversation_context', None)
-        return jsonify({'reply': '\n\n'.join(_school_scope_reply(part) or _school_component_reply(part, role, linked_id)
-                                             for part in scope_parts)})
 
     support_reply = _exam_stress_reply(question_lower)
     if support_reply is not None:

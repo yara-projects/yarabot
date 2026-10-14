@@ -278,9 +278,16 @@ class V6Tests(unittest.TestCase):
             self.assertIn('Fixture public phone', reply)
             self.assertIn('Yara International School', reply)
             public.assert_called_once_with('school phone', app._notice_visible_roles('guest'))
-        reply = self.turns(self.client('student'), ['my attendance and tell me a joke about cats'])[0]
-        self.assertIn('81.25', reply)
+        for question in ['my attendance and tell me a joke about cats',
+                         'tell me a joke about cats and my attendance',
+                         'write python to sort a list and show my attendance']:
+            reply = self.turns(self.client('student'), [question])[0]
+            self.assertIn('81.25', reply)
+            self.assertIn('Yara International School', reply)
+        reply = self.turns(self.client('student'), ['tell me a joke about cats and show Other Child attendance'])[0]
+        self.assertIn("another student's", reply)
         self.assertIn('Yara International School', reply)
+        self.assertNotIn('81.25', reply)
 
     def test_guest_directory_intent_and_department_followups(self):
         with patch.object(app, 'gemini_answer', side_effect=lambda q, roles: q):
@@ -318,6 +325,21 @@ class V6Tests(unittest.TestCase):
                                        ('what about English please', 'English'), ('how about maths pls', 'Mathematics')]:
                 self.assertEqual(app.extract_department_from_question(question)[1], expected)
             self.assertEqual(app.extract_department_from_question('what about space science please'), (None, None))
+
+    def test_guest_public_topic_switch_is_not_unknown_department(self):
+        for question in ['what about school hours', 'school starting time pls', 'what about school address',
+                         'what is the public school telephone']:
+            client = self.client('guest')
+            with patch.object(app, 'gemini_answer', side_effect=lambda q, roles: q), patch.object(app, 'stream_gemini_reply', side_effect=lambda q, role: app.jsonify(reply='Public school information')):
+                replies = self.turns(client, ['who is the hod of Science', question])
+            self.assertEqual(replies[-1], 'Public school information')
+            self.assertIn('Which department', self.turns(client, ['who leads it'])[0])
+        client = self.client('guest')
+        with patch.object(app, 'stream_gemini_reply', side_effect=lambda q, role: app.jsonify(reply='Public school telephone')):
+            replies = self.turns(client, ['list science department staff', 'what is the public school telephone',
+                                         'who leads that department'])
+        self.assertEqual(replies[1], 'Public school telephone')
+        self.assertIn('Which department', replies[2])
 
     def test_school_concern_gaps_name_missing_procedure(self):
         with patch.object(gemini_rag, 'get_almanac_snapshot', return_value=('', 'fixture')):
