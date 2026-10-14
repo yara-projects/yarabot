@@ -409,6 +409,19 @@ class V6Tests(unittest.TestCase):
             self.assertIn('8 AM', gemini_rag.gemini_answer('school hours'))
             model.assert_not_called()
 
+    def test_missing_public_dates_and_facility_name_the_information_gap(self):
+        questions = [('what about the next parents evening', "parents' evening"),
+                     ('is there a holiday next week', 'holiday'),
+                     ('do you have a swimming pool', 'swimming pool')]
+        with patch.object(gemini_rag, 'get_almanac_snapshot', return_value=('', 'fixture')), patch.object(gemini_rag, 'search_almanac', return_value=''), patch.object(gemini_rag, 'search_notice_context', return_value=''), patch.object(gemini_rag, 'find_cached_answer', return_value=None):
+            for question, topic in questions:
+                with self.subTest(question=question):
+                    reply = gemini_rag.gemini_answer(question, ('guest',))
+                    self.assertIn(topic, reply.lower())
+                    self.assertEqual(''.join(gemini_rag.gemini_answer_stream(question, ('guest',))), reply)
+        with patch.object(gemini_rag, 'get_almanac_snapshot', return_value=('', 'fixture')), patch.object(gemini_rag, 'search_almanac', return_value=''), patch.object(gemini_rag, 'search_notice_context', return_value='Fixture parents evening notice'), patch.object(gemini_rag, 'ask_gemini', return_value='Fixture documented reply'):
+            self.assertEqual(gemini_rag.gemini_answer(questions[0][0], ('guest',)), 'Fixture documented reply')
+
     def test_guest_hours_wording_clears_prior_department(self):
         almanac = '--------------------\nSCHOOL HOURS\n--------------------\nFixture hours.'
         for question in ['and school hours pls', 'what about school timings', 'what about school hours']:

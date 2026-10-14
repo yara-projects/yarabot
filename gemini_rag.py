@@ -816,6 +816,17 @@ def cache_answer(normalized_question, answer, almanac_version):
     print(f'[CACHE SIZE] {len(_cache)} entries')
 
 
+def _public_information_gap(question):
+    q = question.lower()
+    if re.search(r"\bparents?['’]?\s+evening\b", q):
+        return "I couldn't find a documented date for the next parents' evening. Please check the latest school notice or ask the school office for the meeting schedule."
+    if re.search(r'\bholidays?\b', q) and re.search(r'\bnext week\b', q):
+        return "I couldn't find a documented holiday schedule for next week. Please check the latest school notice or ask the school office before assuming school is closed."
+    if re.search(r'\bswimming pool\b', q):
+        return "I don't have documented information confirming whether the school has a swimming pool. Please ask the school office about swimming facilities."
+    return None
+
+
 def gemini_answer(question, visible_roles=()):
     almanac_content, almanac_version = get_almanac_snapshot()
     documented = _documented_public_reply(question, almanac_content)
@@ -833,6 +844,11 @@ def gemini_answer(question, visible_roles=()):
 
     almanac_context = search_almanac(question, almanac_content)
     context = f"{almanac_context}\n\n{notice_context}".strip() if notice_context else almanac_context
+
+    if not context:
+        gap = _public_information_gap(question)
+        if gap is not None:
+            return gap
 
     if FORCE_GROQ:
         print(f'[FORCE_GROQ ACTIVE] Skipping Gemini, using Groq directly: {question}')
@@ -892,6 +908,12 @@ def gemini_answer_stream(question, visible_roles=()):
 
     almanac_context = search_almanac(question, almanac_content)
     context = f"{almanac_context}\n\n{notice_context}".strip() if notice_context else almanac_context
+
+    if not context:
+        gap = _public_information_gap(question)
+        if gap is not None:
+            yield gap
+            return
 
     if FORCE_GROQ:
         print(f'[FORCE_GROQ ACTIVE] Skipping Gemini, using Groq directly: {question}')
