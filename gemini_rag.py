@@ -336,6 +336,11 @@ def _documented_public_reply(question, almanac):
         if all(reply is not None for reply in replies):
             return '\n\n'.join(replies)
         return None
+    if (re.search(r'\b(?:lost|loses?|missing)\b.*\b(?:bag|lunchbox|property|belongings)\b|\blost property\b', q)
+            and not re.search(r'\b(?:lost|missing|misplaced)\b', almanac, re.I)):
+        return "I don't have a documented lost-property procedure or desk location. Please ask the school office where lost belongings are handled."
+    if re.search(r'\bbullying\b', q) and not re.search(r'\bbullying\b', almanac, re.I):
+        return "I don't have a documented bullying-support contact or reporting procedure. Please ask the school office who students can speak to; no complaint has been submitted here."
     sections = _almanac_sections(almanac)
     if 'uniform' in q:
         if re.search(r'\b(?:shop|supplier|buy|purchase|where)\b', q):

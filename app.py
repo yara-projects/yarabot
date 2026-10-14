@@ -251,6 +251,41 @@ def _exam_stress_reply(question):
     return None
 
 
+def _school_scope_reply(question):
+    if re.fullmatch(r'(?:tell me a joke(?: about .+)?|write python .+|(?:the )?capital of mars)', question):
+        return "I answer questions about Yara International School. I can't help with unrelated jokes, coding or trivia here."
+    return None
+
+
+def _guest_department_reply(question):
+    context = session.get('conversation_context') or {}
+    if time.time() > context.get('expires_at', 0):
+        context = {}
+    _, department = extract_department_from_question(question)
+    staff = bool(re.search(r'\b(?:staff|faculty|teachers)\b|\bwho works\b', question))
+    head = bool(re.search(r'\b(?:hod|heads?|leads)\b', question))
+    switch = bool(re.match(r'^(?:what|how) about\b', question))
+    reference = re.fullmatch(r'who (?:(?:leads|heads) (?:it|that department)|works (?:there|in it|in that department))', question)
+    if not department and reference:
+        department = context.get('department')
+        if not department:
+            return 'Which department do you mean?'
+    if not department and ((staff or head) and re.search(r'\b(?:department|dept)\b|\bhod of\b', question)
+                           or switch and context.get('intent') in {'department_staff', 'department_leadership'}):
+        session.pop('conversation_context', None)
+        return "I couldn't match the requested department. Which department do you mean?"
+    if not department or not (staff or head or switch):
+        return None
+    intent = 'department_staff' if staff else 'department_leadership' if head else context.get('intent')
+    if intent not in {'department_staff', 'department_leadership'}:
+        return None
+    session['conversation_context'] = {'intent': intent, 'department': department,
+                                       'expires_at': time.time() + CONVERSATION_CONTEXT_TTL_SECONDS}
+    if intent == 'department_staff':
+        return f"A complete public staff list for {department} needs school-office confirmation. I can check its department head here."
+    return gemini_answer(f'who is the hod of {department}', _notice_visible_roles('guest'))
+
+
 def _privacy_boundary_reply(question, role, linked_id=None):
     """Return a clear denial for protected data before intent routing.
 
@@ -375,6 +410,12 @@ def _privacy_boundary_reply(question, role, linked_id=None):
     return None
 
 
+def _school_component_reply(question, role, linked_id):
+    if role == 'guest' or is_policy_framed(question) or is_general_knowledge_question(question):
+        return gemini_answer(question, _notice_visible_roles(role))
+    return _dispatch_to_role_handler(role, question, linked_id, forced_intent=_explicit_lookup_intent(question, role))
+
+
 def _combined_request_reply(question, role, linked_id):
     """Answer the small set of common two-part school requests in full."""
     q = clean_question(question)
@@ -455,7 +496,7 @@ def _combined_request_reply(question, role, linked_id):
                 r'\b(?:facilities|campus amenities|(?:school )?phone number|fee structure)\b', part)
             for part in public_parts):
         return '\n\n'.join(handle_subjects_offered(part) if _is_curriculum_question(part)
-                           else f"{part.capitalize()}: {gemini_answer(part, _notice_visible_roles(role))}"
+                           else f"{part.capitalize()}: {gemini_answer('school phone number' if re.fullmatch(r'(?:the )?phone number', part) else part, _notice_visible_roles(role))}"
                            for part in public_parts)
     return None
 
@@ -2621,6 +2662,13 @@ def chat():
             return Response(stream_with_context(mixed_reply()), mimetype='text/event-stream')
         return jsonify({"reply": privacy_reply})
 
+    scope_parts = re.split(r'\s+(?:and|plus)\s+', question_lower)
+    if any(_school_scope_reply(part) for part in scope_parts):
+        session.pop('general_context', None)
+        session.pop('conversation_context', None)
+        return jsonify({'reply': '\n\n'.join(_school_scope_reply(part) or _school_component_reply(part, role, linked_id)
+                                             for part in scope_parts)})
+
     support_reply = _exam_stress_reply(question_lower)
     if support_reply is not None:
         session.pop('general_context', None)
@@ -2630,10 +2678,7 @@ def chat():
         for part in parts:
             reply = _exam_stress_reply(part)
             if reply is None:
-                if role == 'guest' or is_policy_framed(part) or is_general_knowledge_question(part):
-                    reply = gemini_answer(part, _notice_visible_roles(role))
-                else:
-                    reply = _dispatch_to_role_handler(role, part, linked_id, forced_intent=_explicit_lookup_intent(part, role))
+                reply = _school_component_reply(part, role, linked_id)
             replies.append(reply)
         return jsonify({'reply': '\n\n'.join(replies)})
 
@@ -2659,6 +2704,10 @@ def chat():
         return jsonify({'reply': 'Do you mean a class teacher or a subject teacher? Include the class, subject, or teacher name.'})
 
     if role == "guest":
+        directory_reply = _guest_department_reply(question_lower)
+        if directory_reply is not None:
+            session.pop('general_context', None)
+            return jsonify({'reply': directory_reply})
         question_lower = _apply_general_followup_context(question_lower)
         calendar_gap_reply = _calendar_information_gap_reply(question_lower, role)
         if calendar_gap_reply is not None:
@@ -3189,6 +3238,7 @@ def extract_department_from_question(question):
     real department, mirroring the subject extractor's safety rule.
     """
     q = clean_question(question)
+    department_switch = bool(re.match(r'^(?:what|how) about\b', q))
     q = re.sub(r'^(?:(?:pls|please|actually|sorry|i meant|list|show|what about|how about)\s+)+', '', q)
     known = _known_departments()
     aliases = {"math": "Mathematics", "maths": "Mathematics", "sci": "Science", "eng": "English"}
@@ -3209,6 +3259,8 @@ def extract_department_from_question(question):
         if match:
             candidate = re.sub(r'\s+(?:please|pls)$', '', match.group(1)).strip()
             candidates.append(candidate)
+    if department_switch and not candidates:
+        candidates.append(re.sub(r'\s+(?:please|pls)$', '', q))
 
     # Department questions must match the complete requested label. This
     # keeps an unsupported compound such as "space science" from silently

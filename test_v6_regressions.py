@@ -4,6 +4,7 @@ from unittest.mock import patch
 
 import app
 import nlp_helpers
+import gemini_rag
 
 
 class V6Tests(unittest.TestCase):
@@ -11,6 +12,9 @@ class V6Tests(unittest.TestCase):
         self.calls = []
         self.children = [(3, 'Linked Child', '12-A')]
         p = patch.object(nlp_helpers, '_fetch_phrases_from_db', return_value=None)
+        p.start()
+        self.addCleanup(p.stop)
+        p = patch.object(gemini_rag, 'log_unanswered_question', return_value=None)
         p.start()
         self.addCleanup(p.stop)
         fixtures = {
@@ -264,6 +268,74 @@ class V6Tests(unittest.TestCase):
             app._remember_conversation_context('department_leadership', 'Science department', 'principal', 3, 'Science leader')
             self.assertEqual(app._resume_conversation_context('what about English', 'principal', 3), 'English leader')
             leadership.assert_called_once_with('English')
+
+    def test_unrelated_scope_and_mixed_public_phone(self):
+        for q in ['tell me a joke about cats', 'write python to sort a list']:
+            reply = self.turns(self.client('guest'), [q])[0]
+            self.assertIn('Yara International School', reply)
+        with patch.object(app, 'gemini_answer', return_value='Fixture public phone') as public:
+            reply = self.turns(self.client('guest'), ['school phone and the capital of mars'])[0]
+            self.assertIn('Fixture public phone', reply)
+            self.assertIn('Yara International School', reply)
+            public.assert_called_once_with('school phone', app._notice_visible_roles('guest'))
+        reply = self.turns(self.client('student'), ['my attendance and tell me a joke about cats'])[0]
+        self.assertIn('81.25', reply)
+        self.assertIn('Yara International School', reply)
+
+    def test_guest_directory_intent_and_department_followups(self):
+        with patch.object(app, 'gemini_answer', side_effect=lambda q, roles: q):
+            replies = self.turns(self.client('guest'), ['list science department staff', 'who leads it', 'what about English'])
+        self.assertIn('complete public staff list for Science', replies[0])
+        self.assertIn('hod of Science', replies[1])
+        self.assertIn('hod of English', replies[2])
+        with patch.object(app, 'gemini_answer', side_effect=lambda q, roles: q):
+            replies = self.turns(self.client('guest'), ['who is the hod of English', 'who works there'])
+        self.assertIn('complete public staff list for English', replies[-1])
+        client = self.client('guest')
+        with patch.object(app, 'gemini_answer', side_effect=lambda q, roles: q):
+            replies = self.turns(client, ['list science department staff', 'who is the hod of space science'])
+        self.assertIn("couldn't match", replies[-1])
+        with client.session_transaction() as session:
+            self.assertNotIn('conversation_context', session)
+        self.assertIn('Which department', self.turns(client, ['who leads it'])[0])
+
+    def test_guest_bare_unknown_department_does_not_reuse_known_target(self):
+        for correction in ['what about space science', 'how about space science']:
+            client = self.client('guest')
+            with patch.object(app, 'gemini_answer', side_effect=lambda q, roles: q) as public:
+                replies = self.turns(client, ['who is the hod of Science', correction, 'who leads it'])
+            self.assertIn("couldn't match", replies[1])
+            self.assertIn('Which department', replies[2])
+            self.assertEqual(public.call_count, 1)
+        with patch.object(app, 'gemini_answer', side_effect=lambda q, roles: q):
+            replies = self.turns(self.client('guest'), ['who is the hod of Science',
+                                                       'what about English', 'how about sci', 'who leads it'])
+        self.assertIn('hod of English', replies[1])
+        self.assertIn('hod of Science', replies[2])
+        self.assertIn('hod of Science', replies[3])
+        with patch.object(app, '_known_departments', return_value=[(1, 'Science'), (2, 'English'), (3, 'Computer Science'), (4, 'Mathematics')]):
+            for question, expected in [('what about Computer Science', 'Computer Science'),
+                                       ('what about English please', 'English'), ('how about maths pls', 'Mathematics')]:
+                self.assertEqual(app.extract_department_from_question(question)[1], expected)
+            self.assertEqual(app.extract_department_from_question('what about space science please'), (None, None))
+
+    def test_school_concern_gaps_name_missing_procedure(self):
+        with patch.object(gemini_rag, 'get_almanac_snapshot', return_value=('', 'fixture')):
+            for q, topic in [('what happens if a kid loses their bag', 'lost-property procedure'),
+                             ('how can someone report bullying without filing a complaint here', 'bullying-support contact')]:
+                self.assertIn(topic, gemini_rag.gemini_answer(q))
+                self.assertIn(topic, ''.join(gemini_rag.gemini_answer_stream(q)))
+        self.assertIsNone(gemini_rag._documented_public_reply('what happens if a kid loses their bag',
+                                                            'LOST ITEMS: If a bag is lost, ask the documented desk.'))
+        self.assertIsNone(gemini_rag._documented_public_reply('where is lost property',
+                                                            'Report lost bags to the documented desk.'))
+        self.assertIsNone(gemini_rag._documented_public_reply('how can someone report bullying',
+                                                            'BULLYING: Use the documented support route.'))
+
+    def test_mixed_phone_uses_explicit_public_school_target(self):
+        with patch.object(app, 'gemini_answer', side_effect=lambda q, roles: q):
+            reply = self.turns(self.client('guest'), ['phone number and fee structure for class 8'])[0]
+            self.assertIn('school phone number', reply)
 
 
 if __name__ == '__main__':
