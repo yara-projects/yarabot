@@ -1087,6 +1087,8 @@ def _nlp_lane_decision(question, role):
     return False, True, None, 0, None, None
 
 app = Flask(__name__)
+from traffic_feedback import register_feedback
+register_feedback(app)
 
 # Small in-process load signal for the single Render worker.  It measures
 # real chat concurrency and recently completed request time; no user data is
@@ -2833,9 +2835,11 @@ def chat():
 
     use_nlp, try_classifier, weak_intent, weak_score, clarification, tie_candidates = \
         get_routing_decision(question_lower, role)
+    g.get('traffic', {}).update(intent=weak_intent, nlp_score=weak_score)
 
     if use_nlp:
         # Personal lane — use NLP + MySQL
+        g.get('traffic', {}).update(lane='nlp')
         safe_log(f'[NLP LANE] intent={weak_intent}')
         # get_routing_decision() already selected a confident intent. Pass
         # that exact choice through so the role handler cannot independently
@@ -2887,6 +2891,7 @@ def chat():
                         classified_intent if resolved else None, resolved)
 
         if resolved:
+            g.get('traffic', {}).update(lane='classifier', intent=classified_intent)
             safe_log(f'[TIE-BREAK RESOLVED] intent={classified_intent}')
             reply = _dispatch_to_role_handler(role, question_lower, linked_id, forced_intent=classified_intent)
             _maybe_set_pending_clarification(role, reply, question_lower)
@@ -2899,6 +2904,7 @@ def chat():
             return jsonify({"reply": reply})
 
         safe_log('[TIE-BREAK FAILED -> CLARIFICATION]')
+        g.get('traffic', {}).update(lane='clarification')
         return jsonify({"reply": clarification})
 
     # CLASSIFIER LANE (genuine miss): fires whenever get_routing_decision()
@@ -2927,6 +2933,7 @@ def chat():
             classified_intent = None
 
         if classified_intent is not None:
+            g.get('traffic', {}).update(lane='classifier', intent=classified_intent)
             safe_log(f'[CLASSIFIER LANE] intent={classified_intent}')
             reply = _dispatch_to_role_handler(role, question_lower, linked_id, forced_intent=classified_intent)
             _maybe_set_pending_clarification(role, reply, question_lower)
@@ -2966,6 +2973,7 @@ def stream_gemini_reply(question, role):
     need one just to know which notices are groundable for this question;
     it only ever sees a plain set of target_roles tokens to match against.
     """
+    g.get('traffic', {}).update(lane='gemini')
     visible_roles = _notice_visible_roles(role)
 
     def generate():

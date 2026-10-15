@@ -7,9 +7,18 @@ duplicate the database, it'll just make sure it exists).
 """
 
 import mysql.connector
+import sys
 from pathlib import Path
 from config import DB_CONFIG
 from nlp_helpers import INTENT_DATA
+
+from traffic_feedback import migrate, SCHEMA as TRAFFIC_SCHEMA
+
+# Analytics-only deployment migration: never seed/change school records.
+if '--analytics-only' in sys.argv:
+    migrate()
+    print('Privacy-safe query analytics table ready.')
+    raise SystemExit(0)
 
 # Connect without a database selected yet, since we're about to create it.
 connection_settings = {k: v for k, v in DB_CONFIG.items() if k != "database"}
@@ -23,6 +32,7 @@ print("Database 'school_bot' ready.")
 cursor.execute("USE school_bot")
 
 tables = {}
+tables['query_log'] = TRAFFIC_SCHEMA
 
 # Departments and teachers reference each other (a department has an HOD
 # teacher; a teacher belongs to a department) - a genuine circular FK, which
@@ -336,7 +346,7 @@ creation_order = ["departments", "subjects", "teachers", "teacher_subjects", "cl
                    "students", "parents", "parent_student_links", "timetable", "exams", "notes", "notices",
                    "unanswered_questions", "learned_phrases", "users", "complaints",
                    "system_settings", "system_logs", "tie_break_log", "intent_phrases",
-                   "school_almanac"]
+                   "school_almanac", "query_log"]
 
 for table_name in creation_order:
     cursor.execute(tables[table_name])

@@ -953,7 +953,8 @@ async function sendMessage() {
             const data = await res.json();
             if (generation !== chatSessionGeneration) return;
             removeTypingBubble();
-            appendMessage("bot", data.reply || data.error || "Something went wrong.");
+            const answerBubble = appendMessage("bot", data.reply || data.error || "Something went wrong.");
+            if (res.ok && !data.disabled) attachAnswerFeedback(answerBubble, res);
             // A stale tab that hasn't re-checked /api/system-status yet
             // can still send one message through before catching up - if
             // the backend says disabled, lock the UI immediately rather
@@ -1060,6 +1061,7 @@ async function handleStreamingReply(res, generation = chatSessionGeneration) {
     if (!typingRemoved) {
         removeTypingBubble();
     }
+    if (bubble && res.ok) attachAnswerFeedback(bubble, res);
 }
 
 /**
@@ -1139,6 +1141,47 @@ function appendMessage(role, text) {
 
     const container = document.getElementById("chat-messages");
     container.scrollTop = container.scrollHeight;
+    return bubble;
+}
+
+function attachAnswerFeedback(bubble, response) {
+    const answerId = response.headers.get('X-Answer-ID');
+    const csrf = response.headers.get('X-Feedback-CSRF');
+    if (!answerId || !csrf || !bubble) return;
+    const generation = chatSessionGeneration;
+    const controls = document.createElement('div');
+    controls.className = 'flex items-center gap-2 mt-2 text-xs text-gray-500';
+    const status = document.createElement('span');
+    status.setAttribute('role', 'status');
+    for (const [rating, label] of [['up', 'Helpful'], ['down', 'Not helpful']]) {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'p-2 rounded-lg hover:bg-gray-100 transition-colors';
+        button.setAttribute('aria-label', label);
+        button.title = label;
+        button.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true" style="${rating === 'down' ? 'transform:rotate(180deg)' : ''}"><path d="M7 10v10H3V10h4Zm0 0 5-7c2 0 2 2 1 6h5a3 3 0 0 1 3 3l-2 7a2 2 0 0 1-2 1H7"/></svg>`;
+        button.addEventListener('click', async () => {
+            if (generation !== chatSessionGeneration || !bubble.isConnected) return;
+            controls.querySelectorAll('button').forEach(item => item.disabled = true);
+            try {
+                const result = await fetch('/api/feedback', {
+                    method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Feedback-CSRF': csrf },
+                    body: JSON.stringify({ answer_id: answerId, rating })
+                });
+                if (generation !== chatSessionGeneration) return;
+                status.textContent = result.ok ? 'Thanks for your feedback.' : result.status === 409
+                    ? 'Feedback already recorded or unavailable.' : 'Could not save feedback. Please try later.';
+                if (!result.ok && result.status !== 409) controls.querySelectorAll('button').forEach(item => item.disabled = false);
+            } catch (_) {
+                if (generation !== chatSessionGeneration) return;
+                status.textContent = 'Could not save feedback. Your chat is unaffected.';
+                controls.querySelectorAll('button').forEach(item => item.disabled = false);
+            }
+        });
+        controls.appendChild(button);
+    }
+    controls.appendChild(status);
+    bubble.appendChild(controls);
 }
 
 /**
