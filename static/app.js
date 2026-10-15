@@ -1169,6 +1169,14 @@ function attachAnswerFeedback(bubble, response) {
                     body: JSON.stringify({ answer_id: answerId, rating })
                 });
                 if (generation !== chatSessionGeneration) return;
+                if (result.status === 401) {
+                    handleSessionExpired();
+                    return;
+                }
+                if (result.status === 403) {
+                    status.textContent = 'This feedback belongs to an earlier session. Ask again to rate a new answer.';
+                    return;
+                }
                 status.textContent = result.ok ? 'Thanks for your feedback.' : result.status === 409
                     ? 'Feedback already recorded or unavailable.' : 'Could not save feedback. Please try later.';
                 if (!result.ok && result.status !== 409) controls.querySelectorAll('button').forEach(item => item.disabled = false);
