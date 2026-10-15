@@ -48,7 +48,8 @@ def get_almanac_snapshot(force=False):
                 content, version = read_almanac()
                 _cache.update(content=content, version=version, loaded_at=now)
             except Exception as exc:
-                print(f"[ALMANAC REFRESH ERROR] {exc}")
+                from log_privacy import safe_log
+                safe_log(f"[ALMANAC REFRESH ERROR] {type(exc).__name__}")
                 if _cache["content"] is None:
                     _cache.update(content=_SEED_PATH.read_text(encoding="utf-8"),
                                   version=None, loaded_at=now)

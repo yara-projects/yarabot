@@ -56,6 +56,7 @@ from google.genai import types
 from openai import OpenAI
 from config import DB_CONFIG
 from almanac_store import get_almanac, get_almanac_snapshot
+from log_privacy import safe_log, exclude_complaint_text
 
 
 _ROMAN_GRADES = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"]
@@ -313,7 +314,7 @@ def _notice_rows(visible_roles):
             _notice_rows_cache[roles] = {'rows': rows, 'loaded_at': now}
             return rows
         except Exception as e:
-            print(f'[NOTICES CONTEXT ERROR] {e}')
+            safe_log(f'[NOTICES CONTEXT ERROR] {type(e).__name__}')
             return cached['rows'] if cached else ()
         finally:
             if cursor is not None:
@@ -568,7 +569,7 @@ def ask_groq(question, context):
         return response.choices[0].message.content.strip()
 
     except Exception as e:
-        print(f'[GROQ ERROR] {e}')
+        safe_log(f'[GROQ ERROR] {type(e).__name__}')
         return API_ERROR_MESSAGE
 
 
@@ -628,7 +629,7 @@ Reply with ONLY the category name exactly as written above, or NONE. No explanat
         )
         raw_answer = response.choices[0].message.content.strip()
     except Exception as e:
-        print(f'[CLASSIFIER ERROR] {e}')
+        safe_log(f'[CLASSIFIER ERROR] {type(e).__name__}')
         return None
 
     # Exact match against the real intent list (case-insensitive, tolerant
@@ -726,6 +727,8 @@ def _overlap_score(words_a, words_b):
 
 def find_cached_answer(normalized_question):
     """Return an unexpired answer only for this exact cache key."""
+    if exclude_complaint_text(normalized_question):
+        return None
     _, current_version = get_almanac_snapshot()
     entry = _cache.get(normalized_question)
     if entry is None:
@@ -738,7 +741,7 @@ def find_cached_answer(normalized_question):
             or datetime.fromtimestamp(entry['timestamp'], riyadh).date() != datetime.now(riyadh).date()):
         del _cache[normalized_question]
         return None
-    print(f'[CACHE HIT] Question: {normalized_question}')
+    safe_log('[CACHE HIT]')
     return entry['answer']
 
 
@@ -758,6 +761,9 @@ def log_unanswered_question(question):
     being sent to the user, so failures are logged and swallowed rather
     than raised.
     """
+    if exclude_complaint_text(question):
+        safe_log('[UNANSWERED LOG SKIPPED] intent=complaint')
+        return
     normalized = normalize_question(question)
     query_words = _normalized_word_set(normalized)
     if not query_words:
@@ -783,7 +789,7 @@ def log_unanswered_question(question):
                 "WHERE id = %s",
                 (best_id,)
             )
-            print(f'[UNANSWERED] Grouped into #{best_id} (score {best_score:.2f}): {question}')
+            safe_log('[UNANSWERED] Grouped into existing entry')
         else:
             cursor.execute(
                 "INSERT INTO unanswered_questions "
@@ -791,16 +797,19 @@ def log_unanswered_question(question):
                 "VALUES (%s, %s, 1, NOW(), NOW())",
                 (question, normalized)
             )
-            print(f'[UNANSWERED] New entry logged: {question}')
+            safe_log('[UNANSWERED] New entry logged')
 
         conn.commit()
         cursor.close()
         conn.close()
     except Exception as e:
-        print(f'[UNANSWERED LOG ERROR] {e}')
+        safe_log(f'[UNANSWERED LOG ERROR] {type(e).__name__}')
 
 
 def log_learned_phrase(question, intent, role):
+    if exclude_complaint_text(question, intent):
+        safe_log('[LEARNED PHRASE LOG SKIPPED] intent=complaint')
+        return
     normalized = normalize_question(question)
     query_words = _normalized_word_set(normalized)
     if not query_words:
@@ -830,8 +839,7 @@ def log_learned_phrase(question, intent, role):
                 "WHERE id = %s",
                 (best_id,)
             )
-            print(f'[LEARNED PHRASE] Grouped into #{best_id} (score {best_score:.2f}): '
-                  f'{question} -> {intent}')
+            safe_log(f'[LEARNED PHRASE] Grouped candidate intent={intent}')
         else:
             cursor.execute(
                 "INSERT INTO learned_phrases "
@@ -840,24 +848,26 @@ def log_learned_phrase(question, intent, role):
                 "VALUES (%s, %s, %s, %s, 1, NOW(), NOW(), 0)",
                 (question, normalized, intent, role)
             )
-            print(f'[LEARNED PHRASE] New candidate logged: {question} -> {intent} ({role})')
+            safe_log(f'[LEARNED PHRASE] New candidate intent={intent}')
 
         conn.commit()
         cursor.close()
         conn.close()
     except Exception as e:
-        print(f'[LEARNED PHRASE LOG ERROR] {e}')
+        safe_log(f'[LEARNED PHRASE LOG ERROR] {type(e).__name__}')
 
 
 def cache_answer(normalized_question, answer, almanac_version):
     """Store a Gemini answer in the cache."""
+    if exclude_complaint_text(normalized_question):
+        return
     _cache[normalized_question] = {
         'answer': answer,
         'timestamp': time.time(),
         'almanac_version': almanac_version,
     }
-    print(f'[CACHE STORED] Question: {normalized_question}')
-    print(f'[CACHE SIZE] {len(_cache)} entries')
+    safe_log('[CACHE STORED]')
+    safe_log(f'[CACHE SIZE] {len(_cache)} entries')
 
 
 def _public_information_gap(question):
@@ -895,29 +905,29 @@ def gemini_answer(question, visible_roles=()):
             return gap
 
     if FORCE_GROQ:
-        print(f'[FORCE_GROQ ACTIVE] Skipping Gemini, using Groq directly: {question}')
+        safe_log('[FORCE_GROQ ACTIVE] Skipping Gemini, using Groq directly')
         answer = ask_groq(question, context)
     else:
         if context:
-            print(f'[GEMINI LANE] Cache miss - calling API: {question}')
+            safe_log('[GEMINI LANE] Cache miss - calling API')
         else:
             # ask_gemini() also checks this and won't call the API either way -
             # this log line just makes it visible in the console that no request
             # was sent, instead of it looking identical to a real API call.
-            print(f'[NO ALMANAC MATCH - SKIPPING GEMINI CALL] Question: {question}')
+            safe_log('[NO ALMANAC MATCH - SKIPPING GEMINI CALL]')
 
         try:
             answer = ask_gemini(question, context)
         except Exception as e:
             if is_transient_provider_error(e):
-                print(f'[GEMINI TEMPORARY FAILURE -> GROQ FALLBACK] Question: {question}')
+                safe_log('[GEMINI TEMPORARY FAILURE -> GROQ FALLBACK]')
                 answer = ask_groq(question, context)
             else:
-                print(f'[GEMINI ERROR] {e}')
+                safe_log(f'[GEMINI ERROR] {type(e).__name__}')
                 answer = API_ERROR_MESSAGE
 
     if answer in UNCACHEABLE_ANSWERS:
-        print(f'[CACHE SKIPPED] Fallback/error answer not cached: {normalized}')
+        safe_log('[CACHE SKIPPED] Fallback/error answer not cached')
         # Only a genuine "no info" answer gets logged - API_ERROR_MESSAGE is a
         # transient system failure, not a content gap, and logging it would
         # pollute Suggested Additions with questions Gemini may well have
@@ -927,7 +937,7 @@ def gemini_answer(question, visible_roles=()):
         return answer
 
     if used_notice:
-        print(f'[CACHE SKIPPED] Notice-grounded answer not cached: {normalized}')
+        safe_log('[CACHE SKIPPED] Notice-grounded answer not cached')
     else:
         cache_answer(normalized, answer, almanac_version)
     return answer
@@ -960,18 +970,18 @@ def gemini_answer_stream(question, visible_roles=()):
             return
 
     if FORCE_GROQ:
-        print(f'[FORCE_GROQ ACTIVE] Skipping Gemini, using Groq directly: {question}')
+        safe_log('[FORCE_GROQ ACTIVE] Skipping Gemini, using Groq directly')
         full_answer = ask_groq(question, context)
         yield full_answer
     else:
         if context:
-            print(f'[GEMINI LANE] Cache miss - streaming from API: {question}')
+            safe_log('[GEMINI LANE] Cache miss - streaming from API')
         else:
             # ask_gemini_stream() also checks this and won't call the API
             # either way - this log line just makes it visible in the console
             # that no request was sent, instead of it looking identical to a
             # real call.
-            print(f'[NO ALMANAC MATCH - SKIPPING GEMINI CALL] Question: {question}')
+            safe_log('[NO ALMANAC MATCH - SKIPPING GEMINI CALL]')
 
         full_answer = ''
         try:
@@ -981,14 +991,14 @@ def gemini_answer_stream(question, visible_roles=()):
 
         except Exception as e:
             if is_transient_provider_error(e) and not full_answer:
-                print(f'[GEMINI TEMPORARY FAILURE -> GROQ FALLBACK] Question: {question}')
+                safe_log('[GEMINI TEMPORARY FAILURE -> GROQ FALLBACK]')
                 groq_answer = ask_groq(question, context)
                 full_answer += groq_answer
                 yield groq_answer
                 # Fall through to the cache check below - Groq's complete
                 # answer should still get cached like any other successful reply.
             else:
-                print(f'[GEMINI STREAM ERROR] {e}')
+                safe_log(f'[GEMINI STREAM ERROR] {type(e).__name__}')
                 if not full_answer:
                     # Failed before any real text streamed - same clean
                     # fallback as the non-streaming path.
@@ -1002,6 +1012,6 @@ def gemini_answer_stream(question, visible_roles=()):
         log_unanswered_question(question)
     if full_answer and full_answer not in UNCACHEABLE_ANSWERS:
         if used_notice:
-            print(f'[CACHE SKIPPED] Notice-grounded answer not cached: {normalized}')
+            safe_log('[CACHE SKIPPED] Notice-grounded answer not cached')
         else:
             cache_answer(normalized, full_answer, almanac_version)

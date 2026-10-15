@@ -35,6 +35,7 @@ from collections import deque
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from auth_helpers import verify_password
+from log_privacy import safe_log, exclude_complaint_text
 from almanac_store import get_almanac
 from nlp_helpers import (
     clean_question, detect_intent, detect_intent_with_score, rank_intents,
@@ -666,6 +667,9 @@ def _log_tie_break(question, role, candidates, classifier_pick, resolved):
     failure (DB hiccup, etc.) should never take down the actual reply the
     user is waiting on, so this only ever prints on error, never raises.
     """
+    if exclude_complaint_text(question, classifier_pick, [name for name, _ in candidates]):
+        safe_log('[TIE-BREAK LOG SKIPPED] intent=complaint')
+        return
     candidates_str = ",".join(f"{name}({score})" for name, score in candidates)
     try:
         query(
@@ -675,7 +679,7 @@ def _log_tie_break(question, role, candidates, classifier_pick, resolved):
             fetch=False
         )
     except Exception as e:
-        print(f'[TIE-BREAK LOG ERROR] {e}')
+        safe_log(f'[TIE-BREAK LOG ERROR] {type(e).__name__}')
 
 
 def use_nlp_lane(question, role):
@@ -1259,7 +1263,7 @@ def query(sql, params=None, fetch=False, many=False):
         conn.close()
         return result
     except Exception as e:
-        print(f"DB error: {e}")
+        safe_log(f"DB error: {type(e).__name__}")
         return None
 
 
@@ -1301,7 +1305,7 @@ def healthz():
         cursor.close()
         conn.close()
     except mysql.connector.Error as e:
-        print(f"[HEALTHZ] DB error: {e}")
+        safe_log(f"[HEALTHZ] DB error: {type(e).__name__}")
         return jsonify({"status": "error", "detail": "database unreachable"}), 503
 
     return jsonify({"status": "ok"}), 200
@@ -1420,7 +1424,7 @@ def login():
         cursor.close()
         conn.close()
     except mysql.connector.Error as e:
-        print(f"DB error during login: {e}")
+        safe_log(f"DB error during login: {type(e).__name__}")
         return jsonify({
             "success": False,
             "error": "Unable to connect right now, please try again in a moment."
@@ -1597,7 +1601,7 @@ def _save_complaint(student_id, teacher_id, complaint_text, category, anonymous)
         conn.commit()
         return "saved"
     except Exception as e:
-        print(f"DB error saving complaint: {e}")
+        safe_log(f"DB error saving complaint: {type(e).__name__}")
         try:
             conn.rollback()
         except mysql.connector.Error:
@@ -2551,7 +2555,7 @@ def _maybe_set_pending_clarification(role, reply, original_message):
             "original_message": original_message,
             "expires_at": time.time() + CLARIFICATION_TTL_SECONDS,
         }
-        print(f'[CLARIFICATION SET] intent={intent} role={role}')
+        safe_log(f'[CLARIFICATION SET] intent={intent} role={role}')
 
 
 def _dispatch_to_role_handler(role, question, linked_id, forced_intent=None):
@@ -2655,6 +2659,8 @@ def chat():
 
     question_lower = clean_question(question)
 
+    exclude_complaint_text(question_lower)
+
     conversational_reply = _conversational_reply(question_lower)
     if conversational_reply is not None:
         session.pop("general_context", None)
@@ -2751,8 +2757,7 @@ def chat():
     if pending and pending.get("role") == role:
         pending_intent = pending.get("intent")
         if time.time() > pending.get("expires_at", 0):
-            print(f'[CLARIFICATION SKIPPED] intent={pending_intent} role={role} '
-                  f'follow_up={question_lower!r} reason=expired -> falling through to normal routing')
+            safe_log(f'[CLARIFICATION SKIPPED] intent={pending_intent} role={role} reason=expired')
         elif pending_intent == "class_teacher_choice":
             cls = pending.get("class")
             if re.search(r'\bclass\s+teacher\b', question_lower):
@@ -2764,23 +2769,20 @@ def chat():
                 _remember_conversation_context("class_teacher_lookup", cls, role, linked_id, reply)
                 return jsonify({"reply": reply})
         elif _is_topic_switch(question_lower, role, pending_intent):
-            print(f'[CLARIFICATION SKIPPED] intent={pending_intent} role={role} '
-                  f'follow_up={question_lower!r} reason=topic-switch -> falling through to normal routing')
+            safe_log(f'[CLARIFICATION SKIPPED] intent={pending_intent} role={role} reason=topic-switch')
         else:
             config = CLARIFICATION_CONFIG.get(pending_intent)
             resumed = (_resume_clarification_reply(
                            pending_intent, question_lower, linked_id, pending.get("original_message"))
                        if config else None)
             if resumed is not None and resumed != config["prompt"]:
-                print(f'[CLARIFICATION RESUMED] intent={pending_intent} role={role} '
-                      f'follow_up={question_lower!r}')
+                safe_log(f'[CLARIFICATION RESUMED] intent={pending_intent} role={role}')
                 _remember_conversation_context(
                     pending_intent, f"{pending.get('original_message', '')} {question_lower}",
                     role, linked_id, resumed
                 )
                 return jsonify({"reply": resumed})
-            print(f'[CLARIFICATION EXPIRED] intent={pending_intent} role={role} '
-                  f'follow_up={question_lower!r} -> falling through to normal routing')
+            safe_log(f'[CLARIFICATION EXPIRED] intent={pending_intent} role={role}')
 
     # Personal/directory context gets first refusal on a follow-up. General
     # calendar context is applied only if no active DB-backed conversation
@@ -2834,7 +2836,7 @@ def chat():
 
     if use_nlp:
         # Personal lane — use NLP + MySQL
-        print(f'[NLP LANE] Question: {question_lower}')
+        safe_log(f'[NLP LANE] intent={weak_intent}')
         # get_routing_decision() already selected a confident intent. Pass
         # that exact choice through so the role handler cannot independently
         # reclassify the same text into a self-service intent (or miss it)
@@ -2849,10 +2851,8 @@ def chat():
         # to Gemini as a last resort. The answer is now genuinely coming
         # from Gemini, so it streams too, same as the general lane below.
         if "didn't quite get" in reply or "didn't understand" in reply:
-            # Plain ASCII "->", not "→" - the unicode arrow crashes this
-            # print() with UnicodeEncodeError on Windows (stdout defaults
-            # to cp1252), which took down every NLP-miss request with a 500.
-            print(f'[NLP MISS -> GEMINI FALLBACK] Question: {question_lower}')
+            # Diagnostics contain no request text and cannot break delivery.
+            safe_log('[NLP MISS -> GEMINI FALLBACK]')
             _remember_general_context(question_lower)
             return stream_gemini_reply(question_lower, role)
 
@@ -2879,7 +2879,7 @@ def chat():
                 question_lower, role, candidate_names, intent_descriptions=INTENT_DESCRIPTIONS
             )
         except Exception as e:
-            print(f'[TIE-BREAK ERROR] Question: {question_lower} -> {e}')
+            safe_log(f'[TIE-BREAK ERROR] {type(e).__name__}')
             classified_intent = None
 
         resolved = classified_intent in candidate_names
@@ -2887,8 +2887,7 @@ def chat():
                         classified_intent if resolved else None, resolved)
 
         if resolved:
-            print(f'[TIE-BREAK RESOLVED] Question: {question_lower} -> {classified_intent} '
-                  f'(candidates: {tie_candidates})')
+            safe_log(f'[TIE-BREAK RESOLVED] intent={classified_intent}')
             reply = _dispatch_to_role_handler(role, question_lower, linked_id, forced_intent=classified_intent)
             _maybe_set_pending_clarification(role, reply, question_lower)
             _remember_conversation_context(
@@ -2899,8 +2898,7 @@ def chat():
             session.pop("general_context", None)
             return jsonify({"reply": reply})
 
-        print(f'[TIE-BREAK FAILED -> CLARIFICATION] Question: {question_lower} -> '
-              f'classifier picked {classified_intent!r} (not in {candidate_names})')
+        safe_log('[TIE-BREAK FAILED -> CLARIFICATION]')
         return jsonify({"reply": clarification})
 
     # CLASSIFIER LANE (genuine miss): fires whenever get_routing_decision()
@@ -2925,12 +2923,11 @@ def chat():
                 question_lower, role, _personal_intents_for_role(role)
             )
         except Exception as e:
-            print(f'[CLASSIFIER LANE ERROR] Question: {question_lower} -> {e}')
+            safe_log(f'[CLASSIFIER LANE ERROR] {type(e).__name__}')
             classified_intent = None
 
         if classified_intent is not None:
-            print(f'[CLASSIFIER LANE] Question: {question_lower} -> {classified_intent} '
-                  f'(NLP: {weak_intent!r} score {weak_score}, almanac not confident)')
+            safe_log(f'[CLASSIFIER LANE] intent={classified_intent}')
             reply = _dispatch_to_role_handler(role, question_lower, linked_id, forced_intent=classified_intent)
             _maybe_set_pending_clarification(role, reply, question_lower)
             _remember_conversation_context(
