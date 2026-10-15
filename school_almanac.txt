@@ -1,292 +1,787 @@
-==========================================================
-OFFICIAL SCHOOL INFORMATION (from yaraschool.net)
-==========================================================
- 
+YARA INTERNATIONAL SCHOOL - PUBLIC KNOWLEDGE BASE
+Website snapshot: 2026-10-15 (Asia/Riyadh). Academic year: 2026-27.
+Public website statements, not verification of internal student/staff records.
+Specific dated circulars override conflicting annual-calendar entries.
+Unknown, conflicting or missing information must not be guessed.
+Sources and coverage notes: docs/ALMANAC_SOURCES.md.
+
 ----------------------------------------------------------
 SCHOOL CONTACT INFORMATION
 ----------------------------------------------------------
-School Name: Yara International School (YIS)
-Address: King Faisal Street, Al Batha, Jabrah District, Riyadh, Saudi Arabia. Postal Code 12652.
-Also described as: King Faisal Road, Imam Mohammad Ibn Saud Islamic University Building, ad-Dirah, Riyadh (former campus location, now permanent site since 2013).
-Enquiries: 00966-11-2869960, also 00966592888865, 00966543972558, 00966-11-4111610, 00966-11-4145978
-Fax: 00966-11-4110935
+Source: https://www.yaraschool.net/contact/
+School Name: Yara International School (YIS), Riyadh, Saudi Arabia.
+Address: King Faisal Street, Al Batha, Jabrah District 3150; Short Address RCCA8710; Postal Code 12652.
+Enquiries: 00966-11-2869960, 00966-11-4111610, 00966-11-4145978.
+Admissions/WhatsApp: +966592888865. Other homepage enquiry mobile: +966543972558.
+Fax: 00966-11-4110935.
 Admissions Email: admissions@yaraschool.net
-Support Email: support@yaraschool.net
-Website: www.yaraschool.net
-Location note: The school is located directly opposite Qasr Al Hokm Metro Station (junction of the Blue and Orange lines) — parents may use the Metro for commuting.
- 
+Website: https://www.yaraschool.net/home/
+Location: opposite Qasr Al Hokm Metro Station, Blue and Orange lines.
+Campus page also uses Wazeer Street, Dheera District. Do not infer a campus move or invent an address history from these different labels.
+
 ----------------------------------------------------------
 SCHOOL HISTORY & IDENTITY
 ----------------------------------------------------------
-Established: 17 May 2003
-Named after: Yara bint Khalid Aldrees
-Trust: Yara Educational Trust
-Chairman: Habeebul Rahman PP
-CEO: Khalid Abdullah Mohammed Aldrees
-Board: Central Board of Secondary Education (CBSE), affiliated to CBSE Gulf Sahodaya
-Educational authority: Saudi Ministry of Education
-Academic session: April to March
-Grades offered: Kindergarten (Nursery, LKG, UKG) through Grade XII
-Gender policy: Mixed (Nursery-Kindergarten), Gender-separated (Grade 1-12)
-Enrollment: approximately 2,500 students
-Teaching staff: approximately 132
-Classrooms: 119
-Houses: Emerald, Ruby, Sapphire, Topaz
-Motto: "We want your Kid to be a Star!"
-Slogan: "Paving the path to excellence..."
-Demonym for students: Yarian
- 
+Source: https://www.yaraschool.net/about/
+Established: 17 May 2003. English-medium CBSE education, Kindergarten to Grade XII.
+CBSE affiliation: 5730018; secondary affiliation since 2007; senior-secondary affiliation since 2013.
+The website header lists MOE licences 520-3809 and 520-3728, while circular 084 prints 520-3890 and 520-3728. The About page separately mentions licence 144/S; these identifiers conflict. Verify the required licence identifier with the school.
+The school describes its purpose as affordable education and students' overall development.
+Motto: We want your kid to be a star.
+Homepage snapshot reports approximately 3700+ students; this is not a live enrolment count or a substitute for authorised database reports.
+No current staff/classroom total is established here; ignore the homepage's uninitialised 0+ counters.
+
+----------------------------------------------------------
+VISION, MISSION & ACCREDITATION
+----------------------------------------------------------
+Source: https://www.yaraschool.net/vision-mission/
+Vision: a centre of academic excellence in Saudi Arabia.
+Mission: technology-supported education; emotional, social, physical and cognitive development; stakeholder collaboration; continual improvement.
+Source: https://www.yaraschool.net/nabet/
+The school reports NABET/QCI accreditation on 22 October 2024, valid until 2028, following work begun in 2023. It describes itself as the first Indian school in KSA with this accreditation.
+
 ----------------------------------------------------------
 SCHOOL HOURS
 ----------------------------------------------------------
-Nursery, LKG & UKG: 7:00 AM - 11:30 AM, Sunday to Thursday
-Grades I to XII: 7:00 AM - 1:00 PM, Sunday to Thursday
-Pre-School: 7:00 AM - 1:00 PM, Sunday to Thursday, and 3rd Saturdays
-All students should be in school by 6:55 AM.
-Pre-School children must be handed over to the Pre-School in-charge by 6:50 AM.
- 
-OFFICE HOURS
-General Office: 7:00 AM - 3:30 PM Sunday-Thursday, 8:30 AM - 3:00 PM Saturday
-Fee/Cash Collection: 7:00 AM - 3:00 PM Sunday-Thursday, 8:30 AM - 3:00 PM Saturday
- 
-VISITING HOURS
-Principal: By appointment only, Sunday-Thursday
-Vice-Principal/Head Master/Head Mistress/Supervisor: During school working hours, Sunday-Thursday
-Prior appointment is necessary for all meetings.
- 
+Source: https://www.yaraschool.net/contact/
+Nursery, LKG & UKG: 7:00 AM - 11:30 AM, Sunday to Thursday.
+Grades I to XII: 7:00 AM - 1:00 PM, Sunday to Thursday.
+Pre-School: 7:00 AM - 1:00 PM, Sunday to Thursday and 3rd Saturdays.
+Students should arrive by 6:55 AM; Pre-School children must be handed to the in-charge by 6:50 AM.
+These are published school hours and arrival deadlines, not a separately published first-lesson timetable.
+
 ----------------------------------------------------------
-SCHOOL MANAGEMENT & ADMINISTRATION (Official Contacts)
+OFFICE HOURS & VISITING APPOINTMENTS
 ----------------------------------------------------------
-Principal: Mrs. Aasima Saleem — ext. 108 — principal@yaraschool.net
-Vice Principal: Mr. Sharaf Ahamed Muhajireen Mohamed — ext. 105 — sharafa@yaraschool.net
-Assistant Principal: Mrs. Rahma Afsal — ext. 107 — rehmaa@yaraschool.net
-Head Master (Grades IV to VIII, Boys): Mr. Liyakath Abdul Khadar — ext. 125 — liyakatha@yaraschool.net
-Supervisor (Grades IV to VIII, Girls): Mrs. Jasna Shan — ext. 116 — jasnas@yaraschool.net
-Acting Supervisor (Home Room): Mrs. Sangeetha R — ext. 113 — sangeethar@yaraschool.net
-Acting Supervisor (Kindergarten): Ms. A. Shahana Fathima — ext. 111 — shahanaaf@yaraschool.net
-Admin Manager: Mr. Abdul Kader — ext. 115 — abdul_kader@yaraschool.net
-Saudi Manager (Girls): Ms. Haya Al Ammar — ext. 110, mobile 00966564657922 — hayaa@yaraschool.net
-Saudi Manager (Girls): Ms. Asma Saud Al Suhaim — ext. 121 — asmaa@yaraschool.net
-Saudi Manager (Boys): Mr. Sulaiman Al Kasser — ext. 129 — kasser11@gmail.com
- 
-Department Email Contacts:
-Examinations: examination@yaraschool.net
-TC Services: TCservices@yaraschool.net
-Fees: fees@yaraschool.net (Cash & Customer Service Officer, ext. 106)
-Bookstore: bookstore@yaraschool.net
-Management: management@yaraschool.net
-Transportation enquiries: contact Admin Manager, ext. 115
- 
+Source: https://www.yaraschool.net/contact/
+General Office: 7:00 AM - 3:30 PM Sunday-Thursday; 8:30 AM - 3:00 PM Saturday.
+Fee/Cash Collection: 7:00 AM - 3:00 PM Sunday-Thursday; 8:30 AM - 3:00 PM Saturday.
+The Payment Procedures page separately states cash-counter hours of 7:30 AM - 3:30 PM. These differ; confirm counter availability before visiting.
+Principal: by appointment, Sunday-Thursday.
+Vice Principal/Head Master/Head Mistress/Supervisor: school working hours, Sunday-Thursday.
+
 ----------------------------------------------------------
-HEADS OF DEPARTMENT (HODs) — Teaching Faculty
+SCHOOL MANAGEMENT & ADMINISTRATION (PUBLIC CONTACTS)
 ----------------------------------------------------------
+Source: https://www.yaraschool.net/contact/
+Principal & Correspondent: Mrs. Aasima Saleem; ext. 108; principal@yaraschool.net.
+Vice Principal: Mr. Sharaf Ahamed Muhajireen Mohamed; ext. 105; sharafa@yaraschool.net.
+Assistant Principal: Mrs. Rahma Afsal; ext. 107; rehmaa@yaraschool.net.
+Head Master, Grades IV-VIII Boys: Mr. Liyakath Abdul Khadar; ext. 125; liyakatha@yaraschool.net.
+Senior Supervisor, Grades IV-VIII Girls: Mrs. Jasna Shan; ext. 116; jasnas@yaraschool.net.
+Headmistress, Home Room: Mrs. Shehenas Khan; ext. 113; shehanask@yaraschool.net (Contact page email spelling).
+Acting Supervisor, Kindergarten: Mrs. Nazia Hassan; ext. 111; naziah@yaraschool.net.
+Admin Manager: Mr. Abdul Kader; ext. 115; abdul_kader@yaraschool.net.
+Saudi Managers: Haya Al Ammar, Girls, ext. 110, hayaa@yaraschool.net; Asma Saud Al Suhaim, Girls, ext. 121, asmaa@yaraschool.net; Sulaiman Al Kasser, Boys, ext. 129.
+School extensions use 00966-11-2869960.
+Source: https://www.yaraschool.net/management/
+The Management page identifies owner Mr. Khalid Al Idrees and Principal/Correspondent Mrs. Aasima Saleem.
+
+----------------------------------------------------------
+SERVICE EMAILS & ENQUIRIES
+----------------------------------------------------------
+Source: https://www.yaraschool.net/contact/
+Admissions: admissions@yaraschool.net; +966592888865.
+Examinations: examination@yaraschool.net.
+Transfer Certificates (TC): TCservices@yaraschool.net.
+Fees/accounts: fees@yaraschool.net; ext. 106.
+Bookstore: bookstore@yaraschool.net; Supply Chain Officer, ext. 119.
+Management: management@yaraschool.net.
+Transport registration, routes, pickup-point changes and current assignments: Admin Manager, ext. 115.
+These are published service contacts. Do not infer private phone numbers or individual-record access from them.
+
+----------------------------------------------------------
+HEADS OF DEPARTMENT (PUBLIC WEBSITE DIRECTORY)
+----------------------------------------------------------
+Source: https://www.yaraschool.net/team-leaders/
 Physics HOD: Arun Kumar T.S
-Social Science HOD: Faisal M
-Science HOD: Manoj M.V
+Chemistry HOD: Manoj M.V
 Biology HOD: Murali Krishna Busi
-Malayalam HOD: Rahila Kafoor
+Social Science HOD: M Faizal
+Mathematics HOD: Sulfikhar Ali C
+Commerce HOD: Shahid Muhammad K P
 English HOD: Rasheed Hasan
-Urdu HOD: Shabab Parvez
-Commerce HOD: Shahid Muhammad K.P
+Urdu HOD: Shabab Pravez
 Hindi HOD: Shamir Ahmed Khan
-Computer Science (Acting HOD): Madar Abdul Rahman
-Mathematics (Acting HOD): Sulfikhar Ali C
- 
-Note: All teachers at Yara International School work on a full-time basis.
- 
+Arabic HOD: Riyas Hasani A P
+Computer Science HOD: Madar Abdul Rahman
+Malayalam HOD: Rahila
+Physical Education HOD: Sana Shahid
+Fine Arts HOD: Anoop Kumar
+Controller of Examinations: Faal Rehbar.
+Special Projects Supervisor / NABET Quality Assurance Head: Jobit T C.
+No separate Science HOD is listed on this retrieved page; do not silently substitute Chemistry for Science.
+This public directory is not an authoritative class-allocation or internal-permissions record.
+
 ----------------------------------------------------------
-SCHOOL CAMPUS
+CURRICULUM / GRADES I-X
 ----------------------------------------------------------
-The campus is a customized facility, previously a university building, located at Wazeer Street, Dheera District, Riyadh.
-Total campus area: 9,890 square metres (2.44 acres)
-Built-up area: 6,600 sq. metres
-Play area: 3,290 sq. metres
-The campus has two completely separate blocks for boys and girls, plus a dedicated academic block and administration office area.
-Facilities include: spacious classrooms with Digital Teaching Systems, well-equipped Science laboratories, four Computer labs, a full library with reading room, Dance & Music rooms, a Health and Wellness facility, playgrounds, a KG recreation area, a canopy-roofed assembly area, a self-contained infirmary with a full-time nurse and medical aid, and a large parking lot for personal cars and school vehicles.
- 
+Source: https://www.yaraschool.net/curriculum/
+CBSE curriculum; computer education, sports and games form part of learning.
+The website's overall Grades I-X subject offering lists English, Hindi, Mathematics, Science, Social Science, Malayalam, Arabic, Urdu, Tamil, Kannada, Marathi, Telugu, Computer Education, and Coding & Data Science (skill subjects).
+This is a Grades I-X catalogue, not a claim that every grade or child studies every listed language or skill subject. Confirm the grade-specific subject combination with academics.
+Kindergarten/primary learning uses play, hands-on activity, oral language, value education, art, music and outdoor games.
+
 ----------------------------------------------------------
-SAFETY & SECURITY
+CURRICULUM / GRADES XI-XII & STREAMS
 ----------------------------------------------------------
-YIS maintains comprehensive safety measures embedded in daily operations, including plans for immediate emergency response, long-term preventive programs, and 24x7 deployment of security personnel.
- 
-----------------------------------------------------------
-SCHOOL UNIFORM POLICY
-----------------------------------------------------------
-GIRLS:
-- NUR to Grade III, Sunday-Wednesday: Chocolate brown chequered blouse, plain chocolate brown pinafore, white socks, black shoes
-- NUR to Grade III, Thursday: House colour T-shirt (with school logo), white track pants, white socks, plain white sport shoes
-- Grades IV to XII, Sunday-Wednesday: Chocolate coloured dupatta, chequered kameez, chocolate brown salwar, white socks, black shoes
-- Grades IV to XII, Thursday: White salwar kameez (full sleeves), white house-colour vest (with school logo), white socks, white sport shoes
- 
-BOYS:
-- NUR to Grade XII, Sunday-Wednesday: Chocolate brown chequered shirts (half sleeves), brown tie, plain chocolate brown trousers, white socks, black shoes
-- NUR to Grade XII, Thursday: House colour T-shirt (with school logo), white track pants, white socks, plain white sport shoes
- 
-UNIFORM NOTES:
-- Girls should wear a white hairband (short hair) or white rubber bands. Bangles, anklets, friendship bands, and jewellery are not allowed in school.
-- Winter wear: Plain chocolate-coloured blazers are compulsory during winter for both boys and girls. On Thursdays, students should wear a white sweater/pullover with their white uniform. Gloves and caps, if worn, should match the uniform colour. Girls may wear white stockings instead of socks.
-- Blazers are compulsory for official functions, award ceremonies, and inter-school competitions.
-- All students must strictly follow the school uniform code.
-- Contact the school Admin Office (Gate #6) for the uniform supplier.
- 
-----------------------------------------------------------
-FEE STRUCTURE (per Quarter, in Saudi Riyals, unless noted)
-----------------------------------------------------------
-                          Nursery  KG    I-VII  VIII-X  XI     XII
-Admission fee             1500     1500  1500   1500    Nil    1500
-Caution Deposit*          500      500   500    500     500    500
-Tuition Fee (quarterly)   1260     1560  1560   1560    1740   1740
-KG Activity fee           0        60    0      0       0      0
-Science Lab fee           0        0     0      100     150    150
-Computer fee              0        30    30     30      0      0
-TeachNext Smart Class fee 0        180   180    180     180    180
-Student Insurance (annum) 40       40    40     40      40     40
- 
-*Caution deposit is charged for the first 2 children only per family and refunded when the last child leaves the school.
- 
-THIRD CHILD DISCOUNT: Families with a 3rd child (and above) receive a 30% discount on tuition fee:
-Discounted Tuition fee per Quarter — Nursery 882, KG 1092, I-VII 1092, VIII-X 1092. No discount for Grade XI or XII.
- 
-PRE-SCHOOL FEES (Toddlers & Pre-School sections):
-Toddlers (Infants-2 years): SAR 500/month
-Pre-School (2-3 years): SAR 300/month
-Special needs children fee determined case-by-case.
-Pre-School payment: cash at the school fee payment counter.
- 
-TRANSPORTATION FEE (per Quarter, only for students using school transport):
-Up to 15 KM: Two-way SAR 870, One-way SAR 600
-16-25 KM: Two-way SAR 990, One-way SAR 750
-Above 25 KM: Based on travel distance
-Transport fee is payable for all 12 months of the year.
-Pre-school transportation: One-way SAR 200/month, Two-way SAR 290/month. No transport fee for staff children under 2 travelling on a mother's lap.
- 
-Note: VAT at 15% is payable as applicable under GAZT rules for all fees. The School Management reserves the right to revise fees based on school needs.
- 
-----------------------------------------------------------
-FEE PAYMENT PROCEDURES & DATES
-----------------------------------------------------------
-Quarterly tuition fee is due at the beginning of each quarter, though it can be paid in advance any working day.
- 
-Quarter               Due Date          With Late Fee
-1st (Apr, May, Jun)   15th April        30th April
-2nd (Jul, Aug, Sep)   15th July         31st July
-3rd (Oct, Nov, Dec)   15th October      31st October
-4th (Jan, Feb, Mar)   15th January      31st January
- 
-Late fee: SR 1/day (including VAT) after the due date. If the due date falls on a holiday, fees are collected without late fee on the next working day.
-If fees remain unpaid beyond the stipulated period, the child's name is struck off the rolls. Re-admission then requires SR 200 (incl. VAT) re-admission fee plus clearing all outstanding dues.
-Parents going on annual vacation/emergency leave should pay fees in advance or arrange timely remittance.
-Fee intimation is sent on or before 20th March/June/September/December for the following quarter — non-receipt of intimation is not a valid reason to delay payment.
-Students joining mid-quarter pay the full quarter's fee. Long absentees must pay for all quarters to rejoin, or take a TC after settling dues.
- 
-PAYMENT METHODS:
-- Cash payment at the school fee counter (7:30 AM - 3:30 PM)
-- Bank deposit/online transfer: Riyad Bank, Account Name "Yara International School", A/C No. 2123852039940, IBAN SA2420000002123852039940
-- MADA card at the school fee payment counter
-Fee enquiries: Cash & Customer Service Officer, fees@yaraschool.net, ext. 106
- 
+Source: https://www.yaraschool.net/curriculum/
+The senior-secondary catalogue lists English Core, Mathematics, Physics, Chemistry, Biology, Business Studies, Accountancy, Economics, History, Sociology, Physical Education, Computer Science and Fine Arts.
+Psychology, Applied Mathematics and Entrepreneurship are marked conditional on the website; the precise condition was not captured. Confirm their availability before promising enrolment.
+Science, Commerce and Humanities streams are described on the admissions page. Entrance-test subject groups are separate from the enrolled curriculum.
+The website describes preparation for CBSE examinations and NEET/JEE. This is not a guarantee of a result or an individual student's programme.
+
 ----------------------------------------------------------
 ADMISSION PROCEDURE
 ----------------------------------------------------------
-Admission is open to Indian Nationals only, subject to seat availability. New academic year admissions are generally processed in the last quarter of the previous academic year; the Principal may grant exceptions under special circumstances.
- 
-Application forms are available from the school office for SR 50 (incl. VAT), Nursery to Grade XI, or downloadable from the website with payment at submission.
- 
-ENTRANCE TEST: Required for all fresh admissions from UKG upward. Non-refundable fee: SR 100 (incl. VAT).
-- UKG: English and Mathematics (LKG syllabus)
-- Grades I & II: English, Mathematics, Hindi
-- Grades III to VIII: English, Mathematics, Hindi, 3rd Language
-- Grades IX & X: English, Mathematics, Science, 2nd Language
-- Grades XI & XII (Science PCM): English, Physics, Chemistry, Mathematics
-- Grades XI & XII (Science PCB): English, Physics, Chemistry, Biology
-- Grades XI & XII (Science PCMB): English, Physics, Chemistry, Biology, Mathematics
-- Grades XI & XII (Commerce): English, Business Studies, Accountancy, Economics
-- Grades XI & XII (Humanities): English, History, Sociology, Economics
- 
-Direct admission is given to Class X & XII, subject to CBSE requirements. Cut-off date for fresh admission to Class IX & XI is 30th June; for lower grades, 30th September.
- 
-CLASS XI STREAM ADMISSION CRITERIA:
-Science Stream: minimum 60% in Science & Mathematics individually, aggregate 60% in Pre-Board and Periodic Tests, minimum 60% in Entrance Test.
-Commerce Stream: minimum 60% in English & 50% in Mathematics individually, aggregate 60% in Pre-Board/PTs, minimum 60% in Entrance Test.
-Humanities Stream: minimum 60% in English & 50% in Social Science individually, aggregate 60% in Pre-Board/PTs, minimum 60% in Entrance Test.
-75% attendance is mandatory for Class XI and XII per CBSE Examination Byelaws.
- 
-REQUIRED ADMISSION DOCUMENTS:
-Birth certificate, valid passport copies (student, father, mother), valid Iqama copies (student, father, mother), student's visa page copy, student's Aadhar card copy, original Transfer Certificate (with NOOR details for local transfers), previous report cards (Grade II and above), for Grade XI admission: PT1/PT2/PT3 and Pre-Board report cards attested by Principal, Bonafide Certificate of Grade X, financial clearance/No Dues Certificate from previous school, sponsor letter with CR Number, vaccination card copy (Nursery to Grade I admissions).
- 
-Transfer Certificates are valid for one month from issue date. TC issuance requires 7 working days notice and a fee of SR 200 (incl. VAT). TC cancellation after formal request costs SR 100 (incl. VAT) administrative charge.
-Withdrawal mid-quarter requires full payment for that quarter (non-refundable).
-Re-admission after removal from rolls requires SR 200 (incl. VAT) fee plus clearing outstanding dues, subject to seat availability.
- 
+Source: https://www.yaraschool.net/admission/admission-tc/
+Admission is for Indian nationals, subject to seats. New-year admission is normally processed in the previous academic year's last quarter; exceptional admission requires school approval.
+Application form: SAR 50 including VAT, Nursery to Grade XI; available at the office or via website download with payment on submission.
+Entrance test: fresh UKG-and-up admissions; non-refundable SAR 100 including VAT.
+Fresh-admission cut-offs published: June 30 for IX/XI; September 30 for lower grades. Confirm the applicable session.
+Grade I admission without a TC may use a competent-authority birth certificate.
+The page's general text allows direct X/XII admission subject to CBSE requirements, while its XI tab says no direct XII admission. These conflict: refer Class XII eligibility to Admissions, not an automated yes/no answer.
+The nursery/LKG/UKG age table mixes a 2025 label with a 2026 reference date; do not calculate eligibility from that inconsistent table.
+
 ----------------------------------------------------------
-SCHOOL TRANSPORTATION — FULL BUS ROUTE LIST
+CLASS XI ADMISSION CRITERIA
 ----------------------------------------------------------
-The school operates 25 air-conditioned buses covering various parts of Riyadh. Drivers and bus attendants ensure student safety. Parents can contact drivers directly via the assigned mobile numbers.
- 
-Bus 1: Manfuha, Dhira, Batha Museum, Safa Makkah 2, Jazeera, Lulu Batha (Afternoon Route - Ateeka) — Mr. Usman — 966592494010
-Bus 2: Malaz, Jarir Book Store, Malaz Zoo, Kings Hospital — Mr. Sajid — 966502049604
-Bus 3: Gold Market, CRB Hospital, Sara Farsdak, Sahara Rail, Batha Khurabi — Mr. Imran — 966570792638
-Bus 4: Naseem, Exit 14, Near Veg Market, Riyadh Care Hospital, up to Naseem Toyota Showroom — Mr. Ainullah — 966578024395
-Bus 5: Aziziyah, Mansoora, Haraj — Mr. Imran — 96670792638
-Bus 6: Askan Kuwaiti Building, Lulu Murabba, Mubarak Hospital, Hollandi Bank Hara — Mr. Salahuddin — 966575561908
-Bus 7: Khalidiya, Mansoura, Gubera, Old Sanaya, Shara Gurabi — Mr. Waheed — 966581484706
-Bus 8: Panda, Al Yasmin School, Malaz Stadium, Ladies Jail, Al Alia International School, International Indian School — Mr. Imran Sardar — 966559886549
-Bus 9: Seva School, Marriot Kaanoo, T shoe, Al Rajhi Bank, Tandi Mandi, Sha Super Market, Hara Park — Mr. Rashid — 966530412933
-Bus 10: Umm Al Hamam, Takhassusi, Nasiriyyah, Computer market — Mr. Sabir Shah — 966548970720
-Bus 11: Mamannoora, Lahore Kabab, NCB bank head office, Malaz restaurant, Deccan sweets, Hara Panda — Mr. Bilal — 966531626408
-Bus 12: Sulai, Karba, Hayyal Faruk Railway station, Old Sanaya, Batha — Mr. Naveed — 966598256252
-Bus 13: Al Sedhar Exit 14, Kidney hospital, Nadha Park, King Khalid International school, Old Yara School, Tamimi Market, Tandoor Restaurant, National Hospital, Malaz Akkariya, Al Maas Hotel — Mr. Faheem Khan — 966596633205
-Bus 14: King Abdul Aziz Hospital, Shara Sitheen, KFC, Malaz Murur, Obaid Hospital, Jamia Street — Mr. Bakhthyar — 966596327175
-Bus 15: Hammadi Hospital, Olaya Akharia, Middle East Intl School, Sulaimania Airport, Wooden bakery — Mr. Naseeb — 966592001618
-Bus 16: Mubarak Hospital, Sabb Bank, Hara Panda — Mr. Zahoor — 966559043298
-Bus 17: Shumaisi, Sukh Maka, Bindayal Market, Kassar Mall etc — Mr. Hussain — 966545841723
-Bus 18: Khana Khasana, Delhi Restaurant, Kooper Restaurant, Al Rajhi Bank, Al Ameen Super Market (HARA) — Mr. Salman Sardar — 966596156372
-Bus 19: Askan 12 Near Exit 18, Gubhera etc — Mr. Karmath Shah — 966581909445
-Bus 20: Bugluf Stadium, Rauda 1/2/3, Rabwa, Exit 24/26/28/30 — Mr. Syed Razik Khan — 966594378382
-Bus 21: Exit 14, Al Sadan, Malaz, Jareer Street — Mr. Samiullah — 966594321276
-Bus 22: Security Hospital, Dhubbat, Obeid Hospital, Jamia Street, NCB Bank — Mr. Shujjat — 966596831323
-Bus 23: NCB King Abdul Azeez Road, SABB Bank, Jamia Street, ISSR Girls, Batha Murur, Post office — Mr. Munshif — 966597932430
-Bus 24: Dhahran street, Ladies Jail, Tamimi, Al Alia School, Old Sanaya, ABC Cargo, Farasdaq Road — Mr. Shafiq — 966507941348
-Bus 25: Askan2-Gubera-Mansoora-Azizia-Askan1-Askan2-Yara — Mr. Bakht Sher Ali — 966593539787
- 
-For any route changes or updated driver assignments, contact the Admin Manager (ext. 115) or the transportation office directly.
- 
+Source: https://www.yaraschool.net/admission/admission-tc/
+For non-Yara applicants, the Class-X-syllabus entrance test and previous Periodic/Pre-Board marks determine admission/stream.
+For Yara students, the page refers to Class X PT1/PT2/PT3 and Pre-Board marks.
+Science: at least 60% individually in Science and Mathematics, 60% aggregate in Pre-Board/PTs and 60% entrance.
+Commerce: at least 60% English, 50% Mathematics, 60% aggregate and 60% entrance.
+Humanities: at least 60% English, 50% Social Science, 60% aggregate and 60% entrance.
+The XI tab lists minimum D in five external Class X subjects, June 30, 2026 cut-off, 75% attendance, and CBSE conditions on XII subject changes/cross-migration. School/CBSE confirmation is required for current eligibility and exceptions.
+
 ----------------------------------------------------------
-FREQUENTLY ASKED QUESTIONS (Additional, Official Source)
+ADMISSION DOCUMENTS
 ----------------------------------------------------------
-Q: What time does school start and end?
-A: Grades I to XII: 7:00 AM to 1:00 PM, Sunday to Thursday. Nursery, LKG & UKG: 7:00 AM to 11:30 AM. Students should arrive by 6:55 AM.
- 
-Q: What are the school office hours?
-A: 7:00 AM to 3:30 PM, Sunday to Thursday. 8:30 AM to 3:00 PM on Saturday.
- 
-Q: How do I contact the Principal?
-A: Mrs. Aasima Saleem, Principal, reachable at principal@yaraschool.net or extension 108. Visits are by appointment only, Sunday to Thursday.
- 
-Q: Who do I contact about fees?
-A: Email fees@yaraschool.net or extension 106, or visit the office during fee collection hours.
- 
-Q: What is the school uniform?
-A: Varies by day and grade — chocolate-brown standard uniform Sunday-Wednesday, house-colour sportswear on Thursday. Winter blazers are compulsory.
- 
-Q: Does the school provide transportation?
-A: Yes — 25 air-conditioned buses cover most of Riyadh. Contact the school office or your assigned driver directly for route/timing details.
- 
-Q: Who is the Head of Department for a given subject?
-A: Physics - Arun Kumar T.S. Social Science - Faisal M. Science - Manoj M.V. Biology - Murali Krishna Busi. Malayalam - Rahila Kafoor. English - Rasheed Hasan. Urdu - Shabab Parvez. Commerce - Shahid Muhammad K.P. Hindi - Shamir Ahmed Khan. Computer Science (Acting) - Madar Abdul Rahman. Mathematics (Acting) - Sulfikhar Ali C.
- 
-Q: How much is the admission fee?
-A: SR 1500 for Nursery through Grade X and Grade XII; no admission fee for Grade XI. A caution deposit of SR 500 also applies (first 2 children per family, refunded when the last child leaves).
- 
-Q: When are quarterly fees due?
-A: 15th April, 15th July, 15th October, and 15th January, with a grace period of about 15 days before late fees apply.
- 
-Q: Is admission open to all nationalities?
-A: Admission is open to Indian Nationals only, subject to seat availability.
- 
-Q: What subjects are tested in the entrance exam?
-A: Varies by grade — UKG tests English & Maths; higher grades add Hindi, a 3rd language, and Science as applicable. Grade XI/XII entrance depends on the chosen stream (Science, Commerce, or Humanities).
- 
-Q: What is the campus like?
-A: A custom 9,890 sq. metre campus with separate boys' and girls' blocks, science and computer labs, a library, dance/music rooms, health facilities, and a self-contained infirmary with a full-time nurse.
- 
+Source: https://www.yaraschool.net/admission/admission-tc/
+Checklist: birth certificate; valid passports and Iqamas for student/father/mother; student visa-page and Aadhaar copies; original previous-school TC; previous report cards (Grade II onward); previous-school financial clearance; sponsor letter with CR number; vaccination copy for Nursery-Grade I.
+Local transfers: original TC with NOOR details (KG-XI); Grade XI local TC requires MOE attestation.
+Outside-KSA transfers: Saudi-Embassy-attested original TC from Grade II onward, as published.
+Confirm the latest checklist/attestation requirements with Admissions before submitting originals.
+Admission form: https://api.yaraschool.net/files/uploads/documents/downloads/Downloads_20251218_125457_56d82e6f.pdf
+Checklist: https://api.yaraschool.net/files/uploads/documents/downloads/Downloads_20251218_125501_0b3bb641.pdf
+
+----------------------------------------------------------
+TRANSFER CERTIFICATE & WITHDRAWAL
+----------------------------------------------------------
+Source: https://www.yaraschool.net/admission/admission-tc/
+Submit a TC request at least 7 working days in advance; published TC fee SAR 200 including VAT.
+Mid-quarter withdrawal requires the whole quarter's fees; these are not refundable.
+Re-admission after removal from rolls: SAR 200 including VAT plus outstanding fees, subject to seats.
+TC forms/downloads: https://www.yaraschool.net/admission/tc-downloads/
+TC enquiries: TCservices@yaraschool.net.
+No current TC-validity period or cancellation charge was verified in this refresh.
+
+----------------------------------------------------------
+ENTRANCE TEST SUBJECTS
+----------------------------------------------------------
+Source: https://www.yaraschool.net/admission/admission-tc/
+UKG: English and Mathematics, based on LKG syllabus.
+Grades I-II: English, Mathematics, Hindi.
+Grades III-VIII: English, Mathematics, Hindi, third language.
+Grades IX-X: English, Mathematics, Science, second language.
+XI-XII Science PCM: English, Physics, Chemistry, Mathematics.
+XI-XII Science PCB: English, Physics, Chemistry, Biology.
+XI-XII Science PCMB: English, Physics, Chemistry, Biology, Mathematics.
+XI-XII Commerce: English, Business Studies, Accountancy, Economics.
+XI-XII Humanities: English, History, Sociology, Economics.
+Detailed portion files: https://www.yaraschool.net/admission/entrance-test/
+These are admission-test subjects, not each grade's curriculum or achieved exam results.
+
+----------------------------------------------------------
+FEE STRUCTURE / GENERAL SCHEDULE
+----------------------------------------------------------
+Source: https://www.yaraschool.net/admission/fee-structure/
+Currency: SAR. Tuition/activity/lab/computer/smart-class amounts are per quarter; insurance is per annum. Admission/deposit are separate, not recurring quarterly tuition.
+Grade group | Admission | Deposit | Tuition | KG activity | Science lab | Computer | Smart class | Annual insurance
+Nursery | 1500 | 500 | 1410 | - | - | - | - | 40
+KG | 1500 | 500 | 1710 | 60 | - | 30 | 180 | 40
+I-VII | 1500 | 500 | 1710 | - | - | 30 | 180 | 40
+VIII-X | 1500 | 500 | 1710 | - | 100 | 30 | 180 | 40
+XI | - | 500 | 1890 | - | 150 | - | 180 | 40
+XII | 1500 | 500 | 1890 | - | 150 | - | 180 | 40
+A dash means the source table shows no amount for that item; do not invent a fee.
+VAT: 15% as applicable under the website's published wording. Do not add VAT again to explicitly VAT-inclusive circular totals.
+Fees may be revised by management; a specific current-quarter circular can distinguish Science versus Commerce/Humanities charges.
+
+----------------------------------------------------------
+FEE STRUCTURE / DEPOSIT, SIBLINGS & OPTIONAL MADRASA
+----------------------------------------------------------
+Source: https://www.yaraschool.net/admission/fee-structure/
+Caution deposit: first two children only; refundable when the last child leaves.
+Third child and above: 30% tuition discount, Nursery-X only. Discounted quarterly tuition: Nursery 987; KG, I-VII and VIII-X 1197. No XI/XII discount in this schedule.
+Optional Yara Madrasa: SAR 180 per quarter for KG and I-VII students who opt in.
+Discount applies to the stated tuition component, not automatically every charge; use the applicable circular for totals.
+
+----------------------------------------------------------
+FEE STRUCTURE / TRANSPORT & PRE-SCHOOL
+----------------------------------------------------------
+Source: https://www.yaraschool.net/admission/fee-structure/
+Regular school transport, per quarter: up to 15 km two-way 870 / one-way 600; 16-25 km two-way 990 / one-way 750; above 25 km based on distance.
+Transport charges apply only to users and are payable for all 12 months. VAT applies as published.
+Toddlers (infants-2 years): SAR 500/month. Pre-School (2-3 years): SAR 300/month; cash at fee counter.
+Pre-School transport: SAR 200/month one-way; SAR 290/month two-way.
+Published exception: staff children under two travelling on mother's lap have no transport fee.
+Special-needs preschool fees are determined case by case; do not infer a child's fee or eligibility.
+
+----------------------------------------------------------
+FEE PAYMENT PROCEDURES & DATES
+----------------------------------------------------------
+Source: https://www.yaraschool.net/admission/payment-dates/
+Academic year 2026-27:
+Quarter 1 (April-June): due 15th April 2026; table's "With Late Fee" date 30 April 2026.
+Quarter 2 (July-September): due 15 July 2026; table's "With Late Fee" date 31 July 2026.
+Quarter 3 (October-December): due 15 October 2026; table's "With Late Fee" date 31 October 2026.
+Quarter 4 (January-March): due 15 January 2027; table's "With Late Fee" date 31 January 2027.
+The prose says SAR 1/day including VAT after due dates; the Q3 circular explicitly says October 15 is the last date without late fee. Do not promise a 15-day grace period from the general table.
+Holiday due dates: next working day without late fee, according to this page.
+Fee intimation: by March/June/September/December 20; non-receipt is not permission to delay.
+Mid-quarter joiners pay the full quarter; long absentees must settle applicable quarters or obtain TC.
+Unpaid fees can lead to removal/re-admission charges under the published policy; confirm any child's actual status through authorised records, not this almanac.
+
+----------------------------------------------------------
+FEE PAYMENTS / METHODS & VERIFICATION
+----------------------------------------------------------
+Source: https://www.yaraschool.net/admission/payment-dates/
+Published methods: bank deposit/online transfer, MADA at the fee counter, cash at the fee counter.
+Account name: Yara International School. Bank: Riyad Bank.
+Published account: 2123852039940. Published IBAN: SA2420000002123852039940.
+Confirm payment instructions on the current official page or with fees@yaraschool.net before transferring money; this snapshot is not transaction confirmation.
+The Q3 notice asks for bank-transfer details/receipt PDF at fees@yaraschool.net and links the online gateway: https://yara.halerp.com/webform/load/606
+The homepage also has an Online Fee Payment link: https://www.yaraschool.net/online-fee-payment/
+Never ask for or store card details, bank credentials or OTPs in chat.
+
+----------------------------------------------------------
+FEE STRUCTURE / Q3 2026-27 VAT-INCLUSIVE TOTALS
+----------------------------------------------------------
+Source: https://api.yaraschool.net/files/uploads/documents/notices/NoticesCir_20260921_140206_278bce35.pdf
+Scope: Quarter 3, October-November-December 2026 only; amounts already include 15% VAT.
+Group | Tuition and other fees | With 2-way up to 15km | With 1-way up to 15km | With 2-way 16-25km | With 1-way 16-25km
+Nursery | 1621.50 | 2622.00 | 2311.50 | 2760.00 | 2484.00
+LKG | 2277.00 | 3277.50 | 2967.00 | 3415.50 | 3139.50
+UKG | 2402.00 | 3402.50 | 3092.00 | 3540.50 | 3264.50
+I-VII | 2208.00 | 3208.50 | 2898.00 | 3346.50 | 3070.50
+VIII-X | 2323.00 | 3323.50 | 3013.00 | 3461.50 | 3185.50
+XI Science | 2553.00 | 3553.50 | 3243.00 | 3691.50 | 3415.50
+XI Commerce/Humanities | 2380.50 | 3381.00 | 3070.50 | 3519.00 | 3243.00
+XII Science | 2703.00 | 3703.50 | 3393.00 | 3841.50 | 3565.50
+XII Commerce/Humanities | 2530.50 | 3531.00 | 3220.50 | 3669.00 | 3393.00
+UKG and XII columns include convocation fee, as labelled in the circular.
+Last date without late fee: 15 October 2026. Do not reuse these totals for another quarter or treat them as a child's pending balance.
+
+----------------------------------------------------------
+FEE STRUCTURE / Q3 THIRD-CHILD VAT-INCLUSIVE TOTALS
+----------------------------------------------------------
+Source: https://api.yaraschool.net/files/uploads/documents/notices/NoticesCir_20260921_140206_278bce35.pdf
+Scope: third child upwards, Q3 October-December 2026 only; already includes VAT.
+Group | Tuition and other fees | With 2-way up to 15km | With 1-way up to 15km | With 2-way 16-25km | With 1-way 16-25km
+Nursery | 1135.05 | 2135.55 | 1825.05 | 2273.55 | 1997.55
+LKG | 1687.05 | 2687.55 | 2377.05 | 2825.55 | 2549.55
+UKG | 1812.05 | 2812.55 | 2502.05 | 2950.55 | 2674.55
+I-VII | 1618.05 | 2618.55 | 2308.05 | 2756.55 | 2480.55
+VIII-X | 1733.05 | 2733.55 | 2423.05 | 2871.55 | 2595.55
+No XI/XII discounted total is supplied in this table. Confirm individual applicability with Accounts.
+
+----------------------------------------------------------
+SCHOOL UNIFORM POLICY
+----------------------------------------------------------
+Source: https://www.yaraschool.net/admission/school-uniform/
+GIRLS:
+Nursery-III, Sunday-Wednesday: chocolate brown chequered blouse, plain chocolate brown pinafore, white socks, black shoes.
+Nursery-III, Thursday: house-colour logo T-shirt, white track pants, white socks, plain white sports shoes.
+IV-XII, Sunday-Wednesday: chocolate dupatta, chequered kameez, chocolate brown salwar, white socks, black shoes.
+IV-XII, Thursday: white full-sleeve salwar kameez, white house-colour vest with logo, white socks, white sports shoes.
+BOYS:
+Nursery-XII, Sunday-Wednesday: Chocolate brown chequered shirts (half sleeves), brown tie, chocolate brown trousers, white socks, black shoes.
+Nursery-XII, Thursday: house-colour logo T-shirt, white track pants, white socks, plain white sports shoes.
+UNIFORM NOTES:
+Girls: white hairband/white rubber bands; no bangles, anklets, friendship bands or jewellery.
+Winter: plain chocolate-coloured blazers compulsory for boys/girls; Thursday white sweater/pullover; matching gloves/caps; girls may use white stockings.
+Blazers also compulsory for official functions, award ceremonies and interschool competitions.
+Contact school Admin Office (Gate #6) for the uniform supplier.
+
+----------------------------------------------------------
+ASSESSMENT & EVALUATION / GRADES I-V
+----------------------------------------------------------
+Source: https://www.yaraschool.net/assessment-evaluation/
+The page describes two term-end examinations and a five-point grading scale, with three evaluation entries:
+Evaluation I: term-end exam 60%; project/skill/test/assignment 40%.
+Evaluation II: unit test 40%; skill 60%.
+Evaluation III: term-end exam 60%; project/skill/test/assignment 40%.
+Promotion considers whole-year performance.
+Published rules include 75% attendance, Principal consideration of shortage up to 15%, no calculators, zero/cancellation for unfair means, and no re-exam for absentees.
+These are published policy descriptions, not approval of an individual exception.
+
+----------------------------------------------------------
+ASSESSMENT & EVALUATION / GRADES VI-X
+----------------------------------------------------------
+Source: https://www.yaraschool.net/assessment-evaluation/
+Annual examination plus internal assessment. VI-VIII half-yearly examination: 80 marks, full Term I syllabus.
+Annual syllabus: VI 10% significant Term I topics plus full Term II; VII 20% plus full Term II; VIII 30% plus full Term II; IX-X complete syllabus.
+VI-VIII internal assessment (20): periodic test 10, notebook 5, subject enrichment 5.
+IX-X internal assessment (20) includes periodic/multiple assessments, portfolio and subject enrichment.
+Published IX-to-X promotion: 33% total, compartment in at most two subjects; more than two failed subjects leads to detention in IX. Confirm current policy and exceptions with Examinations.
+
+----------------------------------------------------------
+ASSESSMENT & EVALUATION / GRADES XI-XII
+----------------------------------------------------------
+Source: https://www.yaraschool.net/assessment-evaluation/
+Published XI-to-XII promotion: 33% in each subject, theory and practical separately; compartment in one subject only.
+Theory failure: reappear in theory only. Practical failure: page says reappear in theory and practical.
+Do not infer a student's result or promotion from general rules; consult authorised results and Examinations.
+
+----------------------------------------------------------
+STUDENT COUNSELLING & EXAM-STRESS SUPPORT
+----------------------------------------------------------
+Source: https://www.yaraschool.net/counselling/
+The school publishes that a qualified counsellor supports academic, emotional and personal well-being.
+Services: career guidance, group workshops, class counselling, individual counselling, parental counselling, teacher counselling.
+For an appointment or the current counsellor's contact, ask the school office; a named counsellor/contact or appointment time was not published in the retrieved text.
+A counselling enquiry is not permission to file a complaint. No confidentiality guarantee or emergency service is inferred here.
+
+----------------------------------------------------------
+SCHOOL CAMPUS & FACILITIES
+----------------------------------------------------------
+Source: https://www.yaraschool.net/amenities/school-campus/
+Published campus area: 9,890 square metres; built-up 6,600; play area 3,290.
+Separate boys'/girls' blocks, academic block, administration area and parking.
+Facilities: digital classrooms, science/computer labs, library/reading room, dance/music rooms, health/wellness facility, playgrounds, KG recreation area, roofed assembly space, infirmary and auditorium.
+Games listed: basketball, badminton, volleyball, table tennis, chess and caroms.
+No swimming pool is established by the retrieved facilities pages; do not turn absence from a list into a definite "no pool".
+
+----------------------------------------------------------
+LABORATORIES
+----------------------------------------------------------
+Source: https://www.yaraschool.net/labs/
+Computer labs: the Labs page says five labs for KG-XII; the Campus page says four. The count conflicts; describe availability without presenting one count as settled.
+Computer labs include internet-connected PCs, software, workstations, projectors and reference resources.
+Science: Physics, Chemistry and Biology laboratories with practical guidance.
+Mathematics lab: geometric/algebraic models, manipulatives, measuring tools and collaborative teaching resources.
+
+----------------------------------------------------------
+SMART CLASSES & KNOWLEDGE CENTRE
+----------------------------------------------------------
+Source: https://www.yaraschool.net/smart-classes/
+Digital boards, multimedia, interactive curriculum-aligned resources, blended learning and digital assessment.
+Source: https://www.yaraschool.net/learning/knowledge-centre/
+TeachNext resources: animations, videos, virtual labs, diagrams, graphs, maps, simulations and assessment tools.
+The Knowledge Centre links to classrooms through the intranet and supports lesson preparation and staff training. Its internal usage-tracking claims are not individual staff-performance records.
+
+----------------------------------------------------------
+LIBRARY
+----------------------------------------------------------
+Source: https://www.yaraschool.net/learning/library/
+Website snapshot: 11,837 fiction/non-fiction titles, 1,167 reference materials, 720 e-books; library area 222 square metres.
+Magazines/newspapers and digital e-resources are available; the page describes 24/7 access to digital resources, not 24/7 physical opening.
+Physical library opening hours and borrowing limits were not established here.
+
+----------------------------------------------------------
+MONTESSORI & DAYCARE
+----------------------------------------------------------
+Source: https://www.yaraschool.net/learning/montessory-rooms/
+Montessori activities include academics, art/music, drama/movement and practical life skills under qualified staff.
+Source: https://www.yaraschool.net/amenities/crayons-cradles/
+Crayons & Cradles is the school's daycare during regular school hours. Ask Administration for current enrolment, age eligibility and exact timings.
+
+----------------------------------------------------------
+INFIRMARY, HEALTH & MEDICAL SUPPORT
+----------------------------------------------------------
+Source: https://www.yaraschool.net/amenities/infirmary/
+Separate boys'/girls' infirmaries with qualified nursing staff during school hours.
+Published facilities: first-aid equipment, common medicines, examination table, refrigerator and resting beds.
+The page states children have accident insurance for school hours; policy limits and individual coverage must be confirmed with the school.
+This is a description of school services, not medical advice or a guarantee of treatment.
+
+----------------------------------------------------------
+SAFETY, SECURITY & VISITORS
+----------------------------------------------------------
+Source: https://www.yaraschool.net/safety-security/
+Published measures: controlled entry/exit, surveillance, 24/7 security personnel, safety drills, first-aid/emergency-response training and health/sanitation protocols.
+Visitors must check in at the main office before entering.
+No detailed lost-property desk, smartwatch rule, bullying procedure or anonymous-reporting guarantee was verified. Ask the school office for the specific route; do not invent one.
+
+----------------------------------------------------------
+AUDITORIUM & CANTEEN
+----------------------------------------------------------
+Source: https://www.yaraschool.net/amenities/auditorium/
+Auditorium: 300 seats over two floors; air conditioning, sound/lighting, projector, green rooms, VIP access and external access.
+Source: https://www.yaraschool.net/amenities/canteen/
+Separate boys'/girls' canteen facilities with covered seating, meals/snacks during school hours and some special days.
+No current menu, allergy protocol or price list was retrieved.
+
+----------------------------------------------------------
+BOOKSTORE
+----------------------------------------------------------
+Source: https://www.yaraschool.net/amenities/book-store/
+On-campus course/text/content/work/notebooks, stationery, chart paper, project items, neckties and shawls.
+Hours: Sunday-Thursday 7:00 AM - 1:00 PM; Saturday 8:30 AM - 3:00 PM.
+Bulk book-distribution dates are announced separately at the academic year's start.
+Enquiries: Supply Chain Officer, bookstore@yaraschool.net; 2869960 ext. 119.
+
+----------------------------------------------------------
+CO-CURRICULAR & AFTER-SCHOOL CLUBS
+----------------------------------------------------------
+Source: https://www.yaraschool.net/cocurricular-actvities/
+At the year's start, students may choose activities including arts, crafts, music, dance, yoga, aerobics, football, athletics, Scouts/Guides.
+School clubs include Literary, Science/Eco, Math, Performing Arts and Health/Wellness.
+Published after-school options: Taekwondo, badminton, football, cricket, chess, Scouts/Guides, Gavels, Art Academy and AIRO Robotics.
+Exact age groups, charges, meeting times, capacity and signup deadlines require current club notices/office confirmation.
+
+----------------------------------------------------------
+ENRICHMENT / ARTS, MUSIC, YOGA & PUBLIC SPEAKING
+----------------------------------------------------------
+Source: https://www.yaraschool.net/enrichment/art-craft/
+Art/Craft develops creative work with staff guidance.
+Source: https://www.yaraschool.net/enrichment/dance-music/
+Dance options include classical, western/fusion; music includes vocal, Hindustani, light and instrumental, as published.
+Source: https://www.yaraschool.net/enrichment/yoga-aerobic/
+Yoga/Aerobics club is offered with trained instructors; no medical benefit is guaranteed.
+Source: https://www.yaraschool.net/enrichment/gavels-club/
+Kohinoor Yara Gavel Club, associated with Toastmasters since 2008: fortnightly meetings, prepared speeches, table topics and evaluations; English HOD mentorship is described.
+
+----------------------------------------------------------
+ENRICHMENT / SCOUTS, SCIENCE, MATH & LANGUAGES
+----------------------------------------------------------
+Source: https://www.yaraschool.net/enrichment/scouts-heritage/
+Scouts/Guides began in 2009; affiliated to Bharat Scouts and Guides, Saudi Arabia chapter; weekly meetings and an annual three-day camp are described.
+Source: https://www.yaraschool.net/enrichment/eco-science/
+Eco/Science club (since 2011): environmental campaigns, planting, exhibitions and assemblies.
+Source: https://www.yaraschool.net/enrichment/math/
+Math club: puzzles, models, calculation/problem-solving activities, seminars, quizzes and Olympiads.
+Source: https://www.yaraschool.net/olympiad/
+The Mathematics Olympiad is described as annual, with preliminary/main levels.
+Source: https://www.yaraschool.net/enrichment/literary/
+Language clubs: Oasis English, Manas Hindi, Nirakkoottu Malayalam, OQAB Urdu, Annahla Arabic; reading, storytelling, debates, writing and presentation activities.
+
+----------------------------------------------------------
+SCHOOL TRANSPORTATION / SERVICE & METRO
+----------------------------------------------------------
+Source: https://www.yaraschool.net/amenities/transportation/
+Website reports 25 air-conditioned buses, drivers/attendants and routes across Riyadh.
+For any route changes or updated driver assignments, contact the Admin Manager (ext. 115) or transportation office.
+Published routes are indicative, not a live pickup time/seat/driver-assignment guarantee. Current assigned driver contact should come through the school.
+Source: https://www.yaraschool.net/amenities/metro/
+Qasr Al Hokm station serves Blue/Orange lines near the school. The page refers travellers to Darb/official metro channels for journeys and tickets; no current fare or journey time is established here.
+
+----------------------------------------------------------
+SCHOOL TRANSPORTATION / ROUTES 1-5
+----------------------------------------------------------
+Source: https://www.yaraschool.net/amenities/transportation/
+Bus 1: Manfuha, Dhira, Batha Museum, Safa Makkah 2, Jazeera, Lulu Batha; afternoon Ateeka.
+Bus 2: Malaz, Jarir Book Store, Malaz Zoo, Kings Hospital.
+Bus 3: Gold Market, CRB Hospital, Sara Farsdak, Sahara Rail, Batha Khurabi.
+Bus 4: Naseem, Exit 14, vegetable market, Riyadh Care Hospital, Naseem Toyota Showroom.
+Bus 5: Aziziyah, Mansoora, Haraj.
+Route/pickup confirmation: Admin Manager ext. 115; these are not live assignments.
+
+----------------------------------------------------------
+SCHOOL TRANSPORTATION / ROUTES 6-10
+----------------------------------------------------------
+Source: https://www.yaraschool.net/amenities/transportation/
+Bus 6: Askan Kuwaiti Building, Lulu Murabba, Mubarak Hospital, Hollandi Bank Hara.
+Bus 7: Khalidiya, Mansoura, Gubera, Old Sanaya, Shara Gurabi.
+Bus 8: Panda, Al Yasmin School, Malaz Stadium, Ladies Jail, Al Alia School, International Indian School.
+Bus 9: Seva School, Marriot Kaanoo, T shoe, Al Rajhi Bank, Tandi Mandi, Sha Super Market, Hara Park.
+Bus 10: Umm Al Hamam, Takhassusi, Nasiriyyah, Computer Market.
+Route/pickup confirmation: Admin Manager ext. 115; these are not live assignments.
+
+----------------------------------------------------------
+SCHOOL TRANSPORTATION / ROUTES 11-15
+----------------------------------------------------------
+Source: https://www.yaraschool.net/amenities/transportation/
+Bus 11: Mamannoora, Lahore Kabab, NCB head office, Malaz Restaurant, Deccan Sweets, Hara Panda.
+Bus 12: Sulai, Karba, Hayyal Faruk Railway Station, Old Sanaya, Batha.
+Bus 13: Al Sedhar/Exit 14, Kidney Hospital, Nadha Park, King Khalid International School, Old Yara School, Tamimi, Tandoor Restaurant, National Hospital, Malaz Akkariya, Al Maas Hotel.
+Bus 14: King Abdul Aziz Hospital, Shara Sitheen, KFC, Malaz Murur, Obaid Hospital, Jamia Street.
+Bus 15: Hammadi Hospital, Olaya Akharia, Middle East International School, Sulaimania Airport, Wooden Bakery.
+Route/pickup confirmation: Admin Manager ext. 115; these are not live assignments.
+
+----------------------------------------------------------
+SCHOOL TRANSPORTATION / ROUTES 16-20
+----------------------------------------------------------
+Source: https://www.yaraschool.net/amenities/transportation/
+Bus 16: Mubarak Hospital, Sabb Bank, Hara Panda.
+Bus 17: Shumaisi, Sukh Maka, Bindayal Market, Kassar Mall.
+Bus 18: Khana Khasana, Delhi Restaurant, Kooper Restaurant, Al Rajhi Bank, Al Ameen Super Market (Hara).
+Bus 19: Askan 12/Exit 18, Gubhera.
+Bus 20: Bugluf Stadium, Rauda 1/2/3, Rabwa, exits 24/26/28/30.
+Route/pickup confirmation: Admin Manager ext. 115; these are not live assignments.
+
+----------------------------------------------------------
+SCHOOL TRANSPORTATION / ROUTES 21-25
+----------------------------------------------------------
+Source: https://www.yaraschool.net/amenities/transportation/
+Bus 21: Exit 14, Al Sadan, Malaz, Jareer Street.
+Bus 22: Security Hospital, Dhubbat, Obeid Hospital, Jamia Street, NCB Bank.
+Bus 23: NCB King Abdul Azeez Road, SABB Bank, Jamia Street, ISSR Girls, Batha Murur, Post Office.
+Bus 24: Dhahran Street, Ladies Jail, Tamimi, Al Alia School, Old Sanaya, ABC Cargo, Farasdaq Road.
+Bus 25: Askan 2, Gubera, Mansoora, Azizia, Askan 1, Askan 2, Yara.
+Route/pickup confirmation: Admin Manager ext. 115; these are not live assignments.
+
+----------------------------------------------------------
+DATED CIRCULAR / KG-VIII PARENT-TEACHER MEETING
+----------------------------------------------------------
+Source: https://api.yaraschool.net/files/uploads/documents/notices/NoticesCir_20261010_092536_77144ccd.pdf
+Scope: circular 084/YIS/2026-27/084, dated 30 September 2026; meeting 3 October 2026, Saturday.
+The notice index labels this entry October 9; that is not the meeting date.
+KG-III: Girls Section campus, 8:30 AM - 11:00 AM.
+IV Boys and IV-VIII Girls: Girls Section campus, 11:00 AM - 1:30 PM.
+V-VIII Boys: Boys Section campus, 11:00 AM - 1:30 PM.
+This specific circular takes precedence over inconsistent annual-calendar PTM-II entries for these grades. It is a past event after October 3, not "the next PTM" indefinitely.
+
+----------------------------------------------------------
+DATED CIRCULAR / IX-XII PT3-UT2 EXAM CHANGES
+----------------------------------------------------------
+Source: https://api.yaraschool.net/files/uploads/documents/notices/NoticesCir_20260929_132715_59e59537.pdf
+Scope: circular 083/YIS/2026-27/083, dated 28 September 2026.
+Affected exams originally on 27/28 September were moved:
+IX/X English: 4 October 2026. IX second language / X Social Science: 5 October 2026.
+XI/XII History: 4 October 2026. XI/XII Physics/Accountancy: 5 October 2026.
+XI Sociology: 5 October 2026. XI Biology/Business Studies and XII English: 6 October 2026.
+The circular says remaining examination dates are unchanged.
+This is a dated revision, not a current subject-by-subject schedule for other exam series.
+
+----------------------------------------------------------
+NOTICES, CALENDAR SCOPE & INFORMATION LIMITS
+----------------------------------------------------------
+Source: https://www.yaraschool.net/notice/
+The public notice index retrieved on 2026-10-15 lists 122 notices; not every linked PDF has been read.
+Use exact circular dates and scopes; index/upload dates are not automatically event dates.
+The five 2026-27 calendars below are provisional and subject to MOH/MOE directives and later school circulars. Do not interpret every observance/event as a school closure.
+Ask the grade/section and date/year when needed. Do not infer "next week" without resolving actual dates.
+A subject-level exam timetable/result, current pickup time, live enrolment, student attendance/fees, private contact, complaint status and class/staff assignments require their proper authorised sources.
+No updated rule was verified for a swimming pool, lost-property desk, smartwatches, early lunch departure or a specific confidential bullying-reporting process.
+
+----------------------------------------------------------
+CALENDAR 2026-27 / KINDERGARTEN EVENTS
+----------------------------------------------------------
+Source: https://api.yaraschool.net/files/uploads/documents/almanac/almanac_20260409_095124_a5bfeb44.pdf
+Status: Tentative annual calendar; subject to MOH/MOE directives and later dated school circulars. Events are not automatically holidays.
+Scope: KINDERGARTEN; academic year 2026-27; dates in each named month/year only.
+
+MARCH 2026
+10-22: Ramadan holidays.
+
+APRIL 2026
+4: Parent orientation. 7: UKG starts. 12: Nursery/LKG start. 17: PTM I. 30: Appreciation Day.
+
+MAY 2026
+3-7: Evaluation I. 11: Mother's Day. 14: Red Day. 18: Clay modelling (LKG), card making (UKG). 24 May-2 June: Hajj holidays.
+
+JUNE 2026
+5: Environment Day. 7: Colouring (Nursery/LKG), drawing/colouring (UKG). 14-15: Field trip I. 18-30: Term-end exam I. 21: Father's Day.
+
+JULY 2026
+1: Summer Day Out. 2: Bagless Day. 5 July-20 August: Summer vacation.
+
+AUGUST 2026
+15: Independence Day. 23: Term II begins. 30 August-3 September: Health Week.
+
+SEPTEMBER 2026
+3: Teachers' Day celebration. 5: Teachers' Day. 6: Report cards. 13: Funny Cap (Nursery). 13-14: Rhymes (LKG/UKG). 23-24: Saudi National Day extended holidays.
+
+OCTOBER 2026
+2: Gandhi Jayanti. 3: PTM II; use circular 084 for timings/venue. 14: Show and Tell (LKG), JAM (UKG). 20: Fire drill II. 25-26: Field trip II. 31: Staff picnic.
+
+NOVEMBER 2026
+8: Diwali. 11: Children's Day celebration. 15-19: Sports Week. 22-26: Evaluation II. 29: Term III begins.
+
+DECEMBER 2026
+6-10: Class photography. 11: UKG graduation. 17: Bagless Day. 20-31: Winter vacation.
+
+JANUARY 2027
+4: Paper tearing (Nursery), paper tearing/sticking (LKG). 5: Crossword (UKG). 9: Annual sports. 10-14: Evaluation III. 16: PTM III. 17-18: Field trip III. 26: Republic Day.
+
+FEBRUARY 2027
+20: Fancy dress (Nursery/LKG). 22: Saudi Founding Day. 28 February-11 March: Ramadan/Eid holidays, tentative lunar-calendar dates.
+
+MARCH 2027
+14-18: Term-end exam. 31: Report cards.
+
+----------------------------------------------------------
+CALENDAR 2026-27 / GRADES I-III EVENTS
+----------------------------------------------------------
+Source: https://api.yaraschool.net/files/uploads/documents/almanac/almanac_20260409_095148_62d4b50f.pdf
+Status: Tentative annual calendar; subject to MOH/MOE directives and later dated school circulars. Events are not automatically holidays.
+Scope: GRADES I-III; academic year 2026-27; dates in each named month/year only.
+
+MARCH 2026
+10-22: Ramadan holidays.
+
+APRIL 2026
+7: Academic year begins. 17: PTM I. 23: Fire drill I. 30: Appreciation Day.
+
+MAY 2026
+3-7: Evaluation I written. 11: Mother's Day. 12: Block printing (I), Wealth Out of Waste (II-III). 24 May-2 June: Hajj holidays.
+
+JUNE 2026
+5: Environment Day. 7-9: Field trip I. 18-30: Term-end evaluation I. 21: Father's Day.
+
+JULY 2026
+1: Bagless Day. 2: Summer Day Out. 5 July-20 August: Summer vacation.
+
+AUGUST 2026
+15: Independence Day. 23: Term II begins. 30 August-2 September: Health Week.
+
+SEPTEMBER 2026
+3: Teachers' Day celebration. 5: Teachers' Day. 6: Report cards. 15: Spelling Bee. 23: Saudi National Day extended holidays (no additional date specified in this key-events line).
+
+OCTOBER 2026
+2: Gandhi Jayanti. 3: PTM II; use circular 084 for timings/venue. 11-12: Bring and Brag (I), storytelling (II-III). 15: Mother Tongue Day. 20: Fire drill II. 27-29: Field trip II. 31: Staff picnic.
+
+NOVEMBER 2026
+1-5: Sports Week. 8: Diwali. 11: Children's Day. 22-26: Term evaluation II unit test. 29: Term III begins.
+
+DECEMBER 2026
+3: Handwriting (I and III). 6-10: Class photography. 17: Bagless Day. 20-31: Winter vacation.
+
+JANUARY 2027
+10-14: Evaluation III written. 16: PTM III. 17: Word Hunt (I-II). 18: Crossword (III). 19-21: Field trip III. 25: Talent Day. 26: Republic Day.
+
+FEBRUARY 2027
+22: Saudi Founding Day. 23 February-18 March: Term evaluation III window. 28 February-11 March: Ramadan/Eid holidays, tentative lunar-calendar dates; this is not an exam-day schedule.
+
+MARCH 2027
+Term evaluation III window ends 18 March. 31: Report cards.
+
+----------------------------------------------------------
+CALENDAR 2026-27 / GRADES IV-V EVENTS
+----------------------------------------------------------
+Source: https://api.yaraschool.net/files/uploads/documents/almanac/almanac_20260409_095200_6be939ab.pdf
+Status: Tentative annual calendar; subject to MOH/MOE directives and later dated school circulars. Events are not automatically holidays.
+Scope: GRADES IV-V; academic year 2026-27; dates in each named month/year only.
+
+MARCH 2026
+10-22: Ramadan holidays.
+
+APRIL 2026
+5: Academic year begins. 18: PTM I. 20: Fire drill I. 30: Appreciation Day.
+
+MAY 2026
+3-10: Evaluation I written. 12: Salad dressing. 17-21: Field trip I. 24 May-2 June: Hajj holidays.
+
+JUNE 2026
+5: Environment Day. 21-30: Term evaluation I.
+
+JULY 2026
+1: SUPW. 2: Bagless Day. 5 July-20 August: Summer vacation.
+
+AUGUST 2026
+15: Independence Day. 23: Term II begins.
+
+SEPTEMBER 2026
+3: Teachers' Day celebration. 5: Teachers' Day. 6: Report cards. 14-15: Hindi poem. Annual calendar says PTM II 19 September; later circular 084 specifies 3 October for KG-VIII and takes precedence. 23: Saudi National Day extended holidays (no additional date specified in this key-events line).
+
+OCTOBER 2026
+2: Gandhi Jayanti. 3: Revised PTM II per circular 084. 13-15: Sports Week. 20: Fire drill II. 24: Open House. 27-28: English storytelling. 31: Staff picnic.
+
+NOVEMBER 2026
+5: Quiz I. 8: Diwali. 11: National Education Day. 12: Children's Day/Food and Fun Fair. 15-19: Field trip II. 18: Folk Root Festival (Jan Jathiya Gaurav Divas). 22-26: Evaluation II unit test. 29: Term III begins.
+
+DECEMBER 2026
+2: Quiz II. 3: Bharathiya Bhasha Utsav. 6-10: Class photography. 20-31: Winter vacation.
+
+JANUARY 2027
+9: Sports Meet. 10-14: Evaluation III written. 17: English poem (IV). 18: English elocution (V). 23: PTM III. 25: Republic Day celebration/Talent Day. 26: Republic Day.
+
+FEBRUARY 2027
+21 February-18 March: Term evaluation III window. 22: Saudi Founding Day. 28 February-11 March: Ramadan/Eid holidays, tentative lunar-calendar dates; this is not an exam-day schedule.
+
+MARCH 2027
+Term evaluation III window ends 18 March. 31: Report cards.
+
+----------------------------------------------------------
+CALENDAR 2026-27 / GRADES VI-VIII EVENTS
+----------------------------------------------------------
+Source: https://api.yaraschool.net/files/uploads/documents/almanac/almanac_20260409_095215_d81c64f4.pdf
+Status: Tentative annual calendar; subject to MOH/MOE directives and later dated school circulars. Events are not automatically holidays.
+Scope: GRADES VI-VIII; academic year 2026-27; dates in each named month/year only.
+
+MARCH 2026
+10-22: Ramadan holidays.
+
+APRIL 2026
+5: Academic year begins. 18: PTM I. 20: Fire drill I. 27-29: Sports Week. 30: Appreciation Day.
+
+MAY 2026
+3-10: Periodic test I exams. 13: Paper bag activity. 16: ELU/investiture. 17-21: Field trip I. 20: Yarians Talk (VIII). 24 May-2 June: Hajj holidays.
+
+JUNE 2026
+5: Environment Day. 18-30: Half-yearly exams. 25: Substance-abuse awareness.
+
+JULY 2026
+1: SUPW. 2: Bagless Day. 5 July-20 August: Summer vacation.
+
+AUGUST 2026
+15: Independence Day. 23: Term II begins. 30: Mathematics Olympiad I.
+
+SEPTEMBER 2026
+3: Teachers' Day celebration. 5: Teachers' Day. 6: Report cards. Annual calendar says PTM II 19 September; later circular 084 specifies 3 October for KG-VIII and takes precedence. 23: Saudi National Day extended holidays (no additional date specified in this key-events line). 27-28: Cartoon Speaks (VI-VII).
+
+OCTOBER 2026
+2: Gandhi Jayanti. 3: Revised PTM II per circular 084. 11: Mathematics Olympiad II. 15: Sir Syed Day. 20: Fire drill II. 24: Open House. 31: Staff picnic.
+
+NOVEMBER 2026
+5: Quiz I. 6-7: Scouts/Guides camp. 8: Diwali. 11: National Education Day. 12: Children's Day/Food and Fun Fair. 15-19: Field trip II. 18: Folk Route Festival.
+
+DECEMBER 2026
+1: Quiz II. 3: Bharatiya Bhasha Diwas. 6-10: Class photography. 8-15: Periodic test II exams. 20-31: Winter vacation.
+
+JANUARY 2027
+9: Sports Day. 12-14: English story writing. 23: PTM III. 25: Republic Day celebration. 26: Republic Day.
+
+FEBRUARY 2027
+21 February-18 March: Annual exams window. 22: Saudi Founding Day. 28 February-11 March: Ramadan/Eid holidays, tentative lunar-calendar dates; this is not an exam-day schedule.
+
+MARCH 2027
+Annual exams window ends 18 March. 31: Report cards.
+
+----------------------------------------------------------
+CALENDAR 2026-27 / GRADES IX-XII EVENTS
+----------------------------------------------------------
+Source: https://api.yaraschool.net/files/uploads/documents/almanac/almanac_20260409_095227_8a5dbd88.pdf
+Status: Tentative annual calendar; subject to MOH/MOE directives and later dated school circulars. Events are not automatically holidays.
+Scope: GRADES IX-XII; academic year 2026-27; dates in each named month/year only.
+
+MARCH 2026
+4: New academic year starts (X/XII). 10-22: Ramadan holidays.
+
+APRIL 2026
+5: New academic year starts (IX/XI). 18: PTM I. 19: Quiz I. 20: Fire drill I. 21-23: Sports Week. 28: Election. 30: Quiz II.
+
+MAY 2026
+3-10: PT I/UT I exams. 16: Investiture/ELU. 20: Yarians Talk. 24 May-2 June: Hajj holidays.
+
+JUNE 2026
+5: Environment Day. 10-11: Field trip I. 18-30: PT II (mid-term/Term I exams).
+
+JULY 2026
+5 July-20 August: Summer vacation.
+
+AUGUST 2026
+15: Independence Day. 23: Term II begins. 30: Mathematics Olympiad I.
+
+SEPTEMBER 2026
+3: Teachers' Day celebration. 5: Teachers' Day. 6: Report cards. 7-10: Debate. 12: PTM II. 13: Painting. 17: Shark Tank. 23-24: Saudi National Day extended holidays. Annual calendar PT III/UT II window 27 September-4 October; circular 083 revises affected exams to 4-6 October. Use the dated revision.
+
+OCTOBER 2026
+2: Gandhi Jayanti. 4-6: Affected PT3/UT2 exams rescheduled by circular 083 (subject/grade details in dated circular section). 8: Industrial visit. 11: Mathematics Olympiad II. 12: World Mental Health Day. 15: Sir Syed Day. 20: Fire drill II. 21-22: Field trip II. 24: Open House. 29: Commerce Olympiad. 31: Staff picnic.
+
+NOVEMBER 2026
+6-7: Scouts/Guides camp. 8: Diwali. 11: National Education Day. 12: Children's Day/Food and Fun Fair. 21: PTM III. 26: Constitution Day.
+
+DECEMBER 2026
+3: Farewell/Bharatiya Bhasha Utsav. 5: Convocation. 6-13: XI practical exams. 6-10: Class photography. 8-17: Pre-board I (X and XII). 17: Gender equality (IX/XI). 20-31: Winter/study holidays.
+
+JANUARY 2027
+3-7: XII mock practicals. 9: Sports Meet. 10-14: XII CBSE practical exams (tentative). 19-31: Pre-board exams (IX/XI), pre-board II (X/XII). 26: Republic Day.
+
+FEBRUARY 2027
+5: Coffee with Parents. 9-21: Annual exams (IX/XI). 22: Saudi Founding Day. 28 February-11 March: Ramadan/Eid holidays, tentative lunar-calendar dates.
+
+MARCH 2027
+18: Report cards (IX/XI). 21: Academic year 2027-28 starts (X/XII).

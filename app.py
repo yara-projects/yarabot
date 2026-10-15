@@ -42,7 +42,7 @@ from nlp_helpers import (
 )
 from gemini_rag import (
     gemini_answer, gemini_answer_stream, almanac_match_confidence, classify_personal_intent,
-    log_learned_phrase, search_almanac, search_notice_context,
+    log_learned_phrase, search_almanac, search_notice_context, _section_covers_grade,
 )
 from config import DB_CONFIG
 from validators import GRADE_SECTION_PATTERN, EARLY_YEARS_CLASSES
@@ -2173,10 +2173,11 @@ def _calendar_information_gap_reply(question, role):
                 "Check the latest school notice or contact the school office.")
 
     has_exam_schedule = any(
-        re.search(r'\b(?:exam|examination|test)\b', block)
+        re.search(r'\b(?:exams?|examinations?|tests?)\b', block)
         and re.search(r'\b(?:schedule|calendar|date|dates)\b', block)
         and (not day or day in block)
-        and (not grade or re.search(r'\b(?:grade|class)\s+' + re.escape(grade) + r'\b|\ball grades\b', block))
+        and (not grade or re.search(r'\b(?:grade|class)\s+' + re.escape(grade) + r'\b|\ball grades\b', block)
+             or _section_covers_grade(block.split('\n', 1)[0].upper(), int(grade)))
         for block in grounding_blocks
     )
     if has_exam_schedule:
