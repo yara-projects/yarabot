@@ -8,10 +8,11 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 
-def validate_environment(env):
+def validate_environment(env, independent_api=False):
     required = ["DASHBOARD_ADMIN_USERNAME", "DASHBOARD_ADMIN_PASSWORD_HASH",
-                "CLOUD_DB_HOST", "CLOUD_DB_USER", "CLOUD_DB_PASSWORD", "CLOUD_DB_NAME",
-                "FLASK_APP_URL", "DASHBOARD_API_TOKEN"]
+                "CLOUD_DB_HOST", "CLOUD_DB_USER", "CLOUD_DB_PASSWORD", "CLOUD_DB_NAME"]
+    if not independent_api:
+        required += ['FLASK_APP_URL', 'DASHBOARD_API_TOKEN']
     missing = [name for name in required if not env.get(name, "").strip()]
     if missing:
         raise ValueError("Missing dashboard settings: " + ", ".join(missing))
@@ -23,7 +24,7 @@ def validate_environment(env):
     from auth_helpers import hash_password
     if password_hash.lower() in {hash_password("admin123"), hash_password("admin1234")}:
         raise ValueError("Set a dashboard password other than the development default.")
-    if not env["FLASK_APP_URL"].startswith("https://"):
+    if not independent_api and not env["FLASK_APP_URL"].startswith("https://"):
         raise ValueError("FLASK_APP_URL must use HTTPS for the hosted chatbot.")
 
 

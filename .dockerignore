@@ -1,0 +1,16 @@
+.git
+.env
+.env.*
+**/.env
+**/.env.*
+.phase-work
+graphify-out
+admin_frontend/node_modules
+admin_frontend/dist
+__pycache__
+*.pyc
+*.pdf
+*.jpg
+*.png
+*.csv
+*.xlsx

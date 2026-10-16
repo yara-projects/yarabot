@@ -1,0 +1,20 @@
+FROM node:22-bookworm-slim AS frontend
+WORKDIR /build
+COPY admin_frontend/package.json admin_frontend/package-lock.json ./
+RUN npm ci --no-audit --no-fund
+COPY admin_frontend/ ./
+RUN npm run build
+
+FROM python:3.13-slim-bookworm
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 SCHOOL_OCR_LANGUAGES=eng+ara
+RUN apt-get update && apt-get install -y --no-install-recommends tesseract-ocr tesseract-ocr-eng tesseract-ocr-ara \
+    && rm -rf /var/lib/apt/lists/*
+WORKDIR /service
+COPY requirements-dashboard.txt ./
+RUN pip install --no-cache-dir -r requirements-dashboard.txt
+COPY admin_app.py school_imports.py school_ocr.py school_documents.py record_imports.py document_chat.py chat_choices.py chat_tables.py config.py auth_helpers.py validators.py csv_import.py almanac_store.py start_dashboard.py nlp_helpers.py routing_contract.py log_privacy.py ./
+COPY --from=frontend /build/dist ./admin_frontend/dist
+RUN useradd --create-home schooladmin
+USER schooladmin
+EXPOSE 10000
+CMD ["sh", "-c", "exec gunicorn 'admin_app:create_app()' --bind 0.0.0.0:${PORT:-10000} --workers 1 --threads 2 --timeout 240 --access-logfile -"]

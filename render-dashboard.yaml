@@ -2,25 +2,24 @@
 services:
   - type: web
     name: yarabot-dashboard
-    runtime: python
+    runtime: docker
     plan: free
     region: frankfurt
     repo: https://github.com/yara-projects/yarabot
     branch: main
-    buildCommand: pip install -r requirements.txt
-    startCommand: python start_dashboard.py
-    healthCheckPath: /_stcore/health
+    dockerfilePath: ./Dockerfile.dashboard
+    healthCheckPath: /healthz
     envVars:
       - key: USE_CLOUD_DB
         value: "true"
       - key: DASHBOARD_HOSTED
         value: "true"
-      - key: FLASK_APP_URL
-        value: https://yarabot-backend-t4cy.onrender.com
       - key: DASHBOARD_ADMIN_USERNAME
         sync: false
       - key: DASHBOARD_ADMIN_PASSWORD_HASH
         sync: false
+      - key: DASHBOARD_SESSION_SECRET
+        generateValue: true
       - key: CLOUD_DB_HOST
         sync: false
       - key: CLOUD_DB_PORT
@@ -30,6 +29,4 @@ services:
       - key: CLOUD_DB_PASSWORD
         sync: false
       - key: CLOUD_DB_NAME
-        sync: false
-      - key: DASHBOARD_API_TOKEN
         sync: false
