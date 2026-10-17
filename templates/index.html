@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-page="{{ 'chat' if logged_in else 'login' }}">
 <head>
     <meta charset="UTF-8">
+    <meta id="browser-theme" name="theme-color" content="{{ '#ffffff' if logged_in else '#050916' }}">
     <!-- interactive-widget=resizes-content: tells the browser to actually
          shrink the viewport (dvh/svh, visualViewport) around the on-screen
          keyboard instead of its default "pan the page to keep focus
@@ -639,6 +640,7 @@
         }
     </style>
     <link rel="stylesheet" href="/static/login.css">
+    <script src="/static/page-theme.js" defer></script>
 </head>
 <body class="bg-white full-height overflow-hidden">
 

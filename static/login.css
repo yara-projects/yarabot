@@ -1,4 +1,11 @@
 /* Chatbot sign-in: a quiet blue horizon behind an accessible, solid card. */
+html[data-page="login"] {
+    background: #050916;
+    background-image: linear-gradient(180deg, #050916 0%, #07132d 43%, #093f94 100%);
+    background-attachment: fixed;
+}
+html[data-page="login"] body { background: transparent; }
+html[data-page="chat"] { background: #fff; }
 #login-page {
     position: relative;
     min-height: 100dvh;
