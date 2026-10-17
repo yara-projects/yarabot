@@ -638,6 +638,7 @@
             opacity: 0.6;
         }
     </style>
+    <link rel="stylesheet" href="/static/login.css">
 </head>
 <body class="bg-white full-height overflow-hidden">
 
@@ -656,45 +657,42 @@
      time (the other has `hidden`), so axe/screen readers only ever see one
      <main> landmark in the accessibility tree at once - satisfies
      "landmark-one-main" without needing a third wrapper element. -->
-<main id="login-page" class="{% if logged_in %}hidden {% endif %}full-height flex flex-col items-center justify-center px-4" style="background: var(--brand-tint);">
-    <div class="w-full max-w-sm">
-        <!-- Logo -->
-        <div class="text-center mb-8">
-            <!-- Animated bot mascot (Lottie, mounted by app.js on DOMContentLoaded) -->
-            <div id="login-lottie" class="bot-lottie-login mx-auto mb-3"></div>
-
-            <!-- School logo -->
-            <img
-                src="/static/Yaralogo.png"
-                alt="Yara International School logo"
-                class="mx-auto mb-4"
-                width="120"
-                height="78"
-                style="width:120px;border-radius:18px;object-fit:contain;"
-            />
-
-            <h1 class="font-quicksand text-2xl text-gray-900 tracking-tight">YaraBot</h1>
-            <p class="text-sm text-gray-600 mt-2">Hi, I'm Nova — your personalized assistant for Yara International School</p>
+<main id="login-page" class="{% if logged_in %}hidden {% endif %}full-height flex flex-col items-center justify-center px-4">
+    <div class="login-atmosphere" aria-hidden="true">
+        <div class="login-light"></div>
+        <div class="login-light login-light-secondary"></div>
+        <div class="login-horizon"></div>
+        <div class="login-grain"></div>
+        {% for x, y in [(12, 32), (24, 65), (35, 24), (44, 78), (57, 18), (66, 56), (78, 35), (88, 72), (17, 84), (73, 87), (92, 22), (49, 44)] %}
+        <span class="login-particle" style="--x:{{ x }}%;--y:{{ y }}%;--duration:{{ 9 + loop.index }}s;--delay:-{{ loop.index * 2 }}s"></span>
+        {% endfor %}
+    </div>
+    <div class="login-content">
+        <div class="login-heading">
+            <h1 class="font-quicksand">YaraBot</h1>
+            <p>Hi, I'm Nova — your personalized assistant for Yara International School</p>
         </div>
 
         <!-- Login Form -->
         <div id="login-card" class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
             <div class="space-y-4">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1.5">Username</label>
+                    <label for="login-username" class="block text-sm font-medium text-gray-700 mb-1.5">Username</label>
                     <input
                         id="login-username"
                         type="text"
+                        autocomplete="username"
                         placeholder="Enter your username"
                         class="focus-brand w-full px-4 py-3 rounded-xl border border-gray-200 text-sm
                                transition-all"
                     />
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1.5">Password</label>
+                    <label for="login-password" class="block text-sm font-medium text-gray-700 mb-1.5">Password</label>
                     <input
                         id="login-password"
                         type="password"
+                        autocomplete="current-password"
                         placeholder="Enter your password"
                         class="focus-brand w-full px-4 py-3 rounded-xl border border-gray-200 text-sm
                                transition-all"
@@ -715,13 +713,13 @@
                 <button
                     type="button"
                     onclick="continueAsGuest()"
-                    class="w-full text-gray-700 font-medium py-3 rounded-xl text-sm border border-gray-200 bg-white transition-all active:scale-[0.97]"
+                    class="login-guest w-full text-gray-700 font-medium py-3 rounded-xl text-sm border border-gray-200 bg-white transition-all active:scale-[0.97]"
                 >Continue as Guest</button>
             </div>
         </div>
 
-        <p class="text-center text-xs text-gray-600 mt-6">
-            Yara International School, Riyadh 🇸🇦
+        <p class="login-school">
+            Yara International School · Riyadh
         </p>
     </div>
 </main>
