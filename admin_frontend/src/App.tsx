@@ -9,8 +9,9 @@ import {
 import { api, ApiError, setCsrf } from './api';
 import type { Resource, Row, Session } from './api';
 import { ImportWorkspace } from './ImportWorkspace';
-import { Relationships, SystemStatus, PhraseReview } from './AdminTools';
-import { ManualPhrase, UnansweredReview } from './KnowledgeReview';
+import { Relationships, SystemStatus, HalConnection } from './AdminTools';
+import { TrafficReview } from './TrafficReview';
+import schoolLogo from '../../static/Yaralogo.png';
 
 const NAV = [
   { label: 'Workspace', items: [{ id: 'overview', label: 'Overview', icon: LayoutDashboard }, { id: 'imports', label: 'Import centre', icon: Upload }, { id: 'relations', label: 'Links & assignments', icon: Users }, { id: 'system', label: 'System status', icon: ShieldCheck }] },
@@ -46,7 +47,7 @@ function useData<T>(path: string, revision = 0) {
   return state;
 }
 function Brand({ light = false }: { light?: boolean }) {
-  return <div className={`brand ${light ? 'brand-light' : ''}`}><span className="brand-symbol">y<span>·</span></span><div>yara<span className="brand-sub">SCHOOL WORKSPACE</span></div></div>;
+  return <div className={`brand ${light ? 'brand-light' : ''}`}><img className="school-logo" src={schoolLogo} alt="Yara International School logo" /><div>yara<span className="brand-sub">SCHOOL WORKSPACE</span></div></div>;
 }
 function Spinner() { return <span className="spinner" aria-hidden="true" />; }
 function ErrorBox({ message, retry }: { message: string; retry?: () => void }) {
@@ -103,7 +104,7 @@ function Workspace({ username, onLogout }: { username: string; onLogout: () => v
   const [signingOut, setSigningOut] = useState(false);
   const [signOutError, setSignOutError] = useState('');
   const [toast, setToast] = useState('');
-  const { data: catalog, error: catalogError } = useData<{ resources: Record<string, Resource>; legacy_review_available: boolean }>('/catalog');
+  const { data: catalog, error: catalogError } = useData<{ resources: Record<string, Resource>; legacy_review_available: boolean; read_only: boolean; live_data: boolean }>('/catalog');
   const titleRef = useRef<HTMLHeadingElement>(null);
   const sidebarRef = useRef<HTMLElement>(null);
   const menuRef = useRef<HTMLButtonElement>(null);
@@ -149,12 +150,23 @@ function Workspace({ username, onLogout }: { username: string; onLogout: () => v
   return <div className="workspace"><a className="skip-link" href="#main-content" onClick={event => { event.preventDefault(); titleRef.current?.focus(); }}>Skip to content</a>{mobile && <button className="sidebar-scrim" aria-label="Close navigation" onClick={() => setMobile(false)} />}
     <aside ref={sidebarRef} inert={narrow && !mobile} role={narrow && mobile ? 'dialog' : undefined} aria-modal={narrow && mobile ? true : undefined} className={`sidebar ${mobile ? 'is-open' : ''}`} aria-label="Main navigation"><div className="sidebar-head"><Brand light /><button className="icon-button mobile-close" aria-label="Close navigation" onClick={() => { setMobile(false); menuRef.current?.focus(); }}><X size={20} /></button></div><div className="school-tag"><span className="school-avatar">YIS</span><div>Yara International School<small>Administration</small></div></div><nav>{NAV.map(group => <div className="nav-group" key={group.label}><span className="nav-label">{group.label}</span>{group.items.map(item => <button key={item.id} className={`nav-item ${page === item.id ? 'active' : ''}`} onClick={() => navigate(item.id)} aria-current={page === item.id ? 'page' : undefined}><item.icon size={18} strokeWidth={1.7} /><span>{item.label}</span>{page === item.id && <span className="nav-active-dot" />}</button>)}</div>)}</nav><div className="sidebar-footer"><div className="admin-avatar">{username.slice(0, 2).toUpperCase()}</div><div className="admin-identity"><strong>{username}</strong><span>School administrator</span></div><button className="icon-button logout" aria-label="Sign out" title="Sign out" onClick={logout} disabled={signingOut}>{signingOut ? <Spinner /> : <LogOut size={17} />}</button></div></aside>
     <div className="workspace-main" inert={narrow && mobile}><header className="topbar"><button ref={menuRef} className="icon-button mobile-toggle" onClick={() => setMobile(true)} aria-label="Open navigation" aria-expanded={mobile}><Menu size={21} /></button><div className="breadcrumbs"><span>Workspace</span><ChevronRight size={13} /><strong>{current.label}</strong></div><div className="topbar-right"><span className="topbar-date">{dateLabel}</span><span className="private-badge"><ShieldCheck size={13} />Admin access</span></div></header><main id="main-content" className="main-content" key={page}><div className="page-heading"><div><span className="eyebrow">{section}</span><h1 ref={titleRef} tabIndex={-1}>{current.label}</h1><p>{DESCRIPTIONS[page]}</p></div><span className="page-number">YIS / ADMIN</span></div>{signOutError && <ErrorBox message={signOutError} />}{catalogError && <ErrorBox message={catalogError} />}
-      {(page === 'phrases' || page === 'suggestions') && catalog && !catalog.legacy_review_available
-        ? <section className="panel"><div className="panel-padding"><h2>Historical review is protected</h2><p>Older chat-text queues are quarantined to protect private information. Privacy-safe traffic review will be released separately.</p></div>{page === 'phrases' && <ManualPhrase />}</section>
-        : page === 'overview' ? <Overview navigate={navigate} /> : page === 'almanac' ? <Almanac notify={setToast} /> : page === 'imports' ? <ImportIntro /> : page === 'relations' ? <Relationships /> : page === 'system' ? <SystemStatus /> : page === 'phrases' ? <PhraseReview /> : page === 'suggestions' ? <UnansweredReview /> : catalog?.resources[page] ? <Records key={page} resource={page} spec={catalog.resources[page]} notify={setToast} /> : !catalogError ? <Skeleton /> : null}
+      {catalog?.read_only && <p className="inline-notice" role="status">Read-only validation mode. School-data changes, imports and publishing are disabled.</p>}
+      {catalog?.live_data && !catalog.read_only && <p className="subtle data-mode-note" role="status">Live school data · Saved edits update YaraBot.</p>}
+      {catalog?.read_only && ['imports', 'relations', 'almanac', 'system'].includes(page)
+        ? <ReadOnlyPage page={page} />
+        : page === 'overview' ? <Overview navigate={navigate} /> : page === 'almanac' ? <Almanac notify={setToast} /> : page === 'imports' ? <ImportIntro /> : page === 'relations' ? <Relationships /> : page === 'system' ? <><HalConnection /><SystemStatus /></> : page === 'phrases' ? <TrafficReview view="phrases" readOnly={catalog?.read_only ?? true} /> : page === 'suggestions' ? <TrafficReview view="knowledge" readOnly={catalog?.read_only ?? true} /> : catalog?.resources[page] ? <Records key={page} resource={page} spec={catalog.resources[page]} notify={setToast} /> : !catalogError ? <Skeleton /> : null}
       <footer className="workspace-footnote"><span>Yara International School</span><span><LockKeyhole size={12} /> Changes are saved only when you confirm.</span></footer>
     </main></div>{toast && <div className="toast" role="status"><Check size={18} />{toast}<button className="icon-button" onClick={() => setToast('')} aria-label="Dismiss notification"><X size={16} /></button></div>}
   </div>;
+}
+
+function ReadOnlyPage({ page }: { page: string }) {
+  return <section className="panel"><div className="panel-padding"><h2>Read-only validation</h2>{page === 'almanac' ? <ReadOnlyAlmanac /> : <p>Editing tools are unavailable during shared-data validation. No school data will be changed.</p>}</div></section>;
+}
+
+function ReadOnlyAlmanac() {
+  const { data, error, loading } = useData<{ content: string }>('/almanac');
+  return loading ? <Skeleton /> : error ? <ErrorBox message={error} /> : <pre style={{ whiteSpace: 'pre-wrap', overflowWrap: 'anywhere' }}>{data?.content}</pre>;
 }
 
 type Counts = { students: number; teachers: number; subjects: number; accounts: number; suggestions: number; attendance_risk: number; pending_fees: number };
@@ -172,26 +184,37 @@ function Overview({ navigate }: { navigate: (page: string) => void }) {
   return <><section className="overview-hero"><div><span className="eyebrow light">LESS ADMIN. MORE CLARITY.</span><h2>Your school,<br /><span>beautifully organised.</span></h2><p>A focused workspace for the people, information<br className="desktop-break" /> and everyday details that keep school moving.</p><button className="button hero-button" onClick={() => navigate('almanac')}>Manage school knowledge <ArrowUpRight size={16} /></button></div><div className="hero-illustration" aria-hidden="true"><div className="illustration-grid"><span /><span /><span /><span /><span><GraduationCap size={42} strokeWidth={1.1} /></span><span /><span /><span /><span /></div><span className="illustration-caption">PEOPLE · LEARNING · KNOWLEDGE</span></div></section>
     <div className="section-heading"><h2>At a glance</h2><button className="text-button" onClick={() => setRevision(n => n + 1)} disabled={loading}><RefreshCw size={14} className={loading ? 'rotating' : ''} />Refresh counts</button></div>{error ? <ErrorBox message={error} retry={() => setRevision(n => n + 1)} /> : <div className="metrics-grid">{[{ key: 'students', label: 'Students', icon: GraduationCap }, { key: 'teachers', label: 'Teachers', icon: Users }, { key: 'subjects', label: 'Subjects', icon: BookOpen }, { key: 'accounts', label: 'Chatbot accounts', icon: ShieldCheck }].map(item => <div className="metric" key={item.key}><div className="metric-label">{item.label}<item.icon size={18} /></div><strong>{loading ? <span className="skeleton metric-skeleton" /> : data?.[item.key as keyof Counts]?.toLocaleString() ?? '—'}</strong><span className="metric-note">Current database records</span></div>)}</div>}
     <div className="section-heading"><h2>Your everyday essentials</h2><span className="subtle">A shorter route to what matters</span></div><div className="shortcut-grid">{shortcuts.map(item => <button className="shortcut" key={item.page} onClick={() => navigate(item.page)}><div className={`shortcut-icon ${item.color}`}><item.icon size={21} strokeWidth={1.7} /></div><ArrowUpRight size={17} className="shortcut-arrow" /><h3>{item.title}</h3><p>{item.text}</p></button>)}</div>
-    {data && <section className="attention-strip"><span className="attention-icon"><CircleHelp size={22} /></span><div><h3>Keep an eye on the details</h3><p>{data.suggestions} unanswered questions · {data.attendance_risk} students below 75% attendance · {data.pending_fees} pending fee statuses</p></div><button className="text-button" onClick={() => navigate('suggestions')}>Review questions <ArrowRight size={15} /></button></section>}
+    {data && <section className="attention-strip"><span className="attention-icon"><CircleHelp size={22} /></span><div><h3>Keep an eye on the details</h3><p>{data.attendance_risk} students below 75% attendance · {data.pending_fees} pending fee statuses</p></div><button className="text-button" onClick={() => navigate('suggestions')}>Review school knowledge <ArrowRight size={15} /></button></section>}
   </>;
 }
 
 function Records({ resource, spec, notify }: { resource: string; spec: Resource; notify: (message: string) => void }) {
+  const [grade, setGrade] = useState('');
+  const [classFilter, setClassFilter] = useState('');
   const [query, setQuery] = useState('');
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
   const [size, setSize] = useState(25);
   const [revision, setRevision] = useState(0);
   const [editing, setEditing] = useState<{ row: Row | null; deleting: boolean } | null>(null);
-  const { data, loading, error } = useData<{ rows: Row[]; total: number }>(`/records/${resource}?q=${encodeURIComponent(search)}&page=${page}&size=${size}`, revision);
+  const { data, loading, error } = useData<{ rows: Row[]; total: number }>(`/records/${resource}?q=${encodeURIComponent(search)}&page=${page}&size=${size}&grade=${encodeURIComponent(grade)}&class=${encodeURIComponent(classFilter)}`, revision);
   const refresh = useCallback(() => setRevision(n => n + 1), []);
   function submit(event: FormEvent) { event.preventDefault(); setPage(1); setSearch(query.trim()); }
   return <section className="panel records-panel"><div className="panel-heading"><div><h2>{spec.title}</h2><span className="subtle">{loading ? 'Loading records…' : `${data?.total.toLocaleString() ?? '—'} records`}</span></div><div className="button-group"><button className="button secondary compact" onClick={refresh} disabled={loading} aria-label="Refresh records"><RefreshCw size={16} /></button>{spec.editable && <button className="button primary compact" onClick={() => setEditing({ row: null, deleting: false })}><Plus size={16} />Add record</button>}</div></div><div className="table-toolbar"><form onSubmit={submit} className="search-form"><Search size={17} /><input aria-label="Search records" placeholder="Search these records…" value={query} maxLength={200} onChange={event => setQuery(event.target.value)} /><button className="text-button" type="submit">Search</button></form><label className="rows-label">Rows<select value={size} onChange={event => { setSize(Number(event.target.value)); setPage(1); }}><option>25</option><option>50</option><option>100</option></select></label></div>
+    {spec.fields.some(field => field.key === 'class') && <ClassFilters resource={resource} grade={grade} classFilter={classFilter} revision={revision} change={(nextGrade, nextClass) => { setGrade(nextGrade); setClassFilter(nextClass); setPage(1); }} />}
     {!spec.editable && <div className="read-only-note"><ShieldCheck size={14} />Read-only in this build. Existing editing workflows are being migrated with their validation.</div>}
     {loading ? <div className="table-loading"><Skeleton /></div> : error ? <div className="panel-padding"><ErrorBox message={error} retry={refresh} /></div> : !data?.rows.length ? <Empty icon={<Search size={28} />} title={search ? 'No matching records' : 'No records here yet'} text={search ? 'Try a different name, class or record ID.' : 'Records will appear when they are added to the school database.'} /> : <div className="table-scroll" tabIndex={0} aria-label={`${spec.title} table, scroll for more columns`}><table><thead><tr><th>ID</th>{spec.fields.filter(f => f.key !== spec.pk).map(f => <th key={f.key}>{f.label}</th>)}{spec.editable && <th><span className="sr-only">Actions</span></th>}</tr></thead><tbody>{data.rows.map(row => <tr key={String(row[spec.pk])}><td className="id-cell">{row[spec.pk]}</td>{spec.fields.filter(f => f.key !== spec.pk).map(f => <td key={f.key}>{['fees_status', 'priority', 'role', 'school_section'].includes(f.key) ? <span className={`record-tag ${row[f.key] === 'pending' || row[f.key] === 'urgent' ? 'amber' : ''}`}>{String(row[f.key] ?? '—')}</span> : f.kind === 'textarea' ? <span className="cell-excerpt" title={String(row[f.key] ?? '')}>{String(row[f.key] ?? '—')}</span> : String(row[f.key] ?? '—')}</td>)}{spec.editable && <td><div className="row-actions"><button className="icon-button" aria-label={`Edit record ${row[spec.pk]}`} onClick={() => setEditing({ row, deleting: false })}><Pencil size={15} /></button><button className="icon-button danger" aria-label={`Delete record ${row[spec.pk]}`} onClick={() => setEditing({ row, deleting: true })}><Trash2 size={15} /></button></div></td>}</tr>)}</tbody></table></div>}
     <div className="pagination"><span>{data?.total ? `${(page - 1) * size + 1}–${Math.min(page * size, data.total)} of ${data.total}` : '0 records'}</span><div><button className="icon-button" aria-label="Previous page" disabled={loading || page <= 1} onClick={() => setPage(n => n - 1)}><ChevronLeft size={18} /></button><span>Page {page}</span><button className="icon-button" aria-label="Next page" disabled={loading || !data || page * size >= data.total} onClick={() => setPage(n => n + 1)}><ChevronRight size={18} /></button></div></div>
     {editing && <RecordEditor resource={resource} spec={spec} row={editing.row} deleting={editing.deleting} close={() => setEditing(null)} saved={() => { setEditing(null); refresh(); notify(editing.deleting ? 'Record deleted.' : 'Changes saved.'); }} />}
   </section>;
+}
+
+function ClassFilters({ resource, grade, classFilter, revision, change }: { resource: string; grade: string; classFilter: string; revision: number; change: (grade: string, classFilter: string) => void }) {
+  const { data, error, loading } = useData<{ classes: string[] }>(resource === 'students' ? '/student-classes' : `/record-classes/${resource}`, revision);
+  const classes = data?.classes ?? [];
+  const grades = Array.from({ length: 12 }, (_, index) => String(index + 1));
+  const divisions = classes.filter(value => !grade || value.startsWith(`${grade}-`)).sort((a, b) => a.localeCompare(b, 'en', { numeric: true }));
+  return <div className="panel-padding student-filters"><div className="button-group"><label>Grade<select value={grade} onChange={event => change(event.target.value, '')}><option value="">All grades</option>{grades.map(value => <option key={value} value={value}>Grade {value}</option>)}</select></label><label>Class / division<select value={classFilter} disabled={loading || !!error || !divisions.length} onChange={event => change(grade, event.target.value)}><option value="">{grade ? 'All divisions' : 'All classes'}</option>{divisions.map(value => <option key={value} value={value}>{grade ? `Division ${value.slice(grade.length + 1)} · ${value}` : value}</option>)}</select></label>{(grade || classFilter) && <button className="text-button" onClick={() => change('', '')}>Clear filters</button>}</div><p className="subtle">Choose a grade, then its division. Divisions come from the records on this page. Search and filters apply across all pages.</p>{!loading && !error && grade && !divisions.length && <p role="status" className="inline-notice">No classes with records for Grade {grade} on this page yet.</p>}{error && <ErrorBox message={error} />}</div>;
 }
 
 function RecordEditor({ resource, spec, row, deleting, close, saved }: { resource: string; spec: Resource; row: Row | null; deleting: boolean; close: () => void; saved: () => void }) {

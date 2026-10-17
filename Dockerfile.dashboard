@@ -3,6 +3,7 @@ WORKDIR /build
 COPY admin_frontend/package.json admin_frontend/package-lock.json ./
 RUN npm ci --no-audit --no-fund
 COPY admin_frontend/ ./
+COPY static/Yaralogo.png /static/Yaralogo.png
 RUN npm run build
 
 FROM python:3.13-slim-bookworm
@@ -14,6 +15,7 @@ COPY requirements-dashboard.txt ./
 RUN pip install --no-cache-dir -r requirements-dashboard.txt
 COPY admin_app.py school_imports.py school_ocr.py school_documents.py record_imports.py document_chat.py chat_choices.py chat_tables.py config.py auth_helpers.py validators.py csv_import.py almanac_store.py start_dashboard.py nlp_helpers.py routing_contract.py log_privacy.py ./
 COPY --from=frontend /build/dist ./admin_frontend/dist
+COPY admin_review.py traffic_feedback.py ./
 RUN useradd --create-home schooladmin
 USER schooladmin
 EXPOSE 10000

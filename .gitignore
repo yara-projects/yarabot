@@ -2,6 +2,7 @@
 __pycache__/
 *.pyc
 notes/
+.phase-work/
 graphify-out/
 qa_loop_state.json
 admin_frontend/node_modules/

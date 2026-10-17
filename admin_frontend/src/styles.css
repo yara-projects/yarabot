@@ -14,3 +14,5 @@
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.spinner{border-right-color:currentColor;border-style:dotted}}
 @media(max-width:800px){.scope-fields{grid-template-columns:1fr 1fr}}
 @media(max-width:540px){.draft-workspace{padding:16px}.scope-fields{gap:16px}.draft-actions{align-items:flex-start;flex-direction:column}.file-picker{min-height:145px}.file-picker span{overflow-wrap:anywhere;max-width:100%}}
+.school-logo{width:64px;height:auto;aspect-ratio:480/311;object-fit:contain;border-radius:4px;flex-shrink:0}.student-filters{border-top:1px solid var(--line)}.student-filters .button-group{flex-wrap:wrap;align-items:end}.student-filters select{min-width:140px}.student-filters p{margin-top:12px}
+.metrics-grid.review-metrics{grid-template-columns:repeat(3,minmax(0,1fr));margin-bottom:16px}.review-metrics .metric{box-shadow:none}.review-definitions{margin-top:20px;line-height:1.7}.review-definitions summary{cursor:pointer;font-weight:600}.data-mode-note{margin:0 0 18px;line-height:1.6}@media(max-width:600px){.metrics-grid.review-metrics{grid-template-columns:1fr}}

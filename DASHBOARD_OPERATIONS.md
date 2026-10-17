@@ -2,23 +2,32 @@
 
 ## Run locally
 
-Run `streamlit run dashboard.py`. The database connection comes from `.env`.
-Keep `USE_CLOUD_DB=true` to use the current Aiven school data.
+The primary dashboard is React + TypeScript, served by the independent Flask
+admin API. Install `requirements-dashboard.txt`, then run `npm ci` and
+`npm run build` inside `admin_frontend`. From the repository root, run
+`python start_dashboard.py` and open `http://127.0.0.1:5010`.
+
+The connection comes from `.env`; this launcher is **not** the disposable sample
+preview. Configure `DASHBOARD_ADMIN_USERNAME`, `DASHBOARD_ADMIN_PASSWORD_HASH`
+and a `DASHBOARD_SESSION_SECRET` of at least 32 characters. With
+`USE_CLOUD_DB=true`, it accesses the existing Aiven data and confirmed edits can
+affect the live chatbot. Do not switch the sample preview to production data
+without separately agreeing on read-only validation and backup arrangements.
 
 ## Host on Render
 
-Create a separate Python web service from `yara-projects/yarabot`, branch `main`.
-Use the free plan and Frankfurt region, matching the existing chatbot.
-Build: `pip install -r requirements.txt`. Start: `python start_dashboard.py`.
-Health check: `/_stcore/health`.
+Use a Docker web service from `yara-projects/yarabot`, branch `main`, with
+`./Dockerfile.dashboard`, the free plan and Frankfurt region. Leave the Docker
+command override blank; the image starts the React/Flask dashboard with Gunicorn.
+Health check: `/healthz`. Full setup: `docs/DASHBOARD_DEPLOYMENT.md`.
 
 Alternatively import `render-dashboard.yaml` as a Blueprint; choose that custom
 file path during setup. This file defines only the dashboard service.
 
 Configure `USE_CLOUD_DB=true`, `DASHBOARD_HOSTED=true`, the existing Aiven
 `CLOUD_DB_HOST`, `CLOUD_DB_PORT`, `CLOUD_DB_USER`, `CLOUD_DB_PASSWORD`, and
-`CLOUD_DB_NAME`. Set `FLASK_APP_URL=https://yarabot-backend-t4cy.onrender.com`
-and use the same `DASHBOARD_API_TOKEN` as the chatbot service.
+`CLOUD_DB_NAME`. Set a private `DASHBOARD_SESSION_SECRET` of at least 32 characters.
+The primary dashboard does not require `FLASK_APP_URL` or `DASHBOARD_API_TOKEN`.
 
 Set a dedicated `DASHBOARD_ADMIN_USERNAME` and
 `DASHBOARD_ADMIN_PASSWORD_HASH`. Generate the existing SHA-256 format locally
@@ -30,11 +39,25 @@ python -c "from getpass import getpass; from auth_helpers import hash_password; 
 
 Enter the resulting hash in Render's secret environment settings. Do not commit
 it or include passwords in testing reports. Hosted startup refuses missing
-configuration or known development passwords. CORS and XSRF protections stay on.
+configuration or known development passwords. Same-origin CSRF protections stay on.
 
 The dashboard is a privileged admin application: its login grants access to all
 dashboard pages. It is not the chatbot's role-based login. Use it only for the
 authorised testing task and school administrators.
+
+## Streamlit retirement gate
+
+`dashboard.py`, `dashboard_ui.py`, Streamlit dependencies and their tests remain
+as rollback material, not the primary dashboard. The explicit legacy launcher is
+`python start_dashboard.py --legacy-streamlit`; it retains the old hosted
+configuration requirements, including `FLASK_APP_URL` and `DASHBOARD_API_TOKEN`.
+Do not run two production editors against the same records.
+
+Do not delete the legacy implementation yet. Remove it in a separate cleanup only
+after the React dashboard is deployed, the correct database connection is verified,
+login/logout and authorised workflows pass final testing, backup/recovery is
+confirmed, and the user confirms the new dashboard has settled in. Keep the
+pre-removal Git revision for recovery. No automatic deletion is scheduled.
 
 ## Bounded test–fix–retest process
 

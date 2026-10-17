@@ -39,7 +39,31 @@ writes against real school data or publish source documents without explicit
 authority. A schema-only snapshot is not a full data backup: confirm the school's
 backup/recovery arrangements before real edits/imports.
 
+Keep `DASHBOARD_READ_ONLY=true` during shared-data validation (the Blueprint now
+defaults to it). The server rejects school-data mutations, including direct API
+requests; only authentication can change session state. Set it to `false` only
+after acceptance and explicit approval to enable live editing. Existing records
+are read from the same configured database, not copied from Streamlit or seeded
+from the sample preview. Credentials are still required in read-only mode.
+
+For local real-data validation, use `python start_dashboard.py --read-only` after
+configuring private admin credentials. This is different from the sample preview.
+A Windows DPAPI backup is tied to the original Windows user profile; successful
+decryption is not a tested database restore or an off-device disaster backup.
+
+For user-authorised local editing before hosting, run
+`python start_dashboard.py --local-setup`. It uses the existing cloud database,
+prompts privately for a username and password, and starts only on
+`http://127.0.0.1:5010` with editing enabled. These credentials and the random
+session secret are held only in that process, not written to `.env`, Git or the
+database. Keep the terminal running. Restarting requires choosing credentials
+again. Add `--read-only` if you want browsing without writes instead. Do not use
+the sample preview credentials for this mode. Production hosting still requires
+its own persistent private credentials and session secret in Render.
+
 The old Streamlit source remains for rollback but should not be operated as a
 competing editor. Chatbot document retrieval/table/chip changes are not enabled by
-this dashboard release. Phase 3 traffic review and Phase 4 suggestions follow only
-after the dashboard prerequisite is verified live.
+this dashboard release. The local traffic-review candidate additionally needs
+`python setup_database.py --admin-review-only` and a backend restart; the configured
+database already has this additive table. Verify the completed review pages after
+hosting. Phase 4 suggestions remain a separate release.

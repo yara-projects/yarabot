@@ -13,6 +13,20 @@ from config import DB_CONFIG
 from nlp_helpers import INTENT_DATA
 
 from traffic_feedback import migrate, SCHEMA as TRAFFIC_SCHEMA
+from admin_review import SCHEMA as ADMIN_REVIEW_SCHEMA
+
+# Narrow, additive dashboard migration. Never run the seed/reset path for this.
+if '--admin-review-only' in sys.argv:
+    connection = mysql.connector.connect(**DB_CONFIG)
+    try:
+        cursor = connection.cursor()
+        cursor.execute(ADMIN_REVIEW_SCHEMA)
+        connection.commit()
+        cursor.close()
+    finally:
+        connection.close()
+    print('Privacy-safe admin review metadata table ready.')
+    raise SystemExit(0)
 
 # Analytics-only deployment migration: never seed/change school records.
 if '--analytics-only' in sys.argv:
@@ -33,6 +47,7 @@ cursor.execute("USE school_bot")
 
 tables = {}
 tables['query_log'] = TRAFFIC_SCHEMA
+tables['admin_review_resolutions'] = ADMIN_REVIEW_SCHEMA
 
 # Departments and teachers reference each other (a department has an HOD
 # teacher; a teacher belongs to a department) - a genuine circular FK, which

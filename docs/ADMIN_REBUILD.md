@@ -2,16 +2,55 @@
 
 ## Scope and release boundary
 
-One main admin dashboard: React + TypeScript + CSS, served on the same origin by an independent Flask API. It does not import the chatbot application or initialise its AI clients. The old Streamlit source is retained for rollback; do not operate both production editors as competing dashboards. The current visual design is intentionally retained.
+One main admin dashboard: React + TypeScript + CSS, served on the same origin by an independent Flask API. It does not import the chatbot application or initialise its AI clients. `python start_dashboard.py` selects this primary dashboard; `--legacy-streamlit` is explicit rollback only. The old Streamlit source is retained until deployment, shared-data verification, final testing and user acceptance of stability; do not operate both production editors as competing dashboards. The current visual design is intentionally retained.
 
 This is the separate dashboard prerequisite release, not the Phase 3 traffic-review release. Its source package excludes the unfinished chatbot app/UI integration changes. No production dashboard is certified by these local checks. On 16 October 2026, metadata preflight verified all expected columns in 19 existing Aiven tables. A schema-only snapshot (not a school-record/data backup) was saved locally; the two additive document-table definitions were then applied deliberately. No school-record values or published documents were imported. Production admin credentials and final Render deployment still require configuration; deployment evidence is recorded separately. Local test publication means publication inside disposable synthetic SQLite. Work final QA is a separate acceptance gate.
 
 ## Implemented workflows
 
+### Review pages completed locally — 17 October 2026
+
+The blocked-history placeholders are replaced by a privacy-safe weekly traffic
+review. Phrase review shows feedback/repeat/near-miss signals and supports manually
+authored phrases through the existing safety check and confirmed approval. School
+knowledge review supports confirmed, version-checked almanac appends. Mark-reviewed
+persists a topic fingerprint; changed weekly evidence reopens the item. No traffic
+rows are deleted. Existing raw-text history remains inaccessible to these pages.
+
+Metrics use only 14 days of content-free `query_log` metadata, bounded to 10,000
+events and 100 displayed groups. Topics and intents are server-allowlisted;
+unknown text never becomes a displayed label. Complaint intents and null topics
+are excluded. No names, record IDs, class groups, ownership hashes, answer IDs,
+questions or answers are returned. Repeat and low-score signals are approximate,
+not proof of an error. Missing rate denominators display as dashes.
+
+`python setup_database.py --admin-review-only` is the additive review-status
+migration. It creates only `admin_review_resolutions`, which stores opaque keys,
+fingerprints and update times. It was applied to the configured database on
+17 October; no school records, live phrases, almanac content or histories were
+changed. Read-only real-storage smoke requests returned HTTP 200 for both review
+views and confirmed the raw-history endpoints still return 403. Hosted runtime
+packages `admin_review.py` and `traffic_feedback.py`, without importing chatbot
+startup or changing AI model routing. Local servers require restart to load the
+new backend; this implementation is not itself a Render deployment.
+
+Verification: 64 Python tests passed, including canary exclusions, week windows,
+undefined rates, view selection, fingerprint persistence/new-evidence reopening,
+stale revisions, confirmed almanac appends, CSRF and read-only guards. The NLP
+audit exited 0 and the production frontend built. Work independently exercised
+the sample-data browser flows: safe manual fee phrase check/confirmation/approval,
+almanac cancel/no-write then confirmed append preserving versioned content,
+mark-reviewed across refresh/reload/both views/relogin and sampled privacy-canary
+exclusion. Its one low-severity empty-state copy finding was corrected and the
+narrow retest passed. This is bounded local acceptance, not live write, hosting,
+exhaustive privacy or old chatbot-failure acceptance. Detailed evidence is in the
+testing chat's `dashboard-review-qa-20261017` and `dashboard-review-retest-20261017`
+Markdown/JSON outputs.
+
 - Separate admin authentication, CSRF protection, login throttling, server-side logout revocation, 30-minute idle and eight-hour absolute expiry. Hosted cookies require HTTPS. No default credentials.
 - Paginated/searchable editors for students, parents, teachers, subjects, departments, class teachers/sections, timetables, exams, notices and accounts. Revisions reject stale edits. Password hashes never appear in account responses.
 - Exact-ID parent-child and teacher-subject linking. No name-based identity inference or automatic account creation.
-- Versioned almanac editing and manually authored routing phrases with cross-role safety rechecks. Historical raw unanswered/learned-phrase queues and their row actions are quarantined in production because their privacy cannot be certified. Synthetic test fixtures can exercise the old workflows; Phase 3 will provide privacy-safe traffic review. Greeting/thanks/help cannot be changed here.
+- Versioned almanac editing and manually authored routing phrases with cross-role safety rechecks. Historical raw unanswered/learned-phrase queues and their row actions remain quarantined in production. The completed weekly review above uses content-free traffic instead. Greeting/thanks/help cannot be changed here.
 - System status and recent actions; confirmed re-enable only. Existing Principal emergency-disable authority is unchanged.
 - Local extraction from UTF-8 CSV, XLSX, PDF, DOCX and timetable images. OCR uses Tesseract, not an external AI service. Uncertain cells and extracted source remain reviewable.
 - Draft, edit, approve, publish, supersede and withdraw document states. Editing approved content revokes approval. Document revision and publication-head version are checked. Published history is immutable.
@@ -38,6 +77,37 @@ Dockerfile.dashboard packages frontend/API plus English/Arabic Tesseract packs. 
 render-dashboard.yaml describes the replacement Docker service, not a second school dashboard. Building an image does not deploy it.
 
 ## Deliberate production rollout
+
+### Shared-data validation — 16 October 2026
+
+No record-copy migration was needed. The configured Aiven database was compared
+read-only with authenticated in-process requests to the new dashboard API (no
+network listener). All 1,590 projected records matched: students 500, teachers 50,
+parents 2, departments 6, subjects 148, class teachers 28, class sections 28,
+timetable entries 740, exams 56, accounts 24 and notices 8. All three parent/student
+links and 50 teacher/subject links matched, with no orphaned links. The almanac
+content/version matched. Account hashes, read-state metadata and notice author
+metadata remain stored even when not exposed by the editor.
+
+An encrypted full-schema/data mysqldump of 25 InnoDB tables, with routines/events/
+triggers requested, was saved outside the repository and OneDrive under the
+Windows user's local AppData backup folder. Saved-file decryption was verified;
+database restore was **not** tested. Windows DPAPI requires the original user
+profile and is not an off-device disaster-recovery guarantee. No source records,
+complaints, phrases, publications or permissions were changed by this validation.
+
+`DASHBOARD_READ_ONLY=true` rejects all data-changing API methods except session
+login/logout, makes record catalogues non-editable and replaces editing tools
+with read-only notices. Repository reads use MySQL read-only transactions and
+read-only relationship/system lookups no longer request write locks. The Render
+Blueprint defaults to this mode; local startup also supports `--read-only`.
+
+Remaining gates: configure private dashboard admin credentials/session secret,
+verify the intended deployed environment (local configuration equality alone is
+not Render identity proof), complete browser-based live-data acceptance and
+confirm a recoverable backup before authorising editing. Existing historical raw
+chat-review queues remain quarantined; this check is not exhaustive workflow
+parity, HAL integration or a completed cloud rollout. Streamlit is not deleted.
 
 1. Rollout approved; metadata-only compatibility checks passed. A schema-only snapshot exists, not a full data backup. Verify the school's data-backup policy before real editing/imports. Current transactional workflow tests use SQLite adapters, not real MySQL concurrency certification.
 2. migrations/school_documents.sql was applied deliberately on 16 October 2026; both tables were absent before the additive migration. Runtime never creates these tables. No destructive reset script was used.

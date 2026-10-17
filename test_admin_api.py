@@ -2,8 +2,9 @@
 
 from copy import deepcopy
 import unittest
+from unittest.mock import MagicMock, patch
 
-from admin_app import create_app, RESOURCES, AdminError, public_row, record_revision, validate_record
+from admin_app import create_app, RESOURCES, AdminError, MySQLRepository, public_row, record_revision, validate_record
 from auth_helpers import hash_password
 
 
@@ -71,6 +72,36 @@ class AdminApiTests(unittest.TestCase):
         result = self.post("/api/login", dict(username="test-admin", password="synthetic-test-password"))
         self.assertEqual(result.status_code, 200)
         self.csrf = result.json["csrf"]
+
+    def test_read_only_mode_blocks_every_data_mutation_but_allows_login_and_reads(self):
+        self.app.config['ADMIN_READ_ONLY'] = True
+        self.login()
+        self.assertTrue(self.client.get('/api/session').json['read_only'])
+        catalog = self.client.get('/api/catalog').json
+        self.assertTrue(catalog['read_only'])
+        self.assertTrue(all(not spec['editable'] for spec in catalog['resources'].values()))
+        self.assertEqual(self.client.get('/api/records/students').status_code, 200)
+        self.assertEqual(self.client.get('/api/almanac').status_code, 200)
+        for path, method in [('/api/records/students', 'POST'), ('/api/records/students/1', 'PUT'),
+                             ('/api/records/students/1', 'DELETE'), ('/api/almanac', 'PUT'),
+                             ('/api/relations/parent-children/1', 'PUT'), ('/api/system', 'PUT'),
+                             ('/api/imports', 'POST'), ('/api/imports/test/publish', 'POST'),
+                             ('/api/phrases/manual/check', 'POST')]:
+            result = self.post(path, {}, method)
+            self.assertEqual(result.status_code, 403, (path, result.status_code))
+            self.assertIn('Read-only', result.json['error'])
+        self.assertEqual(self.repo.writes, 0)
+        self.assertEqual(self.post('/api/logout').status_code, 200)
+
+    def test_read_only_repository_uses_database_read_only_transaction(self):
+        repository = MySQLRepository()
+        repository.read_only = True
+        connection = MagicMock()
+        with patch('admin_app.mysql.connector.connect', return_value=connection):
+            with repository.connection():
+                pass
+        connection.start_transaction.assert_called_once_with(readonly=True)
+        connection.close.assert_called_once_with()
 
     def test_login_required_for_every_data_page(self):
         for path in ["/api/overview", "/api/catalog", "/api/records/students", "/api/almanac"]:

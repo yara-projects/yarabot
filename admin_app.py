@@ -73,6 +73,9 @@ RESOURCES = {
 }
 
 
+CLASS_RESOURCES = {key for key, spec in RESOURCES.items() if any(item['key'] == 'class' for item in spec['fields'])}
+
+
 class AdminError(Exception):
     def __init__(self, message, status=400):
         super().__init__(message)
@@ -173,10 +176,14 @@ def validate_record(spec, data):
 
 
 class MySQLRepository:
+    read_only = False
+
     @contextmanager
     def connection(self):
         conn = mysql.connector.connect(**{**DB_CONFIG, "connection_timeout": 8})
         try:
+            if self.read_only:
+                conn.start_transaction(readonly=True)
             yield conn
         except Exception:
             conn.rollback()
@@ -203,13 +210,36 @@ class MySQLRepository:
     def columns(spec):
         return list(dict.fromkeys([spec["pk"], *[f["key"] for f in spec["fields"]], *(['password_hash'] if spec['table'] == 'users' else [])]))
 
-    def records(self, resource, search, page, size):
+    def student_classes(self):
+        return self.record_classes('students')
+
+    def record_classes(self, resource):
+        if resource not in CLASS_RESOURCES:
+            raise AdminError('This record type does not have class filters.', 400)
+        table = RESOURCES[resource]['table']
+        with self.connection() as conn:
+            cursor = conn.cursor(dictionary=True)
+            try:
+                cursor.execute(f"SELECT DISTINCT class FROM `{table}` WHERE class IS NOT NULL AND class <> '' ORDER BY class")
+                return [row['class'] for row in cursor.fetchall()]
+            finally:
+                cursor.close()
+
+    def records(self, resource, search, page, size, grade="", class_filter=""):
         spec = RESOURCES[resource]
         columns = self.columns(spec)
         # Literal substring search, including %, _ and backslashes.
         escaped = search.replace("!", "!!").replace("%", "!%").replace("_", "!_")
-        where = " WHERE " + " OR ".join(f"CAST(`{col}` AS CHAR) LIKE %s ESCAPE '!'" for col in columns) if search else ""
+        conditions = ["(" + " OR ".join(f"CAST(`{col}` AS CHAR) LIKE %s ESCAPE '!'" for col in columns) + ")"] if search else []
         params = [f"%{escaped}%"] * len(columns) if search else []
+        if resource in CLASS_RESOURCES:
+            if grade:
+                conditions.append("`class` LIKE %s")
+                params.append(f"{grade}-%")
+            if class_filter:
+                conditions.append("`class`=%s")
+                params.append(class_filter)
+        where = " WHERE " + " AND ".join(conditions) if conditions else ""
         with self.connection() as conn:
             cursor = conn.cursor(dictionary=True)
             try:
@@ -292,7 +322,7 @@ class MySQLRepository:
         with self.connection() as conn:
             cursor = conn.cursor(dictionary=True)
             try:
-                cursor.execute(f'SELECT `{owner_key}` FROM `{owner_table}` WHERE `{owner_key}`=%s FOR UPDATE', (entity_id,))
+                cursor.execute(f'SELECT `{owner_key}` FROM `{owner_table}` WHERE `{owner_key}`=%s' + (' FOR UPDATE' if values is not None else ''), (entity_id,))
                 if not cursor.fetchone():
                     raise AdminError('The selected person no longer exists.', 404)
                 cursor.execute(f'SELECT `{member_key}` FROM `{table}` WHERE `{owner_key}`=%s ORDER BY `{member_key}`', (entity_id,))
@@ -351,7 +381,7 @@ class MySQLRepository:
         with self.connection() as conn:
             cursor = conn.cursor(dictionary=True)
             try:
-                cursor.execute("SELECT value FROM system_settings WHERE `key`='chatbot_enabled' FOR UPDATE")
+                cursor.execute("SELECT value FROM system_settings WHERE `key`='chatbot_enabled'" + (' FOR UPDATE' if enable else ''))
                 row = cursor.fetchone()
                 current = record_revision(row or {})
                 if enable:
@@ -421,6 +451,55 @@ class MySQLRepository:
             finally:
                 cursor.close()
 
+    def traffic_review(self, view='all'):
+        from datetime import timedelta, timezone
+        from admin_review import project
+        now = datetime.now(timezone.utc).replace(tzinfo=None)
+        with self.connection() as conn:
+            cursor = conn.cursor(dictionary=True)
+            try:
+                cursor.execute('''SELECT id,created_at,question_text,lane,intent,nlp_score,likely_miss,completed,rating
+                    FROM query_log WHERE created_at >= %s AND created_at <= %s
+                    AND question_text IS NOT NULL AND COALESCE(intent,'') NOT LIKE '%%complaint%%'
+                    ORDER BY created_at DESC,id DESC LIMIT 10001''', (now - timedelta(days=14), now))
+                events = cursor.fetchall()
+                cursor.execute('SELECT review_key,fingerprint FROM admin_review_resolutions')
+                resolutions = {row['review_key']: row['fingerprint'] for row in cursor.fetchall()}
+                result = project(events[:10000], resolutions, now, view)
+                result['sample_limited'] = len(events) > 10000
+                return result
+            finally:
+                cursor.close()
+
+    def mark_reviewed(self, key, revision):
+        rows = self.traffic_review()['rows']
+        row = next((row for row in rows if row['key'] == key), None)
+        if not row or not isinstance(revision, str) or not hmac.compare_digest(row['revision'], revision):
+            raise AdminError('The review evidence changed or was already reviewed. Refresh first.', 409)
+        with self.connection() as conn:
+            cursor = conn.cursor()
+            try:
+                cursor.execute('SELECT review_key FROM admin_review_resolutions WHERE review_key=%s', (key,))
+                if cursor.fetchone():
+                    cursor.execute('UPDATE admin_review_resolutions SET fingerprint=%s,updated_at=CURRENT_TIMESTAMP WHERE review_key=%s', (revision, key))
+                else:
+                    cursor.execute('INSERT INTO admin_review_resolutions(review_key,fingerprint) VALUES(%s,%s)', (key, revision))
+                conn.commit()
+            finally:
+                cursor.close()
+        return dict(ok=True)
+
+    def append_review_answer(self, topic, answer, version):
+        current = self.almanac()
+        if current['version'] != version:
+            raise AdminError('The almanac changed. Reload before adding this answer.', 409)
+        content = current['content'].rstrip() + '\n\n' + topic + '\n' + answer + '\n'
+        if len(content) > 500000:
+            raise AdminError('The almanac exceeds the editor limit.')
+        if not self.save_almanac(content, version):
+            raise AdminError('The almanac changed. Reload before adding this answer.', 409)
+        return dict(ok=True, version=version + 1)
+
     def suggestion(self, record_id, revision, topic=None, answer=None):
         with self.connection() as conn:
             cursor = conn.cursor(dictionary=True)
@@ -463,6 +542,8 @@ def create_app(test_config=None, repository=None, document_store=None):
     app = Flask(__name__, static_folder=None)
     hosted = os.getenv("DASHBOARD_HOSTED") == "true" or os.getenv("RENDER") == "true"
     app.config.update(SECRET_KEY=os.getenv("DASHBOARD_SESSION_SECRET"),
+                      ADMIN_READ_ONLY=os.getenv("DASHBOARD_READ_ONLY", "false").lower() == "true",
+                      ADMIN_LIVE_DATA=os.getenv("DASHBOARD_LIVE_DATA", "false").lower() == "true",
                       ADMIN_USERNAME=os.getenv("DASHBOARD_ADMIN_USERNAME"),
                       ADMIN_PASSWORD_HASH=os.getenv("DASHBOARD_ADMIN_PASSWORD_HASH"),
                       SESSION_COOKIE_NAME="yara_admin_session", SESSION_COOKIE_HTTPONLY=True,
@@ -478,6 +559,7 @@ def create_app(test_config=None, repository=None, document_store=None):
         from start_dashboard import validate_environment
         validate_environment(os.environ, independent_api=True)
     repo = repository or MySQLRepository()
+    repo.read_only = app.config['ADMIN_READ_ONLY']
     from school_documents import DocumentStore, DocumentError
     documents = document_store or DocumentStore(record_publisher=repo.apply_import if hasattr(repo, 'apply_import') else None)
     sessions, attempts = {}, defaultdict(deque)
@@ -514,6 +596,10 @@ def create_app(test_config=None, repository=None, document_store=None):
 
     @app.before_request
     def csrf_guard():
+        if (app.config['ADMIN_READ_ONLY'] and request.path.startswith('/api/')
+                and request.method not in {'GET', 'HEAD', 'OPTIONS'}
+                and request.path not in {'/api/login', '/api/logout'}):
+            raise AdminError('Read-only validation mode: school data changes are disabled.', 403)
         if request.path.startswith("/api/") and request.method not in {"GET", "HEAD", "OPTIONS"}:
             supplied = request.headers.get("X-CSRF-Token", "")
             expected = session.get("csrf", "")
@@ -565,7 +651,8 @@ def create_app(test_config=None, repository=None, document_store=None):
         session.setdefault("csrf", secrets.token_urlsafe(32))
         info = current_admin()
         return jsonify(authenticated=bool(info), username=app.config["ADMIN_USERNAME"] if info else None,
-                       csrf=session["csrf"], idle_minutes=IDLE_SECONDS // 60)
+                       csrf=session["csrf"], idle_minutes=IDLE_SECONDS // 60,
+                       read_only=app.config['ADMIN_READ_ONLY'])
 
     @app.post("/api/login")
     def login():
@@ -611,9 +698,15 @@ def create_app(test_config=None, repository=None, document_store=None):
     @app.get("/api/catalog")
     @protected
     def catalog():
-        return jsonify(legacy_review_available=app.testing,
+        return jsonify(legacy_review_available=app.testing, read_only=app.config['ADMIN_READ_ONLY'],
+                       live_data=app.config['ADMIN_LIVE_DATA'],
                        resources={key: {"title": spec["title"], "pk": spec["pk"], "fields": spec["fields"],
-                                         "editable": not spec.get("readonly", False)} for key, spec in RESOURCES.items()})
+                                         "editable": not app.config['ADMIN_READ_ONLY'] and not spec.get("readonly", False)} for key, spec in RESOURCES.items()})
+
+    @app.get("/api/student-classes")
+    @protected
+    def student_classes():
+        return jsonify(classes=repo.student_classes())
 
     @app.get("/api/records/<resource>")
     @protected
@@ -627,7 +720,20 @@ def create_app(test_config=None, repository=None, document_store=None):
         except ValueError:
             raise AdminError("Invalid page or page size.") from None
         search = request.args.get("q", "").strip()[:200]
+        grade = request.args.get("grade", "")
+        class_filter = request.args.get("class", "")
+        if grade or class_filter:
+            if resource not in CLASS_RESOURCES or (grade and grade not in {str(n) for n in range(1, 13)}) or len(class_filter) > 30:
+                raise AdminError("Invalid grade or class filter.")
+            return jsonify(repo.records(resource, search, page, size, grade, class_filter))
         return jsonify(repo.records(resource, search, page, size))
+
+    @app.get('/api/record-classes/<resource>')
+    @protected
+    def record_classes(resource):
+        if resource not in CLASS_RESOURCES:
+            raise AdminError('This record type does not have class filters.', 400)
+        return jsonify(classes=repo.record_classes(resource))
 
     @app.route("/api/records/<resource>", methods=["POST"])
     @app.route("/api/records/<resource>/<record_id>", methods=["PUT", "DELETE"])
@@ -697,6 +803,35 @@ def create_app(test_config=None, repository=None, document_store=None):
     def phrase_intents():
         from routing_contract import ROLE_PERSONAL_INTENTS
         return jsonify(intents=sorted({intent for intents in ROLE_PERSONAL_INTENTS.values() for intent in intents}))
+
+    @app.get('/api/review/traffic')
+    @protected
+    def review_traffic():
+        view = request.args.get('view', 'phrases')
+        if view not in {'phrases', 'knowledge'}:
+            raise AdminError('Choose a phrase or knowledge review.', 400)
+        return jsonify(repo.traffic_review(view))
+
+    @app.post('/api/review/<key>/resolve')
+    @protected
+    def resolve_review(key):
+        payload = request.get_json(silent=True)
+        if (len(key) != 64 or any(char not in '0123456789abcdef' for char in key)
+                or not isinstance(payload, dict) or payload.get('confirmed') is not True):
+            raise AdminError('Confirm a valid review item.')
+        return jsonify(repo.mark_reviewed(key, payload.get('revision')))
+
+    @app.post('/api/review/almanac')
+    @protected
+    def review_almanac():
+        payload = request.get_json(silent=True)
+        if not isinstance(payload, dict) or payload.get('confirmed') is not True:
+            raise AdminError('Confirm adding verified school information.')
+        topic, answer, version = payload.get('topic'), payload.get('answer'), payload.get('version')
+        if (not isinstance(topic, str) or not 1 <= len(topic.strip()) <= 150 or '\n' in topic or '\r' in topic
+                or not isinstance(answer, str) or not 1 <= len(answer.strip()) <= 20000 or type(version) is not int):
+            raise AdminError('Enter a topic, verified answer and current almanac version.')
+        return jsonify(repo.append_review_answer(topic.strip(), answer.strip(), version))
 
     @app.post('/api/phrases/manual/<action>')
     @protected

@@ -86,6 +86,57 @@ class WorkflowTests(unittest.TestCase):
     def send(self, path, payload, method='POST'):
         return self.client.open(path, method=method, json=payload, headers={'X-CSRF-Token': self.csrf})
 
+    def test_student_filters_apply_before_pagination_and_combine_with_search(self):
+        self.store.db.executemany("INSERT INTO students(student_id,name,class,roll_no) VALUES(?,?,?,?)", [
+            (2, 'Another Student', '10-A', 1), (3, 'Example Student Two', '10-B', 1),
+            (4, 'Grade One', '1-A', 1), (5, 'Unmapped', '', 1)])
+        self.assertEqual(self.client.get('/api/student-classes').json['classes'], ['1-A', '10-A', '10-B', '12-F'])
+        result = self.client.get('/api/records/students?grade=10').json
+        self.assertEqual(result['total'], 2)
+        self.assertEqual({r['class'] for r in result['rows']}, {'10-A', '10-B'})
+        self.assertEqual(self.client.get('/api/records/students?grade=1').json['total'], 1)
+        self.assertEqual(self.client.get('/api/records/students?grade=10&q=Example').json['total'], 1)
+        self.assertEqual(self.client.get('/api/records/students?grade=10&class=10-A').json['rows'][0]['student_id'], 2)
+        self.assertEqual(self.client.get('/api/records/students?grade=10&class=12-F').json['total'], 0)
+        self.assertEqual(self.client.get('/api/records/students?class=10%25').json['total'], 0)
+        self.assertEqual(self.client.get('/api/records/students?grade=10%25').status_code, 400)
+        self.assertEqual(self.client.get('/api/records/teachers?grade=10').status_code, 400)
+        anonymous = self.app.test_client()
+        self.assertEqual(anonymous.get('/api/student-classes').status_code, 401)
+
+    def test_class_filters_cover_academic_pages_and_reject_unsupported_resources(self):
+        self.store.db.executemany('INSERT INTO timetable(entry_id,class,day,period_no,subject_id,teacher_id) VALUES(?,?,?,?,?,?)', [
+            (1, '12-F', 'Sunday', 1, 8, 7), (2, '12-G', 'Sunday', 1, 8, 7),
+            (3, '12-S', 'Monday', 1, 8, 7), (4, '1-A', 'Monday', 1, 8, 7)])
+        self.store.db.executemany('INSERT INTO exams(exam_id,class,subject_id,exam_date,exam_type) VALUES(?,?,?,?,?)', [
+            (1, '12-F', 8, '2026-12-01', 'Term 2'), (2, '1-A', 8, '2026-12-01', 'Term 2')])
+        classes = self.client.get('/api/record-classes/timetable')
+        self.assertEqual(classes.status_code, 200)
+        self.assertEqual(classes.json['classes'], ['1-A', '12-F', '12-G', '12-S'])
+        self.assertEqual(self.client.get('/api/records/timetable?grade=12').json['total'], 3)
+        rows = self.client.get('/api/records/timetable?grade=12&class=12-G').json['rows']
+        self.assertEqual([row['class'] for row in rows], ['12-G'])
+        self.assertEqual(self.client.get('/api/records/exams?grade=12&class=12-F').json['total'], 1)
+        self.assertEqual(self.client.get('/api/records/exams?grade=1').json['total'], 1)
+        self.assertEqual(self.client.get('/api/records/exams?grade=2').json['total'], 0)
+        for resource in ['students', 'subjects', 'class-teachers', 'class-sections', 'exams']:
+            self.assertEqual(self.client.get('/api/record-classes/' + resource).status_code, 200)
+        for resource in ['teachers', 'accounts', 'notices', 'students`', 'unknown']:
+            self.assertEqual(self.client.get('/api/record-classes/' + resource).status_code, 400)
+        self.assertEqual(self.app.test_client().get('/api/record-classes/timetable').status_code, 401)
+
+    def test_grade_filter_counts_and_pages_do_not_mix_grade_one_with_ten(self):
+        self.store.db.executemany('INSERT INTO students(student_id,name,class,roll_no) VALUES(?,?,?,?)',
+                                 [(n, 'Synthetic Student', '1-A', n) for n in range(2, 28)])
+        self.store.db.execute("INSERT INTO students(student_id,name,class,roll_no) VALUES(28,'Other Grade','10-A',1)")
+        first = self.client.get('/api/records/students?grade=1&size=25&page=1').json
+        second = self.client.get('/api/records/students?grade=1&size=25&page=2').json
+        self.assertEqual(first['total'], 26)
+        self.assertEqual(len(first['rows']), 25)
+        self.assertEqual(second['total'], 26)
+        self.assertEqual(len(second['rows']), 1)
+        self.assertEqual(second['rows'][0]['class'], '1-A')
+
     def test_parent_links_require_exact_ids_confirmation_and_revision(self):
         path = '/api/relations/parent-children/1'
         snapshot = self.client.get(path).json

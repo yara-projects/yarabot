@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
 import { api } from './api';
-import type { Row } from './api';
-import { ManualPhrase } from './KnowledgeReview';
 
 function Failure({ error }: { error: string }) { return error ? <p role="alert" className="error-box">{error}</p> : null; }
 
@@ -49,26 +47,6 @@ export function SystemStatus() {
   return <section className="panel"><div className="panel-heading"><h2>Nova system status</h2><button className="button secondary" disabled={busy} onClick={() => void load()}>Refresh</button></div><div className="panel-padding"><Failure error={error} />{data && <><p className="record-tag">{data.enabled ? 'Online' : 'Offline'}</p><p>The emergency disable stays with the principal. This admin control can deliberately re-enable Nova.</p>{!data.enabled && <button className="button primary" disabled={busy} onClick={() => void load(true)}>Re-enable Nova</button>}<h3>Recent system actions</h3><div className="table-scroll"><table><thead><tr><th>Action</th><th>Recorded timestamp</th></tr></thead><tbody>{data.logs.map((log, index) => <tr key={index}><td>{log.action}</td><td>{log.timestamp}</td></tr>)}</tbody></table></div></>}</div></section>;
 }
 
-export function PhraseReview() {
-  const [rows, setRows] = useState<Row[]>([]);
-  const [checks, setChecks] = useState<Record<string, { status: string; reason: string }>>({});
-  const [page, setPage] = useState(1);
-  const [total, setTotal] = useState(0);
-  const [busy, setBusy] = useState(false);
-  const [error, setError] = useState('');
-  async function load() {
-    setBusy(true); setError('');
-    try { const result = await api<{ rows: Row[]; total: number }>(`/records/phrases?page=${page}&size=25`); setRows(result.rows); setTotal(result.total); setChecks({}); }
-    catch (err) { setError((err as Error).message); } finally { setBusy(false); }
-  }
-  useEffect(() => { void load(); }, [page]);
-  async function action(row: Row, name: string) {
-    if (name !== 'check' && !window.confirm(`${name === 'approve' ? 'Approve this routing phrase? It will change live NLP routing.' : 'Dismiss this candidate?'} The server will recheck its revision and safety.`)) return;
-    setBusy(true); setError('');
-    try {
-      const result = await api<{ status: string; reason: string }>(`/phrases/${row.id}/${name}`, { method: 'POST', body: JSON.stringify({ revision: row._revision, confirmed: name !== 'check' }) });
-      if (name === 'check') setChecks({ ...checks, [String(row.id)]: result }); else await load();
-    } catch (err) { setError((err as Error).message); } finally { setBusy(false); }
-  }
-  return <section className="panel"><div className="panel-heading"><div><h2>Routing phrase review</h2><span className="subtle">Existing cross-role collision checks run again at approval. Unsafe candidates cannot be forced through.</span></div><button className="button secondary" disabled={busy} onClick={() => void load()}>Refresh</button></div><div className="panel-padding"><Failure error={error} /><div className="table-scroll"><table><thead><tr><th>Phrase</th><th>Intent / role</th><th>Safety</th><th>Actions</th></tr></thead><tbody>{rows.map(row => <tr key={String(row.id)}><td>{row.phrase_text}</td><td>{row.resolved_intent} · {row.role}</td><td>{row.applied ? 'Already resolved' : checks[String(row.id)] ? `${checks[String(row.id)].status}: ${checks[String(row.id)].reason || 'No routing collision found'}` : 'Not checked'}</td><td>{!row.applied && <div className="button-group"><button className="text-button" disabled={busy} onClick={() => void action(row, 'check')}>Check</button><button className="text-button" disabled={busy || checks[String(row.id)]?.status !== 'safe'} onClick={() => void action(row, 'approve')}>Approve</button><button className="text-button" disabled={busy} onClick={() => void action(row, 'dismiss')}>Dismiss</button></div>}</td></tr>)}</tbody></table></div><div className="pagination"><button className="button secondary" disabled={busy || page === 1} onClick={() => setPage(value => value - 1)}>Previous</button><span>Page {page}</span><button className="button secondary" disabled={busy || page * 25 >= total} onClick={() => setPage(value => value + 1)}>Next</button></div></div><ManualPhrase /></section>;
+export function HalConnection() {
+  return <section className="panel"><div className="panel-heading"><div><h2>HAL ERP connection</h2><span className="record-tag amber">Not connected · Awaiting school IT</span></div></div><div className="panel-padding"><p>Automatic updates are not available yet. Existing dashboard records are not evidence of a HAL connection.</p><div className="table-scroll"><table><thead><tr><th>Planned data</th><th>Current availability</th></tr></thead><tbody><tr><td>Admissions, withdrawals and parent links</td><td>HAL sync pending; automatic account deactivation is not implemented.</td></tr><tr><td>Fee balances, payments and outstanding amounts</td><td>HAL sync pending; current student records contain fee status only.</td></tr><tr><td>Student attendance</td><td>HAL sync pending; current student records contain attendance percentage only.</td></tr><tr><td>Teacher attendance</td><td>Not implemented; requires HAL data and agreed access rules.</td></tr></tbody></table></div><p className="subtle">School IT or HAL support must provide approved integration documentation and read-only access. No HAL credentials are collected here. No sync has run.</p><p>Continue using the Import centre for supported files and school documents. Imports are not automatic ERP updates.</p></div></section>;
 }

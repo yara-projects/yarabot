@@ -5,6 +5,14 @@
 **/.env.*
 .phase-work
 graphify-out
+# Kept in Git for regression safety, not sent into the dashboard image build.
+test_*.py
+test_*.cjs
+nlp_audit_test.py
+nlp_quality
+.claude
+.streamlit
+qa_loop_state.json
 admin_frontend/node_modules
 admin_frontend/dist
 __pycache__
@@ -12,5 +20,6 @@ __pycache__
 *.pdf
 *.jpg
 *.png
+!static/Yaralogo.png
 *.csv
 *.xlsx
