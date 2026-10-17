@@ -39,12 +39,12 @@ writes against real school data or publish source documents without explicit
 authority. A schema-only snapshot is not a full data backup: confirm the school's
 backup/recovery arrangements before real edits/imports.
 
-Keep `DASHBOARD_READ_ONLY=true` during shared-data validation (the Blueprint now
-defaults to it). The server rejects school-data mutations, including direct API
-requests; only authentication can change session state. Set it to `false` only
-after acceptance and explicit approval to enable live editing. Existing records
-are read from the same configured database, not copied from Streamlit or seeded
-from the sample preview. Credentials are still required in read-only mode.
+Set `DASHBOARD_READ_ONLY=false` for the accepted live editor. Set it to `true`
+temporarily only when a read-only validation session is required. The server then
+rejects school-data mutations, including direct API requests; only authentication
+can change session state. Existing records are read from the configured database,
+not copied or seeded from the sample preview. Credentials are still required in
+read-only mode.
 
 For local real-data validation, use `python start_dashboard.py --read-only` after
 configuring private admin credentials. This is different from the sample preview.
@@ -61,9 +61,9 @@ again. Add `--read-only` if you want browsing without writes instead. Do not use
 the sample preview credentials for this mode. Production hosting still requires
 its own persistent private credentials and session secret in Render.
 
-The old Streamlit source remains for rollback but should not be operated as a
-competing editor. Chatbot document retrieval/table/chip changes are not enabled by
-this dashboard release. The local traffic-review candidate additionally needs
+The old Streamlit source has been retired; Git history retains the pre-removal
+revision. Chatbot document retrieval/table/chip changes are not enabled by this
+dashboard release. The local traffic-review candidate additionally needs
 `python setup_database.py --admin-review-only` and a backend restart; the configured
 database already has this additive table. Verify the completed review pages after
 hosting. Phase 4 suggestions remain a separate release.

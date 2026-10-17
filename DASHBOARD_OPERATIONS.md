@@ -45,19 +45,12 @@ The dashboard is a privileged admin application: its login grants access to all
 dashboard pages. It is not the chatbot's role-based login. Use it only for the
 authorised testing task and school administrators.
 
-## Streamlit retirement gate
+## Legacy dashboard retirement
 
-`dashboard.py`, `dashboard_ui.py`, Streamlit dependencies and their tests remain
-as rollback material, not the primary dashboard. The explicit legacy launcher is
-`python start_dashboard.py --legacy-streamlit`; it retains the old hosted
-configuration requirements, including `FLASK_APP_URL` and `DASHBOARD_API_TOKEN`.
-Do not run two production editors against the same records.
-
-Do not delete the legacy implementation yet. Remove it in a separate cleanup only
-after the React dashboard is deployed, the correct database connection is verified,
-login/logout and authorised workflows pass final testing, backup/recovery is
-confirmed, and the user confirms the new dashboard has settled in. Keep the
-pre-removal Git revision for recovery. No automatic deletion is scheduled.
+The old Streamlit implementation was retired after the React dashboard was
+accepted as the primary dashboard. `python start_dashboard.py` now starts only
+the React/Flask application. Git history retains the pre-removal implementation
+if an authorised recovery investigation is ever required.
 
 ## Bounded test–fix–retest process
 

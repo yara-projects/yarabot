@@ -1,4 +1,4 @@
-"""Start the primary React/Flask dashboard; Streamlit is explicit rollback only."""
+"""Start the primary React/Flask YaraBot dashboard."""
 
 import argparse
 from getpass import getpass
@@ -33,15 +33,12 @@ def validate_environment(env, independent_api=False):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--legacy-streamlit', action='store_true', help='Run the retained Streamlit rollback dashboard instead.')
     parser.add_argument('--read-only', action='store_true', help='Disable school-data changes during React dashboard validation.')
     parser.add_argument('--local-setup', action='store_true', help='Choose private, session-only login credentials and open the existing cloud data locally with editing enabled.')
     args = parser.parse_args(argv)
-    if args.read_only and args.legacy_streamlit:
-        parser.error('--read-only is supported only by the primary React dashboard.')
     load_dotenv()
     if args.local_setup:
-        if args.legacy_streamlit or os.getenv('DASHBOARD_HOSTED') == 'true' or os.getenv('RENDER') == 'true':
+        if os.getenv('DASHBOARD_HOSTED') == 'true' or os.getenv('RENDER') == 'true':
             parser.error('--local-setup is only available for the local primary dashboard.')
         if os.getenv('USE_CLOUD_DB', '').lower() != 'true':
             sys.exit('Local school-data setup requires the existing USE_CLOUD_DB=true configuration.')
@@ -72,17 +69,6 @@ def main(argv=None):
         del password
     if args.read_only:
         os.environ['DASHBOARD_READ_ONLY'] = 'true'
-    if args.legacy_streamlit:
-        try:
-            validate_environment(os.environ)
-        except ValueError as error:
-            sys.exit(str(error))
-        os.environ["DASHBOARD_HOSTED"] = "true"
-        script = str(Path(__file__).with_name("dashboard.py"))
-        os.execv(sys.executable, [sys.executable, "-m", "streamlit", "run", script,
-                                 "--server.address=0.0.0.0", f"--server.port={os.getenv('PORT', '8501')}",
-                                 "--server.headless=true", "--browser.gatherUsageStats=false"])
-        return
     if os.getenv('DASHBOARD_HOSTED') == 'true' or os.getenv('RENDER') == 'true':
         os.execv(sys.executable, [sys.executable, '-m', 'gunicorn', 'admin_app:create_app()',
                                  '--bind', f"0.0.0.0:{os.getenv('PORT', '10000')}",

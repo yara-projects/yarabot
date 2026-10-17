@@ -1,8 +1,8 @@
 """
 config.py
 ---------
-DB credentials in one place instead of duplicated across dashboard.py/
-app.py/setup_database.py.
+DB credentials in one place instead of duplicated across the chatbot,
+admin dashboard and database setup tools.
 
 DB_CONFIG switches between local MySQL and Aiven cloud MySQL based on
 USE_CLOUD_DB in .env - defaults to local.

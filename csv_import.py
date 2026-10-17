@@ -2,14 +2,11 @@
 csv_import.py
 --------------
 Column-mapping, validation, and dedup logic for bulk student/teacher CSV
-imports (dashboard.py's "Bulk Upload (CSV)" tabs). Kept separate from
-dashboard.py the same way nlp_helpers.py/validators.py are kept separate
-from app.py - pure functions, testable without Streamlit or a live DB
-connection, with dashboard.py only gluing them to the UI and the actual
-INSERTs.
+imports. Kept separate from the admin API as pure functions that are
+testable without a live database connection.
 
 Two-phase by design: dry_run_students()/dry_run_teachers() never touch the
-database - they return what WOULD happen. dashboard.py only calls
+database - they return what WOULD happen. The admin API only calls
 apply_students()/apply_teachers() after the admin has reviewed the dry run
 and clicked an explicit "Confirm Import" button.
 """
@@ -304,7 +301,7 @@ def dry_run_students(df, existing_pairs, fees_status_default="pending", attendan
 def apply_students(results, insert_fn):
     """
     Inserts every 'valid' row from a dry_run_students() result via
-    insert_fn(data_dict) - dashboard.py passes in the actual cursor.execute
+    insert_fn(data_dict) - the admin API passes in the actual cursor.execute
     call, so this file never needs its own DB connection. Returns the
     count actually inserted.
     """

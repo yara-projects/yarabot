@@ -2,7 +2,7 @@
 
 ## Scope and release boundary
 
-One main admin dashboard: React + TypeScript + CSS, served on the same origin by an independent Flask API. It does not import the chatbot application or initialise its AI clients. `python start_dashboard.py` selects this primary dashboard; `--legacy-streamlit` is explicit rollback only. The old Streamlit source is retained until deployment, shared-data verification, final testing and user acceptance of stability; do not operate both production editors as competing dashboards. The current visual design is intentionally retained.
+One main admin dashboard: React + TypeScript + CSS, served on the same origin by an independent Flask API. It does not import the chatbot application or initialise its AI clients. `python start_dashboard.py` starts this dashboard. The retired Streamlit implementation is available only through Git history. The current visual design is intentionally retained.
 
 This is the separate dashboard prerequisite release, not the Phase 3 traffic-review release. Its source package excludes the unfinished chatbot app/UI integration changes. No production dashboard is certified by these local checks. On 16 October 2026, metadata preflight verified all expected columns in 19 existing Aiven tables. A schema-only snapshot (not a school-record/data backup) was saved locally; the two additive document-table definitions were then applied deliberately. No school-record values or published documents were imported. Production admin credentials and final Render deployment still require configuration; deployment evidence is recorded separately. Local test publication means publication inside disposable synthetic SQLite. Work final QA is a separate acceptance gate.
 
@@ -107,7 +107,7 @@ verify the intended deployed environment (local configuration equality alone is
 not Render identity proof), complete browser-based live-data acceptance and
 confirm a recoverable backup before authorising editing. Existing historical raw
 chat-review queues remain quarantined; this check is not exhaustive workflow
-parity, HAL integration or a completed cloud rollout. Streamlit is not deleted.
+parity, HAL integration or a completed cloud rollout.
 
 1. Rollout approved; metadata-only compatibility checks passed. A schema-only snapshot exists, not a full data backup. Verify the school's data-backup policy before real editing/imports. Current transactional workflow tests use SQLite adapters, not real MySQL concurrency certification.
 2. migrations/school_documents.sql was applied deliberately on 16 October 2026; both tables were absent before the additive migration. Runtime never creates these tables. No destructive reset script was used.

@@ -34,15 +34,17 @@ class LauncherTests(unittest.TestCase):
                 main([])
         factory.assert_not_called()
 
-    def test_read_only_flag_is_explicit_and_not_available_for_legacy(self):
+    def test_read_only_flag_is_explicit(self):
         with patch('admin_app.create_app', return_value=MagicMock()), \
              patch('start_dashboard.Path.is_file', return_value=True):
             main(['--read-only'])
         self.assertEqual(os.environ['DASHBOARD_READ_ONLY'], 'true')
-        with self.assertRaises(SystemExit):
-            main(['--read-only', '--legacy-streamlit'])
 
-    def test_hosted_default_uses_gunicorn_not_streamlit(self):
+    def test_legacy_streamlit_flag_is_retired(self):
+        with self.assertRaises(SystemExit):
+            main(['--legacy-streamlit'])
+
+    def test_hosted_default_uses_gunicorn(self):
         os.environ.update(DASHBOARD_HOSTED='true', PORT='10001')
         with patch('start_dashboard.os.execv') as execute:
             main([])
@@ -50,7 +52,6 @@ class LauncherTests(unittest.TestCase):
         self.assertIn('gunicorn', command)
         self.assertIn('admin_app:create_app()', command)
         self.assertIn('0.0.0.0:10001', command)
-        self.assertNotIn('streamlit', command)
         self.assertEqual(command[command.index('--workers') + 1], '1')
 
     def test_local_setup_uses_user_chosen_credentials_and_real_database_mode(self):
@@ -83,22 +84,6 @@ class LauncherTests(unittest.TestCase):
         os.environ['RENDER'] = 'true'
         with self.assertRaises(SystemExit):
             main(['--local-setup'])
-
-    def test_streamlit_requires_explicit_flag_and_old_configuration(self):
-        with patch('start_dashboard.os.execv') as execute:
-            with self.assertRaisesRegex(SystemExit, 'Missing dashboard settings'):
-                main(['--legacy-streamlit'])
-        execute.assert_not_called()
-        os.environ.update(DASHBOARD_ADMIN_USERNAME='test-admin',
-                          DASHBOARD_ADMIN_PASSWORD_HASH=hash_password('synthetic-long-password'),
-                          CLOUD_DB_HOST='synthetic', CLOUD_DB_USER='synthetic',
-                          CLOUD_DB_PASSWORD='synthetic', CLOUD_DB_NAME='synthetic',
-                          USE_CLOUD_DB='true', FLASK_APP_URL='https://example.invalid',
-                          DASHBOARD_API_TOKEN='synthetic')
-        with patch('start_dashboard.os.execv') as execute:
-            main(['--legacy-streamlit'])
-        self.assertIn('streamlit', execute.call_args.args[1])
-
 
 if __name__ == '__main__':
     unittest.main()

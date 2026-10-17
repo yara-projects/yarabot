@@ -15,7 +15,7 @@ services:
       - key: DASHBOARD_HOSTED
         value: "true"
       - key: DASHBOARD_READ_ONLY
-        value: "true"
+        value: "false"
       - key: DASHBOARD_LIVE_DATA
         value: "true"
       - key: DASHBOARD_ADMIN_USERNAME

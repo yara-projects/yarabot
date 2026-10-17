@@ -1,7 +1,7 @@
 """
 auth_helpers.py
 ----------------
-Password hashing, shared by app.py and dashboard.py.
+Password hashing shared by the chatbot and admin dashboard.
 """
 
 import hashlib
