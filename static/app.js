@@ -301,34 +301,27 @@ function setLoginLoading(btn, loading) {
 }
 
 // =========================================================
-// MOBILE KEYBOARD LAYOUT FIX
-// .full-height falls back to 100dvh, but that alone doesn't reliably
-// repaint when the keyboard closes - it only worked when a keystroke also
-// triggered a reflow (autoResize()), not when the keyboard was dismissed
-// with nothing typed. visualViewport's resize event fires on every
-// keyboard transition regardless, so we mirror its height into --vvh and
-// let .full-height read that instead.
+// Keyboard resizing must not treat pinch zoom as a smaller app window.
 // =========================================================
 function initViewportHeightFix() {
     if (!window.visualViewport) return;   // no visualViewport - 100dvh fallback still applies
     const applyViewportHeight = () => {
+        // Freeze the layout during pinch zoom; let the browser pan/zoom it.
+        // visualViewport.height shrinks with scale even without a keyboard.
+        if (Math.abs(window.visualViewport.scale - 1) > 0.01) return;
         const h = window.visualViewport.height;
         // Can read 0 on first fire before layout settles - "0px" is valid
         // CSS, so writing it would permanently defeat the var(--vvh, 100dvh)
         // fallback and collapse the whole page. Skip bad readings instead.
         if (!(h > 0)) return;
-        document.documentElement.style.setProperty("--vvh", `${h}px`);
-
-        // iOS's native "scroll focused input into view" can still nudge
-        // #chat-messages or the page itself when the keyboard opens, even
-        // with --vvh sized correctly - overflow:hidden blocks user
-        // drag-scroll but not this programmatic one. Reset both possible
-        // scroll owners to their correct resting position on every
-        // keyboard transition rather than trying to predict which one moved.
-        window.scrollTo(0, 0);
         const container = document.getElementById("chat-messages");
-        if (container) {
-            container.scrollTop = messageCount === 0 ? 0 : container.scrollHeight;
+        const atBottom = container && container.scrollHeight - container.scrollTop - container.clientHeight < 48;
+        document.documentElement.style.setProperty("--vvh", `${h}px`);
+        if (document.activeElement === document.getElementById('chat-input')) {
+            window.scrollTo(0, 0);
+            // Keep the latest answer visible, but don't discard a reader's
+            // position in older messages on resize or keyboard dismissal.
+            if (atBottom) container.scrollTop = container.scrollHeight;
         }
     };
     window.visualViewport.addEventListener("resize", applyViewportHeight);
@@ -1048,7 +1041,7 @@ async function handleStreamingReply(res, generation = chatSessionGeneration) {
             // finishes, even though it may look slightly unformatted for
             // an instant mid-stream.
             fullText += chunkText;
-            bubble.innerHTML = marked.parse(fullText);
+            bubble.innerHTML = renderBotMarkdown(fullText);
 
             const container = document.getElementById("chat-messages");
             container.scrollTop = container.scrollHeight;
@@ -1094,7 +1087,7 @@ function buildMessageWrapper(role) {
     timestamp.textContent = now;
 
     const avatarRow = document.createElement("div");
-    avatarRow.className = `flex items-end gap-2 ${role === "user" ? "flex-row-reverse" : "flex-row"}`;
+    avatarRow.className = `chat-message-row flex items-end gap-2 ${role === "user" ? "flex-row-reverse" : "flex-row"}`;
 
     const avatar = document.createElement("div");
     avatar.className = "rounded-full flex items-center justify-center text-xs flex-shrink-0";
@@ -1131,12 +1124,18 @@ function buildMessageWrapper(role) {
     return bubble;
 }
 
+function renderBotMarkdown(text) {
+    return marked.parse(text)
+        .replace(/<table>/g, '<div class="chat-table-scroll" role="region" aria-label="Scrollable data table" tabindex="0"><table>')
+        .replace(/<\/table>/g, '</table></div>');
+}
+
 function appendMessage(role, text) {
     const bubble = buildMessageWrapper(role);
 
     // Render markdown for bot messages (bold, line breaks etc)
     bubble.innerHTML = role === "bot"
-        ? marked.parse(text)
+        ? renderBotMarkdown(text)
         : `<p>${escapeHtml(text)}</p>`;
 
     const container = document.getElementById("chat-messages");
@@ -1144,51 +1143,89 @@ function appendMessage(role, text) {
     return bubble;
 }
 
+let feedbackToastTimer = null;
+
+function hideFeedbackToast() {
+    clearTimeout(feedbackToastTimer);
+    const toast = document.getElementById('feedback-toast');
+    if (toast) {
+        toast.classList.remove('is-visible');
+        toast.textContent = '';
+    }
+}
+
+function showFeedbackToast(message) {
+    const toast = document.getElementById('feedback-toast');
+    if (!toast) return;
+    clearTimeout(feedbackToastTimer);
+    toast.textContent = message;
+    toast.classList.add('is-visible');
+    feedbackToastTimer = setTimeout(hideFeedbackToast, 2800);
+}
+
 function attachAnswerFeedback(bubble, response) {
     const answerId = response.headers.get('X-Answer-ID');
     const csrf = response.headers.get('X-Feedback-CSRF');
-    if (!answerId || !csrf || !bubble) return;
+    if (!answerId || !csrf || !bubble || bubble.querySelector('.answer-feedback')) return;
     const generation = chatSessionGeneration;
     const controls = document.createElement('div');
-    controls.className = 'flex items-center gap-2 mt-2 text-xs text-gray-500';
-    const status = document.createElement('span');
-    status.setAttribute('role', 'status');
+    controls.className = 'answer-feedback';
+    controls.setAttribute('role', 'group');
+    controls.setAttribute('aria-label', 'Rate this answer');
+    let pending = false;
+    let recorded = false;
     for (const [rating, label] of [['up', 'Helpful'], ['down', 'Not helpful']]) {
         const button = document.createElement('button');
         button.type = 'button';
-        button.className = 'p-2 rounded-lg hover:bg-gray-100 transition-colors';
+        button.className = 'feedback-button';
+        button.setAttribute('aria-pressed', 'false');
         button.setAttribute('aria-label', label);
         button.title = label;
         button.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true" style="${rating === 'down' ? 'transform:rotate(180deg)' : ''}"><path d="M7 10v10H3V10h4Zm0 0 5-7c2 0 2 2 1 6h5a3 3 0 0 1 3 3l-2 7a2 2 0 0 1-2 1H7"/></svg>`;
         button.addEventListener('click', async () => {
-            if (generation !== chatSessionGeneration || !bubble.isConnected) return;
+            if (pending || recorded || generation !== chatSessionGeneration || !bubble.isConnected) return;
+            pending = true;
+            button.classList.add('is-selected');
+            button.setAttribute('aria-pressed', 'true');
             controls.querySelectorAll('button').forEach(item => item.disabled = true);
             try {
                 const result = await fetch('/api/feedback', {
                     method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Feedback-CSRF': csrf },
                     body: JSON.stringify({ answer_id: answerId, rating })
                 });
-                if (generation !== chatSessionGeneration) return;
+                if (generation !== chatSessionGeneration || !bubble.isConnected) return;
                 if (result.status === 401) {
                     handleSessionExpired();
                     return;
                 }
                 if (result.status === 403) {
-                    status.textContent = 'This feedback belongs to an earlier session. Ask again to rate a new answer.';
+                    recorded = true;
+                    button.classList.remove('is-selected');
+                    button.setAttribute('aria-pressed', 'false');
+                    showFeedbackToast('This answer can no longer be rated.');
                     return;
                 }
-                status.textContent = result.ok ? 'Thanks for your feedback.' : result.status === 409
-                    ? 'Feedback already recorded or unavailable.' : 'Could not save feedback. Please try later.';
-                if (!result.ok && result.status !== 409) controls.querySelectorAll('button').forEach(item => item.disabled = false);
+                recorded = result.ok || result.status === 409;
+                showFeedbackToast(result.ok ? 'Thanks for your feedback.' : result.status === 409
+                    ? 'Feedback already recorded or unavailable.' : 'Could not save feedback. Please try again.');
+                if (!result.ok) {
+                    button.classList.remove('is-selected');
+                    button.setAttribute('aria-pressed', 'false');
+                }
             } catch (_) {
-                if (generation !== chatSessionGeneration) return;
-                status.textContent = 'Could not save feedback. Your chat is unaffected.';
-                controls.querySelectorAll('button').forEach(item => item.disabled = false);
+                if (generation !== chatSessionGeneration || !bubble.isConnected) return;
+                button.classList.remove('is-selected');
+                button.setAttribute('aria-pressed', 'false');
+                showFeedbackToast('Could not save feedback. Please try again.');
+            } finally {
+                pending = false;
+                if (generation === chatSessionGeneration && bubble.isConnected && !recorded) {
+                    controls.querySelectorAll('button').forEach(item => item.disabled = false);
+                }
             }
         });
         controls.appendChild(button);
     }
-    controls.appendChild(status);
     bubble.appendChild(controls);
 }
 
@@ -1268,6 +1305,7 @@ async function clearChat(resetContext = true) {
     }
     if (generation !== chatSessionGeneration) return;
     chatSessionGeneration++;
+    hideFeedbackToast();
     if (activeChatController) activeChatController.abort();
     activeChatController = null;
     chatRequestInFlight = false;

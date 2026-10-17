@@ -180,6 +180,34 @@
             border-radius: 18px 18px 18px 4px;
         }
 
+        /* Tables scroll inside their bubble instead of widening the page. */
+        .chat-message-row { max-width: 100%; min-width: 0; }
+        .msg-bot { min-width: 0; max-width: min(48rem, calc(100vw - 6rem)); }
+        .msg-bot:has(.chat-table-scroll) { width: min(48rem, calc(100vw - 6rem)); max-width: min(48rem, calc(100vw - 6rem)); }
+        .chat-table-scroll { max-width: 100%; overflow-x: auto; margin: 12px 0; border: 1px solid #dce1ee; border-radius: 8px; }
+        .chat-table-scroll:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+        .chat-table-scroll table { border-collapse: collapse; min-width: 100%; width: max-content; font-size: 13px; }
+        .chat-table-scroll th { text-align: left; background: #eceefa; color: #343454; font-weight: 600; white-space: nowrap; }
+        .chat-table-scroll th, .chat-table-scroll td { padding: 10px 12px; border-bottom: 1px solid #dfe3ee; border-right: 1px solid #e4e7f0; max-width: 220px; overflow-wrap: anywhere; }
+        .chat-table-scroll td { min-width: 95px; }
+        .chat-table-scroll tbody tr:last-child td { border-bottom: 0; }
+
+        .answer-feedback { display: flex; gap: 4px; margin-top: 10px; color: #656782; }
+        .feedback-button { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border: 0; border-radius: 10px; background: transparent; color: inherit; cursor: pointer; transition: background .18s, color .18s; }
+        .feedback-button:hover:not(:disabled) { background: #e0e3f6; color: var(--brand); }
+        .feedback-button:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+        .feedback-button svg { transition: fill .18s; }
+        .feedback-button.is-selected { color: var(--brand); background: #e0e3f6; animation: feedback-pop .28s ease-out; }
+        .feedback-button.is-selected svg { fill: currentColor; }
+        .feedback-button:disabled { cursor: default; }
+        @keyframes feedback-pop { 50% { scale: 1.18; } }
+        #feedback-toast { position: fixed; bottom: max(24px, env(safe-area-inset-bottom)); left: 50%; z-index: 100; max-width: calc(100% - 32px); width: max-content; padding: 11px 18px; border-radius: 14px; background: #25264a; color: white; font-size: 13px; box-shadow: 0 6px 24px #17183330; opacity: 0; transform: translate(-50%, 14px); pointer-events: none; transition: opacity .2s, transform .2s; }
+        #feedback-toast.is-visible { opacity: 1; transform: translate(-50%, 0); }
+        @media (prefers-reduced-motion: reduce) {
+            .feedback-button, .feedback-button svg, #feedback-toast { transition: none; }
+            .feedback-button.is-selected { animation: none; }
+        }
+
         /* Typing indicator - the bubble itself is .msg-bot (see app.js's
            showTypingBubble()), same border/radius/background as a real bot
            message, just hugging its content instead of .msg-bot's usual
@@ -432,17 +460,8 @@
         .full-height {
             height: 100vh;
             height: 100dvh;
-            /* JS-enforced layer (app.js's initViewportHeightFix()), applied
-               last so it wins when set. Real gap found in the dvh-only fix
-               above: it worked after the user typed something (some OTHER
-               style mutation - autoResize() on the textarea - happened to
-               force a reflow that picked up the new dvh value) but not
-               when the keyboard was dismissed with nothing typed, since
-               nothing forced that reflow in that path. --vvh is written
-               from visualViewport's own 'resize' event, which fires on
-               EVERY keyboard open/close regardless of typing - falls back
-               to 100dvh itself if --vvh was never set (older browsers, or
-               before the first resize event fires). */
+            /* Keyboard height at normal scale only. Pinch zoom must not
+               shrink the app layout or pull the composer over messages. */
             height: var(--vvh, 100dvh);
         }
 
@@ -1020,6 +1039,7 @@
     </div>
 </main>
 
+<div id="feedback-toast" role="status" aria-live="polite" aria-atomic="true"></div>
 <script src="/static/app.js"></script>
 </body>
 </html>

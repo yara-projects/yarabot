@@ -36,6 +36,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from auth_helpers import verify_password
 from log_privacy import safe_log, exclude_complaint_text
+from chat_tables import timetable_grid, data_table
 from almanac_store import get_almanac
 from nlp_helpers import (
     clean_question, detect_intent, detect_intent_with_score, rank_intents,
@@ -829,6 +830,16 @@ def _explicit_lookup_intent(question, role):
             and not (role in {'teacher', 'hod', 'vice_principal'} and re.search(r'\b(?:my|i)\b', q))
             and not extract_teacher_name_from_question(q, _teachers_with_subjects())[0]):
         return 'class_timetable_lookup'
+
+    # Bare day timetables mean the signed-in caller's schedule. Match only
+    # a complete request, so named people, exams and public school hours
+    # cannot silently become the caller's own timetable.
+    day = r'(?:monday|tuesday|wednesday|thursday|friday|saturday|sunday|today|tomorrow)s?'
+    if role in {'student', 'parent', 'teacher', 'hod', 'vice_principal'} and re.fullmatch(
+            r'(?:(?:can (?:i|you)|could you) (?:get|show|give)(?: me)? |(?:show|give|send)(?: me)? )?'
+            r'(?:my |my childs )?(?:(?:whole |full |weekly |full week )?timetable(?: (?:for |on )?' + day
+            + r')?|' + day + r' timetable)(?: please| pls)?', q):
+        return 'timetable'
 
     if _is_curriculum_question(q):
         return 'subjects_offered'
@@ -3609,13 +3620,12 @@ def handle_student_timetable(question, student_id):
         return "No timetable found for your class yet."
 
     if day:
-        lines = [f"- Period {p}: **{subj}** with {teacher}" for _, p, subj, teacher in results]
-        return f"Your timetable for **{day.capitalize()}**:\n" + "\n".join(lines)
-
-    # Unfiltered case - identical format to the pre-expansion behavior.
-    lines = [f"- **{d}**, Period {p}: {subj} *(with {teacher})*"
-             for d, p, subj, teacher in results]
-    return "Your timetable:\n" + "\n".join(lines)
+        header = f"Your timetable for **{day.capitalize()}**:"
+    else:
+        header = "Your timetable:"
+    if subject:
+        header += f" **{subject}** only."
+    return header + "\n\n" + timetable_grid(results)
 
 
 def handle_student_exam(question, student_id, known_subjects):
@@ -3955,12 +3965,12 @@ def handle_teacher_timetable(question, teacher_id):
         return "No timetable entries found for you yet."
 
     if day:
-        lines = [f"- Period {p}: Class **{cls}**" for _, p, cls in results]
-        return f"Your schedule for **{day.capitalize()}**:\n" + "\n".join(lines)
-
-    # Unfiltered case - identical format to the pre-expansion behavior.
-    lines = [f"- **{d}**, Period {p}: Class {cls}" for d, p, cls in results]
-    return "Your schedule:\n" + "\n".join(lines)
+        header = f"Your schedule for **{day.capitalize()}**:"
+    else:
+        header = "Your schedule:"
+    if cls:
+        header += f" **{cls}** only."
+    return header + "\n\n" + timetable_grid(results, teacher=True)
 
 
 # =========================================================
@@ -4063,8 +4073,7 @@ def handle_teacher_schedule_lookup(question):
     if not results:
         return f"No schedule found for {name}" + (f" on {day.capitalize()}." if day else ".")
 
-    lines = [f"- {d}, Period {p}: Class **{cls}**" for d, p, cls in results]
-    return f"**{name}**'s schedule:\n" + "\n".join(lines)
+    return f"**{name}**'s schedule:\n\n" + timetable_grid(results, teacher=True)
 
 
 def handle_teacher_classes_lookup(question):
@@ -4224,12 +4233,12 @@ def handle_class_timetable_lookup(question):
         return f"No timetable found for **{cls}** yet."
 
     if day:
-        lines = [f"- Period {p}: **{subj}** with {teacher}" for _, p, subj, teacher in results]
-        return f"**{cls}**'s timetable for **{day.capitalize()}**:\n" + "\n".join(lines)
-
-    lines = [f"- **{d}**, Period {p}: {subj} *(with {teacher})*"
-             for d, p, subj, teacher in results]
-    return f"**{cls}**'s timetable:\n" + "\n".join(lines)
+        header = f"**{cls}**'s timetable for **{day.capitalize()}**:"
+    else:
+        header = f"**{cls}**'s timetable:"
+    if subject:
+        header += f" **{subject}** only."
+    return header + "\n\n" + timetable_grid(results)
 
 
 def handle_school_wide_subject_teacher(question):
