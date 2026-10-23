@@ -253,6 +253,115 @@
             scroll-behavior: smooth;
         }
 
+        /* A light illustrated layer for the signed-in conversation. It sits
+           behind the existing log and composer, so it never changes their
+           layout or competes with chat content. */
+        .chat-shell {
+            isolation: isolate;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at 18% 4%, #ecefff 0, #f8f9ff 22%, transparent 47%),
+                linear-gradient(180deg, #fafbff 0%, #ffffff 50%, #f8f9ff 100%);
+        }
+        .chat-shell > :not(.chat-ambience) {
+            position: relative;
+            z-index: 1;
+        }
+        .chat-ambience,
+        .chat-ambience * {
+            pointer-events: none;
+        }
+        .chat-ambience {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .chat-grain {
+            position: absolute;
+            inset: 0;
+            opacity: .055;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.88' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath fill='%232e3191' filter='url(%23grain)' d='M0 0h180v180H0z'/%3E%3C/svg%3E");
+            background-size: 180px 180px;
+        }
+        .chat-cloud {
+            position: absolute;
+            width: 250px;
+            height: 82px;
+            border-radius: 100px;
+            background: #e9ebffb8;
+            filter: blur(1px);
+            opacity: .8;
+        }
+        .chat-cloud::before,
+        .chat-cloud::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            border-radius: 50%;
+            background: inherit;
+        }
+        .chat-cloud::before { left: 42px; width: 112px; height: 112px; }
+        .chat-cloud::after { right: 33px; width: 86px; height: 86px; }
+        .chat-cloud-one { top: 60px; right: -88px; transform: scale(.75); }
+        .chat-cloud-two { bottom: -12px; right: 6%; transform: scale(1.18); opacity: .58; }
+        .chat-doodle {
+            position: absolute;
+            color: #6366e7;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700;
+            line-height: 1.02;
+            letter-spacing: -.5px;
+            opacity: .72;
+            transform: rotate(-8deg);
+        }
+        .chat-doodle-ask {
+            top: 34px;
+            right: 42px;
+            font-size: 16px;
+            text-align: center;
+        }
+        .chat-doodle-answer {
+            right: 34px;
+            bottom: 156px;
+            font-size: 13px;
+            text-align: right;
+            transform: rotate(8deg);
+        }
+        .chat-star {
+            position: absolute;
+            color: #f4b733;
+            font-size: 26px;
+            line-height: 1;
+            opacity: .78;
+        }
+        .chat-star-one { top: 47px; left: 42px; transform: rotate(10deg); }
+        .chat-star-two { right: 214px; top: 45px; color: #6d6be8; font-size: 20px; transform: rotate(-14deg); }
+        .chat-star-three { bottom: 220px; left: 55px; color: #6d6be8; font-size: 18px; transform: rotate(18deg); }
+        .chat-plane {
+            position: absolute;
+            right: 70px;
+            bottom: 65px;
+            width: 58px;
+            height: 58px;
+            color: #706fee;
+            opacity: .76;
+            transform: rotate(-13deg);
+        }
+        #chat-messages { background: transparent; }
+        #chat-input-area { background: rgba(255, 255, 255, .82); backdrop-filter: blur(7px); }
+
+        @media (max-width: 767px) {
+            .chat-cloud-one { right: -122px; top: 50px; }
+            .chat-cloud-two { right: -92px; bottom: 4px; transform: scale(.82); }
+            .chat-doodle-ask { top: 22px; right: 18px; font-size: 12px; }
+            .chat-doodle-answer { display: none; }
+            .chat-star-one { left: 18px; top: 30px; font-size: 19px; }
+            .chat-star-two { right: 136px; top: 28px; font-size: 15px; }
+            .chat-star-three { left: 18px; bottom: 166px; font-size: 14px; }
+            .chat-plane { right: 23px; bottom: 57px; width: 43px; height: 43px; }
+        }
+
         /* Quick action chip hover - background fill + a left accent border
            that slides in (scaleY, not just a colour swap) rather than the
            old translateY lift. Needs position:relative + overflow:hidden
@@ -956,7 +1065,23 @@
     ></div>
 
     <!-- MAIN CHAT AREA -->
-    <div class="flex-1 flex flex-col h-full min-w-0 relative">
+    <div class="chat-shell flex-1 flex flex-col h-full min-w-0 relative">
+        <!-- Decorative only: a quiet, hand-drawn backdrop for the chat. -->
+        <div class="chat-ambience" aria-hidden="true">
+            <div class="chat-grain"></div>
+            <div class="chat-cloud chat-cloud-one"></div>
+            <div class="chat-cloud chat-cloud-two"></div>
+            <span class="chat-star chat-star-one">✦</span>
+            <span class="chat-star chat-star-two">✧</span>
+            <span class="chat-star chat-star-three">✦</span>
+            <span class="chat-doodle chat-doodle-ask">Ask me<br>anything!</span>
+            <span class="chat-doodle chat-doodle-answer">Small questions<br>Big answers</span>
+            <svg class="chat-plane" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+                <path d="M8 29.5 54 8l-15.5 48-9.3-19.1L8 29.5Z" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/>
+                <path d="m29.2 36.9 9.7-10.2" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+                <path d="M11 49c5-6 11-5 14-1 3 4 8 4 12-1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-dasharray="3.5 4"/>
+            </svg>
+        </div>
 
         <!-- Kill-switch disabled banner - full-width across the top of the
              chat area (below #app-header, above the chat messages/input).
